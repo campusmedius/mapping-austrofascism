@@ -55,9 +55,17 @@
             };
             locations."/static" = {
                 alias = "${pkgs.cm-backend}/share/campusmedius/static";
+                extraConfig = ''
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
+                '';
             };
             locations."/" = {
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
+                extraConfig = ''
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
+                '';
             };
             forceSSL = true;
             sslCertificate = "/run/keys/sslCertificate";

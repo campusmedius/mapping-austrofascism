@@ -21,15 +21,17 @@ stdenv.mkDerivation {
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
-      rev = "";
-      sha256 = "";
+      rev = "24ed350ac1977cbebb21401d8b1e1bf6f2eaeb2d";
+      sha256 = "0gjdmms7mf3bvcgphmgc9nynwiryvpal0jdmhrcd7ngi3a2f8vgn";
   };
 
   buildInputs = [ uwsgi-python pythonenv ];
   
   installPhase = ''
     mkdir -p $out/share/campusmedius
-    cd backend/campusmedius
+    cd backend/campusmedius/campusmedius
+    ${pythonenv}/bin/python ./manage.py collectstatic
+    cd ..
     cp -R ./* $out/share/campusmedius/
   '';
 
