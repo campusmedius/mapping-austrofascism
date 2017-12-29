@@ -1,0 +1,41 @@
+@import './../../style.scss';
+
+:host {
+    display: block;
+    height: calc(100vh - #{$header-height});
+}
+
+.row, .col {
+    height: 100%;
+}
+
+.map-container {
+    padding: 0px;
+}
+
+.info-container {
+    overflow-y: scroll;
+}
+
+.info-body {
+    padding: 80px 120px 0px 120px;
+    display: inline-block;
+    width: 100%;
+}
+
+.info-heading {
+    color: $secondary-font-color;
+    font-size: $h-secondary-font-size;
+    height: 30px;
+}
+
+.topography-start {
+    padding: 140px 120px 0px 120px;
+    width: 100%;
+    h2 {
+        margin: 0px;
+        margin-bottom: 40px;
+        font-weight: 700;
+        font-size: $h-primary-font-size;
+    }
+}

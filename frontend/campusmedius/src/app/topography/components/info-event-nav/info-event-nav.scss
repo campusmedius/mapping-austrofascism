@@ -1,0 +1,61 @@
+@import '../../style.scss';
+
+:host {
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.previous {
+    display: inline-block;
+    height: 32px;
+    cursor: pointer;
+    text-align: right;
+    position: absolute;
+    right: 260px;
+    width: 200px;
+    line-height: 32px;
+    color: $primary-font-color;
+    overflow: hidden;
+    &:hover {
+        font-weight: 700;
+    }
+    .fa {
+        margin-right: 3px;
+        font-size: 1.4rem;
+        top: 2px;
+        position: relative;
+    }
+}
+
+.seperator {
+    display: inline-block;
+    border-right: 2px solid $secondary-font-color;
+    width: 0px;
+    height: 32px;
+    position: absolute;
+    right: 249px;
+    color: $primary-font-color;
+}
+
+.next {
+    display: inline-block;
+    cursor: pointer;
+    height: 32px;
+    position: absolute;
+    width: 200px;
+    right: 40px;
+    line-height: 32px;
+    text-align: left;
+    color: $primary-font-color;
+    overflow: hidden;
+    &:hover {
+        font-weight: 700;
+    }
+    .fa {
+        margin-left: 3px;
+        font-size: 1.4rem;
+        top: 2px;
+        position: relative;
+    }
+}

@@ -1,0 +1,9 @@
+<h2 *ngIf="data.title">{{ data.titleDe }}</h2>
+<h3 *ngIf="data.subTitle">{{ data.subTitleDe }}</h3>
+<div *ngFor="let entity of data.entities">
+    <div [ngSwitch]="entity.type">
+        <cm-info-image *ngSwitchCase="'image'" [data]="entity" [lang]="lang"></cm-info-image>
+        <cm-info-video *ngSwitchCase="'video'" [data]="entity" [lang]="lang"></cm-info-video>
+        <cm-info-audio *ngSwitchCase="'audio'" [data]="entity" [lang]="lang"></cm-info-audio>
+    </div>
+</div>

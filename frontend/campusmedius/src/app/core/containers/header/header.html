@@ -1,0 +1,22 @@
+<div class="col-sm-6">
+    <nav class="nav-left">
+        <a routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</a>
+        <a routerLink="/topology" routerLinkActive="active">Topology</a>
+        <a routerLink="/mediality" routerLinkActive="active">Mediality</a>
+    </nav>
+</div>
+<div class="col-sm-6">
+    <nav class="nav-right">
+        <a routerLink="/about" routerLinkActive="active">about</a>
+        <a routerLink="/team" routerLinkActive="active">team</a>
+        <a routerLink="/contact" routerLinkActive="active">contact</a>
+        <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">
+            <a (click)="changeLanguage('en')" [ngClass]="{'active': currentLang === 'en'}">EN</a>
+            <a (click)="changeLanguage('de')" [ngClass]="{'active': currentLang === 'de'}">DE</a>
+        </span>
+    </nav>
+</div>
+<div class="logo">
+    <div class="logo-left"><span>campus</span></div>
+    <div class="logo-right"><span>medius</span></div>
+</div>

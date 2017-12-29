@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col col-md-6 map-container">
+        <cm-map>
+            <cm-map-event *ngFor="let event of events$ | async" [event]="event" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent" (eventSelected)="eventSelected($event)">
+            </cm-map-event>
+        </cm-map>
+        <cm-timeline [events]="events$ | async" [filteredIds]="filteredIds" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)"></cm-timeline>
+    </div>
+    <div class="col col-md-6 info-container">
+        <ng-container *ngIf="selectedEvent; else topographyStart">
+            <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+            <div class="info-body">
+                <div class="info-heading">{{ selectedEvent | infoTimestamp:translate.currentLang }}</div>
+                <cm-info-information *ngIf="information$ | async as information" [data]="information" [lang]="translate.currentLang"></cm-info-information>
+            </div>
+        </ng-container>
+        <ng-template #topographyStart>
+            <div class="topography-start">
+                <h2>Topography</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec justo mollis, imperdiet elit id, ullamcorper metus. Sed aliquam massa in bibendum ultricies. Integer rhoncus elit dui, sed viverra massa venenatis rhoncus. Nunc mauris purus, tempus a faucibus nec, tincidunt quis nisi. Nam accumsan mollis pretium. Duis non accumsan velit. Praesent venenatis nisi in pretium ullamcorper. Vestibulum efficitur lobortis sem.
+                </p>
+                <p>
+                    Proin ullamcorper justo lectus, nec tempus eros pretium vel. Etiam nec vehicula nisl. Praesent pharetra sapien ipsum, quis eleifend magna euismod sed. Nam feugiat malesuada mauris, sed luctus ligula iaculis a. Nam sed tincidunt mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin varius magna ex, ut volutpat mauris suscipit non. Donec mollis mi ut libero facilisis, sed finibus turpis sodales. Fusce vel ullamcorper erat, eget congue purus. Ut et ligula dui. Sed sagittis eleifend ultrices. In ut euismod urna, vel condimentum dolor. Nullam efficitur nisl at enim pretium eleifend. In non libero quis sem imperdiet facilisis. Donec semper arcu ultrices nisi tristique, vitae facilisis diam varius. Maecenas pharetra nunc id odio fringilla, sit amet feugiat elit faucibus.</p>
+            </div>
+        </ng-template>
+        </div>
+    </div>

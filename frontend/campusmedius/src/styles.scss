@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import './scss/fonts.scss';
+@import './scss/variables.scss';
+
+html, body {
+	  font-family: $defaul-font;
+    font-size: 18px;
+}

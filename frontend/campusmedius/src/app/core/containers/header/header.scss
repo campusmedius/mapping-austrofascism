@@ -1,0 +1,76 @@
+@import '../../../../scss/variables.scss';
+
+:host {
+    display: inline-block;
+    height: $header-height;
+    width: 100%;
+    background-color: $header-color;
+    a {
+        color: $inactive-font-color;
+        text-decoration: none !important;
+        padding-bottom: 2px;
+    }
+    a.active, a:hover {
+        color: $active-font-color;
+        border-bottom: solid 1px $active-font-color;
+    }
+}
+
+
+.nav-left {
+    text-align: center;
+    a {
+        margin: 0 25px;
+        line-height: $header-height;
+    }
+}
+
+.nav-right {
+    text-align: right;
+    a {
+        margin: 0 25px;
+        line-height: $header-height;
+    }
+    .nav-lang a {
+        margin: 0 5px;
+        padding: 1px 3px;
+        border: solid 1px $header-color;
+        &.active, &:hover {
+            border: solid 1px $active-font-color;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.logo {
+    color: $map-overlay-active-color;
+    .logo-left {
+        position: absolute;
+        right: 50%;
+        height: $header-height - 32px;
+        top: 16px;
+        border-right: 2px solid white;
+        span {
+            font-size: 28px;
+            font-weight: 500;
+            margin-right: 10px;
+            line-height: $header-height - 32px;
+            margin-top: -10px;
+            display: inline-block;
+        }
+    }
+    .logo-right {
+        position: absolute;
+        left: 50%;
+        height: $header-height - 32px;
+        top: 16px;
+        span {
+            font-size: 28px;
+            margin-left: 10px;
+            line-height: $header-height - 32px;
+            display: inline-block;
+        }
+    }
+}

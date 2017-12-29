@@ -1,0 +1,25 @@
+<div class="header">
+    timeline <span class="fa fa-angle-down"></span>
+</div>
+
+<div class="events">
+    <div *ngFor="let row of rows" class="events-row">
+        <div *ngFor="let line of row" class="event" [style.left.px]="line.left" [style.width.px]="line.width" [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1}">
+        </div>
+    </div>
+    <div #baseline class="baseline">
+        <div class="selectedline" [style.left.px]="leftHandleX - 2" [style.right.px]="baselineWidth - rightHandleX - 2"></div>
+        <div class="handle handle-left" (mousedown)="handleMouseDown('left', $event)" [style.left.px]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
+            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
+                <div class="indicatorlabel">{{leftHandleLabel}}</div>
+            </div>
+        </div>
+        <div class="handle handle-right" (mousedown)="handleMouseDown('right', $event)" [style.right.px]="baselineWidth - rightHandleX" [ngClass]="{'move': moveRightHandle}">
+            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
+                <div class="indicatorlabel">{{rightHandleLabel}}</div>
+            </div>
+        </div>
+        <div class="startlabel">{{timelineStart.format(baselineLabelFormat)}}</div>
+        <div class="endlabel">{{timelineEnd.format(baselineLabelFormat)}}</div>
+    </div>
+</div>

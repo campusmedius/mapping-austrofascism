@@ -1,0 +1,18 @@
+<h2 *ngIf="data.titleDe">{{ lang === 'de' ? data.titleDe : data.titleEn }}</h2>
+<!-- <div *ngIf="data.contentDe" [innerHTML]="lang === 'de' ? data.contentDe : data.contentEn"></div> -->
+
+<div *ngIf="data.contentDe" [innerHTML]="content"></div>
+
+
+
+<!-- <div *ngFor="let entity of data.entities"> -->
+<!-- <div [ngSwitch]="entity.type"> -->
+<!-- <cm-info-container *ngSwitchCase="'container'" [data]="entity" [lang]="lang"></cm-info-container> -->
+<!-- <cm-info-text *ngSwitchCase="'text'" [data]="entity" [lang]="lang"></cm-info-text> -->
+<!-- <cm-info-quote *ngSwitchCase="'quote'" [data]="entity" [lang]="lang"></cm-info-quote> -->
+<!-- <cm-info-gallery *ngSwitchCase="'gallery'" [data]="entity" [lang]="lang"></cm-info-gallery> -->
+<!-- <cm-info-image *ngSwitchCase="'image'" [data]="entity" [lang]="lang"></cm-info-image> -->
+<!-- <cm-info-video *ngSwitchCase="'video'" [data]="entity" [lang]="lang"></cm-info-video> -->
+<!-- <cm-info-audio *ngSwitchCase="'audio'" [data]="entity" [lang]="lang"></cm-info-audio> -->
+<!-- </div> -->
+<!-- </div> -->

@@ -1,0 +1,10 @@
+@import './../../../../scss/_variables.scss';
+
+img {
+    width: 100%;
+}
+
+blockquote {
+    border-left: none;
+    color: $h-secondary-font-color;
+}

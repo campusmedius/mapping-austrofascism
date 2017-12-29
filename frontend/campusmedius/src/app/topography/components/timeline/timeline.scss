@@ -1,0 +1,115 @@
+@import '../../style.scss';
+
+:host {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    background: $map-overlay-background-color;
+    // height: $map-overlay-height;
+    width: 100%;
+    color: white;
+    padding: 0 20px;
+}
+
+.header {
+    padding: 10px 0px;
+    font-size: $large-font-size;
+}
+
+.events {
+    margin-top: 35px;
+}
+
+.events-row {
+    height: 6px;
+    margin-top: 3px;
+    width: 100%;
+    position: relative;
+}
+
+.event {
+    background: white;
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    opacity: 0.4;
+    border-radius: 1px;
+    &.active {
+        opacity: 1;
+    }
+}
+
+.baseline {
+    position: relative;
+    height: 2px;
+    background: white;
+    margin-bottom: 50px;
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 1px;
+}
+
+.selectedline {
+    position: absolute;
+    height: 6px;
+    background: white;
+    transform: translateY(-2px);
+    opacity: 0.8;
+    border-radius: 3px;
+    transition: left .2s cubic-bezier(.25,.8,.25,1), right .2s cubic-bezier(.25,.8,.25,1);
+}
+
+.handle-left {
+    margin-left: -8px;
+    transition: left .2s cubic-bezier(.25,.8,.25,1);
+}
+
+.handle-right {
+    margin-right: -8px;
+    transition: right .2s cubic-bezier(.25,.8,.25,1);
+}
+
+.handle {
+    position: absolute;
+    top: -7px;
+    height: 16px;
+    width: 16px;
+    background: white;
+    opacity: 0.8;
+    border-radius: 8px;
+    &:hover, &.move {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
+.indicatorline {
+    background-image: linear-gradient(white 33%, rgba(255,255,255,0) 0%);
+    background-position: right;
+    background-size: 2px 8px;
+    background-repeat: repeat-y;
+    width: 2px;
+    position: relative;
+    left: 7px;
+}
+
+.indicatorlabel {
+    color: white;
+    font-size: $small-font-size;
+    position: relative;
+    top: -1.2em;
+    left: -15px;
+    width: 30px;
+    text-align: center;
+}
+
+.startlabel {
+    font-size: $small-font-size;
+    float: left;
+    margin-top: 15px;
+}
+.endlabel {
+    font-size: $small-font-size;
+    float: right;
+    margin-top: 15px;
+}

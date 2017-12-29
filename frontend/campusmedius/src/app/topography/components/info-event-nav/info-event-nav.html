@@ -1,0 +1,9 @@
+<div *ngIf="previousEvent" class="previous" (click)="select(previousEvent)">
+    <span class="fa fa-angle-left"></span>
+    <span>{{translate.currentLang === 'de' ? previousEvent.titleDe : previousEvent.titleEn}}</span>
+</div>
+<div class="seperator"></div>
+<div *ngIf="nextEvent" class="next" (click)="select(nextEvent)">
+    <span>{{translate.currentLang === 'de' ? nextEvent.titleDe : nextEvent.titleEn}}</span>
+    <span class="fa fa-angle-right"></span>
+</div>

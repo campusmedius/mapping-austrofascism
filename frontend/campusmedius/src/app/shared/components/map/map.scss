@@ -1,0 +1,8 @@
+.mapboxgl-map {
+    width: 100%;
+    height: 100%;
+}
+
+:host /deep/ .mapboxgl-control-container {
+    display: none;
+}

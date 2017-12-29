@@ -1,0 +1,23 @@
+#!/nix/store/1cmq5nwr6gp51jp1bsq647sqcb3dc3zy-python3-3.5.3/bin/python
+import sys;import site;import functools;sys.argv[0] = '/nix/store/l2qy4m32s74isbpz3dwnqp4p9fiil0v3-python3.5-Django-1.11.5/lib/python3.5/site-packages/django/conf/project_template/manage.py-tpl';functools.reduce(lambda k, p: site.addsitedir(p, k), ['/nix/store/l2qy4m32s74isbpz3dwnqp4p9fiil0v3-python3.5-Django-1.11.5/lib/python3.5/site-packages','/nix/store/3pv4mq857l4akvmqf7ng5sk652ccjl5z-python3.5-pytz-2017.2/lib/python3.5/site-packages','/nix/store/49mm47yaczzr4bml94xza9kp41d4jirx-python3.5-setuptools-30.2.0/lib/python3.5/site-packages'], site._init_pathinfo());
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "campusmedius.settings")
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError:
+        # The above import may fail for some other reason. Ensure that the
+        # issue is really that Django is missing to avoid masking other
+        # exceptions on Python 2.
+        try:
+            import django
+        except ImportError:
+            raise ImportError(
+                "Couldn't import Django. Are you sure it's installed and "
+                "available on your PYTHONPATH environment variable? Did you "
+                "forget to activate a virtual environment?"
+            )
+        raise
+    execute_from_command_line(sys.argv)
