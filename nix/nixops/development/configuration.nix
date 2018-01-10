@@ -9,16 +9,21 @@
             ../configuration.nix
         ];
         
+        # use local packages
         nixpkgs.overlays =
-        [
-            (import ./development-overlay.nix)
-        ];
+        [(
+            self: super:
+            {
+                cm-backend = super.callPackage ../../../backend/campusmedius/nix { };
+                cm-frontend = super.callPackage ../../../frontend/campusmedius/nix { };
+            }
+        )];
         
         # campusmedius backend
         services.campusmedius.backend = {
             debug = true;
             CORSAllowAll = true;
-            djangoAllowedHosts = ["campusmedius.net" "192.168.56.102"];
+            djangoAllowedHosts = ["*"];
         };
         
         #keys

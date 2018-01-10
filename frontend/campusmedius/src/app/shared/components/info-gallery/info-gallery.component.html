@@ -1,5 +1,4 @@
-<h2 *ngIf="data.title">{{ data.titleDe }}</h2>
-<h3 *ngIf="data.subTitle">{{ data.subTitleDe }}</h3>
+<h2 *ngIf="data.titleDe">{{ data.titleDe }}</h2>
 <div *ngFor="let entity of data.entities">
     <div [ngSwitch]="entity.type">
         <cm-info-image *ngSwitchCase="'image'" [data]="entity" [lang]="lang"></cm-info-image>

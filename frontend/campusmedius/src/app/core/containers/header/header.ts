@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Observable';
 

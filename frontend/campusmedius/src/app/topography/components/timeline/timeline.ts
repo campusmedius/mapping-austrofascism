@@ -32,12 +32,12 @@ export class TimelineComponent implements OnInit, OnChanges {
 
     @ViewChild('baseline') baselineElement: ElementRef;
 
-    private timelineStart: Moment = moment('1933-05-13T12:00Z');
-    private timelineEnd: Moment = moment('1933-05-14T12:00Z');
+    public timelineStart: Moment = moment('1933-05-13T12:00Z');
+    public timelineEnd: Moment = moment('1933-05-14T12:00Z');
     public baselineLabelFormat = 'MMM D, YYYY - h a';
     private steps = 24;
     private totalMinutes = this.steps * 60;
-    private baselineWidth: number = null;
+    public baselineWidth: number = null;
     private spacing: number = null;
 
     public rows: TimelineLine[][] = [];
@@ -54,8 +54,8 @@ export class TimelineComponent implements OnInit, OnChanges {
     public rightHandleLabel: string = null;
     private rightHandleStep: number = null;
 
-    private moveRightHandle = false;
-    private moveLeftHandle = false;
+    public moveRightHandle = false;
+    public moveLeftHandle = false;
 
     constructor() { }
 

@@ -46,6 +46,14 @@ with lib;
         ";
       };
       
+      mountPath = mkOption {
+        type = types.path;
+        default = "/api";
+        description = "
+          Mount path.
+        ";
+      };
+      
       debug = mkOption {
         type = types.bool;
         default = false;
@@ -121,7 +129,7 @@ with lib;
       '';
       environment = env;
       script = ''
-          ${uwsgi}/bin/uwsgi --plugin python3 --chdir=${pkgs.cm-backend}/share/campusmedius/campusmedius --mount /api=campusmedius.wsgi:application --manage-script-name --master --pidfile=${cfg.stateDir}/cm-backend.pid --socket=${cfg.stateDir}/uwsgi.sock --processes=4 --harakiri=20 --max-requests=5000 --vacuum --home=/path/to/virtual/env --daemonize=${cfg.logDir}/cm-backend.log
+          ${uwsgi}/bin/uwsgi --plugin python3 --chdir=${pkgs.cm-backend}/share/campusmedius/campusmedius --mount ${cfg.mountPath}=campusmedius.wsgi:application --manage-script-name --master --pidfile=${cfg.stateDir}/cm-backend.pid --socket=${cfg.stateDir}/uwsgi.sock --processes=4 --harakiri=20 --max-requests=5000 --vacuum --home=/path/to/virtual/env --daemonize=${cfg.logDir}/cm-backend.log
       '';
       serviceConfig = {
         Type = "simple";

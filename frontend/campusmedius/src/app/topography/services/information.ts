@@ -4,17 +4,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Information } from '../../shared/models/information';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class InformationService {
-    private API_PATH = 'http://localhost:8000/information/';
+    private API_URL = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
 
     getInformations(): Observable<Information[]> {
         return this.http
-            .get(`${this.API_PATH}/informations?format=json`)
+            .get(`${this.API_URL}/information/informations?format=json`)
             .map((data: Information[]) => {
                 data = data || [];
                 data.forEach(information => {

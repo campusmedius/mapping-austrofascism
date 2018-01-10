@@ -6,9 +6,8 @@ let
     pythonenv = let
         pipy2nix = import ./requirements.nix { };
     in
-        with pipy2nix.packages;
         python.buildEnv.override {
-            extraLibs = [ Django djangorestframework djangorestframework-camel-case django-cors-headers django-extensions django-filter django-tinymce4-lite ];
+            extraLibs = builtins.attrValues pipy2nix.packages;
         };
 in
 
