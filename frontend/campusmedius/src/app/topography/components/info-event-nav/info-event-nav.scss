@@ -18,7 +18,7 @@
     color: $primary-font-color;
     overflow: hidden;
     &:hover {
-        font-weight: 700;
+        font-family: $semibold-font;
     }
     .fa {
         margin-right: 3px;
@@ -50,7 +50,7 @@
     color: $primary-font-color;
     overflow: hidden;
     &:hover {
-        font-weight: 700;
+        font-family: $semibold-font;
     }
     .fa {
         margin-left: 3px;
