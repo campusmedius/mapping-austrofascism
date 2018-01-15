@@ -13,6 +13,7 @@ import * as fromTopography from '../reducers';
 import { EventService } from '../services/events';
 import * as event from '../actions/event';
 import * as information from '../actions/information';
+import * as general from '../../core/actions/general';
 import { Event } from '../models/event';
 
 import { getIdFromResourceUrl } from '../../shared/utils';
@@ -46,6 +47,12 @@ export class EventEffects {
         .ofType<event.Select>(event.SELECT)
         .withLatestFrom(this.store$, (action: event.Select, state: fromTopography.State) => {
             const selectedEvent = state.topography.events.entities[action.payload.eventId];
+
+            if (!selectedEvent.information) {
+                alert('No information linked');
+                return new general.Error({ message: 'No information linked' });
+            }
+
             const url = selectedEvent.information;
             const id = getIdFromResourceUrl(url);
             return new information.Show({ informationId: id, resourceUrl: url });

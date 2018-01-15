@@ -16,6 +16,7 @@ import { routerReducer, RouterReducerState } from '@ngrx/router-store';
  */
 
 import * as fromLayout from './layout';
+import * as fromGeneral from './general';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -23,6 +24,7 @@ import * as fromLayout from './layout';
  */
 export interface State {
     layout: fromLayout.State;
+    general: fromGeneral.State;
     routerReducer: RouterReducerState;
 }
 
@@ -33,6 +35,7 @@ export interface State {
  */
 export const reducers: ActionReducerMap<State> = {
     layout: fromLayout.reducer,
+    general: fromGeneral.reducer,
     routerReducer: routerReducer,
 };
 
