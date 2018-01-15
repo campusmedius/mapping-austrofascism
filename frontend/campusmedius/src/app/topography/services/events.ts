@@ -23,7 +23,6 @@ export class EventService {
                     event.id = event.id + '';
                     event.start = moment(event.start);
                     event.end = moment(event.end);
-                    event.information = `${this.API_URL}/information/informations/1?format=json`;
                 });
                 return data;
             });

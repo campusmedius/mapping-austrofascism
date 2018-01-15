@@ -57,6 +57,8 @@ export class TimelineComponent implements OnInit, OnChanges {
     public moveRightHandle = false;
     public moveLeftHandle = false;
 
+    private initialized = false;
+
     constructor() { }
 
     ngOnInit() {
@@ -68,20 +70,25 @@ export class TimelineComponent implements OnInit, OnChanges {
         this.rightHandleX = this.baselineWidth;
         this.rightHandleStep = this.steps;
         this.rightHandleLabel = this.getLabel(this.rightHandleStep);
+        this.setupRows(this.events);
+        this.initialized = true;
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        if (!this.initialized) {
+            return;
+        }
+
         if (changes['events']) {
             console.log(changes['events'].currentValue);
-            this.rows = this.generateRows(changes['events'].currentValue);
-            this.indicatorLineHeight = this.rows.length * 9 + 30;
+            this.setupRows(changes['events'].currentValue);
         }
         if (changes['filteredIds']) {
             console.log(this.filteredIds);
         }
     }
 
-    private generateRows(events: Event[]): TimelineLine[][] {
+    private setupRows(events: Event[]) {
         const rows = [];
 
         events.forEach((event: Event) => {
@@ -110,7 +117,8 @@ export class TimelineComponent implements OnInit, OnChanges {
             });
         });
 
-        return rows;
+        this.rows = rows;
+        this.indicatorLineHeight = this.rows.length * 9 + 30;
     }
 
     private getLabel(step: number) {
