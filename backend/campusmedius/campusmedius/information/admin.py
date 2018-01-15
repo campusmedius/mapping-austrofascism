@@ -60,8 +60,7 @@ class InformationAdmin(admin.ModelAdmin):
         'content_de',
         'content_en',
         'title_de',
-        'title_en',
-        'description' )
+        'title_en')
 
 
 admin.site.register(Information, InformationAdmin)

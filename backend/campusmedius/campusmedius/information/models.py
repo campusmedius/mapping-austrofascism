@@ -32,6 +32,9 @@ class Image(models.Model):
 
     media_entity = GenericRelation(MediaEntity)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Audio(models.Model):
     url = models.URLField()
@@ -39,6 +42,9 @@ class Audio(models.Model):
     caption_en = models.TextField(null=True, blank=True)
 
     media_entity = GenericRelation(MediaEntity)
+
+    def __str__(self):
+        return str(self.id)
 
 
 class Video(models.Model):
@@ -48,13 +54,16 @@ class Video(models.Model):
 
     media_entity = GenericRelation(MediaEntity)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Gallery(models.Model):
     title_de = models.TextField(null=True, blank=True)
     title_en = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.title_de
+        return ('{} - {}').format(self.id, self.title_de)
 
 
 class Information(models.Model):
@@ -67,5 +76,6 @@ class Information(models.Model):
     media_audios = models.ManyToManyField(Audio, blank=True)
     media_videos = models.ManyToManyField(Video, blank=True)
     media_galleries = models.ManyToManyField(Gallery, blank=True)
-    
-    description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return ('{} - {}').format(self.id, self.title_de)
