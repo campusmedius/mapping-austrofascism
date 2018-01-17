@@ -52,3 +52,8 @@ export interface Information {
     contentEn: string;
     media: InformationMedia;
 }
+
+export interface Block {
+    type: string;
+    data: any;
+}

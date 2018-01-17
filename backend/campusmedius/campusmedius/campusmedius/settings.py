@@ -66,6 +66,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     )
@@ -153,4 +156,5 @@ TINYMCE_DEFAULT_CONFIG = {
     'inline': False,
     'statusbar': True,
     'height': 360,
+    'inline_styles' : False
 }

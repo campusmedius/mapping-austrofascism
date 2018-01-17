@@ -6,6 +6,7 @@ import { InfoGalleryComponent } from './components/info-gallery/info-gallery.com
 import { InfoAudioComponent } from './components/info-audio/info-audio.component';
 import { InfoImageComponent } from './components/info-image/info-image.component';
 import { InfoVideoComponent } from './components/info-video/info-video.component';
+import { InfoTextComponent } from './components/info-text/info-text.component';
 import { MapComponent } from './components/map/map';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +17,8 @@ export const COMPONENTS = [
     InfoGalleryComponent,
     InfoVideoComponent,
     InfoAudioComponent,
-    InfoImageComponent
+    InfoImageComponent,
+    InfoTextComponent
 ];
 
 @NgModule({
