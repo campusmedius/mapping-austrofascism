@@ -10,8 +10,9 @@
         ];
         
         services.campusmedius.backend = {
+            debug = false;
             CORSAllowAll = true;
-            djangoAllowedHosts = ["campusmedius.net" "192.168.56.103"];
+            djangoAllowedHosts = ["campusmedius.net" "192.168.56.101"];
         };
         
         #keys

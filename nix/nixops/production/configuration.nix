@@ -28,6 +28,7 @@
         
         # cm backend
         services.campusmedius.backend = {
+            debug = false;
             CORSAllowAll = true;
             djangoAllowedHosts = ["campusmedius.net" "131.130.75.201"];
         };
