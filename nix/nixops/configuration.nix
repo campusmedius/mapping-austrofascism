@@ -60,6 +60,13 @@
                     auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
+            locations."/tiles" = {
+                alias = "${pkgs.cm-tiles}/share/campusmedius/tiles";
+                #extraConfig = ''
+                #    auth_basic campusmedius;
+                #    auth_basic_user_file /run/keys/basicAuth;
+                #'';
+            };
             locations."/" = {
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
                 extraConfig = ''

@@ -16,9 +16,10 @@
     width: 200px;
     line-height: 32px;
     color: $primary-font-color;
+    font-family: $title-regular-font;
     overflow: hidden;
     &:hover {
-        font-family: $semibold-font;
+        font-family: $title-semibold-font;
     }
     .fa {
         margin-right: 3px;
@@ -48,9 +49,10 @@
     line-height: 32px;
     text-align: left;
     color: $primary-font-color;
+    font-family: $title-regular-font;
     overflow: hidden;
     &:hover {
-        font-family: $semibold-font;
+        font-family: $title-semibold-font;
     }
     .fa {
         margin-left: 3px;

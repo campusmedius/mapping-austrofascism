@@ -1,5 +1,5 @@
-<div class="header">
-    timeline <span class="fa fa-angle-down"></span>
+<div class="header" (click)="toogleState()">
+    timeline <span [@headerIconState]="state" class="fa fa-angle-down"></span>
 </div>
 
 <div class="events">

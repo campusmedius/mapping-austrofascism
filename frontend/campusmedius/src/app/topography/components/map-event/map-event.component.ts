@@ -24,7 +24,7 @@ export class MapEventComponent implements OnInit {
     constructor(private mapCmp: MapComponent) { }
 
     ngOnInit() {
-        this.marker = new mapboxgl.Marker(this.markerElement.nativeElement)
+        this.marker = new mapboxgl.Marker(this.markerElement.nativeElement, { offset: [0, -25] })
             .setLngLat([this.event.coordinates.lng, this.event.coordinates.lat])
             .addTo(this.mapCmp.map);
     }

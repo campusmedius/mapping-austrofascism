@@ -11,6 +11,14 @@ import {
     EventEmitter,
     Output
 } from '@angular/core';
+import {
+    trigger,
+    state,
+    style,
+    animate,
+    transition,
+    query
+} from '@angular/animations';
 
 import { Event, TimelineLine } from '../../models/event';
 
@@ -21,7 +29,29 @@ import * as moment from 'moment';
 @Component({
     selector: 'cm-timeline',
     templateUrl: './timeline.html',
-    styleUrls: ['./timeline.scss']
+    styleUrls: ['./timeline.scss'],
+    animations: [
+        trigger('panelState', [
+            state('closed', style({
+                height: '40px',
+                width: '120px'
+            })),
+            state('open', style({
+                height: '180px',
+                width: '100%'
+            })),
+            transition('closed <=> open', animate('200ms ease-in'))
+        ]),
+        trigger('headerIconState', [
+            state('closed', style({
+                transform: 'rotate(180deg)'
+            })),
+            state('open', style({
+                transform: 'rotate(0deg)'
+            })),
+            transition('closed <=> open', animate('1000ms ease-in'))
+        ])
+    ]
 })
 export class TimelineComponent implements OnInit, OnChanges {
     @Input() events: Event[];
@@ -58,6 +88,9 @@ export class TimelineComponent implements OnInit, OnChanges {
     public moveLeftHandle = false;
 
     private initialized = false;
+
+    @HostBinding('@panelState')
+    public state = 'open';
 
     constructor() { }
 
@@ -204,6 +237,14 @@ export class TimelineComponent implements OnInit, OnChanges {
         window.document.removeEventListener('mousemove', this.bindMouseMove);
         window.document.removeEventListener('mouseup', this.bindMouseUp);
         window.document.body.style.cursor = 'default';
+    }
+
+    public toogleState() {
+        if (this.state === 'open') {
+            this.state = 'closed';
+        } else {
+            this.state = 'open';
+        }
     }
 
 }

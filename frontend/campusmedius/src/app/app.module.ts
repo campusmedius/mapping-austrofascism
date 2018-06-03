@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     imports: [
         CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
 
         RouterModule.forRoot(routes, { useHash: true }),

@@ -15,6 +15,7 @@
             self: super:
             {
                 cm-backend = super.callPackage ../../../backend/campusmedius/nix { };
+                cm-tiles = super.callPackage ../../../backend/tiles/nix { };
                 cm-frontend = super.callPackage ../../../frontend/campusmedius/nix { };
             }
         )];
