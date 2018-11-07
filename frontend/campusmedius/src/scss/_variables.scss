@@ -1,13 +1,17 @@
 $title-regular-font: "Source Sans Pro";
 $title-bold-font: "Source Sans Pro Bold";
 $title-semibold-font: "Source Sans Pro Semibold";
-$title-small-font: "Open Sans";
-$text-regular-font: "Merriweather Regular";
+$title-bold-italic-font: "Source Sans Pro Bold Italic";
+$title-semibold-italic-font: "Source Sans Pro Semibold Italic";
+$text-regular-font: "Source Serif Pro Regular";
+$text-italics-font: "Source Serif Pro Italics";
+$caption-font: "Source Sans Pro";
 
 $header-color: #333333;
 $map-overlay-background-color: #666666;
 $map-overlay-active-color: #fff;
 $map-overlay-inactive-color: #a7a7a7;
+$text-block-background-color: #f4f4f4;
 
 $h-primary-font-color: #666666;
 $h-secondary-font-color: #8e8e8e;
@@ -16,11 +20,14 @@ $secondary-font-color: #a7a7a7;
 $active-font-color: #fff;
 $inactive-font-color: #d7d7d7;
 
-$h-primary-font-size: 1.8rem;
-$h-secondary-font-size: 1.1rem;
-$large-font-size: 1.2rem;
+$base-font-size: 20px;
+$h-primary-font-size: 1.5rem;
+$h-secondary-font-size: 1.2rem;
 $small-font-size: 0.8rem;
+$extra-small-font-size: 0.7rem;
 
-$header-height: 80px;
-$info-header-height: 50px;
-$map-overlay-height: 150px;
+$base-line-height: 30px;
+$small-line-height: 24px;
+
+$header-height: 70px;
+$event-nav-height: 70px;

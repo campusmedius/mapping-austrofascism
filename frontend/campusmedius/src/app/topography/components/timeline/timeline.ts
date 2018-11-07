@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    OnDestroy,
     HostBinding,
     Input,
     OnChanges,
@@ -19,6 +20,9 @@ import {
     transition,
     query
 } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { Event, TimelineLine } from '../../models/event';
 
@@ -31,44 +35,38 @@ import * as moment from 'moment';
     templateUrl: './timeline.html',
     styleUrls: ['./timeline.scss'],
     animations: [
-        trigger('panelState', [
-            state('closed', style({
-                height: '40px',
-                width: '120px'
-            })),
-            state('open', style({
-                height: '180px',
-                width: '100%'
-            })),
-            transition('closed <=> open', animate('200ms ease-in'))
+        trigger('panelControl', [
+            state('true', style({ transform: 'scaleY(1)' })),
+            state('false', style({ transform: 'scaleY(-1)' })),
+            transition('false <=> true', animate('300ms ease-in'))
         ]),
-        trigger('headerIconState', [
-            state('closed', style({
-                transform: 'rotate(180deg)'
-            })),
-            state('open', style({
-                transform: 'rotate(0deg)'
-            })),
-            transition('closed <=> open', animate('1000ms ease-in'))
+        trigger('panel', [
+            state('true', style({ height: '190px' })),
+            state('false', style({ height: '40px' })),
+            transition('false <=> true', animate('300ms ease-in'))
         ])
     ]
 })
-export class TimelineComponent implements OnInit, OnChanges {
+export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     @Input() events: Event[];
     @Input() filteredIds: number[];
+
+    private destroy$: Subject<boolean> = new Subject<boolean>();
+
+    @ViewChild('baseline') baselineElement: ElementRef;
 
     @Output() startFilterChanged = new EventEmitter<Moment>();
     @Output() endFilterChanged = new EventEmitter<Moment>();
 
-    @ViewChild('baseline') baselineElement: ElementRef;
-
-    public timelineStart: Moment = moment('1933-05-13T12:00Z');
-    public timelineEnd: Moment = moment('1933-05-14T12:00Z');
-    public baselineLabelFormat = 'MMM D, YYYY - h a';
+    public timelineStart: Moment = moment('1933-05-13T13:00Z');
+    public timelineEnd: Moment = moment('1933-05-14T13:00Z');
+    public baselineLabelFormatEn = 'MMM D, YYYY – h a';
+    public baselineLabelFormatDe = 'D. MMM YYYY – H:mm';
+    public lang: string = null;
+    public baselineLabelFormat: string = null;
+    public handleLabelFormat: string = null;
     private steps = 24;
     private totalMinutes = this.steps * 60;
-    public baselineWidth: number = null;
-    private spacing: number = null;
 
     public rows: TimelineLine[][] = [];
     public indicatorLineHeight: number = null;
@@ -78,10 +76,10 @@ export class TimelineComponent implements OnInit, OnChanges {
     private rightHandleStartX: number = null;
 
     public leftHandleX: number = null;
-    public leftHandleLabel: string = null;
+    public leftHandleLabel: string;
     private leftHandleStep: number = null;
     public rightHandleX: number = null;
-    public rightHandleLabel: string = null;
+    public rightHandleLabel: string;
     private rightHandleStep: number = null;
 
     public moveRightHandle = false;
@@ -89,22 +87,26 @@ export class TimelineComponent implements OnInit, OnChanges {
 
     private initialized = false;
 
-    @HostBinding('@panelState')
-    public state = 'open';
+    @HostBinding('@panel')
+    public opened = true;
 
-    constructor() { }
+    constructor(private translate: TranslateService) { }
 
     ngOnInit() {
-        this.baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
-        this.spacing = this.baselineWidth / this.steps;
         this.leftHandleX = 0;
         this.leftHandleStep = 0;
         this.leftHandleLabel = this.getLabel(this.leftHandleStep);
-        this.rightHandleX = this.baselineWidth;
+        this.rightHandleX = 100;
         this.rightHandleStep = this.steps;
         this.rightHandleLabel = this.getLabel(this.rightHandleStep);
         this.setupRows(this.events);
         this.initialized = true;
+        this.setLang(this.translate.currentLang);
+        this.translate.onLangChange
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((event: LangChangeEvent) => {
+                this.setLang(event.lang);
+            });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -121,6 +123,15 @@ export class TimelineComponent implements OnInit, OnChanges {
         }
     }
 
+    private setLang(lang: string) {
+        this.lang = lang;
+        if (lang === 'de') {
+            this.baselineLabelFormat = this.baselineLabelFormatDe;
+        } else {
+            this.baselineLabelFormat = this.baselineLabelFormatEn;
+        }
+    }
+
     private setupRows(events: Event[]) {
         const rows = [];
 
@@ -133,8 +144,8 @@ export class TimelineComponent implements OnInit, OnChanges {
 
             const startDiffMinutes = event.start.diff(this.timelineStart, 'minutes');
             const endDiffMinutes = event.end.diff(this.timelineStart, 'minutes');
-            const left = (startDiffMinutes / this.totalMinutes) * this.baselineWidth;
-            const right = (endDiffMinutes / this.totalMinutes) * this.baselineWidth;
+            const left = (startDiffMinutes / this.totalMinutes) * 100;
+            const right = (endDiffMinutes / this.totalMinutes) * 100;
             const line = {
                 left: left + 1,
                 width: right - left - 2,
@@ -155,13 +166,7 @@ export class TimelineComponent implements OnInit, OnChanges {
     }
 
     private getLabel(step: number) {
-        const time = this.timelineStart.clone().add(step, 'hours');
-        return time.format('h') + ' h';
-    }
-
-    @HostListener('window:resize', ['$event'])
-    private windowWidthChange(event) {
-        this.baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
+        return `${step} h`;
     }
 
     private bindMouseMove = (ev) => this.handleMouseMove(ev);
@@ -183,13 +188,16 @@ export class TimelineComponent implements OnInit, OnChanges {
     }
 
     public handleMouseMove(event: any) {
+        const baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
+        const spacing = baselineWidth / this.steps;
+
         if (this.moveLeftHandle) {
             event.preventDefault();
-            let newValue = this.leftHandleStartX + (event.clientX - this.mouseStartX);
+            let newValue = (this.leftHandleStartX / 100) * baselineWidth + (event.clientX - this.mouseStartX);
             if (newValue < 0) {
                 newValue = 0;
             }
-            let step = Math.round(newValue / this.spacing);
+            let step = Math.round(newValue / spacing);
             if (step >= this.rightHandleStep) {
                 step = this.rightHandleStep - 1;
                 if (step < 0) {
@@ -199,7 +207,7 @@ export class TimelineComponent implements OnInit, OnChanges {
 
             if (this.leftHandleStep !== step) {
                 this.startFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
-                this.leftHandleX = step * this.spacing;
+                this.leftHandleX = (step * spacing) * 100 / baselineWidth;
                 this.leftHandleLabel = this.getLabel(step);
             }
 
@@ -208,11 +216,11 @@ export class TimelineComponent implements OnInit, OnChanges {
 
         if (this.moveRightHandle) {
             event.preventDefault();
-            let newValue = this.rightHandleStartX + (event.clientX - this.mouseStartX);
-            if (newValue > this.baselineWidth) {
-                newValue = this.baselineWidth;
+            let newValue = (this.rightHandleStartX / 100) * baselineWidth + (event.clientX - this.mouseStartX);
+            if (newValue > baselineWidth) {
+                newValue = baselineWidth;
             }
-            let step = Math.round(newValue / this.spacing);
+            let step = Math.round(newValue / spacing);
             if (step <= this.leftHandleStep) {
                 step = this.leftHandleStep + 1;
                 if (step > this.steps) {
@@ -222,11 +230,12 @@ export class TimelineComponent implements OnInit, OnChanges {
 
             if (this.rightHandleStep !== step) {
                 this.endFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
-                this.rightHandleX = step * this.spacing;
+                this.rightHandleX = (step * spacing) * 100 / baselineWidth;
                 this.rightHandleLabel = this.getLabel(step);
             }
 
             this.rightHandleStep = step;
+
         }
     }
 
@@ -239,12 +248,8 @@ export class TimelineComponent implements OnInit, OnChanges {
         window.document.body.style.cursor = 'default';
     }
 
-    public toogleState() {
-        if (this.state === 'open') {
-            this.state = 'closed';
-        } else {
-            this.state = 'open';
-        }
+    ngOnDestroy() {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
-
 }

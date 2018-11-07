@@ -13,8 +13,8 @@ import * as moment from 'moment';
  * any additional interface properties.
  */
 export interface State extends EntityState<Event> {
-    selectedEventId: string | null;
     timeFilter: { start: Moment; end: Moment; };
+    loaded: boolean;
 }
 
 /**
@@ -26,8 +26,7 @@ export interface State extends EntityState<Event> {
  * function if the records are to be sorted.
  */
 export const adapter: EntityAdapter<Event> = createEntityAdapter<Event>({
-    selectId: (e: Event) => e.id,
-    sortComparer: false,
+    sortComparer: false
 });
 
 /** getInitialState returns the default initial state
@@ -35,13 +34,13 @@ export const adapter: EntityAdapter<Event> = createEntityAdapter<Event>({
  * additional properties can also be defined.
 */
 export const initialState: State = adapter.getInitialState({
-    selectedEventId: null,
-    timeFilter: { start: moment('1933-05-13T12:00Z'), end: moment('1933-05-14T12:00Z') }
+    timeFilter: { start: moment('1933-05-13T12:00Z'), end: moment('1933-05-14T12:00Z') },
+    loaded: false
 });
 
 export function reducer(state = initialState, action: event.Actions): State {
     switch (action.type) {
-        case event.LOAD_COMPLETE: {
+        case event.ADD_EVENTS: {
             return {
                 /**
                  * The addMany function provided by the created adapter
@@ -50,13 +49,8 @@ export function reducer(state = initialState, action: event.Actions): State {
                  * the collection is to be sorted, the adapter will
                  * sort each record upon entry into the sorted array.
                  */
-                ...adapter.addMany(action.payload, state)
-            };
-        }
-        case event.SELECT: {
-            return {
-                ...state,
-                selectedEventId: action.payload.eventId,
+                ...adapter.addMany(action.payload, state),
+                loaded: true
             };
         }
         case event.SET_TIME_FILTER: {
@@ -90,5 +84,5 @@ export function reducer(state = initialState, action: event.Actions): State {
  * use-case.
  */
 
-export const getSelectedId = (state: State) => state.selectedEventId;
 export const getTimeFilter = (state: State) => state.timeFilter;
+export const getLoaded = (state: State) => state.loaded;

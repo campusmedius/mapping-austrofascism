@@ -1,8 +1,94 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./scss/material.scss";
 @import './scss/fonts.scss';
 @import './scss/variables.scss';
 
 html, body {
 	  font-family: $text-regular-font;
-    font-size: 14px;
+    i, em {
+	      font-family: $text-italics-font;
+    }
+    font-size: $base-font-size;
+    color: $primary-font-color;
+    line-height: $base-line-height;
+    margin: 0px;
+}
+
+// TODO: set in cm-information
+h1 {
+    font-family: $title-bold-font;
+    font-size: $h-primary-font-size;
+    color: $h-primary-font-color;
+    margin-top: 0px;
+    i, em {
+        font-family: $title-bold-italic-font;
+    }
+}
+
+h2 {
+    font-family: $title-bold-font;
+    font-size: $h-secondary-font-size;
+    color: $h-primary-font-color;
+    i, em {
+        font-family: $title-bold-italic-font;
+    }
+}
+
+.ngx-gallery-preview-text {
+    color: $primary-font-color !important;
+    z-index: 999 !important;
+    font-family: $caption-font !important;
+    font-size: $small-font-size !important;
+    line-height: $small-line-height !important;
+    background: $text-block-background-color !important;
+}
+
+.ngx-gallery-arrow-left {
+    left: -60px !important;
+    .ngx-gallery-icon-content {
+        color: #8c8c8c !important;
+        font-size: 60px !important;
+    }
+}
+
+.ngx-gallery-arrow-right {
+    right: -60px !important;
+    .ngx-gallery-icon-content {
+        color: #8c8c8c !important;
+        font-size: 60px !important;
+    }
+}
+
+.ngx-gallery-thumbnail {
+    .cm-zoom {
+        top: 0px;
+        right: 0px;
+        position: absolute;
+        font-size: $base-font-size;
+    }
+}
+
+cm-gallery {
+    margin-bottom: 60px;
+}
+
+
+/* unvisited link */
+a:link {
+    color: #c38c93;
+}
+
+/* visited link */
+a:visited {
+    color: #c38c93;
+}
+
+/* mouse over link */
+a:hover {
+    color: #c38c93;
+}
+
+/* selected link */
+a:active {
+    color: #c38c93;
 }

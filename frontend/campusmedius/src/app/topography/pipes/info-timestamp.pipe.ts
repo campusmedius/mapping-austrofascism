@@ -23,7 +23,7 @@ export class InfoTimestampPipe implements PipeTransform {
             event.start.locale('en');
             event.end.locale('en');
 
-            str = event.start.format('MMMM D, YYYY h:mm a') + ' - ';
+            str = event.start.format('MMMM D, YYYY h:mm a') + ' – ';
             if (sameDay) {
                 str += event.end.format('h:mm a');
             } else {
@@ -34,8 +34,8 @@ export class InfoTimestampPipe implements PipeTransform {
             event.start.locale('de-at');
             event.end.locale('de-at');
 
-            str = event.start.format('MMMM D, YYYY h:mm a') + ' - ';
-            str = event.start.format('D. MMMM YYYY k:mm') + ' - ';
+            str = event.start.format('MMMM D, YYYY h:mm a') + ' – ';
+            str = event.start.format('D. MMMM YYYY k:mm') + ' – ';
             if (sameDay) {
                 str += event.end.format('k:mm');
             } else {

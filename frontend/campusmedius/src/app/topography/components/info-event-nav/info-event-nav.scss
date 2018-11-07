@@ -1,63 +1,72 @@
-@import '../../style.scss';
+@import '../../../../scss/_variables.scss';
 
 :host {
     display: inline-block;
-    width: 100%;
-    margin-top: 10px;
+    font-size: $extra-small-font-size;
+    height: $event-nav-height;
+}
+
+.wrapper {
+    height: 100%;
 }
 
 .previous {
-    display: inline-block;
+    width: 200px;
     height: 32px;
     cursor: pointer;
     text-align: right;
-    position: absolute;
-    right: 260px;
-    width: 200px;
-    line-height: 32px;
     color: $primary-font-color;
     font-family: $title-regular-font;
     overflow: hidden;
+    margin-right: 10px;
+    .text {
+        display: inline-block;
+        position: relative;
+        top: -5px;
+    }
     &:hover {
         font-family: $title-semibold-font;
     }
     .fa {
-        margin-right: 3px;
-        font-size: 1.4rem;
-        top: 2px;
-        position: relative;
+        margin-right: 14px;
+        font-size: 1.7rem;
+        color: #b3b3b3;
     }
 }
 
 .seperator {
-    display: inline-block;
-    border-right: 2px solid $secondary-font-color;
+    border-right: 2px solid #d9d9d9;
     width: 0px;
-    height: 32px;
-    position: absolute;
-    right: 249px;
+    height: 28px;
     color: $primary-font-color;
+    margin-top: 5px;
 }
 
 .next {
-    display: inline-block;
+    width: 200px;
     cursor: pointer;
     height: 32px;
-    position: absolute;
-    width: 200px;
-    right: 40px;
-    line-height: 32px;
     text-align: left;
     color: $primary-font-color;
     font-family: $title-regular-font;
     overflow: hidden;
+    margin-left: 10px;
+    .text {
+        display: inline-block;
+        position: relative;
+        top: -5px;
+    }
     &:hover {
         font-family: $title-semibold-font;
     }
     .fa {
-        margin-left: 3px;
-        font-size: 1.4rem;
-        top: 2px;
-        position: relative;
+        margin-left: 14px;
+        font-size: 1.7rem;
+        color: #b3b3b3;
     }
+}
+
+.container {
+    width: 200px;
+    height: 32px;
 }

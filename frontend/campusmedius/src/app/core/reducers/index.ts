@@ -25,7 +25,7 @@ import * as fromGeneral from './general';
 export interface State {
     layout: fromLayout.State;
     general: fromGeneral.State;
-    routerReducer: RouterReducerState;
+    router: RouterReducerState;
 }
 
 /**
@@ -36,7 +36,7 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
     layout: fromLayout.reducer,
     general: fromGeneral.reducer,
-    routerReducer: routerReducer,
+    router: routerReducer,
 };
 
 // console.log all actions
@@ -66,4 +66,15 @@ export const getLayoutState = createFeatureSelector<fromLayout.State>('layout');
 export const getShowAbout = createSelector(
     getLayoutState,
     fromLayout.getShowAbout
+);
+
+/**
+ * Router Reducers
+ */
+export const selectRouterState =
+    createFeatureSelector<RouterReducerState>('router');
+
+export const selectRouteInfo = createSelector(
+    selectRouterState,
+    router => router.state
 );

@@ -37,7 +37,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserAnimationsModule,
         HttpClientModule,
 
-        RouterModule.forRoot(routes, { useHash: true }),
+        RouterModule.forRoot(routes, {
+            useHash: false,
+            anchorScrolling: 'enabled'
+        }),
 
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
@@ -92,6 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
  */
         { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    declarations: []
 })
 export class AppModule { }

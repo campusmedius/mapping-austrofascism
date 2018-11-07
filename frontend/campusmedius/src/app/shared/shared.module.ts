@@ -1,36 +1,44 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { InfoInformationComponent } from './components/info-information/info-information.component';
-import { InfoGalleryComponent } from './components/info-gallery/info-gallery.component';
-import { InfoAudioComponent } from './components/info-audio/info-audio.component';
-import { InfoImageComponent } from './components/info-image/info-image.component';
-import { InfoVideoComponent } from './components/info-video/info-video.component';
-import { InfoTextComponent } from './components/info-text/info-text.component';
+import { NgxGalleryModule } from '../ngx-gallery';
+
 import { MapComponent } from './components/map/map';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 export const COMPONENTS = [
     MapComponent,
-    InfoInformationComponent,
-    InfoGalleryComponent,
-    InfoVideoComponent,
-    InfoAudioComponent,
-    InfoImageComponent,
-    InfoTextComponent
 ];
 
 @NgModule({
     imports: [
         CommonModule,
-        TranslateModule.forChild()
+        FlexLayoutModule,
+        MatSidenavModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        NgxGalleryModule,
+        TranslateModule.forChild(),
     ],
     declarations: COMPONENTS,
     exports: [
         ...COMPONENTS,
+        FlexLayoutModule,
+        MatSidenavModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule,
+        NgxGalleryModule,
         TranslateModule
     ],
-    entryComponents: [InfoImageComponent]
+    entryComponents: []
 })
 export class SharedModule { }

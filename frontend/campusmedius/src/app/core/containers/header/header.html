@@ -1,22 +1,31 @@
-<div class="col-sm-6">
-    <nav class="nav-left">
-        <a routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</a>
-        <a routerLink="/topology" routerLinkActive="active">Topology</a>
-        <a routerLink="/mediality" routerLinkActive="active">Mediality</a>
-    </nav>
+<div fxFlex fxLayout ="row" fxLayoutAlign=" center" class="nav-sub">
+    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
+        <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/about" routerLinkActive="active">
+            {{'header.about' | translate}}</button>
+        <button mat-menu-item routerLink="/team" routerLinkActive="active">
+            {{'header.team' | translate}}
+        </button>
+        <button mat-menu-item routerLink="/contact" routerLinkActive="active">
+            {{'header.contact' | translate}}
+        </button>
+    </mat-menu>
+
+    <div class="logo" fxLayout ="row">
+        <div class="logo-left"><span>campus</span></div>
+        <div class="logo-right"><span>medius</span></div>
+    </div>
 </div>
-<div class="col-sm-6">
-    <nav class="nav-right">
-        <a routerLink="/about" routerLinkActive="active">about</a>
-        <a routerLink="/team" routerLinkActive="active">team</a>
-        <a routerLink="/contact" routerLinkActive="active">contact</a>
-        <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">
-            <a (click)="changeLanguage('en')" [ngClass]="{'active': currentLang === 'en'}">EN</a>
-            <a (click)="changeLanguage('de')" [ngClass]="{'active': currentLang === 'de'}">DE</a>
-        </span>
-    </nav>
+<div fxFlex fxLayout="row" fxLayoutAlign="center center" class="nav-main">
+    <a mat-flat-button color="primary" routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</a>
+    <a mat-flat-button color="primary"  routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</a>
+    <a mat-flat-button color="primary"  routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</a>
 </div>
-<div class="logo">
-    <div class="logo-left"><span>campus</span></div>
-    <div class="logo-right"><span>medius</span></div>
+<div fxFlex fxLayout="row" fxLayoutAlign="end">
+    <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">
+        <a (click)="changeLanguage('en')" [ngClass]="{'active': currentLang === 'en'}">EN</a>
+        <a (click)="changeLanguage('de')" [ngClass]="{'active': currentLang === 'de'}">DE</a>
+    </span>
 </div>

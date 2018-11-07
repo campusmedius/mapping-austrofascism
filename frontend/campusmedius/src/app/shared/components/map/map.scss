@@ -6,3 +6,23 @@
 :host /deep/ .mapboxgl-control-container {
     display: none;
 }
+
+.map-control {
+    position: absolute;
+    z-index: 20;
+    top: 20px;
+    left: 20px;
+    button {
+        display: block;
+        min-width: 20px;
+        margin-bottom: 2px;
+        width: 30px;
+        padding: 0px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 22px;
+    }
+    .mat-button-wraper {
+        line-height: 30px;
+    }
+}

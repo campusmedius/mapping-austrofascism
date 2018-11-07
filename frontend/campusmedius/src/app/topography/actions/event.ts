@@ -3,10 +3,7 @@ import { Event } from '../models/event';
 
 import { Moment } from 'moment';
 
-export const SELECT = '[Event] Select';
-export const LOAD = '[Event] Load';
-export const LOAD_COMPLETE = '[Event] Load Complete';
-export const LOAD_FAIL = '[Event] Load Fail';
+export const ADD_EVENTS = '[Event] Add events';
 export const SET_TIME_FILTER = '[Event] Set Time Filter';
 
 /**
@@ -17,29 +14,13 @@ export const SET_TIME_FILTER = '[Event] Set Time Filter';
  * See Discriminated Unions: https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
  */
 
-export class Load implements Action {
-    readonly type = LOAD;
 
-    constructor() { }
-}
-
-export class LoadComplete implements Action {
-    readonly type = LOAD_COMPLETE;
+export class AddEvents implements Action {
+    readonly type = ADD_EVENTS;
 
     constructor(public payload: Event[]) { }
 }
 
-export class LoadFail implements Action {
-    readonly type = LOAD_FAIL;
-
-    constructor(public payload: any) { }
-}
-
-export class Select implements Action {
-    readonly type = SELECT;
-
-    constructor(public payload: { eventId: string; }) { }
-}
 
 export class SetTimeFilter implements Action {
     readonly type = SET_TIME_FILTER;
@@ -51,4 +32,4 @@ export class SetTimeFilter implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type Actions = Load | LoadComplete | LoadFail | Select | SetTimeFilter;
+export type Actions = AddEvents | SetTimeFilter;

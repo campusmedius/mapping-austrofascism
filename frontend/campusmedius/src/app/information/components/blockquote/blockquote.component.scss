@@ -1,0 +1,10 @@
+@import './../../../../scss/_variables.scss';
+
+:host {
+    display: block;
+    padding: 20px 80px;
+    font-family: $caption-font;
+    color: $secondary-font-color;
+    font-size: $small-font-size;
+    line-height: $small-line-height;
+}

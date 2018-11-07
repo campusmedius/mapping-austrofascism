@@ -1,0 +1,11 @@
+@import './../../../../scss/_variables.scss';
+
+:host {
+    height: 210px;
+    display: block;
+    background: $text-block-background-color;
+    margin-left: -100%;
+    margin-right: -100%;
+    padding-left: 100%;
+    padding-right: 100%;
+}

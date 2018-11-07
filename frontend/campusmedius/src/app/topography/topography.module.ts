@@ -6,27 +6,30 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from '../shared/shared.module';
+import { InformationModule } from '../information/information.module';
 
 import { TopographyComponent } from './containers/topography/topography';
 import { TimelineComponent } from './components/timeline/timeline';
 import { InfoEventNavComponent } from './components/info-event-nav/info-event-nav';
 
 import { EventService } from './services/events';
-import { InformationService } from './services/information';
 
 import { routes } from './routes';
 
 import { reducers } from './reducers';
 
 import { EventEffects } from './effects/event';
-import { InformationEffects } from './effects/information';
 import { MapEventComponent } from './components/map-event/map-event.component';
 import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
+
+import { EventResolver } from './guards/event';
+import { DynamicInformationComponent } from './components/dynamic-information/dynamic-information.component';
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
+        InformationModule,
         RouterModule.forChild(routes),
 
         /**
@@ -45,18 +48,19 @@ import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
          * All Effects will only be instantiated once regardless of
          * whether they are registered once or multiple times.
          */
-        EffectsModule.forFeature([EventEffects, InformationEffects])
+        EffectsModule.forFeature([EventEffects])
     ],
     declarations: [
         TopographyComponent,
         TimelineComponent,
         MapEventComponent,
         InfoEventNavComponent,
-        InfoTimestampPipe
+        InfoTimestampPipe,
+        DynamicInformationComponent
     ],
     providers: [
         EventService,
-        InformationService
+        EventResolver
     ]
 })
 export class TopographyModule { }

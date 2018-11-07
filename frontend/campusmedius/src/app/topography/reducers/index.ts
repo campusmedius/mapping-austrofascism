@@ -1,10 +1,12 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromEvents from './events';
-import * as fromInformation from './information';
+import * as fromInformation from '../../information/reducers';
+import { selectRouteInfo } from '../../core/reducers';
+import { Information } from '../../information/models/information';
+import { getInformationEntities } from '../../information/reducers';
 
 export interface TopographyState {
     events: fromEvents.State;
-    information: fromInformation.State;
 }
 
 export interface State {
@@ -13,7 +15,6 @@ export interface State {
 
 export const reducers = {
     events: fromEvents.reducer,
-    information: fromInformation.reducer
 };
 
 /**
@@ -53,11 +54,6 @@ export const getEventEntitiesState = createSelector(
     state => state.events
 );
 
-export const getSelectedEventId = createSelector(
-    getEventEntitiesState,
-    fromEvents.getSelectedId
-);
-
 export const getEventTimeFilter = createSelector(
     getEventEntitiesState,
     fromEvents.getTimeFilter
@@ -78,10 +74,11 @@ export const {
     selectTotal: getTotalEvents,
 } = fromEvents.adapter.getSelectors(getEventEntitiesState);
 
-export const getSelectedEvents = createSelector(
+export const getSelectedEvent = createSelector(
     getEventEntities,
-    getSelectedEventId,
-    (entities, selectedId) => {
+    selectRouteInfo,
+    (entities, routerInfo: any) => {
+        const selectedId = routerInfo.params.eventId;
         if (selectedId) {
             const selectedEvent = entities[selectedId];
             return {
@@ -109,33 +106,17 @@ export const getFilteredEventIds = createSelector(
     }
 );
 
-// information state
-export const getInformationEntitiesState = createSelector(
-    getTopographyState,
-    state => state.information
-);
 
-export const getSelectedInformationId = createSelector(
-    getInformationEntitiesState,
-    fromInformation.getSelectedId
-);
-
-export const {
-    selectIds: getInformationIds,
-    selectEntities: getInformationEntities,
-    selectAll: getAllInformations,
-    selectTotal: getTotalInformations,
-} = fromInformation.adapter.getSelectors(getInformationEntitiesState);
+export const getEventsLoaded = createSelector(getEventEntitiesState, fromEvents.getLoaded);
 
 export const getSelectedInformation = createSelector(
+    getSelectedEvent,
     getInformationEntities,
-    getSelectedInformationId,
-    (entities, selectedId) => {
-        return selectedId && entities[selectedId];
+    (selectedEvent, entities) => {
+        if (selectedEvent.current) {
+            const informationId = selectedEvent.current.informationId;
+            return entities[informationId];
+        }
+        return null;
     }
-);
-
-export const getInformationLoading = createSelector(
-    getInformationEntitiesState,
-    fromInformation.getLoading
 );

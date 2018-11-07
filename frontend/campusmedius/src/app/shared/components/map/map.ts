@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 
 declare var mapboxgl: any;
-
-// TODO: find place for .mapboxgl-control-container
+import { Map } from 'mapbox-gl';
 
 @Component({
     selector: 'cm-map',
@@ -14,7 +13,7 @@ export class MapComponent implements OnInit {
     @ViewChild('map') mapElement: ElementRef;
     private MAP_TILES_URL = environment.mapTilesUrl;
 
-    public map: any;
+    public map: Map;
 
     constructor() { }
 
@@ -23,8 +22,8 @@ export class MapComponent implements OnInit {
         this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
             style: 'mapbox://styles/mapbox/streets-v9',
-            center: [16.35, 48.2], // starting position
-            zoom: 12 // starting zoom
+            center: [16.4, 48.2], // starting position
+            zoom: 13 // starting zoom
         });
 
         // TODO: move to topography module
@@ -42,6 +41,13 @@ export class MapComponent implements OnInit {
                 }
             });
         });
+    }
 
+    public zoomIn() {
+        this.map.zoomIn();
+    }
+
+    public zoomOut() {
+        this.map.zoomOut();
     }
 }

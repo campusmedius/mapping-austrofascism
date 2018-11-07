@@ -1,0 +1,6 @@
+self: super:
+{
+  cm-backend = super.callPackage ../../backend/campusmedius/nix { };
+  cm-tiles = super.callPackage ./pkgs/cm-tiles { };
+  frontend = super.callPackage ../../frontend/campusmedius/nix { };
+}

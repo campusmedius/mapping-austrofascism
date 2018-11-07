@@ -1,44 +1,53 @@
 @import '../../../../scss/variables.scss';
 
 :host {
-    display: inline-block;
     height: $header-height;
-    width: 100%;
     background-color: $header-color;
     font-family: $title-regular-font;
     a {
         color: $inactive-font-color;
         text-decoration: none !important;
-        padding-bottom: 2px;
+    }
+}
+.nav-sub {
+    margin-left: 10px;
+    button {
+        color: $active-font-color;
+        mat-icon {
+            font-size: 28px;
+            margin-top: -6px;
+        }
+    }
+}
+
+.nav-main {
+    font-size: $small-font-size !important;
+    a {
+        margin: 0px 10px;
+        width: 100px;
+        text-align: center;
+        height: 34px;
+        padding: 0px;
+        margin-top: -10px;
     }
     a.active, a:hover {
         font-family: $title-semibold-font;
         color: $active-font-color;
-        border-bottom: solid 1px $active-font-color;
+        border-bottom: solid 2px $active-font-color;
     }
 }
 
-
-.nav-left {
-    text-align: center;
-    a {
-        margin: 0 25px;
-        line-height: $header-height;
-    }
-}
-
-.nav-right {
+.nav-lang {
     text-align: right;
+    font-size: $small-font-size;
     a {
-        margin: 0 25px;
         line-height: $header-height;
-    }
-    .nav-lang a {
-        margin: 0 5px;
-        padding: 1px 3px;
+        padding: 0px 6px;
         border: solid 1px $header-color;
+        margin-right: 5px;
         &.active, &:hover {
-            border: solid 1px $active-font-color;
+            color: $inactive-font-color;
+            border: solid 1px $inactive-font-color;
         }
         &:hover {
             cursor: pointer;
@@ -47,33 +56,29 @@
 }
 
 .logo {
+    margin-left: 20px;
     color: $map-overlay-active-color;
+    height: 28px;
     .logo-left {
-        position: absolute;
-        right: 50%;
-        height: $header-height - 32px;
-        top: 16px;
-        border-right: 2px solid white;
+        height: 100%;
+        border-right: 1px solid white;
+        padding-right: 5px;
         span {
-            font-size: 28px;
             font-family: $title-semibold-font;
-            margin-right: 10px;
-            line-height: $header-height - 32px;
-            margin-top: -10px;
             display: inline-block;
+            position: relative;
+            top: -6px;
         }
     }
     .logo-right {
-        position: absolute;
-        left: 50%;
-        height: $header-height - 32px;
-        top: 16px;
+        height: 100%;
+        padding-left: 3px;
         span {
-            font-size: 28px;
             font-family: $title-regular-font;
-            margin-left: 10px;
-            line-height: $header-height - 32px;
             display: inline-block;
+            position: relative;
+            top: 2px;
+            color: #d7d7d7;
         }
     }
 }

@@ -1,8 +1,18 @@
 {
     "header": {
-        "topography": "Topography"
+        "topography": "Topography",
+        "topology": "Topology",
+        "mediality": "Mediality",
+        "about": "About",
+        "contact": "Contact",
+        "team": "Team"
     },
     "info": {
-        "next": "Next"
+        "next": "Next",
+        "previous": "Back",
+        "read-more": "Read more"
+    },
+    "timeline": {
+        "header": "Timeline"
     }
 }

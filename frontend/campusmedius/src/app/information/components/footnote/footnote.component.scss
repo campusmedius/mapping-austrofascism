@@ -1,0 +1,27 @@
+@import './../../../../scss/_variables.scss';
+
+.animation-container {
+    overflow: hidden;
+}
+
+.container {
+    padding: 20px;
+    background: $text-block-background-color;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-family: $caption-font;
+    font-size: $small-font-size;
+    line-height: $small-line-height;
+}
+
+button {
+    width: $base-font-size;
+    min-width: $base-font-size;
+    height: $base-font-size;
+    line-height: $base-font-size;
+    min-height: $base-font-size;
+    vertical-align: top;
+    font-size: $base-font-size;
+    padding: 0 0;
+    margin: 0px;
+}

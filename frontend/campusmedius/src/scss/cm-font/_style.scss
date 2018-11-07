@@ -1,0 +1,138 @@
+@import "./variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="cm-"], [class*=" cm-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cm-audio .path1 {
+  &:before {
+    content: $cm-audio-path1;
+    color: rgb(196, 138, 147);
+  }
+}
+.cm-audio .path2 {
+  &:before {
+    content: $cm-audio-path2;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-audio .path3 {
+  &:before {
+    content: $cm-audio-path3;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-audio .path4 {
+  &:before {
+    content: $cm-audio-path4;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-audio .path5 {
+  &:before {
+    content: $cm-audio-path5;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-audio .path6 {
+  &:before {
+    content: $cm-audio-path6;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-more .path1 {
+  &:before {
+    content: $cm-more-path1;  
+    color: rgb(196, 138, 147);
+  }
+}
+.cm-more .path2 {
+  &:before {
+    content: $cm-more-path2;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-close .path1 {
+  &:before {
+    content: $cm-close-path1;  
+    color: rgb(196, 138, 147);
+  }
+}
+.cm-close .path2 {
+  &:before {
+    content: $cm-close-path2;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-image .path1 {
+  &:before {
+    content: $cm-image-path1;  
+    color: rgb(196, 138, 147);
+  }
+}
+.cm-image .path2 {
+  &:before {
+    content: $cm-image-path2;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-video .path1 {
+  &:before {
+    content: $cm-video-path1;  
+    color: rgb(196, 138, 147);
+  }
+}
+.cm-video .path2 {
+  &:before {
+    content: $cm-video-path2;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-zoom .path1 {
+  &:before {
+    content: $cm-zoom-path1;  
+    color: rgb(196, 138, 147);
+  }
+}
+.cm-zoom .path2 {
+  &:before {
+    content: $cm-zoom-path2;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+.cm-zoom .path3 {
+  &:before {
+    content: $cm-zoom-path3;  
+    margin-left: -1em;  
+    color: rgb(255, 255, 255);
+  }
+}
+

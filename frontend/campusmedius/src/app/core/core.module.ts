@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { HeaderComponent } from './containers/header/header';
 import { AppComponent } from './containers/app/app';
 import { NotFoundPageComponent } from './containers/not-found-page';
@@ -17,11 +19,15 @@ export const COMPONENTS = [
 @NgModule({
     imports: [
         CommonModule,
+        SharedModule,
         RouterModule,
         TranslateModule.forChild()
     ],
     declarations: COMPONENTS,
-    exports: COMPONENTS,
+    exports: [
+        ...COMPONENTS,
+        SharedModule
+    ]
 })
 export class CoreModule {
     static forRoot() {

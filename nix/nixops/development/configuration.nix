@@ -11,14 +11,9 @@
         
         # use local packages
         nixpkgs.overlays =
-        [(
-            self: super:
-            {
-                cm-backend = super.callPackage ../../../backend/campusmedius/nix { };
-                cm-tiles = super.callPackage ../../../backend/tiles/nix { };
-                cm-frontend = super.callPackage ../../../frontend/campusmedius/nix { };
-            }
-        )];
+        [
+            (import ../../overlays/campusmedius-development-overlay.nix)
+        ];
         
         # campusmedius backend
         services.campusmedius.backend = {
