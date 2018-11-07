@@ -4,7 +4,7 @@ import { NotFoundPageComponent } from './core/containers/not-found-page';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/topography',
+        redirectTo: '/topography/events',
         pathMatch: 'full'
     },
     {

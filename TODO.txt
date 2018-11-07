@@ -1,5 +1,0 @@
-nix
-  - nixos backend module: copy database only if not exist
-  
-backend
-  - deactivate debug mode in production

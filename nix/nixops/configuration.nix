@@ -70,6 +70,7 @@
             locations."/" = {
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
                 extraConfig = ''
+                    try_files $uri $uri/ /index.html;
                     auth_basic campusmedius;
                     auth_basic_user_file /run/keys/basicAuth;
                 '';
