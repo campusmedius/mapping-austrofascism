@@ -14,20 +14,6 @@ class EventAdmin(admin.ModelAdmin):
         'title_en',
         'start',
         'end',
-        'timeline_row',
-        'lng',
-        'lat',
-        'information',
-        'next_event'
-    )
-    list_editable = (
-        'title_de',
-        'title_en',
-        'start',
-        'end',
-        'timeline_row',
-        'lng',
-        'lat',
         'information',
         'next_event'
     )

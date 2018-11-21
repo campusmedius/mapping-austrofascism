@@ -1,9 +1,11 @@
 from rest_framework import serializers
 
 from .models import Image, Audio, Video, Gallery
-from .models import MediaEntity
 from .models import Information
 
+IMAGE_URL = 'https://services.phaidra.univie.ac.at/api/imageserver?IIIF={}.tif/full/{}/0/default.jpg'
+VIDEO_URL = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+AUDIO_URL = 'https://hpr.dogphilosophy.net/test/ogg.ogg'
 
 # Helper field
 class ConstantField(serializers.Field):
@@ -40,46 +42,66 @@ class EntityField(serializers.RelatedField):
 
 class ImageSerializer(serializers.ModelSerializer):
     type = ConstantField(value='image')
+    data = serializers.SerializerMethodField()
 
     class Meta:
         model = Image
         fields = (
             'id',
             'type',
-            'url',
+            'data',
             'caption_de',
             'caption_en', )
+
+    def get_data(self, obj):
+        return {
+            'thumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
+            'full': IMAGE_URL.format(obj.phaidra_id, '1920,')
+        }
 
 
 class AudioSerializer(serializers.ModelSerializer):
     type = ConstantField(value='audio')
+    data = serializers.SerializerMethodField()
 
     class Meta:
         model = Audio
         fields = (
             'id',
             'type',
-            'url',
+            'data',
             'caption_de',
             'caption_en', )
+
+    def get_data(self, obj):
+        return {
+            'full': AUDIO_URL,
+            'thumbnail': 'http://gettravel.com/wp-content/uploads/2018/04/Video-Placeholder.jpg'
+        }
 
 
 class VideoSerializer(serializers.ModelSerializer):
     type = ConstantField(value='video')
+    data = serializers.SerializerMethodField()
 
     class Meta:
         model = Video
         fields = (
             'id',
             'type',
-            'url',
+            'data',
             'caption_de',
             'caption_en', )
+
+    def get_data(self, obj):
+        return {
+            'full': VIDEO_URL,
+            'thumbnail': 'http://gettravel.com/wp-content/uploads/2018/04/Video-Placeholder.jpg'
+        }
 
 
 class GallerySerializer(serializers.ModelSerializer):
     type = ConstantField(value='gallery')
-
     entities = EntityField(many=True, read_only=True)
 
     class Meta:
@@ -87,20 +109,16 @@ class GallerySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'type',
-            'title_de',
-            'title_en',
             'entities', )
 
 
 class InformationSerializer(serializers.ModelSerializer):
-    type = ConstantField(value='information')
     media = serializers.SerializerMethodField()
 
     class Meta:
         model = Information
         fields = (
             'id',
-            'type',
             'title_de',
             'title_en',
             'content_de',

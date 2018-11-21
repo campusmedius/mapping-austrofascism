@@ -27,7 +27,15 @@ import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
         </div>
         <div class="ngx-gallery-preview-wrapper" (click)="closeOnClick && close()" (mouseup)="mouseUpHandler($event)" (mousemove)="mouseMoveHandler($event)" (touchend)="mouseUpHandler($event)" (touchmove)="mouseMoveHandler($event)">
             <div class="ngx-gallery-preview-img-wrapper">
-                <img *ngIf="src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
+
+<img *ngIf="isOpen && this.types[this.index] === 'image' && src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (contextmenu)="onRightClick($event)" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
+
+<video *ngIf="isOpen && this.types[this.index] === 'video' && src" [src]="src" controls controlsList="nodownload" preload="metadata" #previewImage class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+</video>
+
+<audio *ngIf="this.types[this.index] === 'audio' && src" [src]="src" controls controlsList="nodownload" preload="metadata" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+</audio>
+
                 <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index" (onChange)="showAtIndex($event)"></ngx-gallery-bullets>
             </div>
             <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" [innerHTML]="description" (click)="$event.stopPropagation()"></div>
@@ -36,7 +44,7 @@ import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
     styleUrls: ['./ngx-gallery-preview.component.scss']
 })
 export class NgxGalleryPreviewComponent implements OnChanges {
-
+    // <img *ngIf="src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
     src: SafeUrl;
     srcIndex: number;
     description: string;
@@ -50,6 +58,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
 
     @Input() images: string[] | SafeResourceUrl[];
     @Input() descriptions: string[];
+    @Input() types: string[];
     @Input() showDescription: boolean;
     @Input() swipe: boolean;
     @Input() fullscreen: boolean;
@@ -98,12 +107,12 @@ export class NgxGalleryPreviewComponent implements OnChanges {
     private keyDownListener: Function;
 
     constructor(private sanitization: DomSanitizer, private elementRef: ElementRef,
-        private helperService: NgxGalleryHelperService, private renderer: Renderer) {}
+        private helperService: NgxGalleryHelperService, private renderer: Renderer) { }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['swipe']) {
             this.helperService.manageSwipe(this.swipe, this.elementRef,
-            'preview', () => this.showNext(), () => this.showPrev());
+                'preview', () => this.showNext(), () => this.showPrev());
         }
     }
 
@@ -126,6 +135,10 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                 this.close();
             }
         }
+    }
+
+    onRightClick(e) {
+        e.preventDefault();
     }
 
     open(index: number): void {
@@ -404,25 +417,38 @@ export class NgxGalleryPreviewComponent implements OnChanges {
         this.srcIndex = this.index;
         this.description = this.descriptions[this.index];
 
-        setTimeout(() => {
-            if (this.isLoaded(this.previewImage.nativeElement)) {
-                this.loading = false;
-                this.startAutoPlay();
-            } else {
-                setTimeout(() => {
-                    if (this.loading) {
-                        this.showSpinner = true;
-                    }
-                })
-
-                this.previewImage.nativeElement.onload = () => {
+        if (this.types[this.index] === 'image') {
+            setTimeout(() => {
+                if (this.isLoaded(this.previewImage.nativeElement)) {
                     this.loading = false;
-                    this.showSpinner = false;
-                    this.previewImage.nativeElement.onload = null;
                     this.startAutoPlay();
+                } else {
+                    setTimeout(() => {
+                        if (this.loading) {
+                            this.showSpinner = true;
+                        }
+                    })
+
+                    this.previewImage.nativeElement.onload = () => {
+                        this.loading = false;
+                        this.showSpinner = false;
+                        this.previewImage.nativeElement.onload = null;
+                        this.startAutoPlay();
+                    }
                 }
-            }
-        })
+            })
+        }
+
+        if (this.types[this.index] === 'video') {
+            setTimeout(() => {
+                this.loading = false;
+            })
+        }
+        if (this.types[this.index] === 'audio') {
+            setTimeout(() => {
+                this.loading = false;
+            })
+        }
     }
 
     private isLoaded(img): boolean {

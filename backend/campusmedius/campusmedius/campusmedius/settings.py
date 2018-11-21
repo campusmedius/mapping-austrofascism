@@ -33,7 +33,7 @@ CORS_ORIGIN_ALLOW_ALL = bool(os.environ.get('CORS_ORIGIN_ALLOW_ALL', True))
 INSTALLED_APPS = [
     'rest_framework',
     'topography',
-    'topology',
+    # 'topology',
     'information',
     'corsheaders',
     'django.contrib.admin',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'location_field.apps.DefaultConfig',
     'tinymce',
 ]
 
@@ -137,6 +138,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# location_field
+LOCATION_FIELD = {
+    'map.provider': 'openstreetmap',
+    'map.zoom': 10
+}
 
 
 # Static files (CSS, JavaScript, Images)

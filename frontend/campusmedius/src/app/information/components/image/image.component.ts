@@ -8,6 +8,8 @@ import {
     query
 } from '@angular/animations';
 
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+
 import { Image } from '../../models/information';
 import { InformationComponent } from '../information/information.component';
 
@@ -26,6 +28,9 @@ import { InformationComponent } from '../information/information.component';
 export class ImageComponent implements OnInit {
     @Input() id: string;
 
+    public galleryOptions: NgxGalleryOptions[];
+    public galleryImages: NgxGalleryImage[];
+
     public data: Image;
     public lang: string;
 
@@ -36,6 +41,20 @@ export class ImageComponent implements OnInit {
     ngOnInit() {
         this.lang = this.information.lang;
         this.data = this.information.data.media.images[this.id];
-    }
 
+        this.galleryOptions = [{
+            'image': false,
+            'imageArrows': false,
+            'thumbnailsArrows': false,
+            'thumbnailsColumns': 1,
+            'width': '100%'
+        }];
+
+        this.galleryImages = [{
+            type: 'image',
+            small: this.data.data.thumbnail,
+            big: this.data.data.full,
+            description: this.lang === 'de' ? this.data.captionDe : this.data.captionEn
+        }];
+    }
 }

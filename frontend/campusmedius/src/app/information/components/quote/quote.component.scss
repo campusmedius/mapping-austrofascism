@@ -3,7 +3,10 @@
 :host {
     display: block;
     padding: 20px 80px;
-    font-family: $caption-font;
+    font-family: $caption-regular-font;
+    ::ng-deep em, ::ng-deep i {
+	      font-family: $caption-italics-font;
+    }
     color: $secondary-font-color;
     font-size: $small-font-size;
     line-height: $small-line-height;

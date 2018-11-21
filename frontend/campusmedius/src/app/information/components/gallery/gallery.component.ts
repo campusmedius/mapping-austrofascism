@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 
-import { Gallery } from '../../models/information';
+import { Gallery, Image, Audio, Video } from '../../models/information';
 import { InformationComponent } from '../information/information.component';
 
 @Component({
@@ -33,16 +33,19 @@ export class GalleryComponent implements OnInit {
         }];
 
         const galleryImages = [];
-        this.data.images.forEach(i => {
-            const image = this.information.data.media.images[i];
-            let caption = image.captionEn;
+        this.data.entities.forEach(e => {
+            let caption = e.captionEn;
             if (this.lang === 'de') {
-                caption = image.captionDe;
+                caption = e.captionDe;
             }
+
+            const smallUrl = e.data.thumbnail;
+            const bigUrl = e.data.full;
+
             galleryImages.push({
-                small: image.url,
-                medium: image.url,
-                big: image.url,
+                type: e.type,
+                small: smallUrl,
+                big: bigUrl,
                 description: caption
             });
         });

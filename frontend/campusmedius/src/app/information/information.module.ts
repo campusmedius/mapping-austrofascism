@@ -10,9 +10,11 @@ import { reducers } from './reducers';
 
 import { InformationComponent } from './components/information/information.component';
 import { ImageComponent } from './components/image/image.component';
+import { VideoComponent } from './components/video/video.component';
+import { AudioComponent } from './components/audio/audio.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
-import { BlockquoteComponent } from './components/blockquote/blockquote.component';
-import { FootnoteComponent } from './components/footnote/footnote.component';
+import { QuoteComponent } from './components/quote/quote.component';
+import { NoteComponent } from './components/note/note.component';
 
 import { InformationService } from './services/information';
 
@@ -21,9 +23,11 @@ import { TranslateModule } from '@ngx-translate/core';
 export const COMPONENTS = [
     InformationComponent,
     ImageComponent,
+    AudioComponent,
+    VideoComponent,
     GalleryComponent,
-    BlockquoteComponent,
-    FootnoteComponent
+    QuoteComponent,
+    NoteComponent
 ];
 
 @NgModule({

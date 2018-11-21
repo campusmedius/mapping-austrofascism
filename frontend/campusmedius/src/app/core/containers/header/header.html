@@ -3,25 +3,19 @@
         <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/about" routerLinkActive="active">
-            {{'header.about' | translate}}</button>
-        <button mat-menu-item routerLink="/team" routerLinkActive="active">
-            {{'header.team' | translate}}
-        </button>
-        <button mat-menu-item routerLink="/contact" routerLinkActive="active">
-            {{'header.contact' | translate}}
-        </button>
+        <button mat-menu-item routerLink="/about" routerLinkActive="active">{{'header.about' | translate}}</button>
+        <button mat-menu-item routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</button>
+        <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button>
+        <button mat-menu-item routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</button>
+        <button mat-menu-item routerLink="/team" routerLinkActive="active">{{'header.team' | translate}}</button>
+        <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button>
     </mat-menu>
-
+</div>
+<div fxFlex fxLayout="row" fxLayoutAlign="center center">
     <div class="logo" fxLayout ="row">
         <div class="logo-left"><span>campus</span></div>
         <div class="logo-right"><span>medius</span></div>
     </div>
-</div>
-<div fxFlex fxLayout="row" fxLayoutAlign="center center" class="nav-main">
-    <a mat-flat-button color="primary" routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</a>
-    <a mat-flat-button color="primary"  routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</a>
-    <a mat-flat-button color="primary"  routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</a>
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end">
     <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">

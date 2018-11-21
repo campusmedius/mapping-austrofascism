@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { Information } from '..//models/information';
 import { environment } from '../../../environments/environment';
 
-import media from './media.json';
-import template from './template.html';
+// import media from './media.json';
+// import template from './template.html';
 
 @Injectable()
 export class InformationService {
@@ -33,9 +33,9 @@ export class InformationService {
             .map((data: Information) => {
                 data.id = id;
                 data.id += '';
-                data.contentEn = template;
-                data.contentDe = template;
-                data.media = <any>media;
+                // data.contentEn = template;
+                // data.contentDe = template;
+                // data.media = <any>media;
                 return data;
             });
     }

@@ -9,9 +9,9 @@ import {
 } from '@angular/animations';
 
 @Component({
-    selector: 'cm-footnote',
-    templateUrl: './footnote.component.html',
-    styleUrls: ['./footnote.component.scss'],
+    selector: 'cm-note',
+    templateUrl: './note.component.html',
+    styleUrls: ['./note.component.scss'],
     animations: [
         trigger('container', [
             state('true', style({ height: '*', display: '*' })),
@@ -20,7 +20,7 @@ import {
         ])
     ]
 })
-export class FootnoteComponent implements OnInit {
+export class NoteComponent implements OnInit {
     public opened = false;
 
     constructor() { }

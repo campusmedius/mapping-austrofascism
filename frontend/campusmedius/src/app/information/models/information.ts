@@ -1,29 +1,41 @@
 export type MediaEntity = Image | Audio | Video;
 
+export interface ImageData {
+    thumbnail: string;
+    full: string;
+}
 
 export interface Image {
     id: string;
     type: 'image';
-    url: string;
+    data: ImageData;
     format: string;
     captionDe: string;
     captionEn: string;
+}
+
+export interface AudioData {
+    thumbnail: string;
+    full: string;
 }
 
 export interface Audio {
     id: string;
     type: 'audio';
-    url: string;
-    format: string;
+    data: AudioData;
     captionDe: string;
     captionEn: string;
+}
+
+export interface VideoData {
+    thumbnail: string;
+    full: string;
 }
 
 export interface Video {
     id: string;
     type: 'video';
-    url: string;
-    format: string;
+    data: VideoData;
     captionDe: string;
     captionEn: string;
 }
@@ -31,8 +43,7 @@ export interface Video {
 export interface Gallery {
     id: string;
     type: 'gallery';
-    //entities: MediaEntity[];
-    images: string[];
+    entities: MediaEntity[];
 }
 
 export interface InformationMedia {

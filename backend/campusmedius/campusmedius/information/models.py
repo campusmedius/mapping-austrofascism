@@ -1,9 +1,11 @@
 from django.db import models
+from django.template.defaultfilters import truncatechars
 from tinymce.models import HTMLField
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
+
 
 MEDIA_ENTITY_MODELS = models.Q(
     app_label='information', model='image') | models.Q(
@@ -13,7 +15,11 @@ MEDIA_ENTITY_MODELS = models.Q(
 
 class MediaEntity(models.Model):
     gallery = models.ForeignKey(
-        'Gallery', null=True, blank=True, related_name='entities', on_delete=models.CASCADE)
+        'Gallery',
+        null=True,
+        blank=True,
+        related_name='entities',
+        on_delete=models.CASCADE)
 
     limit = models.Q(app_label='information', model='image')
 
@@ -25,52 +31,50 @@ class MediaEntity(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
 
-class Image(models.Model):
-    url = models.URLField()
+class MediaBaseModel(models.Model):
+    phaidra_id = models.CharField(
+        max_length=32, help_text="For example: 'o:906180'")
     caption_de = models.TextField(null=True, blank=True)
     caption_en = models.TextField(null=True, blank=True)
 
-    media_entity = GenericRelation(MediaEntity)
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return str(self.id)
 
+    @property
+    def short_caption_de(self):
+        return truncatechars(self.caption_de, 100)
 
-class Audio(models.Model):
-    url = models.URLField()
-    caption_de = models.TextField(null=True, blank=True)
-    caption_en = models.TextField(null=True, blank=True)
+    @property
+    def short_caption_en(self):
+        return truncatechars(self.caption_en, 100)
 
+
+class Image(MediaBaseModel):
     media_entity = GenericRelation(MediaEntity)
 
-    def __str__(self):
-        return str(self.id)
 
-
-class Video(models.Model):
-    url = models.URLField()
-    caption_de = models.TextField(null=True, blank=True)
-    caption_en = models.TextField(null=True, blank=True)
-
+class Audio(MediaBaseModel):
     media_entity = GenericRelation(MediaEntity)
 
-    def __str__(self):
-        return str(self.id)
+
+class Video(MediaBaseModel):
+    media_entity = GenericRelation(MediaEntity)
 
 
 class Gallery(models.Model):
-    title_de = models.TextField(null=True, blank=True)
-    title_en = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.title_de)
+        return str(self.id)
 
 
 class Information(models.Model):
     title_de = models.TextField(null=True, blank=True)
     title_en = models.TextField(null=True, blank=True)
-    content_de = HTMLField(null=True, blank=True)
-    content_en = HTMLField(null=True, blank=True)
+    content_de = models.TextField(null=True, blank=True)
+    content_en = models.TextField(null=True, blank=True)
 
     media_images = models.ManyToManyField(Image, blank=True)
     media_audios = models.ManyToManyField(Audio, blank=True)
@@ -79,3 +83,11 @@ class Information(models.Model):
 
     def __str__(self):
         return ('{} - {}').format(self.id, self.title_de)
+
+    @property
+    def short_content_de(self):
+        return truncatechars(self.content_de, 100)
+
+    @property
+    def short_content_en(self):
+        return truncatechars(self.content_en, 100)

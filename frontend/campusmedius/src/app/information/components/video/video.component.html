@@ -1,13 +1,15 @@
 <span *ngIf="data">
     <button mat-icon-button class="control" (click)="opened = !opened">
-        <span [ngClass]="{'cm-image':!opened,'cm-close':opened}">
+        <span [ngClass]="{'cm-video':!opened,'cm-close':opened}">
             <span class="path1"></span><span class="path2"></span>
         </span>
     </button>
     <div class="animation-container" [@container]="opened">
         <div class="container" fxLayout="row">
-            <div fxFlex="50" class="image">
-                <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            <div fxFlex="50" class="video">
+                <video controls controlsList="nodownload" preload="metadata">
+                    <source [src]="this.data.data.full" type="video/mp4">
+                </video>
             </div>
             <div fxFlex="50" class="caption" [innerHtml]="lang === 'en' ? data.captionEn : data.captionDe"></div>
         </div>

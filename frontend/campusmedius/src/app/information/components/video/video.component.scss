@@ -9,9 +9,20 @@
     background: $text-block-background-color;
     margin-top: 5px;
     margin-bottom: 20px;
-    font-family: $caption-font;
+    font-family: $caption-regular-font;
+    ::ng-deep em, ::ng-deep i {
+	      font-family: $caption-italics-font;
+    }
     font-size: $small-font-size;
     line-height: $small-line-height;
+}
+
+img {
+    width: 100%;
+}
+
+.caption {
+    padding: 20px;
 }
 
 button {
@@ -24,4 +35,8 @@ button {
     font-size: $base-font-size;
     padding: 0 0;
     margin: 0px;
+}
+
+video {
+    width: 100%;
 }

@@ -1,4 +1,4 @@
-{stdenv, uwsgi, python36, python36Packages}:
+{stdenv, uwsgi, python36, python36Packages }:
 
 let
     uwsgi-python = uwsgi.override { plugins = [ "python3" ]; };
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
   src = ../../campusmedius;
 
   buildInputs = [ uwsgi-python pythonenv ];
-  
+ 
   installPhase = ''
     ${pythonenv}/bin/python ./campusmedius/manage.py collectstatic
     mkdir -p $out/share/campusmedius

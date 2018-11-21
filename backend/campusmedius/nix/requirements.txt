@@ -1,7 +1,8 @@
-Django
-django-cors-headers
-django-extensions
-django-filter
-djangorestframework
-django-tinymce4-lite
-djangorestframework-camel-case
+Django==1.11.16
+django-cors-headers==2.1.0
+django-extensions==1.9.8
+django-filter==1.1.0
+djangorestframework==3.7.3
+django-tinymce4-lite==1.6.0
+djangorestframework-camel-case==0.2.0
+django-location-field==2.0.6

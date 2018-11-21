@@ -34,10 +34,19 @@ h2 {
     }
 }
 
+
+.mat-menu-panel {
+    margin-top: 40px;
+    background: $map-overlay-background-color;
+}
+
 .ngx-gallery-preview-text {
     color: $primary-font-color !important;
     z-index: 999 !important;
-    font-family: $caption-font !important;
+    font-family: $caption-regular-font !important;
+    i, em {
+	      font-family: $caption-italics-font !important;
+    }
     font-size: $small-font-size !important;
     line-height: $small-line-height !important;
     background: $text-block-background-color !important;

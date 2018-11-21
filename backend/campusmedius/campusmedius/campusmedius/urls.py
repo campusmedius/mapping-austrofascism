@@ -20,7 +20,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^topology/', include('topology.urls')),
+    # url(r'^topology/', include('topology.urls')),
     url(r'^topography/', include('topography.urls')),
     url(r'^information/', include('information.urls')),
 ]

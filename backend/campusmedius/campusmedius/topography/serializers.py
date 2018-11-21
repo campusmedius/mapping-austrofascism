@@ -10,24 +10,17 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = (
-            'title_de',
-            'title_en',
-            'id',
-            'start',
-            'end',
-            'timeline_row',
-            'coordinates',
-            'information',
-            'next_event',
-            'previous_event'
-        )
+        fields = ('title_de', 'title_en', 'id', 'start', 'end', 'timeline_row',
+                  'coordinates', 'information', 'next_event', 'previous_event')
 
     def get_coordinates(self, obj):
-        return {'lng': obj.lng, 'lat': obj.lat}
+        return {
+            'lng': obj.location.split(',')[1],
+            'lat': obj.location.split(',')[0]
+        }
 
     def to_internal_value(self, data):
         internal = super().to_internal_value(data)
-        internal['lng'] = data['coordinates']['lng']
-        internal['lat'] = data['coordinates']['lat']
+        internal[
+            'location'] = data['coordinates']['lat'] + ',' + data['coordinates']['lng']
         return internal

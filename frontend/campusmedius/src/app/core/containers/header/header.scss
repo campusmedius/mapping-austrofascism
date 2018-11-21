@@ -20,23 +20,6 @@
     }
 }
 
-.nav-main {
-    font-size: $small-font-size !important;
-    a {
-        margin: 0px 10px;
-        width: 100px;
-        text-align: center;
-        height: 34px;
-        padding: 0px;
-        margin-top: -10px;
-    }
-    a.active, a:hover {
-        font-family: $title-semibold-font;
-        color: $active-font-color;
-        border-bottom: solid 2px $active-font-color;
-    }
-}
-
 .nav-lang {
     text-align: right;
     font-size: $small-font-size;
@@ -56,7 +39,6 @@
 }
 
 .logo {
-    margin-left: 20px;
     color: $map-overlay-active-color;
     height: 28px;
     .logo-left {
