@@ -29,13 +29,10 @@ export class InformationService {
 
     getInformation(id: string): Observable<Information> {
         return this.http
-            .get(`${this.API_URL}/information/informations/1/?format=json`)
+            .get(`${this.API_URL}/information/informations/${id}/?format=json`)
             .map((data: Information) => {
                 data.id = id;
                 data.id += '';
-                // data.contentEn = template;
-                // data.contentDe = template;
-                // data.media = <any>media;
                 return data;
             });
     }

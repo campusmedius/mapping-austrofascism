@@ -88,7 +88,7 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     private initialized = false;
 
     @HostBinding('@panel')
-    public opened = true;
+    public opened = false;
 
     constructor(private translate: TranslateService) { }
 

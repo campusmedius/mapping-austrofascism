@@ -23,10 +23,6 @@ export class EventService {
                     event.id = event.id + '';
                     event.start = moment(event.start);
                     event.end = moment(event.end);
-                    event.introDe = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec justo mollis, imperdiet elit id, ullamcorper metus. Sed aliquam massa in bibendum ultricies. Integer rhoncus elit dui, sed viverra massa venenatis rhoncus.';
-                    event.introEn = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec justo mollis, imperdiet elit id, ullamcorper metus. Sed aliquam massa in bibendum ultricies. Integer rhoncus elit dui, sed viverra massa venenatis rhoncus.';
-                    event.information = 'http://localhost:8000/information/informations/1/';
-                    event.informationId = event.id;
                 });
                 return data;
             });

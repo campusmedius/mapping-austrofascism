@@ -30,4 +30,7 @@
     &:hover .highlight, &.selected .highlight {
         display: block;
     }
+    &:focus {
+        outline: 0;
+    }
 }

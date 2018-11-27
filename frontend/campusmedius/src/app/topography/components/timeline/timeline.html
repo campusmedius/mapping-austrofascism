@@ -2,12 +2,18 @@
     <button mat-flat-button color="warn" class="panel-control">
             <mat-icon fontSet="fa" fontIcon="fa-caret-down" [@panelControl]="opened"></mat-icon>
     </button>
-    <span>{{'timeline.header' | translate | lowercase}}</span>
+    <span>{{'timeline.header' | translate }}</span>
 </div>
 
 <div class="events">
     <div *ngFor="let row of rows" class="events-row">
-        <div *ngFor="let line of row" class="event" [style.left.%]="line.left" [style.width.%]="line.width" [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1}">
+        <div *ngFor="let line of row"
+             class="event"
+             [routerLink]="['/topography', 'events', line.event.id]"
+             queryParamsHandling="merge"
+             [style.left.%]="line.left"
+             [style.width.%]="line.width"
+             [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1}">
         </div>
     </div>
     <div #baseline class="baseline">

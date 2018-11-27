@@ -8,7 +8,8 @@
         <div class="container" fxLayout="row">
             <div fxFlex="50" class="video">
                 <video controls controlsList="nodownload" preload="metadata">
-                    <source [src]="this.data.data.full" type="video/mp4">
+                    <!-- <source [src]="this.data.data.full" type="video/mp4"> -->
+                    <source src="https://stream-cd.univie.ac.at/media/phaidra/c47c9323f8628c10527cdd9748173e5acc4d8c9c_hi.mp4/playlist.m3u8" type="application/x-mpegURL" />
                 </video>
             </div>
             <div fxFlex="50" class="caption" [innerHtml]="lang === 'en' ? data.captionEn : data.captionDe"></div>

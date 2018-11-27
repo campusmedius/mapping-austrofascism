@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import truncatechars
 from location_field.models.plain import PlainLocationField
 
 from information.models import Information
@@ -7,6 +8,8 @@ from information.models import Information
 class Event(models.Model):
     title_de = models.TextField()
     title_en = models.TextField()
+    abstract_de = models.TextField(null=True, blank=True)
+    abstract_en = models.TextField(null=True, blank=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
     timeline_row = models.IntegerField()
@@ -24,3 +27,11 @@ class Event(models.Model):
 
     def __str__(self):
         return ('{} - {}').format(self.id, self.title_de)
+
+    @property
+    def short_abstract_de(self):
+        return truncatechars(self.abstract_de, 100)
+
+    @property
+    def short_abstract_en(self):
+        return truncatechars(self.abstract_en, 100)

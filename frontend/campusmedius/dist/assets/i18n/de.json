@@ -1,8 +1,8 @@
 {
     "header": {
-        "topography": "Topography",
-        "topology": "Topology",
-        "mediality": "Mediality",
+        "topography": "Topographie",
+        "topology": "Topologie",
+        "mediality": "Medialität",
         "about": "Über",
         "contact": "Kontakt",
         "team": "Team"
@@ -10,7 +10,7 @@
     "info": {
         "next": "Weiter",
         "previous": "Zurück",
-        "read-more": "Mehr lesen"
+        "read-more": "Weiterlesen"
     },
     "timeline": {
         "header": "Zeitleiste"

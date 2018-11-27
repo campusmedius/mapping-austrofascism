@@ -42,8 +42,8 @@
 }
 
 .events-row {
-    height: 6px;
-    margin-top: 3px;
+    height: 8px;
+    margin-top: 6px;
     width: 100%;
     position: relative;
 }
@@ -57,6 +57,13 @@
     border-radius: 1px;
     &.active {
         opacity: 1;
+    }
+    &:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+    &:focus {
+        outline: 0;
     }
 }
 

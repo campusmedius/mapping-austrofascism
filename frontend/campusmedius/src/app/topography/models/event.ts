@@ -7,8 +7,8 @@ export interface Event {
     id: string;
     titleDe: string;
     titleEn: string;
-    introDe: string;
-    introEn: string;
+    abstractDe: string;
+    abstractEn: string;
     start: Moment;
     end: Moment;
     timelineRow: number;

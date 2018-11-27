@@ -34,11 +34,12 @@ export class InfoTimestampPipe implements PipeTransform {
             event.start.locale('de-at');
             event.end.locale('de-at');
 
-            str = event.start.format('D. MMMM YYYY \xa0|\xa0 k:mm') + ' – ';
             if (sameDay) {
-                str += event.end.format('k:mm');
+                str = event.start.format('D. MMMM YYYY \xa0|\xa0 k:mm') + ' – ';
+                str += event.end.format('k:mm') + ' Uhr';
             } else {
-                str += event.end.format('D. MMMM YYYY \xa0|\xa0 h:mm a');
+                str = event.start.format('D. MMMM YYYY \xa0|\xa0 k:mm') + ' Uhr – ';
+                str += event.end.format('D. MMMM YYYY \xa0|\xa0 h:mm') + ' Uhr';
             }
         }
         return str;

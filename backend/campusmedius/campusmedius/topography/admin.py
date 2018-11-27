@@ -12,6 +12,8 @@ class EventAdmin(admin.ModelAdmin):
         'id',
         'title_de',
         'title_en',
+        'short_abstract_de',
+        'short_abstract_en',
         'start',
         'end',
         'information',

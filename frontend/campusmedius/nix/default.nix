@@ -1,7 +1,7 @@
 {stdenv}:
 
 stdenv.mkDerivation {
-  name = "cm-frontend-0.0.3";
+  name = "cm-frontend-0.0.4";
   
   src = ../../campusmedius;
   

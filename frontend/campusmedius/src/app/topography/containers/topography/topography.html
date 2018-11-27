@@ -13,7 +13,7 @@
                         <h1>{{translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn}}</h1>
                     </div>
                     <div *ngIf="!sidenavOpened; else fullInfo" class="intro">
-                        <p>{{translate.currentLang === 'de' ? selectedEvent.introDe : selectedEvent.introEn}}</p>
+                        <p>{{translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn}}</p>
                         <button mat-flat-button class="btn-read-more" color="warn" (click)="toggleInformationPanel()">{{'info.read-more' | translate | uppercase}}</button>
                     </div>
                     <ng-template #fullInfo>
