@@ -12,7 +12,7 @@
         services.campusmedius.backend = {
             debug = false;
             CORSAllowAll = true;
-            djangoAllowedHosts = ["campusmedius.net" "192.168.56.103"];
+            djangoAllowedHosts = ["campusmedius.net" "192.168.56.101" "192.168.56.102" "192.168.56.103" "192.168.56.104" "192.168.56.105" "192.168.56.106" "192.168.56.107" "192.168.56.108" "192.168.56.109"];
         };
         
         #keys

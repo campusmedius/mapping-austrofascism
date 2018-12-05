@@ -61,6 +61,8 @@ class Audio(MediaBaseModel):
 
 
 class Video(MediaBaseModel):
+    stream_id = models.CharField(
+        max_length=32, help_text="For example: 'c47c9323f8628c10527cdd9748173e5acc4d8c9c'")
     media_entity = GenericRelation(MediaEntity)
 
 

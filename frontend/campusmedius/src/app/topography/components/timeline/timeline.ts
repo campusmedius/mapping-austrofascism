@@ -29,6 +29,8 @@ import { Event, TimelineLine } from '../../models/event';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
+const OPENED_HEIGHT = '220px';
+const CLOSED_HEIGHT = '40px';
 
 @Component({
     selector: 'cm-timeline',
@@ -41,8 +43,8 @@ import * as moment from 'moment';
             transition('false <=> true', animate('300ms ease-in'))
         ]),
         trigger('panel', [
-            state('true', style({ height: '190px' })),
-            state('false', style({ height: '40px' })),
+            state('true', style({ height: OPENED_HEIGHT })),
+            state('false', style({ height: CLOSED_HEIGHT })),
             transition('false <=> true', animate('300ms ease-in'))
         ])
     ]
@@ -57,6 +59,7 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
 
     @Output() startFilterChanged = new EventEmitter<Moment>();
     @Output() endFilterChanged = new EventEmitter<Moment>();
+    @Output() height = new EventEmitter<string>();
 
     public timelineStart: Moment = moment('1933-05-13T13:00Z');
     public timelineEnd: Moment = moment('1933-05-14T13:00Z');
@@ -107,6 +110,7 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
             .subscribe((event: LangChangeEvent) => {
                 this.setLang(event.lang);
             });
+        setTimeout(() => this.height.emit(this.opened ? OPENED_HEIGHT : CLOSED_HEIGHT));
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -121,6 +125,11 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         if (changes['filteredIds']) {
             console.log(this.filteredIds);
         }
+    }
+
+    public toggle() {
+        this.opened = !this.opened;
+        this.height.emit(this.opened ? OPENED_HEIGHT : CLOSED_HEIGHT);
     }
 
     private setLang(lang: string) {

@@ -1,8 +1,8 @@
 
 <mat-sidenav-container hasBackdrop="false" fxFlex>
-    <mat-sidenav #sidenav mode="over" position="end" opened [@sidenav]="sidenavOpened">
-        <button mat-button class="sidenav-control" (click)="toggleInformationPanel()">
-            <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavControl]="sidenavOpened"></mat-icon>
+    <mat-sidenav #sidenav mode="over" position="end" opened [@sidenav]="sidepanelState">
+        <button mat-button class="sidenav-control" (click)="toggleInformationPanel()" *ngIf="sidepanelState !== 'intro'">
+            <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
         </button>
         <div class="info-container">
             <div *ngIf="selectedEvent; else topographyStart" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
@@ -10,10 +10,10 @@
                 <div class="info-body" fxFill>
                     <div class="info-heading">
                         <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
-                        <h1>{{translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn}}</h1>
+                        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
                     </div>
-                    <div *ngIf="!sidenavOpened; else fullInfo" class="intro">
-                        <p>{{translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn}}</p>
+                    <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
+                        <p [innerHtml]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"></p>
                         <button mat-flat-button class="btn-read-more" color="warn" (click)="toggleInformationPanel()">{{'info.read-more' | translate | uppercase}}</button>
                     </div>
                     <ng-template #fullInfo>
@@ -31,11 +31,11 @@
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <cm-map>
+        <cm-map [overlayBottomSize]="timelineHeight" [overlayRightSize]="sidepanelWidth">
             <cm-map-event *ngFor="let event of events$ | async" [event]="event" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
             </cm-map-event>
         </cm-map>
-        <cm-timeline [@timeline]="sidenavOpened" [events]="events$ | async" [filteredIds]="filteredIds" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)"></cm-timeline>
+        <cm-timeline [@timeline]="sidepanelState" [events]="events$ | async" [filteredIds]="filteredIds" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)" (height)="timelineHeight = $event"></cm-timeline>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

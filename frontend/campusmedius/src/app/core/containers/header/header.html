@@ -1,8 +1,8 @@
 <div fxFlex fxLayout ="row" fxLayoutAlign=" center" class="nav-sub">
     <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
-        <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
+        <mat-icon class="cm-menu"></mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" >
         <button mat-menu-item routerLink="/about" routerLinkActive="active">{{'header.about' | translate}}</button>
         <button mat-menu-item routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</button>
         <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button>
@@ -12,7 +12,7 @@
     </mat-menu>
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-    <div class="logo" fxLayout ="row">
+    <div class="logo" routerLink="/" fxLayout ="row">
         <div class="logo-left"><span>campus</span></div>
         <div class="logo-right"><span>medius</span></div>
     </div>

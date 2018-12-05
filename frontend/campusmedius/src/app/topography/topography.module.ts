@@ -25,6 +25,7 @@ import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
 import { EventResolver } from './guards/event';
 import { DynamicInformationComponent } from './components/dynamic-information/dynamic-information.component';
 
+
 @NgModule({
     imports: [
         CommonModule,

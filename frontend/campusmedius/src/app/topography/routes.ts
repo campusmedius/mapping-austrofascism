@@ -11,10 +11,16 @@ export const routes: Routes = [
     }, {
         path: 'events',
         component: TopographyComponent,
-        resolve: { loaded: EventResolver }
+        resolve: { loaded: EventResolver },
+        data: {
+            reuse: true
+        }
     }, {
         path: 'events/:eventId',
         component: TopographyComponent,
-        resolve: { loaded: EventResolver }
+        resolve: { loaded: EventResolver },
+        data: {
+            reuse: true
+        }
     }
 ];

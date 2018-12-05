@@ -4,6 +4,8 @@ import { SafeResourceUrl, DomSanitizer, SafeUrl, SafeStyle } from '@angular/plat
 import { NgxGalleryAction } from './ngx-gallery-action.model';
 import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
 
+import * as Hls from 'hls.js';
+
 @Component({
     selector: 'ngx-gallery-preview',
     template: `
@@ -30,7 +32,7 @@ import { NgxGalleryHelperService } from './ngx-gallery-helper.service';
 
 <img *ngIf="isOpen && this.types[this.index] === 'image' && src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (contextmenu)="onRightClick($event)" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
 
-<video *ngIf="isOpen && this.types[this.index] === 'video' && src" [src]="src" controls controlsList="nodownload" preload="metadata" #previewImage class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+<video id="gallery-video" *ngIf="isOpen && this.types[this.index] === 'video' && src" controls controlsList="nodownload" preload="metadata" #previewImage class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
 </video>
 
 <audio *ngIf="this.types[this.index] === 'audio' && src" [src]="src" controls controlsList="nodownload" preload="metadata" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
@@ -103,6 +105,8 @@ export class NgxGalleryPreviewComponent implements OnChanges {
     private initialLeft = 0;
     private initialTop = 0;
     private isMove = false;
+
+    private hls: Hls;
 
     private keyDownListener: Function;
 
@@ -409,6 +413,11 @@ export class NgxGalleryPreviewComponent implements OnChanges {
     }
 
     private _show() {
+        if (this.hls) {
+            this.hls.destroy();
+            this.hls = null;
+        }
+
         this.zoomValue = 1;
         this.rotateValue = 0;
         this.resetPosition();
@@ -441,13 +450,24 @@ export class NgxGalleryPreviewComponent implements OnChanges {
 
         if (this.types[this.index] === 'video') {
             setTimeout(() => {
+                const videoElement = <any>document.getElementById('gallery-video');
+                if (Hls.isSupported()) {
+                    this.hls = new Hls({
+                        maxBufferLength: 10,
+                        maxBufferSize: 1000 * 512
+                    });
+                    this.hls.attachMedia(videoElement);
+                    this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+                        this.hls.loadSource(<string>this.images[this.index]);
+                    });
+                }
                 this.loading = false;
-            })
+            });
         }
         if (this.types[this.index] === 'audio') {
             setTimeout(() => {
                 this.loading = false;
-            })
+            });
         }
     }
 

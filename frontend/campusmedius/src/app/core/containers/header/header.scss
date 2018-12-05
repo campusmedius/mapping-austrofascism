@@ -39,6 +39,7 @@
 }
 
 .logo {
+    cursor: pointer;
     color: $map-overlay-active-color;
     height: 28px;
     .logo-left {
@@ -56,11 +57,14 @@
         height: 100%;
         padding-left: 3px;
         span {
-            font-family: $title-regular-font;
+            font-family: $text-regular-font;
             display: inline-block;
             position: relative;
             top: 2px;
             color: #d7d7d7;
         }
+    }
+    &:focus {
+        outline: 0;
     }
 }

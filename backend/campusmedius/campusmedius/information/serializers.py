@@ -4,8 +4,8 @@ from .models import Image, Audio, Video, Gallery
 from .models import Information
 
 IMAGE_URL = 'https://services.phaidra.univie.ac.at/api/imageserver?IIIF={}.tif/full/{}/0/default.jpg'
-VIDEO_URL = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
-AUDIO_URL = 'https://hpr.dogphilosophy.net/test/ogg.ogg'
+VIDEO_URL = 'https://stream-cd.univie.ac.at/media/phaidra/{}_hi.mp4/playlist.m3u8'
+AUDIO_URL = 'https://fedora.phaidra.univie.ac.at/fedora/objects/{}/methods/bdef:Content/get'
 
 # Helper field
 class ConstantField(serializers.Field):
@@ -56,7 +56,7 @@ class ImageSerializer(serializers.ModelSerializer):
     def get_data(self, obj):
         return {
             'thumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
-            'full': IMAGE_URL.format(obj.phaidra_id, '1920,')
+            'full': IMAGE_URL.format(obj.phaidra_id, 'full')
         }
 
 
@@ -75,7 +75,7 @@ class AudioSerializer(serializers.ModelSerializer):
 
     def get_data(self, obj):
         return {
-            'full': AUDIO_URL,
+            'full': AUDIO_URL.format(obj.phaidra_id),
             'thumbnail': 'http://gettravel.com/wp-content/uploads/2018/04/Video-Placeholder.jpg'
         }
 
@@ -95,7 +95,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
     def get_data(self, obj):
         return {
-            'full': VIDEO_URL,
+            'full': VIDEO_URL.format(obj.stream_id),
             'thumbnail': 'http://gettravel.com/wp-content/uploads/2018/04/Video-Placeholder.jpg'
         }
 

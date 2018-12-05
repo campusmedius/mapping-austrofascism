@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -28,6 +28,16 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
+}
+
+class CustomRouteReuseStrategy extends RouteReuseStrategy {
+    public shouldDetach(route: ActivatedRouteSnapshot): boolean { return false; }
+    public store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void { }
+    public shouldAttach(route: ActivatedRouteSnapshot): boolean { return false; }
+    public retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle { return null; }
+    public shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+        return (future.routeConfig === curr.routeConfig) || future.data.reuse;
+    }
 }
 
 @NgModule({
@@ -93,7 +103,11 @@ export function HttpLoaderFactory(http: HttpClient) {
  * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided
  * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
  */
-        { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }
+        { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
+        {
+            provide: RouteReuseStrategy,
+            useClass: CustomRouteReuseStrategy
+        }
     ],
     bootstrap: [AppComponent],
     declarations: []

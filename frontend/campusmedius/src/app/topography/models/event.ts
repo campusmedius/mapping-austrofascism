@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 import { Information } from '../../information/models/information';
-import { Coordinates } from '../../shared/models/geo';
+import { LngLat } from 'mapbox-gl';
 
 
 export interface Event {
@@ -14,7 +14,7 @@ export interface Event {
     timelineRow: number;
     information: string;
     informationId: string;
-    coordinates: Coordinates;
+    coordinates: LngLat;
     nextEvent: string;
     previousEvent: string;
 }

@@ -2,6 +2,7 @@
 @import "./scss/material.scss";
 @import './scss/fonts.scss';
 @import './scss/variables.scss';
+@import './scss/icons.scss';
 
 html, body {
 	  font-family: $text-regular-font;
@@ -34,10 +35,24 @@ h2 {
     }
 }
 
+cm-info-event-nav {
+    font-family: $title-regular-font;
+    i, em {
+        font-family: $title-italics-font;
+    }
+    .previous:hover, .next:hover {
+        font-family: $title-semibold-font;
+        i, em {
+            font-family: $title-semibold-italic-font;
+        }
+    }
+}
 
 .mat-menu-panel {
-    margin-top: 40px;
     background: $map-overlay-background-color;
+    margin-top: 15px;
+    margin-left: -10px;
+    width: 170px;
 }
 
 .ngx-gallery-preview-text {
@@ -77,30 +92,32 @@ h2 {
     }
 }
 
-cm-gallery {
-    margin-bottom: 60px;
+cm-information > :last-child {
+    margin-bottom: 120px;
 }
 
-cm-information:last-child {
-    margin-bottom: 120px;
+cm-information {
+    h2 {
+        margin-top: 3.32rem;
+    }
 }
 
 /* unvisited link */
 a:link {
-    color: #c38c93;
+    color: $accent-color;
 }
 
 /* visited link */
 a:visited {
-    color: #c38c93;
+    color: $accent-color;
 }
 
 /* mouse over link */
 a:hover {
-    color: #c38c93;
+    color: $accent-color;
 }
 
 /* selected link */
 a:active {
-    color: #c38c93;
+    color: $accent-color;
 }

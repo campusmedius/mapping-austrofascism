@@ -1,0 +1,152 @@
+@font-face {
+  font-family: 'cm-icons';
+  src:  url('./assets/fonts/cm-icons.eot?jasso2');
+  src:  url('./assets/fonts/cm-icons.eot?jasso2#iefix') format('embedded-opentype'),
+    url('./assets/fonts/cm-icons.ttf?jasso2') format('truetype'),
+    url('./assets/fonts/cm-icons.woff?jasso2') format('woff'),
+    url('./assets/fonts/cm-icons.svg?jasso2#cm-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="cm-"], [class*=" cm-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'cm-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cm-audio:before {
+  content: "\e900";
+}
+.cm-camera:before {
+  content: "\e901";
+}
+.cm-chevron-bold-down:before {
+  content: "\e902";
+}
+.cm-chevron-bold-left:before {
+  content: "\e903";
+}
+.cm-chevron-bold-right:before {
+  content: "\e904";
+}
+.cm-chevron-bold-up:before {
+  content: "\e905";
+}
+.cm-chevron-double-down:before {
+  content: "\e906";
+}
+.cm-chevron-double-left:before {
+  content: "\e907";
+}
+.cm-chevron-double-right:before {
+  content: "\e908";
+}
+.cm-chevron-double-up:before {
+  content: "\e909";
+}
+.cm-chevron-down:before {
+  content: "\e90a";
+}
+.cm-chevron-left:before {
+  content: "\e90b";
+}
+.cm-chevron-right:before {
+  content: "\e90c";
+}
+.cm-chevron-up:before {
+  content: "\e90d";
+}
+.cm-close:before {
+  content: "\e90e";
+}
+.cm-external-link:before {
+  content: "\e90f";
+}
+.cm-film:before {
+  content: "\e910";
+}
+.cm-layers:before {
+  content: "\e911";
+}
+.cm-menu:before {
+  content: "\e912";
+}
+.cm-microphone:before {
+  content: "\e913";
+}
+.cm-minus:before {
+  content: "\e914";
+}
+.cm-plus:before {
+  content: "\e915";
+}
+.cm-quote:before {
+  content: "\e916";
+}
+.cm-seperator:before {
+  content: "\e917";
+}
+.cm-square-audio:before {
+  content: "\e918";
+}
+.cm-square-camera:before {
+  content: "\e919";
+}
+.cm-square-close:before {
+  content: "\e91a";
+}
+.cm-square-external-link:before {
+  content: "\e91b";
+}
+.cm-square-film:before {
+  content: "\e91c";
+}
+.cm-square-layers:before {
+  content: "\e91d";
+}
+.cm-square-microphone:before {
+  content: "\e91e";
+}
+.cm-square-minus:before {
+  content: "\e91f";
+}
+.cm-square-plus:before {
+  content: "\e920";
+}
+.cm-square-quote:before {
+  content: "\e921";
+}
+.cm-square-zoom:before {
+  content: "\e922";
+}
+.cm-topology-circle-examininggaze:before {
+  content: "\e923";
+}
+.cm-topology-circle-governedtransmission:before {
+  content: "\e924";
+}
+.cm-topology-circle-sovereignsign:before {
+  content: "\e925";
+}
+.cm-topology-examininggaze:before {
+  content: "\e926";
+}
+.cm-topology-governedtransmission:before {
+  content: "\e927";
+}
+.cm-topology-sovereignsign:before {
+  content: "\e928";
+}
+.cm-zoom:before {
+  content: "\e929";
+}

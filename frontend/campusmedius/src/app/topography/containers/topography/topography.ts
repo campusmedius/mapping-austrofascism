@@ -1,11 +1,13 @@
 import {
-    Component, OnInit, OnDestroy, Input
+    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
+import { MapComponent } from '../../../shared/components/map/map';
 
 import { Store } from '@ngrx/store';
 import * as fromTopography from '../../reducers';
@@ -19,25 +21,33 @@ import { Moment } from 'moment';
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
+const SIDEPANEL_WIDTH = {
+    'full': '75%',
+    'short': '400px',
+    'intro': '40%'
+};
+
 @Component({
     selector: 'cm-topography',
     templateUrl: './topography.html',
     styleUrls: ['./topography.scss'],
     animations: [
-        trigger('sidenavControl', [
-            state('true', style({ transform: 'scaleX(1)' })),
-            state('false', style({ transform: 'scaleX(-1)' })),
-            transition('false <=> true', animate('300ms ease-in'))
+        trigger('sidenavIcon', [
+            state('full', style({ transform: 'scaleX(1)' })),
+            state('short', style({ transform: 'scaleX(-1)' })),
+            transition('full <=> short', animate('300ms ease-in'))
         ]),
         trigger('sidenav', [
-            state('true', style({ width: '75%' })),
-            state('false', style({ width: '440px' })),
-            transition('false <=> true', animate('300ms ease-in'))
+            state('full', style({ width: SIDEPANEL_WIDTH['full'] })),
+            state('short', style({ width: SIDEPANEL_WIDTH['short'] })),
+            state('intro', style({ width: SIDEPANEL_WIDTH['intro'] })),
+            transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('timeline', [
-            state('true', style({ width: '25%' })),
-            state('false', style({ width: 'calc(100vw - 440px)' })),
-            transition('false <=> true', animate('300ms ease-in'))
+            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['full'] + ')' })),
+            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['short'] + ')' })),
+            state('intro', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['intro'] + ')' })),
+            transition('* <=> *', animate('300ms ease-in'))
         ])
     ]
 })
@@ -50,28 +60,26 @@ export class TopographyComponent implements OnInit, OnDestroy {
     selectedEvent: Event;
     nextEvent: Event;
     previousEvent: Event;
-    sidenavOpened = false;
+    sidepanelState = 'intro'; // full, short, intro
+    sidepanelWidth: string;
+
+    @ViewChild(MapComponent) map: MapComponent;
+
+    public timelineHeight: number;
 
     constructor(
         private store: Store<fromTopography.State>,
         private translate: TranslateService,
         private route: ActivatedRoute,
         private router: Router
-    ) {
-    }
+    ) { }
 
     ngOnInit() {
-        // this.translate.onLangChange.subscribe((e: LangChangeEvent) => {
-        //     console.log(e);
-        // });
-
+        this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
         this.route.queryParams.subscribe(queryParams => {
             if (queryParams['info']) {
-                if (queryParams['info'] === 'full') {
-                    this.sidenavOpened = true;
-                } else {
-                    this.sidenavOpened = false;
-                }
+                this.sidepanelState = queryParams['info'];
+                this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
             }
         });
 
@@ -84,6 +92,17 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.selectedEvent = e.current;
                 this.nextEvent = e.next;
                 this.previousEvent = e.previous;
+                if (e.current) {
+                    this.map.flyTo(e.current.coordinates);
+
+                    if (this.sidepanelState === 'intro') {
+                        this.sidepanelState = 'short';
+                        this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                    }
+                } else {
+                    this.sidepanelState = 'intro';
+                    this.sidepanelWidth = SIDEPANEL_WIDTH['intro'];
+                }
             });
 
         this.information$ = this.store.select(fromTopography.getSelectedInformation);
@@ -109,10 +128,15 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     public toggleInformationPanel() {
-        if (this.sidenavOpened) {
-            this.router.navigate([], { queryParams: { 'info': 'short' }, queryParamsHandling: 'merge' });
+        if (this.sidepanelState === 'full') {
+            this.sidepanelState = 'short';
+            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+            this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
         } else {
-            this.router.navigate([], { queryParams: { 'info': 'full' }, queryParamsHandling: 'merge' });
+            this.sidepanelState = 'full';
+            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+            this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         }
     }
 

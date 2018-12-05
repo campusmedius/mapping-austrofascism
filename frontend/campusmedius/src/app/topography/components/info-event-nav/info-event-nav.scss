@@ -16,16 +16,12 @@
     cursor: pointer;
     text-align: right;
     color: $primary-font-color;
-    font-family: $title-regular-font;
     overflow: hidden;
     margin-right: 10px;
     .text {
         display: inline-block;
         position: relative;
         top: -5px;
-    }
-    &:hover {
-        font-family: $title-semibold-font;
     }
     .fa {
         margin-right: 14px;
@@ -48,16 +44,12 @@
     height: 32px;
     text-align: left;
     color: $primary-font-color;
-    font-family: $title-regular-font;
     overflow: hidden;
     margin-left: 10px;
     .text {
         display: inline-block;
         position: relative;
         top: -5px;
-    }
-    &:hover {
-        font-family: $title-semibold-font;
     }
     .fa {
         margin-left: 14px;
