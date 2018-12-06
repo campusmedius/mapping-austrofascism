@@ -23,19 +23,17 @@
         position: relative;
         top: -5px;
     }
-    .fa {
+    .arrow {
+        line-height: 32px;
         margin-right: 14px;
-        font-size: 1.7rem;
+        font-size: 1rem;
         color: #b3b3b3;
     }
 }
 
-.seperator {
-    border-right: 2px solid #d9d9d9;
-    width: 0px;
-    height: 28px;
-    color: $primary-font-color;
-    margin-top: 5px;
+.cm-seperator {
+    color: #b3b3b3;
+    font-size: 26px;
 }
 
 .next {
@@ -51,9 +49,10 @@
         position: relative;
         top: -5px;
     }
-    .fa {
+    .arrow {
+        line-height: 32px;
         margin-left: 14px;
-        font-size: 1.7rem;
+        font-size: 1rem;
         color: #b3b3b3;
     }
 }

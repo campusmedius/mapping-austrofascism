@@ -27,8 +27,9 @@ export class GalleryComponent implements OnInit {
 
         this.galleryOptions = [{
             'previewKeyboardNavigation': true,
-            'arrowPrevIcon': 'fa fa-angle-left',
-            'arrowNextIcon': 'fa fa-angle-right',
+            'arrowPrevIcon': 'cm-chevron-left',
+            'arrowNextIcon': 'cm-chevron-right',
+            'closeIcon': 'cm-square-close',
             'image': false, 'height': '200px', width: '100%'
         }];
 

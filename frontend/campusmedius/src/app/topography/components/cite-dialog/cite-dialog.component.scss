@@ -1,0 +1,9 @@
+@import '../../../../scss/_variables.scss';
+
+:host {
+    color: $primary-font-color;
+    font-family: $caption-regular-font;
+    i, em {
+	      font-family: $caption-italics-font;
+    }
+}

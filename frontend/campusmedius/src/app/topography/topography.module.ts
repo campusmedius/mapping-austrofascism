@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { InformationModule } from '../information/information.module';
 
 import { TopographyComponent } from './containers/topography/topography';
+import { MapComponent } from './components/map/map';
 import { TimelineComponent } from './components/timeline/timeline';
 import { InfoEventNavComponent } from './components/info-event-nav/info-event-nav';
 
@@ -24,6 +25,7 @@ import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
 
 import { EventResolver } from './guards/event';
 import { DynamicInformationComponent } from './components/dynamic-information/dynamic-information.component';
+import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
 
 
 @NgModule({
@@ -31,7 +33,6 @@ import { DynamicInformationComponent } from './components/dynamic-information/dy
         CommonModule,
         SharedModule,
         InformationModule,
-        RouterModule.forChild(routes),
 
         /**
          * StoreModule.forFeature is used for composing state
@@ -49,15 +50,21 @@ import { DynamicInformationComponent } from './components/dynamic-information/dy
          * All Effects will only be instantiated once regardless of
          * whether they are registered once or multiple times.
          */
-        EffectsModule.forFeature([EventEffects])
+        EffectsModule.forFeature([EventEffects]),
+        RouterModule.forChild(routes)
     ],
     declarations: [
         TopographyComponent,
+        MapComponent,
         TimelineComponent,
         MapEventComponent,
         InfoEventNavComponent,
         InfoTimestampPipe,
-        DynamicInformationComponent
+        DynamicInformationComponent,
+        CiteDialogComponent
+    ],
+    entryComponents: [
+        CiteDialogComponent
     ],
     providers: [
         EventService,

@@ -3,11 +3,13 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { MapComponent } from '../../../shared/components/map/map';
+import { MapComponent } from '../../components/map/map';
+import { CiteDialogComponent } from '../../components/cite-dialog/cite-dialog.component';
 
 import { Store } from '@ngrx/store';
 import * as fromTopography from '../../reducers';
@@ -71,7 +73,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
         private store: Store<fromTopography.State>,
         private translate: TranslateService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog
     ) { }
 
     ngOnInit() {
@@ -106,6 +109,14 @@ export class TopographyComponent implements OnInit, OnDestroy {
             });
 
         this.information$ = this.store.select(fromTopography.getSelectedInformation);
+    }
+
+
+    public showCite() {
+        const dialogRef = this.dialog.open(CiteDialogComponent, {
+            width: '250px',
+            data: { event: this.selectedEvent }
+        });
     }
 
     public updateTimeFilter(key: string, time: Moment) {

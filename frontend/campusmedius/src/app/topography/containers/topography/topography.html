@@ -1,6 +1,6 @@
 
 <mat-sidenav-container hasBackdrop="false" fxFlex>
-    <mat-sidenav #sidenav mode="over" position="end" opened [@sidenav]="sidepanelState">
+    <mat-sidenav #sidenav mode="over" position="end" [disableClose]="true" opened [@sidenav]="sidepanelState">
         <button mat-button class="sidenav-control" (click)="toggleInformationPanel()" *ngIf="sidepanelState !== 'intro'">
             <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
         </button>
@@ -10,6 +10,11 @@
                 <div class="info-body" fxFill>
                     <div class="info-heading">
                         <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+                        <div class="cite-button-wrapper">
+                            <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
+                                <span class="cm-square-quote"></span>
+                            </button>
+                        </div>
                         <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
                     </div>
                     <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">

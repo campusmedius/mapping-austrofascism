@@ -1,6 +1,10 @@
 import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from './core/containers/not-found-page';
 
+import { TopographyModule } from './topography/topography.module';
+import { TopologyModule } from './topology/topology.module';
+import { MedialityModule } from './mediality/mediality.module';
+
 export const routes: Routes = [
     {
         path: '',
@@ -9,15 +13,15 @@ export const routes: Routes = [
     },
     {
         path: 'topography',
-        loadChildren: './topography/topography.module#TopographyModule'
+        loadChildren: () => TopographyModule
     },
     {
         path: 'topology',
-        loadChildren: './topology/topology.module#TopologyModule'
+        loadChildren: () => TopologyModule
     },
     {
         path: 'mediality',
-        loadChildren: './mediality/mediality.module#MedialityModule'
+        loadChildren: () => MedialityModule
     },
     { path: '**', component: NotFoundPageComponent }
 ];

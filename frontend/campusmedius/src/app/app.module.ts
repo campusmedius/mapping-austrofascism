@@ -11,9 +11,6 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { CoreModule } from './core/core.module';
-import { TopographyModule } from './topography/topography.module';
-import { TopologyModule } from './topology/topology.module';
-import { MedialityModule } from './mediality/mediality.module';
 
 import { routes } from './routes';
 import { reducers, metaReducers } from './core/reducers';
@@ -46,11 +43,6 @@ class CustomRouteReuseStrategy extends RouteReuseStrategy {
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-
-        RouterModule.forRoot(routes, {
-            useHash: false,
-            anchorScrolling: 'enabled'
-        }),
 
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
@@ -95,6 +87,11 @@ class CustomRouteReuseStrategy extends RouteReuseStrategy {
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
+        }),
+
+        RouterModule.forRoot(routes, {
+            useHash: false,
+            anchorScrolling: 'enabled'
         })
     ],
     providers: [

@@ -67,28 +67,48 @@ cm-info-event-nav {
     background: $text-block-background-color !important;
 }
 
-.ngx-gallery-arrow-left {
+ngx-gallery-thumbnails .ngx-gallery-arrow-left {
     left: -60px !important;
     .ngx-gallery-icon-content {
         color: #8c8c8c !important;
-        font-size: 60px !important;
+        font-size: 30px !important;
     }
 }
 
-.ngx-gallery-arrow-right {
+ngx-gallery-thumbnails .ngx-gallery-arrow-right {
     right: -60px !important;
     .ngx-gallery-icon-content {
         color: #8c8c8c !important;
-        font-size: 60px !important;
+        font-size: 30px !important;
     }
 }
 
+ngx-gallery-preview{
+    .ngx-gallery-arrow {
+        font-size: 40px;
+    }
+}
+
+.ngx-gallery-spinner {
+    font-family: "FontAwesome" !important;
+}
+
+cm-image ngx-gallery-arrows {
+    display: none !important;
+}
+
+.mat-dialog-container {
+    background: #fff;
+}
+
 .ngx-gallery-thumbnail {
-    .cm-zoom {
+    .cm-square-zoom {
         top: 0px;
         right: 0px;
         position: absolute;
         font-size: $base-font-size;
+        color: $accent-color;
+        background-color: #fff;
     }
 }
 

@@ -20,8 +20,8 @@ export const COMPONENTS = [
     imports: [
         CommonModule,
         SharedModule,
-        RouterModule,
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        RouterModule
     ],
     declarations: COMPONENTS,
     exports: [

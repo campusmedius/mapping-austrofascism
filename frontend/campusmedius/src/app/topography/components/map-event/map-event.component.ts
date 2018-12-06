@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
-import { MapComponent } from '../../../shared/components/map/map';
+import { MapComponent } from '../../components/map/map';
 import { Event } from '../../models/event';
 
 import { Marker } from 'mapbox-gl';

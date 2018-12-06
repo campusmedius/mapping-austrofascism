@@ -19,6 +19,7 @@ export class MapComponent implements OnInit {
     @Input() overlayTopSize = '0px';
     @Input() overlayBottomSize = '0px';
 
+    public viennaMapVisible = true;
     public map: Map;
     private paths = {
         'type': 'FeatureCollection',
@@ -530,7 +531,7 @@ export class MapComponent implements OnInit {
                 }
             }
         ]
-    }
+    };
     constructor(
         private router: Router
     ) { }
@@ -658,6 +659,17 @@ export class MapComponent implements OnInit {
             zoom: zoom,
             duration: 600
         });
+    }
+
+    public toogleViennaMap() {
+        this.viennaMapVisible = !this.viennaMapVisible;
+        if (this.viennaMapVisible) {
+            this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'visible');
+            this.map.setLayoutProperty('paths', 'visibility', 'visible');
+        } else {
+            this.map.setLayoutProperty('paths', 'visibility', 'none');
+            this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'none');
+        }
     }
 
 }

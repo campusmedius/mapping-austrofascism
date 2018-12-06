@@ -95,3 +95,25 @@ mat-sidenav {
     z-index: 30;
     box-shadow: 0 8px 10px -5px rgba(0,0,0,.4), 0 16px 24px 2px rgba(0,0,0,.44), 0 6px 30px 5px rgba(0,0,0,.22) !important;
 }
+
+.cite-button {
+    width: $base-font-size;
+    min-width: $base-font-size;
+    height: $base-font-size;
+    line-height: $base-font-size;
+    min-height: $base-font-size;
+    vertical-align: top;
+    font-size: $base-font-size;
+    padding: 0 0;
+    margin: 0px;
+    color: $accent-color;
+    position: absolute;
+    left: -40px;
+    top: 4px;
+}
+
+.cite-button-wrapper {
+    position: relative;
+    width: 0px;
+    height: 0px;
+}

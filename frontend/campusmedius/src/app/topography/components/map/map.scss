@@ -20,9 +20,20 @@
         padding: 0px;
         height: 30px;
         line-height: 30px;
-        font-size: 22px;
+    }
+    .zoom {
+        font-size: 18px;
     }
     .mat-button-wraper {
         line-height: 30px;
+    }
+    .vie-map-not-visible {
+        color: #666666;
+        background-color: white;
+        border: solid #666666 1px;
+    }
+    .vie-map-toggle {
+        margin-top: 15px;
+        font-size: 22px;
     }
 }

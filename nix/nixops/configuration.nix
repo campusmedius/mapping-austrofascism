@@ -63,6 +63,7 @@
             locations."/tiles" = {
                 alias = "${pkgs.cm-tiles}/share/campusmedius/tiles";
                 extraConfig = ''
+                    try_files $uri /tiles/1/1/1.png;
                     auth_basic campusmedius;
                     auth_basic_user_file /run/keys/basicAuth;
                 '';

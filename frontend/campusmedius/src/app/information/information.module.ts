@@ -15,6 +15,9 @@ import { AudioComponent } from './components/audio/audio.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { QuoteComponent } from './components/quote/quote.component';
 import { NoteComponent } from './components/note/note.component';
+import { LinkExternComponent } from './components/link-extern/link-extern.component';
+import { LinkInpageComponent } from './components/link-inpage/link-inpage.component';
+import { LinkInternComponent } from './components/link-intern/link-intern.component';
 
 import { InformationService } from './services/information';
 
@@ -27,7 +30,10 @@ export const COMPONENTS = [
     VideoComponent,
     GalleryComponent,
     QuoteComponent,
-    NoteComponent
+    NoteComponent,
+    LinkExternComponent,
+    LinkInpageComponent,
+    LinkInternComponent
 ];
 
 @NgModule({
@@ -35,7 +41,6 @@ export const COMPONENTS = [
         CommonModule,
         SharedModule,
         FlexLayoutModule,
-        RouterModule,
         ScrollToModule.forRoot(),
 
         /**
@@ -46,7 +51,8 @@ export const COMPONENTS = [
          */
         StoreModule.forFeature('information', reducers),
 
-        TranslateModule.forChild()
+        TranslateModule.forChild(),
+        RouterModule
     ],
     declarations: COMPONENTS,
     exports: [

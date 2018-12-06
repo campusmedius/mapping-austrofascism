@@ -44,10 +44,10 @@ export class ImageComponent implements OnInit {
 
         this.galleryOptions = [{
             'image': false,
-            'imageArrows': false,
-            'thumbnailsArrows': false,
             'thumbnailsColumns': 1,
-            'width': '100%'
+            'closeIcon': 'cm-square-close',
+            'width': '100%',
+            'spinnerIcon': 'fa fa-spinner fa-pulse fa-3x fa-fw'
         }];
 
         this.galleryImages = [{
