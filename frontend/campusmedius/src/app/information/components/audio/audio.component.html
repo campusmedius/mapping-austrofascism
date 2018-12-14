@@ -3,13 +3,13 @@
         <span [ngClass]="{'cm-square-audio':!opened,'cm-square-close':opened}"></span>
     </button>
     <div class="animation-container" [@container]="opened">
-        <div class="container" fxLayout="row">
+        <div class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="image">
                 <audio controls controlsList="nodownload" preload="metadata">
-                    <source [src]="this.data.data.full" type="audio/ogg">
+                    <source [src]="this.data.data.full" type="audio/mpeg">
                 </audio>
             </div>
-            <div fxFlex="50" class="caption" [innerHtml]="lang === 'en' ? data.captionEn : data.captionDe"></div>
+            <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe"></cm-caption>
         </div>
     </div>
 </span>

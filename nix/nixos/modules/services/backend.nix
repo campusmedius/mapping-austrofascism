@@ -11,7 +11,6 @@ let
         PYTHONPATH = "${pythonenv}/lib/${pythonenv.libPrefix}:${pythonenv}/${pythonenv.sitePackages}:${pythonenv}/lib/${pythonenv.libPrefix}/lib-dynload";
         DJANGO_SETTINGS_MODULE = "campusmedius.settings";
         ALLOWED_HOSTS="${concatStringsSep " " cfg.djangoAllowedHosts}";
-        DEBUG="${boolToString cfg.debug}";
         CORS_ORIGIN_ALLOW_ALL="${boolToString cfg.CORSAllowAll}";
         DB_PATH="${cfg.dataDir}/db.sqlite3";
   };
@@ -51,14 +50,6 @@ with lib;
         default = "/api";
         description = "
           Mount path.
-        ";
-      };
-      
-      debug = mkOption {
-        type = types.bool;
-        default = false;
-        description = "
-          Debug mode.
         ";
       };
       
@@ -132,7 +123,8 @@ with lib;
           ${uwsgi}/bin/uwsgi --plugin python3 --chdir=${pkgs.cm-backend}/share/campusmedius/campusmedius --mount ${cfg.mountPath}=campusmedius.wsgi:application --manage-script-name --master --pidfile=${cfg.stateDir}/cm-backend.pid --socket=${cfg.stateDir}/uwsgi.sock --processes=4 --harakiri=20 --max-requests=5000 --vacuum --home=/path/to/virtual/env --daemonize=${cfg.logDir}/cm-backend.log
       '';
       serviceConfig = {
-        Type = "simple";
+        Type = "forking";
+        PIDFile = "${cfg.stateDir}/cm-backend.pid";
         PermissionsStartOnly = true;
         Restart = "always";
         RestartSec = "5s";

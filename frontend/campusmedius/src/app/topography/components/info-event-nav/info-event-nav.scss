@@ -3,11 +3,10 @@
 :host {
     display: inline-block;
     font-size: $extra-small-font-size;
-    height: $event-nav-height;
 }
 
 .wrapper {
-    height: 100%;
+    height: $event-nav-height;
 }
 
 .previous {

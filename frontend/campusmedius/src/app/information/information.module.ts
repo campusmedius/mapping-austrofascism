@@ -15,6 +15,7 @@ import { AudioComponent } from './components/audio/audio.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { QuoteComponent } from './components/quote/quote.component';
 import { NoteComponent } from './components/note/note.component';
+import { CaptionComponent } from './components/caption/caption.component';
 import { LinkExternComponent } from './components/link-extern/link-extern.component';
 import { LinkInpageComponent } from './components/link-inpage/link-inpage.component';
 import { LinkInternComponent } from './components/link-intern/link-intern.component';
@@ -22,6 +23,23 @@ import { LinkInternComponent } from './components/link-intern/link-intern.compon
 import { InformationService } from './services/information';
 
 import { TranslateModule } from '@ngx-translate/core';
+
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+import { NgxGalleryActionComponent } from './ngx-gallery/ngx-gallery-action.component';
+import { NgxGalleryArrowsComponent } from './ngx-gallery/ngx-gallery-arrows.component';
+import { NgxGalleryBulletsComponent } from './ngx-gallery/ngx-gallery-bullets.component';
+import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image.component';
+import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails.component';
+import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview.component';
+import { NgxGalleryComponent } from './ngx-gallery/ngx-gallery.component';
+
+export class CustomHammerConfig extends HammerGestureConfig {
+    overrides = <any>{
+        'pinch': { enable: false },
+        'rotate': { enable: false }
+    };
+}
 
 export const COMPONENTS = [
     InformationComponent,
@@ -31,9 +49,17 @@ export const COMPONENTS = [
     GalleryComponent,
     QuoteComponent,
     NoteComponent,
+    CaptionComponent,
     LinkExternComponent,
     LinkInpageComponent,
-    LinkInternComponent
+    LinkInternComponent,
+    NgxGalleryActionComponent,
+    NgxGalleryArrowsComponent,
+    NgxGalleryBulletsComponent,
+    NgxGalleryImageComponent,
+    NgxGalleryThumbnailsComponent,
+    NgxGalleryPreviewComponent,
+    NgxGalleryComponent
 ];
 
 @NgModule({
@@ -52,7 +78,7 @@ export const COMPONENTS = [
         StoreModule.forFeature('information', reducers),
 
         TranslateModule.forChild(),
-        RouterModule
+        RouterModule,
     ],
     declarations: COMPONENTS,
     exports: [
@@ -63,7 +89,8 @@ export const COMPONENTS = [
         ScrollToModule
     ],
     providers: [
-        InformationService
+        InformationService,
+        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
     ],
     entryComponents: []
 })

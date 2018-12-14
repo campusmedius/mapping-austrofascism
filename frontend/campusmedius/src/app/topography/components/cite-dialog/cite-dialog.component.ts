@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
     selector: 'cm-cite-dialog',
@@ -8,9 +9,36 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 })
 export class CiteDialogComponent implements OnInit {
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+    public titleDe: string;
+    public titleEn: string;
+    public url: string;
+
+    constructor(
+        private translate: TranslateService,
+        private dialogRef: MatDialogRef<CiteDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     ngOnInit() {
+        this.titleEn = '"' + this.data.event.titleEn + '" in <i>Campus Medius';
+        this.titleDe = '"' + this.data.event.titleDe + '" in <i>Campus Medius';
+        this.url = 'https://campusmedius.net/topography/events/' + this.data.event.id + '?lang=' + this.translate.currentLang + '&info=full';
     }
 
+    close() {
+        this.dialogRef.close();
+    }
+
+    copyURLToClipboard() {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this.url;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
 }

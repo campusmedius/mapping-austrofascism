@@ -6,7 +6,7 @@ from .models import Information
 IMAGE_URL = 'https://services.phaidra.univie.ac.at/api/imageserver?IIIF={}.tif/full/{}/0/default.jpg'
 VIDEO_URL = 'https://stream-cd.univie.ac.at/media/phaidra/{}_hi.mp4/playlist.m3u8'
 VIDEO_THUMBNAIL = 'https://stream.univie.ac.at/media/phaidra/{}.jpeg'
-AUDIO_URL = 'https://fedora.phaidra.univie.ac.at/fedora/objects/{}/methods/bdef:Content/get'
+AUDIO_URL = 'https://phaidra.univie.ac.at/open/{}'
 
 # Helper field
 class ConstantField(serializers.Field):

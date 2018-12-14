@@ -61,27 +61,28 @@ class GalleryAdmin(admin.ModelAdmin):
 
 admin.site.register(Gallery, GalleryAdmin)
 
+def find_all_ids(pattern, cleaned_data):
+    ids = []
+    for id in re.findall(pattern, cleaned_data['content_en']):
+        ids.append(id)
+    for id in re.findall(pattern, cleaned_data['content_de']):
+        if id not in ids:
+            ids.append(id)
+    return ids
+
 
 class InformationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(InformationForm, self).clean()
         try:
-            cleaned_data['media_images'] = []
-            for id in re.findall(IMAGE_PATTERN, cleaned_data['content_en']):
-                cleaned_data['media_images'].append(Image.objects.get(pk=id))
-
-            cleaned_data['media_audios'] = []
-            for id in re.findall(AUDIO_PATTERN, cleaned_data['content_en']):
-                cleaned_data['media_audios'].append(Audio.objects.get(pk=id))
-
-            cleaned_data['media_videos'] = []
-            for id in re.findall(VIDEO_PATTERN, cleaned_data['content_en']):
-                cleaned_data['media_videos'].append(Video.objects.get(pk=id))
-
-            cleaned_data['media_galleries'] = []
-            for id in re.findall(GALLERY_PATTERN, cleaned_data['content_en']):
-                cleaned_data['media_galleries'].append(Gallery.objects.get(pk=id))
-
+            cleaned_data['media_images'] = [Image.objects.get(pk=id) for id in
+                                            find_all_ids(IMAGE_PATTERN, cleaned_data)]
+            cleaned_data['media_audios'] = [Audio.objects.get(pk=id) for id in
+                                            find_all_ids(AUDIO_PATTERN, cleaned_data)]
+            cleaned_data['media_videos'] = [Video.objects.get(pk=id) for id in
+                                            find_all_ids(VIDEO_PATTERN, cleaned_data)]
+            cleaned_data['media_galleries'] = [Gallery.objects.get(pk=id) for id in
+                                            find_all_ids(GALLERY_PATTERN, cleaned_data)]
         except ObjectDoesNotExist as e:
             raise forms.ValidationError(str(e) + ' Media entity doesnt exist.')
 

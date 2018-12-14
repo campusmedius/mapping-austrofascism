@@ -17,7 +17,6 @@
         
         # campusmedius backend
         services.campusmedius.backend = {
-            debug = true;
             CORSAllowAll = true;
             djangoAllowedHosts = ["*"];
         };

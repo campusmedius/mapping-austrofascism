@@ -27,7 +27,7 @@ export * from './ngx-gallery-order.model';
 export * from './ngx-gallery-ordered-image.model';
 export * from './ngx-gallery-action.model';
 
-export class CustomHammerConfig extends HammerGestureConfig  {
+export class CustomHammerConfig extends HammerGestureConfig {
     overrides = <any>{
         'pinch': { enable: false },
         'rotate': { enable: false }
@@ -54,4 +54,4 @@ export class CustomHammerConfig extends HammerGestureConfig  {
         { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
     ]
 })
-export class NgxGalleryModule {}
+export class NgxGalleryModule { }

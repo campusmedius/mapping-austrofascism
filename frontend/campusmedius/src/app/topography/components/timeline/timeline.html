@@ -12,18 +12,18 @@
              [routerLink]="['/topography', 'events', line.event.id]"
              queryParamsHandling="merge"
              [style.left.%]="line.left"
-             [style.width.%]="line.width"
-             [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1}">
+             [style.width.%]="line.width">
+            <div class="bar" [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1}"></div>
         </div>
     </div>
     <div #baseline class="baseline">
         <div class="selectedline" [style.left.%]="leftHandleX" [style.right.%]="100 - rightHandleX"></div>
-        <div class="handle handle-left" (mousedown)="handleMouseDown('left', $event)" [style.left.%]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
+        <div class="handle handle-left" (pointerdown)="handleMouseDown('left', $event)" [style.left.%]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
             <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
                 <div class="indicatorlabel">{{leftHandleLabel}}</div>
             </div>
         </div>
-        <div class="handle handle-right" (mousedown)="handleMouseDown('right', $event)" [style.right.%]="100 - rightHandleX" [ngClass]="{'move': moveRightHandle}">
+        <div class="handle handle-right" (pointerdown)="handleMouseDown('right', $event)" [style.right.%]="100 - rightHandleX" [ngClass]="{'move': moveRightHandle}">
             <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
                 <div class="indicatorlabel">{{rightHandleLabel}}</div>
             </div>

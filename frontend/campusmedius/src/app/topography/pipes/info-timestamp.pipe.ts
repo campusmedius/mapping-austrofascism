@@ -23,11 +23,11 @@ export class InfoTimestampPipe implements PipeTransform {
             event.start.locale('en');
             event.end.locale('en');
 
-            str = event.start.format('MMMM D, YYYY \xa0|\xa0 h:mm a') + ' – ';
+            str = event.start.format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a') + ' – ';
             if (sameDay) {
                 str += event.end.format('h:mm a');
             } else {
-                str += event.end.format('MMMM D, YYYY \xa0|\xa0 h:mm a');
+                str += event.end.format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a');
             }
         }
         if (lang === 'de') {
@@ -35,11 +35,11 @@ export class InfoTimestampPipe implements PipeTransform {
             event.end.locale('de-at');
 
             if (sameDay) {
-                str = event.start.format('D. MMMM YYYY \xa0|\xa0 k:mm') + ' – ';
+                str = event.start.format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' – ';
                 str += event.end.format('k:mm') + ' Uhr';
             } else {
-                str = event.start.format('D. MMMM YYYY \xa0|\xa0 k:mm') + ' Uhr – ';
-                str += event.end.format('D. MMMM YYYY \xa0|\xa0 h:mm') + ' Uhr';
+                str = event.start.format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' Uhr – ';
+                str += event.end.format('D. MMMM YYYY \xa0\xa0\xa0 h:mm') + ' Uhr';
             }
         }
         return str;

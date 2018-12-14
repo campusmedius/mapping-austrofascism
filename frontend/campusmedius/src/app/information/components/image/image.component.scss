@@ -19,10 +19,15 @@
 
 img {
     width: 100%;
+    cursor: pointer;
+}
+
+.image {
+   position: relative;
 }
 
 .caption {
-    padding: 20px;
+    padding: 0px 24px 20px 24px;
 }
 
 button {
@@ -36,4 +41,14 @@ button {
     padding: 0 0;
     margin: 0px;
     color: $accent-color;
+    margin-top: 2px;
+}
+
+.cm-square-zoom {
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    font-size: $base-font-size;
+    color: $accent-color;
+    background-color: #fff;
 }

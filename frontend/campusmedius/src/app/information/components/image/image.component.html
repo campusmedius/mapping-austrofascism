@@ -1,14 +1,15 @@
 <span *ngIf="data">
     <button mat-icon-button class="control" (click)="opened = !opened">
-        <span [ngClass]="{'cm-square-camera':!opened,'cm-square-close':opened}"></span>
+        <span [ngClass]="{'cm-square-image':!opened,'cm-square-close':opened}"></span>
     </button>
     <div class="animation-container" [@container]="opened">
-        <div class="container" fxLayout="row">
+        <div *ngIf="opened" class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="image">
-                <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+                <span class="cm-square-zoom"></span>
+                <img [src]="data.data.full" (click)="showImage()" />
+                <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </div>
-            <div fxFlex="50" class="caption" [innerHtml]="lang === 'en' ? data.captionEn : data.captionDe"></div>
+            <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe"></cm-caption>
         </div>
     </div>
 </span>
-

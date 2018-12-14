@@ -1,24 +1,30 @@
+<cm-map [overlayBottomSize]="!isMobile ? timelineHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" >
+    <cm-map-event *ngFor="let event of events$ | async" [event]="event" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
+    </cm-map-event>
+</cm-map>
 
-<mat-sidenav-container hasBackdrop="false" fxFlex>
-    <mat-sidenav #sidenav mode="over" position="end" [disableClose]="true" opened [@sidenav]="sidepanelState">
-        <button mat-button class="sidenav-control" (click)="toggleInformationPanel()" *ngIf="sidepanelState !== 'intro'">
-            <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
-        </button>
-        <div class="info-container">
-            <div *ngIf="selectedEvent; else topographyStart" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
-                <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
-                <div class="info-body" fxFill>
+<div *ngIf="!isMobile" class="sidepanel" [@sidenav]="sidepanelState">
+    <button mat-button class="sidenav-control" (click)="toggleInformationPanel()" *ngIf="sidepanelState !== 'intro'">
+        <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
+    </button>
+    <div class="info-container">
+        <div *ngIf="selectedEvent; else topographyStart" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
+            <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+            <div class="info-body" fxFill>
+                <div class="info-content">
                     <div class="info-heading">
                         <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                         <div class="cite-button-wrapper">
                             <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
-                                <span class="cm-square-quote"></span>
+                                <span class="cm-square-link"></span>
                             </button>
                         </div>
                         <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
                     </div>
                     <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
-                        <p [innerHtml]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"></p>
+                        <p>
+                            <cm-dynamic-abstract [content]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"></cm-dynamic-abstract>
+                        </p>
                         <button mat-flat-button class="btn-read-more" color="warn" (click)="toggleInformationPanel()">{{'info.read-more' | translate | uppercase}}</button>
                     </div>
                     <ng-template #fullInfo>
@@ -26,21 +32,28 @@
                     </ng-template>
                 </div>
             </div>
-            <ng-template #topographyStart>
-                <div class="topography-start" fxLayout="column" fxLayoutAlign="center none" >
-                    <h1>Topography</h1>
-                    <p>Lorem ipsum dolor sit amet, <i>consectetur adipiscing elit</i>. Etiam nec justo mollis, imperdiet elit id, ullamcorper metus. Sed aliquam massa in bibendum ultricies. Integer rhoncus elit dui, sed viverra massa venenatis rhoncus. Nunc mauris purus, tempus a faucibus nec, tincidunt quis nisi. Nam accumsan mollis pretium. Duis non accumsan velit. Praesent venenatis nisi in pretium ullamcorper. Vestibulum efficitur lobortis sem.
-                    </p>
-                </div>
-            </ng-template>
         </div>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <cm-map [overlayBottomSize]="timelineHeight" [overlayRightSize]="sidepanelWidth">
-            <cm-map-event *ngFor="let event of events$ | async" [event]="event" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
-            </cm-map-event>
-        </cm-map>
-        <cm-timeline [@timeline]="sidepanelState" [events]="events$ | async" [filteredIds]="filteredIds" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)" (height)="timelineHeight = $event"></cm-timeline>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+        <ng-template #topographyStart>
+            <div class="topography-start" fxLayout="column" fxLayoutAlign="center none" >
+                <h1>Topography</h1>
+                <p>Lorem ipsum dolor sit amet, <i>consectetur adipiscing elit</i>. Etiam nec justo mollis, imperdiet elit id, ullamcorper metus. Sed aliquam massa in bibendum ultricies. Integer rhoncus elit dui, sed viverra massa venenatis rhoncus. Nunc mauris purus, tempus a faucibus nec, tincidunt quis nisi. Nam accumsan mollis pretium. Duis non accumsan velit. Praesent venenatis nisi in pretium ullamcorper. Vestibulum efficitur lobortis sem.
+                </p>
+            </div>
+        </ng-template>
+    </div>
+</div>
 
+<cm-timeline *ngIf="!isMobile" [@timeline]="sidepanelState" [events]="events$ | async" [filteredIds]="filteredIds" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)" (height)="timelineHeight = $event"></cm-timeline>
+
+<div *ngIf="isMobile" class="mobile-info">
+    <div class="info-heading">
+        <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
+    </div>
+    <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
+        <button mat-flat-button class="btn-read-more" color="warn" (click)="mobileShowMore()">{{'info.read-more' | translate | uppercase}}</button>
+    </div>
+    <ng-template #fullInfo>
+        <cm-dynamic-information [information]="information$ | async" [lang]="translate.currentLang"></cm-dynamic-information>
+    </ng-template>
+</div>

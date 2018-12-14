@@ -11,7 +11,8 @@ export class AppComponent implements OnInit {
 
     constructor(
         private translate: TranslateService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.translate.addLangs(['en', 'de']);
         translate.setDefaultLang('de');
@@ -24,10 +25,11 @@ export class AppComponent implements OnInit {
         if (!setLangTo) {
             if (translate.getBrowserLang().match(/en|de/)) {
                 setLangTo = translate.getBrowserLang();
-            };
+            }
         }
 
-        this.translate.use(setLangTo ? setLangTo : 'en');
+        setLangTo = setLangTo ? setLangTo : 'en';
+        this.translate.use(setLangTo);
     }
 
     ngOnInit() {

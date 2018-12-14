@@ -12,10 +12,7 @@
     </mat-menu>
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="center center">
-    <div class="logo" routerLink="/" fxLayout ="row">
-        <div class="logo-left"><span>campus</span></div>
-        <div class="logo-right"><span>medius</span></div>
-    </div>
+    <img fxHide.lt-sm routerLink="/" class="logo" src="./assets/logo.svg">
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end">
     <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">

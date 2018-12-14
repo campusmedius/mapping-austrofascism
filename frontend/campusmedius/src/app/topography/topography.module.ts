@@ -26,6 +26,7 @@ import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
 import { EventResolver } from './guards/event';
 import { DynamicInformationComponent } from './components/dynamic-information/dynamic-information.component';
 import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
+import { DynamicAbstractComponent } from './components/dynamic-abstract/dynamic-abstract.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.compon
         InfoEventNavComponent,
         InfoTimestampPipe,
         DynamicInformationComponent,
-        CiteDialogComponent
+        CiteDialogComponent,
+        DynamicAbstractComponent
     ],
     entryComponents: [
         CiteDialogComponent

@@ -1,7 +1,7 @@
 {stdenv, fetchgit}:
 
 stdenv.mkDerivation {
-  name = "cm-tiles-0.0.1";
+  name = "cm-tiles-0.0.2";
   
   src = ../../../../backend/tiles/tiles.tar.gz;
   sourceRoot = ".";

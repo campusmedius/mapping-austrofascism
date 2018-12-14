@@ -7,7 +7,7 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'events'
+        redirectTo: 'events/15'
     }, {
         path: 'events',
         component: TopographyComponent,

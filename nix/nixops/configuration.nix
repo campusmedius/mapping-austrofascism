@@ -43,7 +43,7 @@
         recommendedGzipSettings = true;
         recommendedOptimisation = true;
         recommendedProxySettings = true;
-        recommendedTlsSettings = true;
+        recommendedTlsSettings = false;
         appendConfig = "worker_processes 2;";
         virtualHosts."campusmedius.net" = {
             locations."/api" = {
@@ -76,9 +76,9 @@
                     auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
-            forceSSL = true;
-            sslCertificate = "/run/keys/sslCertificate";
-            sslCertificateKey = "/run/keys/sslCertificateKey";
+            forceSSL = false;
+            # sslCertificate = "/run/keys/sslCertificate";
+            # sslCertificateKey = "/run/keys/sslCertificateKey";
         };
     };
     
@@ -90,5 +90,5 @@
     # compatible, in order to avoid breaking some software such as database
     # servers. You should change this only after NixOS release notes say you
     # should.
-    system.stateVersion = "17.09"; # Did you read the comment?
+    system.stateVersion = "18.09"; # Did you read the comment?
 }

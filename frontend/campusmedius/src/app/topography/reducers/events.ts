@@ -34,7 +34,7 @@ export const adapter: EntityAdapter<Event> = createEntityAdapter<Event>({
  * additional properties can also be defined.
 */
 export const initialState: State = adapter.getInitialState({
-    timeFilter: { start: moment('1933-05-13T12:00Z'), end: moment('1933-05-14T12:00Z') },
+    timeFilter: { start: moment('1933-05-13T13:00Z'), end: moment('1933-05-14T13:00Z') },
     loaded: false
 });
 

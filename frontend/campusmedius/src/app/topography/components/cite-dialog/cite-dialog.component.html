@@ -1,8 +1,72 @@
-<h2>TODO Cite</h2>
-<ul>
-  <li>Titel</li>
-  <li>URL</li>
-  <li>Autoren</li>
-  <li>Updatedatum</li>
-  <li>CC-Lizenz</li>
-</ul>
+
+<button mat-button class="close cm-close" (click)="close()"></button>
+
+<div fxLayout="column" *ngIf="translate.currentLang === 'en'">
+    <div fxLayout="row">
+        <div class="label">Title</div>
+        <div class="content" [innerHtml]="titleEn"></div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">URL</div>
+        <div class="content url">{{url}}<button mat-flat-button class="copy" (click)="copyURLToClipboard()">copy</button></div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Text</div>
+        <div class="content">Simon Ganahl</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Code</div>
+        <div class="content">Andreas Krimbacher</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Design</div>
+        <div class="content">Susanne Kiesenhofer</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Updated</div>
+        <div class="content">January 1, 2019</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Copyright</div>
+        <div class="content">Unless stated otherwise, this website's content is available open-access under Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</cm-link-extern>. This license permits unrestricted use and distribution of the respective material, provided the creator(s) and the source are properly referenced, ideally in the form suggested above. For copyright details on the media objects, which are only cited in Campus Medius, please check the sources given in the captions.</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Sponsors</div>
+        <div class="content">The production of this website has been sponsored by the Austrian Science Fund (FWF: J3181-G20), the City of Vienna (MA 7: 573323/14), the Austrian Academy of Sciences (ÖAW: APART 11810), and the Department of German Studies at the University of Vienna.</div>
+    </div>
+</div>
+
+<div fxLayout="column" *ngIf="translate.currentLang === 'de'">
+    <div fxLayout="row">
+        <div class="label">Titel</div>
+        <div class="content" [innerHtml]="titleDe"></div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">URL</div>
+        <div class="content url">{{url}}<button mat-flat-button class="copy" (click)="copyURLToClipboard()">kopieren</button></div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Text</div>
+        <div class="content">Simon Ganahl</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Code</div>
+        <div class="content">Andreas Krimbacher</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Design</div>
+        <div class="content">Susanne Kiesenhofer</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Aktualisiert</div>
+        <div class="content">1. Jänner 2019</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Urheberrecht</div>
+        <div class="content">Wenn nicht anders angegeben, sind die Inhalte dieser Website unter Creative Commons  <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en">CC BY 4.0</cm-link-extern> frei verfügbar. Diese Lizenz gestattet uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass der/die Urheber/innen und die Quelle eindeutig genannt werden, idealerweise in der oben vorgeschlagenen Form. Für die Urheberrechte der Medienobjekte, die in Campus Medius lediglich zitiert werden, bitte die angeführten Quellen konsultieren.</div>
+    </div>
+    <div fxLayout="row">
+        <div class="label">Sponsoren</div>
+        <div class="content">Die Produktion dieser Website wurde und wird gefördert vom österreichischen Wissenschaftsfonds (FWF: J3181-G20), der Stadt Wien (MA 7: 573323/14), der Österreichischen Akademie der Wissenschaften (ÖAW: APART 11810) und dem Institut für Germanistik der Universität Wien.</div>
+    </div>
+</div>

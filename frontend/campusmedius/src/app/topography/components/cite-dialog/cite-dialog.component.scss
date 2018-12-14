@@ -7,3 +7,42 @@
 	      font-family: $caption-italics-font;
     }
 }
+
+.label {
+    font-family: $caption-semibold-font;
+    min-width: 100px;
+    font-size: $small-font-size;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.content {
+    font-size: $small-font-size;
+    margin-bottom: 0.6em;
+}
+
+.url {
+    font-size: 0.8em;
+}
+
+.close {
+    float: right;
+    display: block;
+    min-width: 20px;
+    margin-bottom: 2px;
+    width: 30px;
+    padding: 0px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+.copy {
+    height: $small-font-size;
+    line-height: $small-font-size;
+    background-color: #a7a7a7;
+    min-width: 60px;
+    font-size: 14px;
+    margin-left: 10px;
+}

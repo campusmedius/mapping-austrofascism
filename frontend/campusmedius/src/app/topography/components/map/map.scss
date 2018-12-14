@@ -3,13 +3,17 @@
     height: 100%;
 }
 
+:host {
+    position: relative;
+}
+
 :host /deep/ .mapboxgl-control-container {
     display: none;
 }
 
 .map-control {
     position: absolute;
-    z-index: 20;
+    z-index: 5;
     top: 20px;
     left: 20px;
     button {
@@ -22,7 +26,11 @@
         line-height: 30px;
     }
     .zoom {
-        font-size: 18px;
+        font-size: 16px;
+    }
+    .deactivated {
+        opacity: 0.6;
+        cursor: default;
     }
     .mat-button-wraper {
         line-height: 30px;

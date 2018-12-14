@@ -40,7 +40,9 @@ import * as Hls from 'hls.js';
 
                 <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index" (onChange)="showAtIndex($event)"></ngx-gallery-bullets>
             </div>
-            <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" [innerHTML]="description" (click)="$event.stopPropagation()"></div>
+            <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" (click)="$event.stopPropagation()">
+<div class="ngx-gallery-preview-text-content"><cm-caption [content]="description"></cm-caption></div>
+</div>
         </div>
     `,
     styleUrls: ['./ngx-gallery-preview.component.scss']
@@ -161,7 +163,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
 
     close(): void {
         this.isOpen = false;
-        this.closeFullscreen();
+        //this.closeFullscreen();
         this.onClose.emit();
 
         this.stopAutoPlay();

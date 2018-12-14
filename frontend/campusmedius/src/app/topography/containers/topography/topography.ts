@@ -4,6 +4,7 @@ import {
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -25,7 +26,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
     'full': '75%',
-    'short': '400px',
+    'short': '450px',
     'intro': '40%'
 };
 
@@ -58,6 +59,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
     information$: Observable<Information>;
     filteredIdsSubscription: Subscription;
     selectedEventsSubscription: Subscription;
+    mediaSubscription: Subscription;
+    isMobile: boolean;
     filteredIds: string[] = [];
     selectedEvent: Event;
     nextEvent: Event;
@@ -67,15 +70,25 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     @ViewChild(MapComponent) map: MapComponent;
 
-    public timelineHeight: number;
+    public timelineHeight = '40px';
+    public mobileOverlayHeight = '200px';
 
     constructor(
         private store: Store<fromTopography.State>,
         private translate: TranslateService,
         private route: ActivatedRoute,
         private router: Router,
-        private dialog: MatDialog
-    ) { }
+        private dialog: MatDialog,
+        private media: ObservableMedia
+    ) {
+        this.mediaSubscription = media.subscribe((change: MediaChange) => {
+            if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+                this.isMobile = true;
+            } else {
+                this.isMobile = false;
+            }
+        });
+    }
 
     ngOnInit() {
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
@@ -96,12 +109,11 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.nextEvent = e.next;
                 this.previousEvent = e.previous;
                 if (e.current) {
-                    this.map.flyTo(e.current.coordinates);
-
                     if (this.sidepanelState === 'intro') {
                         this.sidepanelState = 'short';
                         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                     }
+                    setTimeout(() => this.map.flyTo(e.current.coordinates));
                 } else {
                     this.sidepanelState = 'intro';
                     this.sidepanelWidth = SIDEPANEL_WIDTH['intro'];
@@ -109,13 +121,22 @@ export class TopographyComponent implements OnInit, OnDestroy {
             });
 
         this.information$ = this.store.select(fromTopography.getSelectedInformation);
+
+        this.router.navigate(['.'], {
+            relativeTo: this.route,
+            queryParams: { 'lang': this.translate.currentLang },
+            queryParamsHandling: 'merge',
+            replaceUrl: true
+        });
     }
 
 
     public showCite() {
         const dialogRef = this.dialog.open(CiteDialogComponent, {
-            width: '250px',
-            data: { event: this.selectedEvent }
+            width: '800px',
+            maxHeight: '90vh',
+            data: { event: this.selectedEvent },
+            autoFocus: false
         });
     }
 
@@ -135,7 +156,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public eventSelected(event: Event) {
         this.router.navigate(['/topography', 'events', event.id],
-            { queryParamsHandling: 'preserve' });
+            {
+                queryParamsHandling: 'preserve'
+            });
     }
 
     public toggleInformationPanel() {
@@ -151,9 +174,21 @@ export class TopographyComponent implements OnInit, OnDestroy {
         }
     }
 
+    public mobileShowMore() {
+        this.sidepanelState = 'full';
+        setTimeout(() => {
+            window.scrollBy({
+                top: 300,
+                left: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
     ngOnDestroy() {
         this.filteredIdsSubscription.unsubscribe();
         this.selectedEventsSubscription.unsubscribe();
+        this.mediaSubscription.unsubscribe();
     }
 
 }

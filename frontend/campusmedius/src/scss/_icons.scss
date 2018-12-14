@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-square-image:before {
+  content: "\e92a";
+}
+.cm-square-link:before {
+  content: "\e92b";
+}
 .cm-audio:before {
   content: "\e900";
 }

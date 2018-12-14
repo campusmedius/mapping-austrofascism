@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 
 declare var mapboxgl: any;
 import { Map, LngLat, Point } from 'mapbox-gl';
+
+const MAX_ZOOM = 15;
+const MIN_ZOOM = 9;
 
 @Component({
     selector: 'cm-map',
@@ -21,6 +24,10 @@ export class MapComponent implements OnInit {
 
     public viennaMapVisible = true;
     public map: Map;
+
+    public isMaxZoom = false;
+    public isMinZoom = false;
+
     private paths = {
         'type': 'FeatureCollection',
         'features': [
@@ -533,16 +540,44 @@ export class MapComponent implements OnInit {
         ]
     };
     constructor(
-        private router: Router
+        private router: Router,
+        private zone: NgZone
     ) { }
 
     ngOnInit() {
+        // check webgl
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl || !(gl instanceof WebGLRenderingContext)) {
+            alert('No Webgl found');
+            return;
+        }
+
         mapboxgl.accessToken = 'pk.eyJ1IjoiY2FydDBncmFwaCIsImEiOiI2Z1FEdEJVIn0.y2iW4bIEbP-xCQ8BU3-RjA';
         this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
+            maxZoom: MAX_ZOOM,
+            minZoom: MIN_ZOOM,
             style: 'mapbox://styles/mapbox/streets-v9',
             center: [16.4, 48.2], // starting position
             zoom: 13 // starting zoom
+        });
+
+        this.map.on('zoomend', (e) => {
+            const zoom = e.target.getZoom();
+            let newIsMaxZoom = false;
+            let newIsMinZoom = false;
+            if (zoom === MIN_ZOOM) {
+                newIsMinZoom = true;
+            } else if (zoom === MAX_ZOOM) {
+                newIsMaxZoom = true;
+            }
+            if (this.isMinZoom !== newIsMinZoom || this.isMaxZoom !== newIsMaxZoom) {
+                this.zone.run(() => {
+                    this.isMinZoom = newIsMinZoom;
+                    this.isMaxZoom = newIsMaxZoom;
+                });
+            }
         });
 
         // TODO: move to topography module
@@ -559,38 +594,40 @@ export class MapComponent implements OnInit {
                     'scheme': 'tms'
                 }
             });
-            this.map.addLayer({
-                'id': 'paths',
-                'type': 'line',
-                'source': {
-                    'type': 'geojson',
-                    'data': <any>this.paths
-                },
-                'layout': {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                'paint': {
-                    'line-color': '#4d4d4d',
-                    'line-width': 8
-                }
-            });
+            // this.map.addLayer({
+            //     'id': 'paths',
+            //     'type': 'line',
+            //     'source': {
+            //         'type': 'geojson',
+            //         'data': <any>this.paths
+            //     },
+            //     'layout': {
+            //         'line-join': 'round',
+            //         'line-cap': 'round'
+            //     },
+            //     'paint': {
+            //         'line-color': '#4d4d4d',
+            //         'line-width': 8,
+            //     }
+            // });
 
-            // When a click event occurs on a feature in the paths layer
-            this.map.on('click', 'paths', (e) => {
-                this.router.navigate(['/topography', 'events', e.features[0].properties.event],
-                    { queryParamsHandling: 'preserve' });
-            });
+            // // When a click event occurs on a feature in the paths layer
+            // this.map.on('click', 'paths', (e) => {
+            //     this.router.navigate(['/topography', 'events', e.features[0].properties.event],
+            //         { queryParamsHandling: 'preserve' });
+            // });
 
-            // Change the cursor to a pointer when the mouse is over the paths layer.
-            this.map.on('mouseenter', 'paths', () => {
-                this.map.getCanvas().style.cursor = 'pointer';
-            });
+            // // Change the cursor to a pointer when the mouse is over the paths layer.
+            // this.map.on('mouseenter', 'paths', () => {
+            //     this.map.getCanvas().style.cursor = 'pointer';
+            // });
 
-            // Change it back to a pointer when it leaves.
-            this.map.on('mouseleave', 'paths', () => {
-                this.map.getCanvas().style.cursor = '';
-            });
+            // // Change it back to a pointer when it leaves.
+            // this.map.on('mouseleave', 'paths', () => {
+            //     this.map.getCanvas().style.cursor = '';
+            //     this.map.setPaintProperty('paths', 'line-color', '#4d4d4d');
+            //     this.map.setPaintProperty('paths', 'line-opacity', 1);
+            // });
 
         });
 
@@ -665,9 +702,7 @@ export class MapComponent implements OnInit {
         this.viennaMapVisible = !this.viennaMapVisible;
         if (this.viennaMapVisible) {
             this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'visible');
-            this.map.setLayoutProperty('paths', 'visibility', 'visible');
         } else {
-            this.map.setLayoutProperty('paths', 'visibility', 'none');
             this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'none');
         }
     }

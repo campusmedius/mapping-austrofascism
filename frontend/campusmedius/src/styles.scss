@@ -4,6 +4,30 @@
 @import './scss/variables.scss';
 @import './scss/icons.scss';
 
+/**
+ * Fix fonts that render as bold in Firefox
+ *
+ * Put this near the top of your style.css
+ * Before any overriding styles
+ */
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+/**
+ * Firefox specific rule
+ */
+
+@-moz-document url-prefix() {
+  body {
+    font-weight: lighter !important;
+  }
+}
+
 html, body {
 	  font-family: $text-regular-font;
     i, em {
@@ -15,6 +39,7 @@ html, body {
     margin: 0px;
 }
 
+
 // TODO: set in cm-information
 h1 {
     font-family: $title-bold-font;
@@ -24,6 +49,7 @@ h1 {
     i, em {
         font-family: $title-bold-italic-font;
     }
+    font-weight: 400;
 }
 
 h2 {
@@ -33,6 +59,21 @@ h2 {
     i, em {
         font-family: $title-bold-italic-font;
     }
+    font-weight: 400;
+}
+
+sup {
+    vertical-align: top;
+    top: -0.25em;
+    position: relative;
+}
+
+li {
+    margin-bottom: 1em;
+}
+
+ul, ol {
+    margin-bottom: 2em;
 }
 
 cm-info-event-nav {
@@ -40,10 +81,12 @@ cm-info-event-nav {
     i, em {
         font-family: $title-italics-font;
     }
-    .previous:hover, .next:hover {
-        font-family: $title-semibold-font;
+    .text:hover, .text:hover {
+        //font-family: $title-semibold-font;
+        text-decoration: underline;
         i, em {
-            font-family: $title-semibold-italic-font;
+            // font-family: $title-semibold-italic-font;
+            text-decoration: underline;
         }
     }
 }
@@ -65,6 +108,11 @@ cm-info-event-nav {
     font-size: $small-font-size !important;
     line-height: $small-line-height !important;
     background: $text-block-background-color !important;
+}
+
+.ngx-gallery-preview-text-content {
+    max-width: 1400px;
+    margin: auto;
 }
 
 ngx-gallery-thumbnails .ngx-gallery-arrow-left {
@@ -91,6 +139,10 @@ ngx-gallery-preview{
 
 .ngx-gallery-spinner {
     font-family: "FontAwesome" !important;
+}
+
+.mobile-info ngx-gallery-arrows {
+    display: none;
 }
 
 cm-image ngx-gallery-arrows {
@@ -140,4 +192,16 @@ a:hover {
 /* selected link */
 a:active {
     color: $accent-color;
+}
+
+// fix button focus on dialog close
+button.mat-icon-button
+{
+    &.cdk-program-focused
+    {
+        .mat-button-focus-overlay
+        {
+            opacity: 0;
+        }
+    }
 }

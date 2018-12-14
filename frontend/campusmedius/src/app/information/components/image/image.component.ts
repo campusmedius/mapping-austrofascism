@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+    Component, OnInit, Input, ViewChild, ViewContainerRef,
+    ComponentRef, NgModule, ModuleWithComponentFactories, Compiler
+} from '@angular/core';
+
 import {
     trigger,
     state,
@@ -8,7 +12,7 @@ import {
     query
 } from '@angular/animations';
 
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '../../ngx-gallery/index';
 
 import { Image } from '../../models/information';
 import { InformationComponent } from '../information/information.component';
@@ -27,6 +31,7 @@ import { InformationComponent } from '../information/information.component';
 })
 export class ImageComponent implements OnInit {
     @Input() id: string;
+    @ViewChild('gallery') gallery: NgxGalleryComponent;
 
     public galleryOptions: NgxGalleryOptions[];
     public galleryImages: NgxGalleryImage[];
@@ -44,17 +49,24 @@ export class ImageComponent implements OnInit {
 
         this.galleryOptions = [{
             'image': false,
-            'thumbnailsColumns': 1,
+            'thumbnails': false,
             'closeIcon': 'cm-square-close',
-            'width': '100%',
+            'width': '0px',
+            'height': '0px',
             'spinnerIcon': 'fa fa-spinner fa-pulse fa-3x fa-fw'
         }];
 
         this.galleryImages = [{
             type: 'image',
-            small: this.data.data.thumbnail,
+            small: this.data.data.full,
             big: this.data.data.full,
             description: this.lang === 'de' ? this.data.captionDe : this.data.captionEn
         }];
+
     }
+
+    public showImage() {
+        this.gallery.openPreview(0);
+    }
+
 }

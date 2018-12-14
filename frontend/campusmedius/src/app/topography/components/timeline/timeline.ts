@@ -29,7 +29,7 @@ import { Event, TimelineLine } from '../../models/event';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-const OPENED_HEIGHT = '220px';
+const OPENED_HEIGHT = '210px';
 const CLOSED_HEIGHT = '40px';
 
 @Component({
@@ -156,8 +156,8 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
             const left = (startDiffMinutes / this.totalMinutes) * 100;
             const right = (endDiffMinutes / this.totalMinutes) * 100;
             const line = {
-                left: left + 1,
-                width: right - left - 2,
+                left: left,
+                width: right - left,
                 event: event
             };
 
@@ -171,7 +171,7 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         });
 
         this.rows = rows;
-        this.indicatorLineHeight = this.rows.length * 9 + 30;
+        this.indicatorLineHeight = this.rows.length * 9 + 40;
     }
 
     private getLabel(step: number) {
@@ -191,8 +191,8 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
             this.rightHandleStartX = this.rightHandleX;
             this.moveRightHandle = true;
         }
-        window.document.addEventListener('mousemove', this.bindMouseMove);
-        window.document.addEventListener('mouseup', this.bindMouseUp);
+        window.document.addEventListener('pointermove', this.bindMouseMove);
+        window.document.addEventListener('pointerup', this.bindMouseUp);
         window.document.body.style.cursor = 'pointer';
     }
 
@@ -252,8 +252,8 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         this.moveLeftHandle = false;
         this.moveRightHandle = false;
 
-        window.document.removeEventListener('mousemove', this.bindMouseMove);
-        window.document.removeEventListener('mouseup', this.bindMouseUp);
+        window.document.removeEventListener('pointermove', this.bindMouseMove);
+        window.document.removeEventListener('pointerup', this.bindMouseUp);
         window.document.body.style.cursor = 'default';
     }
 
