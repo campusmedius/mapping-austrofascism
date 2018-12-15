@@ -33,10 +33,13 @@ html, body {
     i, em {
 	      font-family: $text-italics-font;
     }
-    font-size: $base-font-size;
     color: $primary-font-color;
-    line-height: $base-line-height;
     margin: 0px;
+    font-size: $base-font-size;
+    @media screen and (max-width: $break-mobile) {
+        font-size: $mobile-base-font-size;
+    }
+    line-height: $base-line-height;
 }
 
 
@@ -94,6 +97,9 @@ cm-info-event-nav {
 .mat-menu-panel {
     background: $map-overlay-background-color;
     margin-top: 15px;
+    @media screen and (max-width: $break-mobile) {
+        margin-top: 10px;
+    }
     margin-left: -10px;
     width: 170px;
 }

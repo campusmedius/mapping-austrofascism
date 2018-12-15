@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -36,6 +37,13 @@ class CustomRouteReuseStrategy extends RouteReuseStrategy {
     public shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
         return (future.routeConfig === curr.routeConfig) || future.data.reuse;
     }
+}
+
+export class CustomHammerConfig extends HammerGestureConfig {
+    overrides = <any>{
+        'pinch': { enable: false },
+        'rotate': { enable: false }
+    };
 }
 
 @NgModule({
@@ -105,7 +113,8 @@ class CustomRouteReuseStrategy extends RouteReuseStrategy {
         {
             provide: RouteReuseStrategy,
             useClass: CustomRouteReuseStrategy
-        }
+        },
+        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
     ],
     bootstrap: [AppComponent],
     declarations: []

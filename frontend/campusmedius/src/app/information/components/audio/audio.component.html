@@ -5,7 +5,7 @@
     <div class="animation-container" [@container]="opened">
         <div class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="image">
-                <audio controls controlsList="nodownload" preload="metadata">
+                <audio controls controlsList="nodownload" preload="none">
                     <source [src]="this.data.data.full" type="audio/mpeg">
                 </audio>
             </div>

@@ -25,16 +25,21 @@ $secondary-font-color: #a7a7a7;
 $active-font-color: #fff;
 $inactive-font-color: #d7d7d7;
 
+
 $base-font-size: 20px;
+$mobile-base-font-size: 17px;
+
 $h-primary-font-size: 1.5rem;
 $h-secondary-font-size: 1.2rem;
 $small-font-size: 0.9rem;
 $extra-small-font-size: 0.7rem;
 
-$base-line-height: 30px;
-$small-line-height: 27px;
+$base-line-height: 1.5rem;
+$small-line-height: 1.35rem;
 
-$header-height: 70px;
-$event-nav-height: 70px;
+$header-height: 3.5rem;
+$event-nav-height: 3.5rem;
 
 $accent-color: #b18691;
+
+$break-mobile: 959px;

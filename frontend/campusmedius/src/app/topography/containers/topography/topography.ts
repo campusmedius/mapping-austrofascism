@@ -1,10 +1,11 @@
 import {
-    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild
+    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -69,6 +70,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
     sidepanelWidth: string;
 
     @ViewChild(MapComponent) map: MapComponent;
+    @ViewChild('infotitle') infobody: ElementRef;
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
@@ -79,7 +81,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
         private dialog: MatDialog,
-        private media: ObservableMedia
+        private media: ObservableMedia,
+        private scrollToService: ScrollToService
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -112,6 +115,16 @@ export class TopographyComponent implements OnInit, OnDestroy {
                     if (this.sidepanelState === 'intro') {
                         this.sidepanelState = 'short';
                         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                    }
+                    if (this.isMobile) {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        this.scrollToService.scrollTo({
+                            target: this.infobody
+                        });
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));
                 } else {

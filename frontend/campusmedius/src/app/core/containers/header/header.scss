@@ -17,7 +17,7 @@
     button {
         color: $active-font-color;
         mat-icon {
-            font-size: 28px;
+            font-size: 1.4rem;
             margin-top: -6px;
         }
     }
@@ -45,7 +45,7 @@
 .logo {
     cursor: pointer;
     color: $map-overlay-active-color;
-    height: 46px;
+    height: 2.3rem;
     &:focus {
         outline: 0;
     }

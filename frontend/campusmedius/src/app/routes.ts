@@ -8,7 +8,7 @@ import { MedialityModule } from './mediality/mediality.module';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/topography/events',
+        redirectTo: '/topography/events/99',
         pathMatch: 'full'
     },
     {

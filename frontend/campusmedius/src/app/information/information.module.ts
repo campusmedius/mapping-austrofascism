@@ -24,8 +24,6 @@ import { InformationService } from './services/information';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
 import { NgxGalleryActionComponent } from './ngx-gallery/ngx-gallery-action.component';
 import { NgxGalleryArrowsComponent } from './ngx-gallery/ngx-gallery-arrows.component';
 import { NgxGalleryBulletsComponent } from './ngx-gallery/ngx-gallery-bullets.component';
@@ -33,13 +31,6 @@ import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image.compon
 import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails.component';
 import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview.component';
 import { NgxGalleryComponent } from './ngx-gallery/ngx-gallery.component';
-
-export class CustomHammerConfig extends HammerGestureConfig {
-    overrides = <any>{
-        'pinch': { enable: false },
-        'rotate': { enable: false }
-    };
-}
 
 export const COMPONENTS = [
     InformationComponent,
@@ -89,8 +80,7 @@ export const COMPONENTS = [
         ScrollToModule
     ],
     providers: [
-        InformationService,
-        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+        InformationService
     ],
     entryComponents: []
 })

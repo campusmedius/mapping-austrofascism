@@ -19,7 +19,7 @@
                                 <span class="cm-square-link"></span>
                             </button>
                         </div>
-                        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
+                        <h1 #infotitle [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
                     </div>
                     <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
                         <p>

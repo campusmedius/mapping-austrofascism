@@ -7,14 +7,16 @@ export const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'events/15'
+        redirectTo: 'events/99'
     }, {
         path: 'events',
-        component: TopographyComponent,
-        resolve: { loaded: EventResolver },
-        data: {
-            reuse: true
-        }
+        pathMatch: 'full',
+        redirectTo: 'events/99'
+        // component: TopographyComponent,
+        // resolve: { loaded: EventResolver },
+        // data: {
+        //     reuse: true
+        // }
     }, {
         path: 'events/:eventId',
         component: TopographyComponent,
