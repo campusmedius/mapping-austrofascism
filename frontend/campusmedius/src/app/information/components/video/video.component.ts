@@ -55,6 +55,8 @@ export class VideoComponent implements OnInit {
                 this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
                     this.hls.loadSource(this.data.data.full);
                 });
+            } else {
+                this.videoElement.nativeElement.src = this.data.data.full;
             }
         } else {
             this.opened = false;

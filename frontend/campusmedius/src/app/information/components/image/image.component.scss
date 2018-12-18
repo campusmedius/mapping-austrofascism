@@ -12,6 +12,7 @@
     font-family: $caption-regular-font;
     ::ng-deep em, ::ng-deep i {
 	      font-family: $caption-italics-font;
+        font-style: normal;
     }
     font-size: $small-font-size;
     line-height: $small-line-height;
@@ -33,7 +34,7 @@ img {
     }
 }
 
-button {
+.mat-icon-button {
     width: $base-font-size;
     min-width: $base-font-size;
     height: $base-font-size;
@@ -45,6 +46,10 @@ button {
     margin: 0px;
     color: $accent-color;
     margin-top: 2px;
+    @media screen and (max-width: $break-mobile) {
+        margin-top: 0px;
+    }
+    border-radius: 0px;
 }
 
 .cm-square-zoom {

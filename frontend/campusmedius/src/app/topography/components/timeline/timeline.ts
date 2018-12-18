@@ -29,7 +29,7 @@ import { Event, TimelineLine } from '../../models/event';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-const OPENED_HEIGHT = '210px';
+const OPENED_HEIGHT = '220px';
 const CLOSED_HEIGHT = '40px';
 
 @Component({
@@ -155,9 +155,10 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
             const endDiffMinutes = event.end.diff(this.timelineStart, 'minutes');
             const left = (startDiffMinutes / this.totalMinutes) * 100;
             const right = (endDiffMinutes / this.totalMinutes) * 100;
+            const width = right - left;
             const line = {
                 left: left,
-                width: right - left,
+                width: width,
                 event: event
             };
 
@@ -171,7 +172,7 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         });
 
         this.rows = rows;
-        this.indicatorLineHeight = this.rows.length * 9 + 40;
+        this.indicatorLineHeight = this.rows.length * 13 + 35;
     }
 
     private getLabel(step: number) {

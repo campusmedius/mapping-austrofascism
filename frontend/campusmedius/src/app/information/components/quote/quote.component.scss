@@ -2,10 +2,14 @@
 
 :host {
     display: block;
-    padding: 24px 80px;
-    font-family: $text-regular-font;
-    ::ng-deep em, ::ng-deep i {
-	      font-family: $text-italics-font;
+    padding: 24px 44px;
+    @media screen and (max-width: $break-mobile) {
+        padding: 24px 0px;
     }
-    color: $secondary-font-color;
+    font-family: $text-italics-font;
+    ::ng-deep em, ::ng-deep i {
+	      font-family: $text-regular-font;
+        font-style: normal;
+    }
+    color: $primary-font-color;
 }

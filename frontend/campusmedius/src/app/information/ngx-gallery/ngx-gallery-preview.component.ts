@@ -462,6 +462,8 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                     this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
                         this.hls.loadSource(<string>this.images[this.index]);
                     });
+                } else {
+                    videoElement.nativeElement.src = this.images[this.index];
                 }
                 this.loading = false;
             });

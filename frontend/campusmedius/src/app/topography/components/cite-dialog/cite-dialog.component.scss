@@ -3,15 +3,16 @@
 :host {
     color: $primary-font-color;
     font-family: $caption-regular-font;
-    i, em {
+    ::ng-deep em, ::ng-deep i {
 	      font-family: $caption-italics-font;
+        font-style: normal;
     }
 }
 
 .label {
     font-family: $caption-semibold-font;
     min-width: 100px;
-    font-size: $small-font-size;
+    font-size: $small2-font-size;
     text-align: right;
     padding-right: 15px;
 }
@@ -19,11 +20,9 @@
 .content {
     font-size: $small-font-size;
     margin-bottom: 0.6em;
+    line-height: $small-line-height;
 }
 
-.url {
-    font-size: 0.8em;
-}
 
 .close {
     float: right;

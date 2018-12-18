@@ -35,14 +35,15 @@
 .header {
     padding: 6px 0px;
     font-family: $title-regular-font;
+    cursor: pointer;
 }
 
 .events {
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .events-row {
-    height: 8px;
+    height: 12px;
     margin-top: 6px;
     width: 100%;
     position: relative;
@@ -130,21 +131,21 @@
 
 .indicatorlabel {
     color: white;
-    font-size: $small-font-size;
+    font-size: $small2-font-size;
     position: relative;
-    top: -1.2em;
+    top: -1.6em;
     left: -15px;
     width: 35px;
     text-align: center;
 }
 
 .startlabel {
-    font-size: $small-font-size;
+    font-size: $small2-font-size;
     float: left;
     margin-top: 15px;
 }
 .endlabel {
-    font-size: $small-font-size;
+    font-size: $small2-font-size;
     float: right;
     margin-top: 15px;
 }

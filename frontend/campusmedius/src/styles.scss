@@ -16,6 +16,10 @@ html {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   font-weight: 400;
+
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 
 /**
@@ -32,6 +36,7 @@ html, body {
 	  font-family: $text-regular-font;
     i, em {
 	      font-family: $text-italics-font;
+        font-style: normal;
     }
     color: $primary-font-color;
     margin: 0px;
@@ -51,8 +56,10 @@ h1 {
     margin-top: 0px;
     i, em {
         font-family: $title-bold-italic-font;
+        font-style: normal;
     }
     font-weight: 400;
+    line-height: 1.07em;
 }
 
 h2 {
@@ -60,9 +67,12 @@ h2 {
     font-size: $h-secondary-font-size;
     color: $h-primary-font-color;
     i, em {
+        font-style: normal;
         font-family: $title-bold-italic-font;
+        font-style: normal;
     }
     font-weight: 400;
+    line-height: 1.07em;
 }
 
 sup {
@@ -72,23 +82,23 @@ sup {
 }
 
 li {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 ul, ol {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
 
 cm-info-event-nav {
     font-family: $title-regular-font;
     i, em {
         font-family: $title-italics-font;
+        font-style: normal;
     }
     .text:hover, .text:hover {
-        //font-family: $title-semibold-font;
         text-decoration: underline;
         i, em {
-            // font-family: $title-semibold-italic-font;
+            font-style: normal;
             text-decoration: underline;
         }
     }
@@ -141,6 +151,11 @@ ngx-gallery-preview{
     .ngx-gallery-arrow {
         font-size: 40px;
     }
+    cm-caption-content {
+        max-height: 8.7rem;
+        overflow-y: auto;
+        display: block;
+    }
 }
 
 .ngx-gallery-spinner {
@@ -176,7 +191,7 @@ cm-information > :last-child {
 
 cm-information {
     h2 {
-        margin-top: 3.32rem;
+        margin-top: 2.5rem;
     }
 }
 

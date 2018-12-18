@@ -41,8 +41,11 @@ cm-info-event-nav {
 
 .info-content {
     width: 70%;
-    max-width: 1400px;
+    max-width: 1000px;
     margin: auto;
+    @media screen and (max-width: $break-mobile) {
+        hyphens: auto;
+    }
 }
 
 
@@ -50,7 +53,7 @@ cm-info-event-nav {
     margin-bottom: 50px;
     .time-info {
         color: $secondary-font-color;
-        font-size: $small-font-size;
+        font-size: $small2-font-size;
         font-family: $title-semibold-font;
     }
     h2 {
