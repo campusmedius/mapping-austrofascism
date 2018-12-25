@@ -34,24 +34,24 @@ export class CustomHammerConfig extends HammerGestureConfig {
     };
 }
 
-@NgModule({
-    imports: [
-        CommonModule
-    ],
-    declarations: [
-        NgxGalleryActionComponent,
-        NgxGalleryArrowsComponent,
-        NgxGalleryBulletsComponent,
-        NgxGalleryImageComponent,
-        NgxGalleryThumbnailsComponent,
-        NgxGalleryPreviewComponent,
-        NgxGalleryComponent
-    ],
-    exports: [
-        NgxGalleryComponent
-    ],
-    providers: [
-        { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
-    ]
-})
-export class NgxGalleryModule { } 
+// @NgModule({
+//     imports: [
+//         CommonModule
+//     ],
+//     declarations: [
+//         NgxGalleryActionComponent,
+//         NgxGalleryArrowsComponent,
+//         NgxGalleryBulletsComponent,
+//         NgxGalleryImageComponent,
+//         NgxGalleryThumbnailsComponent,
+//         NgxGalleryPreviewComponent,
+//         NgxGalleryComponent
+//     ],
+//     exports: [
+//         NgxGalleryComponent
+//     ],
+//     providers: [
+//         { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+//     ]
+// })
+// export class NgxGalleryModule { } 

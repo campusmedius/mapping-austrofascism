@@ -20,6 +20,11 @@ class EventAdmin(admin.ModelAdmin):
         'next_event'
     )
 
+    class Media:
+        css = {
+             'all': ('admin/css/topography.css',)
+        }
+
 
 admin.site.register(Event, EventAdmin)
 

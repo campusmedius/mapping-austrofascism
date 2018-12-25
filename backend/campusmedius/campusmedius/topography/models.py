@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from location_field.models.plain import PlainLocationField
+from tinymce.models import HTMLField
 
 from information.models import Information
 
@@ -8,8 +9,8 @@ from information.models import Information
 class Event(models.Model):
     title_de = models.TextField()
     title_en = models.TextField()
-    abstract_de = models.TextField(null=True, blank=True)
-    abstract_en = models.TextField(null=True, blank=True)
+    abstract_de = HTMLField(null=True, blank=True)
+    abstract_en = HTMLField(null=True, blank=True)
     start = models.DateTimeField()
     end = models.DateTimeField()
     timeline_row = models.IntegerField()

@@ -5,8 +5,8 @@ from .models import Information
 
 IMAGE_URL = 'https://services.phaidra.univie.ac.at/api/imageserver?IIIF={}.tif/full/{}/0/default.jpg'
 VIDEO_URL = 'https://stream-cd.univie.ac.at/media/phaidra/{}_hi.mp4/playlist.m3u8'
-VIDEO_THUMBNAIL = 'https://stream.univie.ac.at/media/phaidra/{}.jpeg'
 AUDIO_URL = 'https://phaidra.univie.ac.at/open/{}'
+
 
 # Helper field
 class ConstantField(serializers.Field):
@@ -26,13 +26,17 @@ class ConstantField(serializers.Field):
 class EntityField(serializers.RelatedField):
     def to_representation(self, value):
         if isinstance(value.content_object, Image):
-            serializer = ImageSerializer(value.content_object)
+            serializer = ImageSerializer(
+                value.content_object, context=self.context)
         elif isinstance(value.content_object, Audio):
-            serializer = AudioSerializer(value.content_object)
+            serializer = AudioSerializer(
+                value.content_object, context=self.context)
         elif isinstance(value.content_object, Video):
-            serializer = VideoSerializer(value.content_object)
+            serializer = VideoSerializer(
+                value.content_object, context=self.context)
         elif isinstance(value.content_object, Gallery):
-            serializer = GallerySerializer(value.content_object)
+            serializer = GallerySerializer(
+                value.content_object, context=self.context)
         elif value.content_object is None:
             return None
         else:
@@ -52,12 +56,15 @@ class ImageSerializer(serializers.ModelSerializer):
             'type',
             'data',
             'caption_de',
-            'caption_en', )
+            'caption_en',
+        )
 
     def get_data(self, obj):
         return {
             'thumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
-            'full': IMAGE_URL.format(obj.phaidra_id, 'full')
+            'mobileThumbnail': IMAGE_URL.format(obj.phaidra_id, '300,'),
+            'full': IMAGE_URL.format(obj.phaidra_id, 'full'),
+            'mobileFull': IMAGE_URL.format(obj.phaidra_id, '800,')
         }
 
 
@@ -72,12 +79,16 @@ class AudioSerializer(serializers.ModelSerializer):
             'type',
             'data',
             'caption_de',
-            'caption_en', )
+            'caption_en',
+        )
 
     def get_data(self, obj):
+        request = self.context.get('request')
         return {
             'full': AUDIO_URL.format(obj.phaidra_id),
-            'thumbnail': 'http://gettravel.com/wp-content/uploads/2018/04/Video-Placeholder.jpg'
+            'thumbnail': request.build_absolute_uri(obj.thumbnail.url),
+            'mobileFull': AUDIO_URL.format(obj.phaidra_id),
+            'mobileThumbnail': request.build_absolute_uri(obj.thumbnail.url)
         }
 
 
@@ -92,12 +103,16 @@ class VideoSerializer(serializers.ModelSerializer):
             'type',
             'data',
             'caption_de',
-            'caption_en', )
+            'caption_en',
+        )
 
     def get_data(self, obj):
+        request = self.context.get('request')
         return {
             'full': VIDEO_URL.format(obj.stream_id),
-            'thumbnail': VIDEO_THUMBNAIL.format(obj.stream_id)
+            'thumbnail': request.build_absolute_uri(obj.thumbnail.url),
+            'mobileFull': VIDEO_URL.format(obj.stream_id),
+            'mobileThumbnail': request.build_absolute_uri(obj.thumbnail.url)
         }
 
 
@@ -110,7 +125,8 @@ class GallerySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'type',
-            'entities', )
+            'entities',
+        )
 
 
 class InformationSerializer(serializers.ModelSerializer):
@@ -124,30 +140,26 @@ class InformationSerializer(serializers.ModelSerializer):
             'title_en',
             'content_de',
             'content_en',
-            'media',)
+            'media',
+        )
 
     def get_media(self, obj):
-        media = {
-            'galleries': {},
-            'images': {},
-            'videos': {},
-            'audios': {}
-        }
+        media = {'galleries': {}, 'images': {}, 'videos': {}, 'audios': {}}
 
         for gallery in obj.media_galleries.all():
-            data = GallerySerializer(gallery).data
+            data = GallerySerializer(gallery, context=self.context).data
             media['galleries'][str(data['id'])] = data
 
         for image in obj.media_images.all():
-            data = ImageSerializer(image).data
+            data = ImageSerializer(image, context=self.context).data
             media['images'][str(data['id'])] = data
 
         for audio in obj.media_audios.all():
-            data = AudioSerializer(audio).data
+            data = AudioSerializer(audio, context=self.context).data
             media['audios'][str(data['id'])] = data
 
         for video in obj.media_videos.all():
-            data = VideoSerializer(video).data
+            data = VideoSerializer(video, context=self.context).data
             media['videos'][str(data['id'])] = data
 
         return media

@@ -29,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }
 
-class CustomRouteReuseStrategy extends RouteReuseStrategy {
+export class CustomRouteReuseStrategy extends RouteReuseStrategy {
     public shouldDetach(route: ActivatedRouteSnapshot): boolean { return false; }
     public store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void { }
     public shouldAttach(route: ActivatedRouteSnapshot): boolean { return false; }

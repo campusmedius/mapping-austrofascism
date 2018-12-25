@@ -14,7 +14,7 @@ export class CiteDialogComponent implements OnInit {
     public url: string;
 
     constructor(
-        private translate: TranslateService,
+        public translate: TranslateService,
         private dialogRef: MatDialogRef<CiteDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) { }
 

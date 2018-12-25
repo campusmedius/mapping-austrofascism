@@ -1,8 +1,8 @@
 import {
     Component, OnInit, Input, ViewChild, ViewContainerRef,
-    ComponentRef, NgModule, ModuleWithComponentFactories, Compiler
+    ComponentRef, NgModule, ModuleWithComponentFactories, Compiler, OnDestroy
 } from '@angular/core';
-
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import {
     trigger,
     state,
@@ -11,6 +11,8 @@ import {
     transition,
     query
 } from '@angular/animations';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '../../ngx-gallery/index';
 
@@ -29,7 +31,7 @@ import { InformationComponent } from '../information/information.component';
         ])
     ]
 })
-export class ImageComponent implements OnInit {
+export class ImageComponent implements OnInit, OnDestroy {
     @Input() id: string;
     @ViewChild('gallery') gallery: NgxGalleryComponent;
 
@@ -39,9 +41,23 @@ export class ImageComponent implements OnInit {
     public data: Image;
     public lang: string;
 
+    public isMobile: boolean;
+
     public opened = false;
 
-    constructor(private information: InformationComponent) { }
+    mediaSubscription: Subscription;
+
+    constructor(private information: InformationComponent,
+        private media: ObservableMedia,
+    ) {
+        this.mediaSubscription = media.subscribe((change: MediaChange) => {
+            if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+                this.isMobile = true;
+            } else {
+                this.isMobile = false;
+            }
+        });
+    }
 
     ngOnInit() {
         this.lang = this.information.lang;
@@ -56,10 +72,15 @@ export class ImageComponent implements OnInit {
             'spinnerIcon': 'fa fa-spinner fa-pulse fa-3x fa-fw'
         }];
 
+        let full = this.data.data.full;
+        if (this.isMobile) {
+            full = this.data.data.mobileFull;
+        }
+
         this.galleryImages = [{
             type: 'image',
-            small: this.data.data.full,
-            big: this.data.data.full,
+            small: full,
+            big: full,
             description: this.lang === 'de' ? this.data.captionDe : this.data.captionEn
         }];
 
@@ -67,6 +88,14 @@ export class ImageComponent implements OnInit {
 
     public showImage() {
         this.gallery.openPreview(0);
+    }
+
+    public onRightClick(e) {
+        e.preventDefault();
+    }
+
+    ngOnDestroy() {
+        this.mediaSubscription.unsubscribe();
     }
 
 }

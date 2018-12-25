@@ -5,6 +5,11 @@ import { TopographyModule } from './topography/topography.module';
 import { TopologyModule } from './topology/topology.module';
 import { MedialityModule } from './mediality/mediality.module';
 
+
+export function loadTopography() {
+    return TopographyModule;
+}
+
 export const routes: Routes = [
     {
         path: '',
@@ -13,16 +18,16 @@ export const routes: Routes = [
     },
     {
         path: 'topography',
-        loadChildren: () => TopographyModule
+        loadChildren: loadTopography
     },
-    {
-        path: 'topology',
-        loadChildren: () => TopologyModule
-    },
-    {
-        path: 'mediality',
-        loadChildren: () => MedialityModule
-    },
+    // {
+    //     path: 'topology',
+    //     loadChildren: () => TopologyModule
+    // },
+    // {
+    //     path: 'mediality',
+    //     loadChildren: () => MedialityModule
+    // },
     { path: '**', component: NotFoundPageComponent }
 ];
 

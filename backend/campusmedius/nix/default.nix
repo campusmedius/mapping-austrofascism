@@ -12,7 +12,7 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "cm-backend-0.0.5";
+  name = "cm-backend-0.0.6";
   
   pythonenv = pythonenv;
   python = python;
@@ -23,7 +23,6 @@ stdenv.mkDerivation {
   buildInputs = [ uwsgi-python pythonenv ];
  
   installPhase = ''
-    ${pythonenv}/bin/python ./campusmedius/manage.py collectstatic
     mkdir -p $out/share/campusmedius
     cp -R ./* $out/share/campusmedius/
   '';

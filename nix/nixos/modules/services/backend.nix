@@ -13,6 +13,7 @@ let
         ALLOWED_HOSTS="${concatStringsSep " " cfg.djangoAllowedHosts}";
         CORS_ORIGIN_ALLOW_ALL="${boolToString cfg.CORSAllowAll}";
         DB_PATH="${cfg.dataDir}/db.sqlite3";
+        MEDIA_ROOT="${cfg.mediaDir}";
   };
 in
 with lib;
@@ -31,9 +32,17 @@ with lib;
       
       dataDir = mkOption {
         type = types.path;
-        default = "/var/data/campusmedius";
+        default = "/var/data/campusmedius/db";
         description = "
           Directory holding the database for campusmedius backend.
+        ";
+      };
+      
+      mediaDir = mkOption {
+        type = types.path;
+        default = "/var/data/campusmedius/media";
+        description = "
+          Directory holding the media for campusmedius backend.
         ";
       };
       
@@ -77,6 +86,10 @@ with lib;
         wantedBy = [ "multi-user.target" ];
         environment = env;
         preStart = ''
+            if ! [ -d ${cfg.mediaDir} ]; then
+                mkdir -p ${cfg.mediaDir}
+                cp -r ${pkgs.cm-backend}/share/campusmedius/media/* ${cfg.mediaDir}/
+            fi
             if ! [ -e ${cfg.dataDir}/.db-created ]; then
                 # copy initial database from cm-backend pkg
                 mkdir -p ${cfg.dataDir}

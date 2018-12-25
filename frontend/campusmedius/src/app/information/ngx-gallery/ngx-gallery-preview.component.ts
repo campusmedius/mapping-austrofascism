@@ -100,7 +100,7 @@ export class NgxGalleryPreviewComponent implements OnChanges {
 
     @ViewChild('previewImage') previewImage: ElementRef;
 
-    private isOpen = false;
+    public isOpen = false;
     private timer;
     private initialX = 0;
     private initialY = 0;

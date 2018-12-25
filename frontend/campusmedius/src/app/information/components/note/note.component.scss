@@ -30,7 +30,7 @@
     color: $accent-color;
     margin-top: 2px;
     @media screen and (max-width: $break-mobile) {
-        margin-top: 0px;
+        margin-top: 1px;
     }
     border-radius: 0px;
 }

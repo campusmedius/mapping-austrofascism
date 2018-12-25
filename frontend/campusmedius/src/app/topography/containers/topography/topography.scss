@@ -41,7 +41,7 @@ cm-info-event-nav {
 
 .info-content {
     width: 70%;
-    max-width: 1000px;
+    max-width: 900px;
     margin: auto;
     @media screen and (max-width: $break-mobile) {
         hyphens: auto;
@@ -53,7 +53,7 @@ cm-info-event-nav {
     margin-bottom: 50px;
     .time-info {
         color: $secondary-font-color;
-        font-size: $small2-font-size;
+        font-size: $small-font-size;
         font-family: $title-semibold-font;
     }
     h2 {
@@ -126,6 +126,7 @@ cm-info-event-nav {
     position: absolute;
     left: -40px;
     top: 4px;
+    border-radius: 0px;
 }
 
 .cite-button-wrapper {

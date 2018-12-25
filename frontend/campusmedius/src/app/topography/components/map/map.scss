@@ -3,9 +3,6 @@
     height: 100%;
 }
 
-:host {
-    position: relative;
-}
 
 :host /deep/ .mapboxgl-control-container {
     display: none;

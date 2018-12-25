@@ -28,9 +28,6 @@ stdenv.mkDerivation {
   
   installPhase = ''
     mkdir -p $out/share/campusmedius
-    cd backend/campusmedius/campusmedius
-    ${pythonenv}/bin/python ./manage.py collectstatic
-    cd ..
     cp -R ./* $out/share/campusmedius/
   '';
 

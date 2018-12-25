@@ -34,8 +34,8 @@ class MediaEntity(models.Model):
 class MediaBaseModel(models.Model):
     phaidra_id = models.CharField(
         max_length=32, help_text="For example: 'o:906180'")
-    caption_de = models.TextField(null=True, blank=True)
-    caption_en = models.TextField(null=True, blank=True)
+    caption_de = HTMLField(null=True, blank=True)
+    caption_en = HTMLField(null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -57,12 +57,14 @@ class Image(MediaBaseModel):
 
 
 class Audio(MediaBaseModel):
+    thumbnail = models.ImageField(upload_to='audio_thumbnails/')
     media_entity = GenericRelation(MediaEntity)
 
 
 class Video(MediaBaseModel):
     stream_id = models.CharField(
         max_length=128, help_text="For example: 'c47c9323f8628c10527cdd9748173e5acc4d8c9c'")
+    thumbnail = models.ImageField(upload_to='video_thumbnails/')
     media_entity = GenericRelation(MediaEntity)
 
 
@@ -75,8 +77,8 @@ class Gallery(models.Model):
 class Information(models.Model):
     title_de = models.TextField(null=True, blank=True)
     title_en = models.TextField(null=True, blank=True)
-    content_de = models.TextField(null=True, blank=True)
-    content_en = models.TextField(null=True, blank=True)
+    content_de = HTMLField(null=True, blank=True)
+    content_en = HTMLField(null=True, blank=True)
 
     media_images = models.ManyToManyField(Image, blank=True)
     media_audios = models.ManyToManyField(Audio, blank=True)

@@ -3,6 +3,8 @@ export type MediaEntity = Image | Audio | Video;
 export interface ImageData {
     thumbnail: string;
     full: string;
+    mobileThumbnail: string;
+    mobileFull: string;
 }
 
 export interface Image {
@@ -17,6 +19,8 @@ export interface Image {
 export interface AudioData {
     thumbnail: string;
     full: string;
+    mobileThumbnail: string;
+    mobileFull: string;
 }
 
 export interface Audio {
@@ -30,6 +34,8 @@ export interface Audio {
 export interface VideoData {
     thumbnail: string;
     full: string;
+    mobileThumbnail: string;
+    mobileFull: string;
 }
 
 export interface Video {

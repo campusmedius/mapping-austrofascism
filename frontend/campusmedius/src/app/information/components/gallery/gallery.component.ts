@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { Subscription } from 'rxjs/Subscription';
 
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '../../ngx-gallery/index';
 
@@ -12,7 +14,7 @@ import 'hammerjs';
     templateUrl: './gallery.component.html',
     styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, OnDestroy {
     @Input() id: string;
 
     public galleryOptions: NgxGalleryOptions[];
@@ -21,7 +23,20 @@ export class GalleryComponent implements OnInit {
     public data: Gallery;
     public lang: string;
 
-    constructor(private information: InformationComponent) { }
+    public isMobile: boolean;
+    mediaSubscription: Subscription;
+
+    constructor(private information: InformationComponent,
+        private media: ObservableMedia,
+    ) {
+        this.mediaSubscription = media.subscribe((change: MediaChange) => {
+            if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+                this.isMobile = true;
+            } else {
+                this.isMobile = false;
+            }
+        });
+    }
 
     ngOnInit() {
         this.lang = this.information.lang;
@@ -53,8 +68,12 @@ export class GalleryComponent implements OnInit {
                 caption = e.captionDe;
             }
 
-            const smallUrl = e.data.thumbnail;
-            const bigUrl = e.data.full;
+            let smallUrl = e.data.thumbnail;
+            let bigUrl = e.data.full;
+            if (this.isMobile) {
+                smallUrl = e.data.mobileThumbnail;
+                bigUrl = e.data.mobileFull;
+            }
 
             galleryImages.push({
                 type: e.type,
@@ -65,4 +84,10 @@ export class GalleryComponent implements OnInit {
         });
         this.galleryImages = galleryImages;
     }
+
+    ngOnDestroy() {
+        this.mediaSubscription.unsubscribe();
+    }
+
+
 }

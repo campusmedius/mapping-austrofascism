@@ -123,7 +123,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
                         });
                     } else {
                         this.scrollToService.scrollTo({
-                            target: this.infobody
+                            target: this.infobody,
+                            offset: -100
                         });
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));

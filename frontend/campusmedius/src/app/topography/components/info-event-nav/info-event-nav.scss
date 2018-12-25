@@ -2,7 +2,7 @@
 
 :host {
     display: inline-block;
-    font-size: $extra-small-font-size;
+    font-size: $small2-font-size;
 }
 
 .wrapper {
@@ -24,7 +24,7 @@
     }
     .arrow {
         line-height: 32px;
-        margin-right: 14px;
+        margin-right: 10px;
         font-size: 1rem;
         color: #b3b3b3;
     }
@@ -50,7 +50,7 @@
     }
     .arrow {
         line-height: 32px;
-        margin-left: 14px;
+        margin-left: 10px;
         font-size: 1rem;
         color: #b3b3b3;
     }

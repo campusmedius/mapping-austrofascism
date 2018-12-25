@@ -6,7 +6,7 @@
         <div *ngIf="opened" class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="image">
                 <span class="cm-square-zoom"></span>
-                <img [src]="data.data.full" (click)="showImage()" />
+                <img [src]="isMobile ? data.data.mobileFull : data.data.full" (click)="showImage()" (contextmenu)="onRightClick($event)" />
                 <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </div>
             <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe"></cm-caption>
