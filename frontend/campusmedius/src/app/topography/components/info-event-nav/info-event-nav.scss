@@ -16,7 +16,6 @@
     text-align: right;
     color: $primary-font-color;
     overflow: hidden;
-    margin-right: 10px;
     .text {
         display: inline-block;
         position: relative;
@@ -24,16 +23,17 @@
     }
     .arrow {
         line-height: 32px;
-        margin-right: 10px;
-        font-size: 1rem;
+        margin-right: 7px;
+        font-size: 1.1rem;
         color: #b3b3b3;
     }
 }
 
 .cm-seperator {
     color: #b3b3b3;
-    font-size: 26px;
+    font-size: 1.5rem;
 }
+
 
 .next {
     width: 200px;
@@ -42,7 +42,6 @@
     text-align: left;
     color: $primary-font-color;
     overflow: hidden;
-    margin-left: 10px;
     .text {
         display: inline-block;
         position: relative;
@@ -50,8 +49,8 @@
     }
     .arrow {
         line-height: 32px;
-        margin-left: 10px;
-        font-size: 1rem;
+        margin-left: 7px;
+        font-size: 1.1rem;
         color: #b3b3b3;
     }
 }

@@ -89,6 +89,9 @@ with lib;
             if ! [ -d ${cfg.mediaDir} ]; then
                 mkdir -p ${cfg.mediaDir}
                 cp -r ${pkgs.cm-backend}/share/campusmedius/media/* ${cfg.mediaDir}/
+                chown -R www-data:www-data ${cfg.mediaDir}
+                find ${cfg.mediaDir} -type d -exec chmod 755 {} \;
+                find ${cfg.mediaDir} -type f -exec chmod 644 {} \;
             fi
             if ! [ -e ${cfg.dataDir}/.db-created ]; then
                 # copy initial database from cm-backend pkg

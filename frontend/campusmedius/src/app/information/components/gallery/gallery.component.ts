@@ -89,5 +89,4 @@ export class GalleryComponent implements OnInit, OnDestroy {
         this.mediaSubscription.unsubscribe();
     }
 
-
 }

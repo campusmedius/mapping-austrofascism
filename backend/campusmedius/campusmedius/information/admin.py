@@ -90,10 +90,10 @@ class InformationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(InformationForm, self).clean()
 
-        # cleaned_data['content_en'] = hyphenate(
-        #     cleaned_data['content_en'], language="en-en")
-        # cleaned_data['content_de'] = hyphenate(
-        #     cleaned_data['content_de'], language="de-de")
+        cleaned_data['content_en'] = hyphenate(
+            cleaned_data['content_en'], language="en-en")
+        cleaned_data['content_de'] = hyphenate(
+            cleaned_data['content_de'], language="de-de")
 
         try:
             cleaned_data['media_images'] = [

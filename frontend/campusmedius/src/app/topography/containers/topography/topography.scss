@@ -29,7 +29,7 @@ cm-info-event-nav {
     display: inline-block;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-top: 30px;
+    padding-top: 50px;
     .btn-read-more {
         width: 100%;
         margin-top: 40px;
@@ -81,7 +81,7 @@ cm-info-event-nav {
 }
 
 .sidenav-control {
-    height: 50px;
+    height: 70px;
     position: absolute;
     right: 100%;
     display: block;
@@ -90,7 +90,7 @@ cm-info-event-nav {
     min-width: 20px;
     padding: 0px;
     color: $secondary-font-color;
-    top: 20px;
+    top: 70px;
     border-radius: 0px;
     .mat-icon {
         font-size: 24px;

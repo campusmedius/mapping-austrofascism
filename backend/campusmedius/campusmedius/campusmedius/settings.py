@@ -157,8 +157,8 @@ MEDIA_URL = '/media/'
 TINYMCE_DEFAULT_CONFIG = {
     'selector': 'textarea',
     'theme': 'modern',
-    'plugins': 'link image preview codesample contextmenu table code lists',
-    'toolbar1': 'italic underline | bullist numlist | preview code',
+    'plugins': 'link image preview codesample contextmenu table code lists codemirror',
+    'toolbar1': 'italic underline | bullist numlist | code',
     'contextmenu': 'formats',
     'menubar': False,
     'inline': False,
@@ -171,5 +171,13 @@ TINYMCE_DEFAULT_CONFIG = {
         }
     },
     'valid_elements': '*[*]',
-    'content_css': STATIC_URL + 'admin/css/custom-tinymce.css'
+    'entity_encoding': 'raw',
+    'content_css': STATIC_URL + 'admin/css/custom-tinymce.css',
+    'codemirror': {
+        'indentOnInit': True,
+        'fullscreen': True,
+        'saveCursorPosition': True,
+        'width': 1200,
+        'path': 'CodeMirror-5.19.0/'
+    }
 }
