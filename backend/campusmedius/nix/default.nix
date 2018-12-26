@@ -23,6 +23,7 @@ stdenv.mkDerivation {
   buildInputs = [ uwsgi-python pythonenv ];
  
   installPhase = ''
+    ${pythonenv}/bin/python ./campusmedius/manage.py collectstatic --noinput
     mkdir -p $out/share/campusmedius
     cp -R ./* $out/share/campusmedius/
   '';

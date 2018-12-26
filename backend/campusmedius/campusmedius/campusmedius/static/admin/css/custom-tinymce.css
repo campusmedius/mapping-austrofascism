@@ -1,0 +1,46 @@
+cm-image, cm-audio, cm-video, cm-note {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #ffffff;
+    background-color: #b18691;
+}
+cm-note {
+    background-color: #c3c3c3c3;
+    color: #000000;
+}
+
+cm-image:before {
+    content: 'i';
+}
+
+cm-audio:before {
+    content: 'a';
+}
+
+cm-video:before {
+    content: 'v';
+}
+
+cm-note:before {
+    content: '+';
+}
+
+cm-gallery {
+    color: #ffffff;
+    background-color: #b18691;
+}
+
+cm-gallery:before {
+    content: 'Gallery'
+}
+
+cm-link-extern, cm-link-intern, cm-link-inpage {
+    text-decoration: underline;
+    color: #b18691;
+}
+
+cm-quote {
+    background-color: #c3c3c3c3;
+    margin-left: 50px;
+}

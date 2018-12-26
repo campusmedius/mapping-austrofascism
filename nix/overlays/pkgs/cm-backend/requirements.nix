@@ -92,6 +92,36 @@ let
 
 
 
+    "Pillow" = python.mkDerivation {
+      name = "Pillow-2.1.0";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/3a/e5/818487cf35069d1da6d78d87cada08ddedb3deb665094b95a49af16ba917/Pillow-2.1.0.zip"; sha256 = "c733088b9a6f856386d3fcff8c54b3c1bc623a69f7481348fe36320513d98076"; };
+      doCheck = commonDoCheck;
+      buildInputs = commonBuildInputs;
+      propagatedBuildInputs = [ ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "http://python-imaging.github.io/";
+        license = "Standard PIL License";
+        description = "Python Imaging Library (fork)";
+      };
+    };
+
+
+
+    "beautifulsoup4" = python.mkDerivation {
+      name = "beautifulsoup4-4.6.3";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/88/df/86bffad6309f74f3ff85ea69344a078fc30003270c8df6894fca7a3c72ff/beautifulsoup4-4.6.3.tar.gz"; sha256 = "90f8e61121d6ae58362ce3bed8cd997efb00c914eae0ff3d363c32f9a9822d10"; };
+      doCheck = commonDoCheck;
+      buildInputs = commonBuildInputs;
+      propagatedBuildInputs = [ ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "http://www.crummy.com/software/BeautifulSoup/bs4/";
+        license = licenses.mit;
+        description = "Screen-scraping library";
+      };
+    };
+
+
+
     "django-cors-headers" = python.mkDerivation {
       name = "django-cors-headers-2.1.0";
       src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/42/c4/5a9c89f4d10f26b71a012848901ebb744530a4277e8fd224abdfb4490131/django-cors-headers-2.1.0.tar.gz"; sha256 = "451bc37a514792c2b46c52362368f7985985933ecdbf1a85f82652579a5cbe01"; };
@@ -153,6 +183,24 @@ let
         homepage = "http://github.com/caioariede/django-location-field";
         license = licenses.mit;
         description = "Location field for Django";
+      };
+    };
+
+
+
+    "django-softhyphen" = python.mkDerivation {
+      name = "django-softhyphen-1.1.0";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/fb/8b/25f28d38a3dd2b508e915a3243b5ec2d8260927d12d4281703fd493761d8/django-softhyphen-1.1.0.tar.gz"; sha256 = "2a9a8bb448fa832fd9dec0e58b12bbb070c6ec15972d46cd9324f19550d33821"; };
+      doCheck = commonDoCheck;
+      buildInputs = commonBuildInputs;
+      propagatedBuildInputs = [
+      self."beautifulsoup4"
+      self."six"
+    ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://github.com/datadesk/django-softhyphen/";
+        license = "";
+        description = "A Python library for hyphenating HTML in your Django project";
       };
     };
 
@@ -237,13 +285,13 @@ let
 
 
     "six" = python.mkDerivation {
-      name = "six-1.11.0";
-      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/16/d8/bc6316cf98419719bd59c91742194c111b6f2e85abac88e496adefaf7afe/six-1.11.0.tar.gz"; sha256 = "70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9"; };
+      name = "six-1.12.0";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/dd/bf/4138e7bfb757de47d1f4b6994648ec67a51efe58fa907c1e11e350cddfca/six-1.12.0.tar.gz"; sha256 = "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"; };
       doCheck = commonDoCheck;
       buildInputs = commonBuildInputs;
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
-        homepage = "http://pypi.python.org/pypi/six/";
+        homepage = "https://github.com/benjaminp/six";
         license = licenses.mit;
         description = "Python 2 and 3 compatibility utilities";
       };
