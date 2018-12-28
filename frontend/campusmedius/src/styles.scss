@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+
 @import "./scss/material.scss";
 @import './scss/fonts.scss';
 @import './scss/variables.scss';
@@ -122,10 +125,13 @@ cm-info-event-nav {
     background: $map-overlay-background-color;
     margin-top: 15px;
     @media screen and (max-width: $break-mobile) {
-        margin-top: 10px;
+        margin-top: 3px;
     }
     margin-left: -10px;
     width: 170px;
+    .mat-menu-item {
+        font-size: $small-font-size;
+    }
 }
 
 .ngx-gallery-preview-text {

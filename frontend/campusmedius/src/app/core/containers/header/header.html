@@ -11,8 +11,8 @@
         <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button>
     </mat-menu>
 </div>
-<div fxFlex fxLayout="row" fxLayoutAlign="center center">
-    <img fxHide.lt-sm routerLink="/" class="logo" src="./assets/logo.svg">
+<div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center">
+    <img routerLink="/" class="logo" src="./assets/logo.svg">
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end">
     <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">

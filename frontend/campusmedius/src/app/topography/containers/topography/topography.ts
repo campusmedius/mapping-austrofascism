@@ -27,7 +27,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
     'full': '75%',
-    'short': '450px',
+    'short': '470px',
     'intro': '40%'
 };
 

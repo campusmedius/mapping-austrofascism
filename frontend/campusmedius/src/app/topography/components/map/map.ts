@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, NgZone } from '@angula
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 
-declare var mapboxgl: any;
+import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { Map, LngLat, Point } from 'mapbox-gl';
 
 const MAX_ZOOM = 15;

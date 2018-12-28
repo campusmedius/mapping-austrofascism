@@ -1,3 +1,5 @@
+$break-mobile: 959px;
+
 $title-regular-font: "Source Sans Pro";
 $title-italics-font: "Source Sans Pro Italic";
 $title-bold-font: "Source Sans Pro Bold";
@@ -27,7 +29,7 @@ $inactive-font-color: #d7d7d7;
 
 
 $base-font-size: 20px;
-$mobile-base-font-size: 20px;
+$mobile-base-font-size: 19px;
 
 $h-primary-font-size: 1.5rem;
 $h-secondary-font-size: 1.2rem;
@@ -39,8 +41,10 @@ $base-line-height: 1.5rem;
 $small-line-height: 1.35rem;
 
 $header-height: 3.5rem;
-$event-nav-height: 3.5rem;
+$header-height-mobile: 2.5rem;
+
+$event-nav-height: $header-height;
+$event-nav-height-mobile: $header-height-mobile;
 
 $accent-color: #b18691;
 
-$break-mobile: 959px;

@@ -4,6 +4,10 @@
     display: block;
     height: calc(100vh - #{$header-height});
     top: $header-height;
+    @media screen and (max-width: $break-mobile) {
+        height: calc(100vh - #{$header-height-mobile});
+        top: $header-height-mobile;
+    }
     position: relative;
 }
 
@@ -19,10 +23,6 @@
 .info-container {
     color: $primary-font-color;
     height: 100%;
-}
-
-cm-info-event-nav {
-    margin-right: 14px;
 }
 
 .info-body {
@@ -78,10 +78,14 @@ cm-info-event-nav {
 .topography-info {
     height: 100%;
     padding-bottom: $event-nav-height;
+    @media screen and (max-width: $break-mobile) {
+        padding-bottom: $event-nav-height-mobile;
+    }
 }
 
 .sidenav-control {
-    height: 70px;
+    height: $header-height;
+    top: $header-height;
     position: absolute;
     right: 100%;
     display: block;
@@ -90,7 +94,6 @@ cm-info-event-nav {
     min-width: 20px;
     padding: 0px;
     color: $secondary-font-color;
-    top: 70px;
     border-radius: 0px;
     .mat-icon {
         font-size: 24px;
@@ -135,20 +138,29 @@ cm-info-event-nav {
     height: 0px;
 }
 
-.mobile-info {
-    position: absolute;
+.mobile-short-info {
+    position: fixed;
     width: 100%;
     background: white;
-    min-height: 200px;
-    top: 100%;
-    margin-top: -200px;
-    padding: 25px;
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow: hidden;
+    bottom: 0px;
+    padding-top: 5px;
     .btn-read-more {
         width: 100%;
     }
     .info-heading {
-        margin-bottom: 30px;
+        margin-bottom: 15px;
+    }
+    .info {
+        margin-bottom: 15px;
+        margin-top: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .event-nav-wrapper {
+        width: 100%;
+        text-align: center;
     }
 }
+

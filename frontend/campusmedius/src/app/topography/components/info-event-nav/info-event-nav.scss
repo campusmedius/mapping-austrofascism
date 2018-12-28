@@ -3,27 +3,30 @@
 :host {
     display: inline-block;
     font-size: $small2-font-size;
+    @media screen and (max-width: $break-mobile) {
+        font-size: $extra-small-font-size;
+    }
+    max-width: 470px;
+    width: 100%;
+    white-space: nowrap;
 }
 
 .wrapper {
     height: $event-nav-height;
+    @media screen and (max-width: $break-mobile) {
+        height: $event-nav-height-mobile;
+    }
 }
 
 .previous {
-    width: 200px;
     height: 32px;
     cursor: pointer;
     text-align: right;
     color: $primary-font-color;
     overflow: hidden;
-    .text {
-        display: inline-block;
-        position: relative;
-        top: -5px;
-    }
     .arrow {
         line-height: 32px;
-        margin-right: 7px;
+        margin-right: 5px;
         font-size: 1.1rem;
         color: #b3b3b3;
     }
@@ -32,30 +35,21 @@
 .cm-seperator {
     color: #b3b3b3;
     font-size: 1.5rem;
+    margin-right: -5px;
+    margin-left: -5px;
 }
 
 
 .next {
-    width: 200px;
     cursor: pointer;
     height: 32px;
     text-align: left;
     color: $primary-font-color;
     overflow: hidden;
-    .text {
-        display: inline-block;
-        position: relative;
-        top: -5px;
-    }
     .arrow {
         line-height: 32px;
-        margin-left: 7px;
+        margin-left: 5px;
         font-size: 1.1rem;
         color: #b3b3b3;
     }
-}
-
-.container {
-    width: 200px;
-    height: 32px;
 }

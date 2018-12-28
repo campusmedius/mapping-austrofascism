@@ -15,7 +15,18 @@ AUDIO_PATTERN = re.compile(r'<cm-audio id=\"([0-9]+)\">')
 GALLERY_PATTERN = re.compile(r'<cm-gallery id=\"([0-9]+)\">')
 
 
+class MediaForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(MediaForm, self).clean()
+
+        cleaned_data['caption_en'] = hyphenate(
+            cleaned_data['caption_en'], language="en-en")
+        cleaned_data['caption_de'] = hyphenate(
+            cleaned_data['caption_de'], language="de-de")
+
+
 class ImageAdmin(admin.ModelAdmin):
+    form = MediaForm
     list_display = (
         'id',
         'phaidra_id',
@@ -31,6 +42,7 @@ admin.site.register(Image, ImageAdmin)
 
 
 class AudioAdmin(admin.ModelAdmin):
+    form = MediaForm
     list_display = (
         'id',
         'phaidra_id',
@@ -46,6 +58,7 @@ admin.site.register(Audio, AudioAdmin)
 
 
 class VideoAdmin(admin.ModelAdmin):
+    form = MediaForm
     list_display = (
         'id',
         'phaidra_id',

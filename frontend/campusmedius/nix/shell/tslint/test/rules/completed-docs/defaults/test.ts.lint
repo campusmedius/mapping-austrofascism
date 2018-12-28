@@ -1,0 +1,34 @@
+export class Aaa {
+~~~~~~~~~~~~~~~~~~       [Documentation must exist for exported classes.]
+    public bbb;
+    ~~~~~~~~~~~       [Documentation must exist for public properties.]
+
+    public ccc() { }
+    ~~~~~~~~~~~~~~~~       [Documentation must exist for public methods.]
+
+    public get prop() { return this.bbb; }
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       [Documentation must exist for public properties.]
+
+    public set prop(value) { this.bbb = value; }
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       [Documentation must exist for public properties.]
+
+    // TypeScript API doesn't give a symbol for this before version 2.8.0
+    // https://github.com/Microsoft/TypeScript/issues/14257
+    [Symbol.iterator]() {}
+#if typescript >= 2.8.0
+    ~~~~~~~~~~~~~~~~~~~~~~ [Documentation must exist for methods.]
+#endif
+}
+
+export enum Ddd { }
+
+export function Eee() { }
+~~~~~~~~~~~~~~~~~~~~~~~~~       [Documentation must exist for exported functions.]
+
+export interface Fff { }
+
+export namespace Ggg { }
+
+export type Hhh = any;
+
+export const i = true;

@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, Input, ComponentRef, Compiler,
+    Component, OnInit, Input, ComponentRef, Compiler, OnChanges, SimpleChanges,
     ViewContainerRef, ModuleWithComponentFactories, NgModule, ViewChild
 } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { InformationModule } from '../../information.module';
     templateUrl: './caption.component.html',
     styleUrls: ['./caption.component.scss']
 })
-export class CaptionComponent implements OnInit {
+export class CaptionComponent implements OnInit, OnChanges {
     @Input() content: string;
     @ViewChild('caption', { read: ViewContainerRef })
     captionContainer: ViewContainerRef;
@@ -19,6 +19,16 @@ export class CaptionComponent implements OnInit {
     constructor(private compiler: Compiler) { }
 
     ngOnInit() {
+        this.renderContent();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['content']) {
+            this.renderContent();
+        }
+    }
+
+    private renderContent() {
         const cmpClass = class RuntimeComponent { };
         const decoratedCmp = Component({
             selector: 'cm-caption-content',

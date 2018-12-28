@@ -43,17 +43,19 @@
     </div>
 </div>
 
-<cm-timeline *ngIf="!isMobile" [@timeline]="sidepanelState" [events]="events$ | async" [filteredIds]="filteredIds" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)" (height)="timelineHeight = $event"></cm-timeline>
+<cm-timeline [@timeline]="sidepanelState" [events]="events$ | async" [filteredIds]="filteredIds" [selectedEvent]="selectedEvent" (startFilterChanged)="updateTimeFilter('start', $event)" (endFilterChanged)="updateTimeFilter('end', $event)" (height)="timelineHeight = $event"></cm-timeline>
 
-<div *ngIf="isMobile" class="mobile-info">
-    <div class="info-heading">
-        <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
-        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
+<div #mobileshortinfo *ngIf="isMobile" class="mobile-short-info">
+    <div class="event-nav-wrapper">
+        <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
     </div>
-    <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
-        <button mat-flat-button class="btn-read-more" color="warn" (click)="mobileShowMore()">{{'info.read-more' | translate | uppercase}}</button>
+    <div class="info">
+        <div class="info-heading">
+            <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+            <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
+        </div>
+        <div *ngIf="sidepanelState === 'short'" class="intro">
+            <button mat-flat-button class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
+        </div>
     </div>
-    <ng-template #fullInfo>
-        <cm-dynamic-information [information]="information$ | async" [lang]="translate.currentLang"></cm-dynamic-information>
-    </ng-template>
 </div>

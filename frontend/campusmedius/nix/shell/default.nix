@@ -2,10 +2,9 @@
 
 {pkgs ? import <nixpkgs> {
     inherit system;
-  }, system ? builtins.currentSystem, nodejs-8_x}:
+  }, system ? builtins.currentSystem, nodejs ? pkgs."nodejs-8_x"}:
 
 let
-  nodejs = nodejs-8_x;
   globalBuildInputs = pkgs.lib.attrValues (import ./supplement.nix {
     inherit nodeEnv;
     inherit (pkgs) fetchurl fetchgit;

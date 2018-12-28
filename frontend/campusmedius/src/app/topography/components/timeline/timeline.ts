@@ -52,6 +52,7 @@ const CLOSED_HEIGHT = '40px';
 export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     @Input() events: Event[];
     @Input() filteredIds: number[];
+    @Input() selectedEvent: Event;
 
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
