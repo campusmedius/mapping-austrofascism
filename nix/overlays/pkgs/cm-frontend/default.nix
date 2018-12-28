@@ -1,7 +1,7 @@
 {stdenv, fetchgit}:
 
 stdenv.mkDerivation {
-  name = "cm-frontend-0.0.7";
+  name = "cm-frontend-0.0.8";
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;

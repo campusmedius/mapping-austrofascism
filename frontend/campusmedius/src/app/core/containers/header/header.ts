@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import 'rxjs/add/operator/map';
@@ -16,12 +16,10 @@ export class HeaderComponent implements OnInit {
     currentLang$: Observable<string>;
 
     constructor(private translate: TranslateService,
-        private router: Router,
-        private elRef: ElementRef
+        private router: Router
     ) { }
 
     ngOnInit() {
-        this.elRef.nativeElement.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
         this.currentLang$ = this.translate.onLangChange.map((event: LangChangeEvent) => {
             return event.lang;
         });
