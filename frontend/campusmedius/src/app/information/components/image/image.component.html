@@ -1,12 +1,12 @@
 <span *ngIf="data">
     <button mat-icon-button class="control" (click)="opened = !opened">
-        <span [ngClass]="{'cm-square-image':!opened,'cm-square-close':opened}"></span>
+        <span [ngClass]="{'cm-square-image-big':!opened,'cm-square-close':opened}"></span>
     </button>
     <div class="animation-container" [@container]="opened">
-        <div *ngIf="opened" class="container" fxLayout="row" fxLayout.lt-md="column">
+        <div class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="image">
                 <span class="cm-square-zoom"></span>
-                <img [src]="isMobile ? data.data.mobileFull : data.data.full" (click)="showImage()" (contextmenu)="onRightClick($event)" />
+                <img *ngIf="opened" [src]="isMobile ? data.data.mobileFull : data.data.full" (click)="showImage()" (contextmenu)="onRightClick($event)" />
                 <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
             </div>
             <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe"></cm-caption>

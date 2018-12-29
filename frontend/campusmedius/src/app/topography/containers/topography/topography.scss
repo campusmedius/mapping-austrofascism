@@ -4,11 +4,11 @@
     display: block;
     height: calc(100vh - #{$header-height});
     top: $header-height;
+    position: relative;
     @media screen and (max-width: $break-mobile) {
         height: calc(100vh - #{$header-height-mobile});
         top: $header-height-mobile;
     }
-    position: relative;
 }
 
 .row, .col {
@@ -43,8 +43,26 @@
     width: 70%;
     max-width: 900px;
     margin: auto;
-    @media screen and (max-width: $break-mobile) {
-        hyphens: auto;
+}
+
+.info-body-mobile {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0px 15px;
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    .info-heading {
+        margin-top: 50px;
+        h1 {
+            margin-left: 30px;
+        }
+        .cite-button {
+            left: 0px;
+        }
     }
 }
 
@@ -164,3 +182,25 @@
     }
 }
 
+$back-to-top-size: 32px;
+
+.back-to-top {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: $back-to-top-size;
+    min-width: $back-to-top-size;
+    height: $back-to-top-size;
+    line-height: $back-to-top-size;
+    min-height: $back-to-top-size;
+    vertical-align: top;
+    font-size: $back-to-top-size;
+    padding: 0 0;
+    margin: 0px;
+    color: $accent-color;
+    border-radius: 0px;
+    .cm-back-to-top {
+        background: #ffffff;
+        border-radius: 16px;
+    }
+}

@@ -14,6 +14,9 @@
     min-width: 100px;
     font-size: $small2-font-size;
     text-align: right;
+    @media screen and (max-width: $break-mobile) {
+        text-align: left;
+    }
     padding-right: 15px;
     line-height: $small-line-height;
 }
@@ -22,8 +25,16 @@
     font-size: $small-font-size;
     margin-bottom: 0.6em;
     line-height: $small-line-height;
+    overflow: hidden;
+    &.url {
+        word-break: break-all;
+    }
 }
 
+.meta-info-container {
+    float: left;
+    margin-top: -20px;
+}
 
 .close {
     float: right;

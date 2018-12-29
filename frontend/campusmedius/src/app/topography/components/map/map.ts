@@ -560,7 +560,7 @@ export class MapComponent implements OnInit {
             minZoom: MIN_ZOOM,
             style: 'mapbox://styles/mapbox/streets-v9',
             center: [16.4, 48.2], // starting position
-            zoom: 11 // starting zoom
+            zoom: 14 // starting zoom
         });
 
         this.map.on('zoomend', (e) => {

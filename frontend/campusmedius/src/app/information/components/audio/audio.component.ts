@@ -37,4 +37,8 @@ export class AudioComponent implements OnInit {
         this.lang = this.information.lang;
         this.data = this.information.data.media.audios[this.id];
     }
+
+    public onRightClick(e) {
+        e.preventDefault();
+    }
 }

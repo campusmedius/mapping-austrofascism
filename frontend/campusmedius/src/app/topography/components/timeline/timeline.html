@@ -18,12 +18,12 @@
     </div>
     <div #baseline class="baseline">
         <div class="selectedline" [style.left.%]="leftHandleX" [style.right.%]="100 - rightHandleX"></div>
-        <div class="handle handle-left" (pointerdown)="handleMouseDown('left', $event)" [style.left.%]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
+        <div #handleleft class="handle handle-left" [style.left.%]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
             <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
                 <div class="indicatorlabel">{{leftHandleLabel}}</div>
             </div>
         </div>
-        <div class="handle handle-right" (pointerdown)="handleMouseDown('right', $event)" [style.right.%]="100 - rightHandleX" [ngClass]="{'move': moveRightHandle}">
+        <div #handleright class="handle handle-right" [style.right.%]="100 - rightHandleX" [ngClass]="{'move': moveRightHandle}">
             <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
                 <div class="indicatorlabel">{{rightHandleLabel}}</div>
             </div>

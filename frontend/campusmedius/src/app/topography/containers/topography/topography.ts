@@ -70,7 +70,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
     sidepanelWidth: string;
 
     @ViewChild(MapComponent) map: MapComponent;
-    @ViewChild('infotitle') infobody: ElementRef;
+    @ViewChild('infoheading') infoheading: ElementRef;
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
@@ -116,15 +116,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
                         this.sidepanelState = 'short';
                         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                     }
-                    if (this.isMobile) {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    } else {
+                    if (!this.isMobile) {
                         this.scrollToService.scrollTo({
-                            target: this.infobody,
-                            offset: -100
+                            target: this.infoheading,
+                            offset: -50
                         });
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));
@@ -190,13 +185,15 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public mobileShowMore() {
         this.sidepanelState = 'full';
+        this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
         setTimeout(() => {
-            window.scrollBy({
-                top: 300,
-                left: 0,
-                behavior: 'smooth'
-            });
+            window.scrollBy(0, this.map.mapElement.nativeElement.clientHeight);
         });
+    }
+
+    public mobileShowShort() {
+        this.sidepanelState = 'short';
+        this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
     }
 
     ngOnDestroy() {

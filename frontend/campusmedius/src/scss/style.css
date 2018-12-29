@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'cm-icons';
-  src:  url('./assets/fonts/cm-icons.eot?jasso2');
-  src:  url('./assets/fonts/cm-icons.eot?jasso2#iefix') format('embedded-opentype'),
-    url('./assets/fonts/cm-icons.ttf?jasso2') format('truetype'),
-    url('./assets/fonts/cm-icons.woff?jasso2') format('woff'),
-    url('./assets/fonts/cm-icons.svg?jasso2#cm-icons') format('svg');
+  src:  url('fonts/cm-icons.eot?e63zov');
+  src:  url('fonts/cm-icons.eot?e63zov#iefix') format('embedded-opentype'),
+    url('fonts/cm-icons.ttf?e63zov') format('truetype'),
+    url('fonts/cm-icons.woff?e63zov') format('woff'),
+    url('fonts/cm-icons.svg?e63zov#cm-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }

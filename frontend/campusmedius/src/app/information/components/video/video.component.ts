@@ -65,4 +65,8 @@ export class VideoComponent implements OnInit {
             }
         }
     }
+
+    public onRightClick(e) {
+        e.preventDefault();
+    }
 }

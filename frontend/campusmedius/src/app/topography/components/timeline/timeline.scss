@@ -3,12 +3,17 @@
 :host {
     display: block;
     position: absolute;
-    z-index: 10;
+    z-index: 9;
     bottom: 0px;
     @media screen and (max-width: $break-mobile) {
-        top: 0px;
         bottom: auto;
         width: 100% !important;
+        top: $header-height-mobile;
+        position: fixed;
+        &.open {
+            top: calc(#{$header-height-mobile} - 40px);
+            z-index: 12;
+        }
     }
     background: $map-overlay-background-color;
     color: white;
@@ -37,16 +42,26 @@
             margin-top: -4px;
         }
     }
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+/Edge */
-    user-select: none; /* Standard */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .header {
     padding: 6px 0px;
     font-family: $title-regular-font;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .events {
@@ -148,7 +163,7 @@
     color: white;
     font-size: $small2-font-size;
     position: relative;
-    top: -1.6em;
+    top: -1.5em;
     left: -15px;
     width: 35px;
     text-align: center;

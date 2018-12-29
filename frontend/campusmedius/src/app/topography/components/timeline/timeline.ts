@@ -28,6 +28,7 @@ import { Event, TimelineLine } from '../../models/event';
 
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import * as hammerjs from 'hammerjs';
 
 const OPENED_HEIGHT = '220px';
 const CLOSED_HEIGHT = '40px';
@@ -36,6 +37,9 @@ const CLOSED_HEIGHT = '40px';
     selector: 'cm-timeline',
     templateUrl: './timeline.html',
     styleUrls: ['./timeline.scss'],
+    host: {
+        '[class.open]': 'opened'
+    },
     animations: [
         trigger('panelControl', [
             state('true', style({ transform: 'scaleY(1)' })),
@@ -57,6 +61,8 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     @ViewChild('baseline') baselineElement: ElementRef;
+    @ViewChild('handleright') handleRightElement: ElementRef;
+    @ViewChild('handleleft') handleLeftElement: ElementRef;
 
     @Output() startFilterChanged = new EventEmitter<Moment>();
     @Output() endFilterChanged = new EventEmitter<Moment>();
@@ -79,6 +85,9 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     private leftHandleStartX: number = null;
     private rightHandleStartX: number = null;
 
+    private handleRightHammer: any;
+    private handleLeftHammer: any;
+
     public leftHandleX: number = null;
     public leftHandleLabel: string;
     private leftHandleStep: number = null;
@@ -97,6 +106,14 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     constructor(private translate: TranslateService) { }
 
     ngOnInit() {
+
+        this.handleRightHammer = new hammerjs(this.handleRightElement.nativeElement);
+        this.handleRightHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_ALL, threshold: 0 }));
+        this.handleRightHammer.on('pan', (ev) => this.handleRightMouseMove(ev));
+        this.handleLeftHammer = new hammerjs(this.handleLeftElement.nativeElement);
+        this.handleLeftHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_ALL, threshold: 0 }));
+        this.handleLeftHammer.on('pan', (ev) => this.handleLeftMouseMove(ev));
+
         this.leftHandleX = 0;
         this.leftHandleStep = 0;
         this.leftHandleLabel = this.getLabel(this.leftHandleStep);
@@ -173,94 +190,89 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         });
 
         this.rows = rows;
-        this.indicatorLineHeight = this.rows.length * 13 + 35;
+        this.indicatorLineHeight = this.rows.length * 13 + 32;
     }
 
     private getLabel(step: number) {
         return `${step} h`;
     }
 
-    private bindMouseMove = (ev) => this.handleMouseMove(ev);
-    private bindMouseUp = (ev) => this.handleMouseUp(ev);
-
-    public handleMouseDown(handle: string, event: any) {
-        this.mouseStartX = event.clientX;
-        if (handle === 'left') {
-            this.leftHandleStartX = this.leftHandleX;
-            this.moveLeftHandle = true;
-        }
-        if (handle === 'right') {
-            this.rightHandleStartX = this.rightHandleX;
-            this.moveRightHandle = true;
-        }
-        window.document.addEventListener('pointermove', this.bindMouseMove);
-        window.document.addEventListener('pointerup', this.bindMouseUp);
-        window.document.body.style.cursor = 'pointer';
-    }
-
-    public handleMouseMove(event: any) {
+    public handleRightMouseMove(event: any) {
         const baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
         const spacing = baselineWidth / this.steps;
 
-        if (this.moveLeftHandle) {
-            event.preventDefault();
-            let newValue = (this.leftHandleStartX / 100) * baselineWidth + (event.clientX - this.mouseStartX);
-            if (newValue < 0) {
-                newValue = 0;
+        if (!this.moveRightHandle) {
+            this.moveRightHandle = true;
+            this.rightHandleStartX = this.rightHandleX;
+            window.document.body.style.cursor = 'pointer';
+        }
+        let newValue = (this.rightHandleStartX / 100) * baselineWidth + event.deltaX;
+        if (newValue > baselineWidth) {
+            newValue = baselineWidth;
+        }
+        let step = Math.round(newValue / spacing);
+        if (step <= this.leftHandleStep) {
+            step = this.leftHandleStep + 1;
+            if (step > this.steps) {
+                step = this.steps;
             }
-            let step = Math.round(newValue / spacing);
-            if (step >= this.rightHandleStep) {
-                step = this.rightHandleStep - 1;
-                if (step < 0) {
-                    step = 0;
-                }
-            }
-
-            if (this.leftHandleStep !== step) {
-                this.startFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
-                this.leftHandleX = (step * spacing) * 100 / baselineWidth;
-                this.leftHandleLabel = this.getLabel(step);
-            }
-
-            this.leftHandleStep = step;
         }
 
-        if (this.moveRightHandle) {
-            event.preventDefault();
-            let newValue = (this.rightHandleStartX / 100) * baselineWidth + (event.clientX - this.mouseStartX);
-            if (newValue > baselineWidth) {
-                newValue = baselineWidth;
-            }
-            let step = Math.round(newValue / spacing);
-            if (step <= this.leftHandleStep) {
-                step = this.leftHandleStep + 1;
-                if (step > this.steps) {
-                    step = this.steps;
-                }
-            }
-
-            if (this.rightHandleStep !== step) {
-                this.endFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
-                this.rightHandleX = (step * spacing) * 100 / baselineWidth;
-                this.rightHandleLabel = this.getLabel(step);
-            }
-
-            this.rightHandleStep = step;
-
+        if (this.rightHandleStep !== step) {
+            this.endFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
+            this.rightHandleX = (step * spacing) * 100 / baselineWidth;
+            this.rightHandleLabel = this.getLabel(step);
         }
+
+        this.rightHandleStep = step;
+
+        if (event.isFinal) {
+            this.moveLeftHandle = false;
+            window.document.body.style.cursor = 'default';
+        }
+
     }
 
-    public handleMouseUp(event: any) {
-        this.moveLeftHandle = false;
-        this.moveRightHandle = false;
+    public handleLeftMouseMove(event: any) {
+        const baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
+        const spacing = baselineWidth / this.steps;
 
-        window.document.removeEventListener('pointermove', this.bindMouseMove);
-        window.document.removeEventListener('pointerup', this.bindMouseUp);
-        window.document.body.style.cursor = 'default';
+        if (!this.moveLeftHandle) {
+            this.moveLeftHandle = true;
+            this.leftHandleStartX = this.leftHandleX;
+            window.document.body.style.cursor = 'pointer';
+        }
+
+        let newValue = (this.leftHandleStartX / 100) * baselineWidth + event.deltaX;
+        if (newValue < 0) {
+            newValue = 0;
+        }
+        let step = Math.round(newValue / spacing);
+        if (step >= this.rightHandleStep) {
+            step = this.rightHandleStep - 1;
+            if (step < 0) {
+                step = 0;
+            }
+        }
+
+        if (this.leftHandleStep !== step) {
+            this.startFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
+            this.leftHandleX = (step * spacing) * 100 / baselineWidth;
+            this.leftHandleLabel = this.getLabel(step);
+        }
+
+        this.leftHandleStep = step;
+
+        if (event.isFinal) {
+            this.moveLeftHandle = false;
+            window.document.body.style.cursor = 'default';
+        }
     }
 
     ngOnDestroy() {
         this.destroy$.next();
         this.destroy$.complete();
+        this.handleLeftHammer.destroy();
+        this.handleRightHammer.destroy();
     }
 }

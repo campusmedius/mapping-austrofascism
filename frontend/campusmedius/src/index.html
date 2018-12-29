@@ -1,14 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Campus Medius</title>
-  <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Campus Medius</title>
+    <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style type="text/css">
+      .spinner {
+        position: fixed;
+        background: transparent url("./assets/icons/cm-loading.svg");
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+     }
+    </style>
+
 </head>
 <body>
-  <cm-app>Loading...</cm-app>
+    <cm-app>
+        <div class="spinner"></div>
+    </cm-app>
 </body>
 </html>
