@@ -205,7 +205,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     @HostListener('scroll')
     private onScroll() {
-        if (this.elementRef.nativeElement.scrollTop < 70) {
+        if (this.elementRef.nativeElement.scrollTop < 120) {
             this.mobileShowShort();
         };
     }

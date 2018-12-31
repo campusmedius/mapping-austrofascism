@@ -114,13 +114,9 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
 
         this.handleRightHammer = new hammerjs(this.handleRightElement.nativeElement);
         this.handleRightHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_HORIZONTAL, threshold: 0 }));
-        this.handleRightHammer.add(new hammerjs.Press({ threshold: 50, time: 30 }));
-        this.handleRightHammer.on('press', (ev) => this.handleRightMouseMoveStart(ev));
         this.handleRightHammer.on('pan', (ev) => this.handleRightMouseMove(ev));
         this.handleLeftHammer = new hammerjs(this.handleLeftElement.nativeElement);
         this.handleLeftHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_HORIZONTAL, threshold: 0 }));
-        this.handleLeftHammer.add(new hammerjs.Press({ threshold: 50, time: 30 }));
-        this.handleLeftHammer.on('press', (ev) => this.handleLeftMouseMoveStart(ev));
         this.handleLeftHammer.on('pan', (ev) => this.handleLeftMouseMove(ev));
 
         this.leftHandleX = 0;
@@ -206,18 +202,11 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
         return `${step} h`;
     }
 
-
-    public handleRightMouseMoveStart(evnet: any) {
+    public handleRightMouseMove(event: any) {
         if (!this.moveRightHandle) {
             this.moveRightHandle = true;
             this.rightHandleStartX = this.rightHandleX;
             window.document.body.style.cursor = 'pointer';
-        }
-    }
-
-    public handleRightMouseMove(event: any) {
-        if (!this.moveRightHandle) {
-            return;
         }
 
         const baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
@@ -227,6 +216,7 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
         if (newValue > baselineWidth) {
             newValue = baselineWidth;
         }
+
         let step = Math.round(newValue / spacing);
         if (step <= this.leftHandleStep) {
             step = this.leftHandleStep + 1;
@@ -234,6 +224,8 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
                 step = this.steps;
             }
         }
+        console.log(newValue);
+        console.log(step);
 
         if (this.rightHandleStep !== step) {
             this.endFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));
@@ -244,23 +236,17 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
         this.rightHandleStep = step;
 
         if (event.isFinal) {
-            this.moveLeftHandle = false;
+            this.moveRightHandle = false;
             window.document.body.style.cursor = 'default';
         }
 
     }
 
-    public handleLeftMouseMoveStart(evnet: any) {
+    public handleLeftMouseMove(event: any) {
         if (!this.moveLeftHandle) {
             this.moveLeftHandle = true;
             this.leftHandleStartX = this.leftHandleX;
             window.document.body.style.cursor = 'pointer';
-        }
-    }
-
-    public handleLeftMouseMove(event: any) {
-        if (!this.moveLeftHandle) {
-            return;
         }
 
         const baselineWidth = this.baselineElement.nativeElement.getBoundingClientRect().width;
