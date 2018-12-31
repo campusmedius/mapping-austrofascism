@@ -1,0 +1,34 @@
+<div class="header" (click)="toggle()" [@header]="opened">
+    <button mat-flat-button color="warn" class="panel-control">
+            <mat-icon fontSet="fa" fontIcon="fa-caret-down" [@panelControl]="opened"></mat-icon>
+    </button>
+    <span>{{'timeline.header' | translate }}</span>
+</div>
+
+<div class="events">
+    <div *ngFor="let row of rows" class="events-row">
+        <div *ngFor="let line of row"
+             class="event"
+             [routerLink]="['/topography', 'events', line.event.id]"
+             queryParamsHandling="merge"
+             [style.left.%]="line.left"
+             [style.width.%]="line.width">
+            <div class="bar" [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1, 'selected': selectedEvent && selectedEvent.id === line.event.id }"></div>
+        </div>
+    </div>
+    <div #baseline class="baseline">
+        <div class="selectedline" [style.left.%]="leftHandleX" [style.right.%]="100 - rightHandleX"></div>
+        <div #handleleft class="handle handle-left" [style.left.%]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
+            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
+                <div class="indicatorlabel">{{leftHandleLabel}}</div>
+            </div>
+        </div>
+        <div #handleright class="handle handle-right" [style.right.%]="100 - rightHandleX" [ngClass]="{'move': moveRightHandle}">
+            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
+                <div class="indicatorlabel">{{rightHandleLabel}}</div>
+            </div>
+        </div>
+        <div class="startlabel">{{timelineStart.locale(lang).format(baselineLabelFormat)}}</div>
+        <div class="endlabel">{{timelineEnd.locale(lang).format(baselineLabelFormat)}}</div>
+    </div>
+</div>

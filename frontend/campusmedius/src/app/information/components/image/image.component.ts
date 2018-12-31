@@ -94,6 +94,14 @@ export class ImageComponent implements OnInit, OnDestroy {
         e.preventDefault();
     }
 
+    public previewOpened() {
+        document.getElementsByTagName('cm-topography')[0].classList.add('noscroll');
+    }
+
+    public previewClosed() {
+        document.getElementsByTagName('cm-topography')[0].classList.remove('noscroll');
+    }
+
     ngOnDestroy() {
         this.mediaSubscription.unsubscribe();
     }

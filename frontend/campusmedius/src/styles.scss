@@ -31,6 +31,14 @@ html {
   }
 }
 
+
+.noscroll {
+    overflow: hidden !important;
+    @media screen and (max-width: $break-mobile) {
+        position: fixed !important;
+    }
+}
+
 /**
  * Firefox specific rule
  */

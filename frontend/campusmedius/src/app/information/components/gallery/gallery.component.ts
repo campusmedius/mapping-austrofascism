@@ -85,6 +85,14 @@ export class GalleryComponent implements OnInit, OnDestroy {
         this.galleryImages = galleryImages;
     }
 
+    public previewOpened() {
+        document.getElementsByTagName('cm-topography')[0].classList.add('noscroll');
+    }
+
+    public previewClosed() {
+        document.getElementsByTagName('cm-topography')[0].classList.remove('noscroll');
+    }
+
     ngOnDestroy() {
         this.mediaSubscription.unsubscribe();
     }

@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef
+    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, HostListener
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
@@ -82,7 +82,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
         private router: Router,
         private dialog: MatDialog,
         private media: ObservableMedia,
-        private scrollToService: ScrollToService
+        private scrollToService: ScrollToService,
+        private elementRef: ElementRef
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -99,6 +100,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
             if (queryParams['info']) {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                if (this.isMobile && this.sidepanelState === 'full') {
+                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                }
             }
         });
 
@@ -121,6 +125,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
                             target: this.infoheading,
                             offset: -50
                         });
+                    }
+                    if (this.isMobile && this.sidepanelState === 'full') {
+                        setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));
                 } else {
@@ -187,13 +194,20 @@ export class TopographyComponent implements OnInit, OnDestroy {
         this.sidepanelState = 'full';
         this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
         setTimeout(() => {
-            window.scrollBy(0, this.map.mapElement.nativeElement.clientHeight);
+            this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
         });
     }
 
     public mobileShowShort() {
         this.sidepanelState = 'short';
         this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+    }
+
+    @HostListener('scroll')
+    private onScroll() {
+        if (this.elementRef.nativeElement.scrollTop < 70) {
+            this.mobileShowShort();
+        };
     }
 
     ngOnDestroy() {

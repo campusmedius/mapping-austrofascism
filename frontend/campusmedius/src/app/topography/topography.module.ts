@@ -11,6 +11,7 @@ import { InformationModule } from '../information/information.module';
 import { TopographyComponent } from './containers/topography/topography';
 import { MapComponent } from './components/map/map';
 import { TimelineComponent } from './components/timeline/timeline';
+import { TimelineMobileComponent } from './components/timeline-mobile/timeline-mobile';
 import { InfoEventNavComponent } from './components/info-event-nav/info-event-nav';
 
 import { EventService } from './services/events';
@@ -58,6 +59,7 @@ import { DynamicAbstractComponent } from './components/dynamic-abstract/dynamic-
         TopographyComponent,
         MapComponent,
         TimelineComponent,
+        TimelineMobileComponent,
         MapEventComponent,
         InfoEventNavComponent,
         InfoTimestampPipe,

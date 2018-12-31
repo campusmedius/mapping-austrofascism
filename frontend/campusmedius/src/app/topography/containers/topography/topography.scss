@@ -8,11 +8,24 @@
     @media screen and (max-width: $break-mobile) {
         height: calc(100vh - #{$header-height-mobile});
         top: $header-height-mobile;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
     }
 }
 
+
 .row, .col {
     height: 100%;
+}
+
+cm-map {
+    @media screen and (max-width: $break-mobile) {
+        display: block;
+        width: 100%;
+        height: calc(100vh - #{$header-height-mobile});
+        position: fixed;
+    }
 }
 
 .map-container {
@@ -53,7 +66,7 @@
     overflow-y: scroll;
     padding: 0px 15px;
     position: relative;
-    z-index: 10;
+    z-index: 12;
     background: #ffffff;
     .info-heading {
         margin-top: 50px;
@@ -156,6 +169,12 @@
     height: 0px;
 }
 
+.placeholder-scroll {
+    height: calc(100vh - #{$header-height-mobile});
+    width: 100%;
+    position: relative;
+}
+
 .mobile-short-info {
     position: fixed;
     width: 100%;
@@ -164,6 +183,7 @@
     overflow: hidden;
     bottom: 0px;
     padding-top: 5px;
+    z-index: 10;
     .btn-read-more {
         width: 100%;
     }

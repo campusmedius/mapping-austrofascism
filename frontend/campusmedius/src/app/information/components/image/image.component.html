@@ -7,7 +7,7 @@
             <div fxFlex="50" class="image">
                 <span class="cm-square-zoom"></span>
                 <img *ngIf="opened" [src]="isMobile ? data.data.mobileFull : data.data.full" (click)="showImage()" (contextmenu)="onRightClick($event)" />
-                <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+                <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages" (previewOpen)="previewOpened()" (previewClose)="previewClosed()"></ngx-gallery>
             </div>
             <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe"></cm-caption>
         </div>
