@@ -186,6 +186,13 @@ ngx-gallery-preview{
     }
 }
 
+.issafari .ngx-gallery-preview-top {
+    top: $header-height;
+    @media screen and (max-width: $break-mobile) {
+        top: $header-height-mobile;
+    }
+}
+
 .mobile-info ngx-gallery-arrows {
     display: none;
 }
