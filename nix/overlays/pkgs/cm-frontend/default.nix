@@ -1,12 +1,12 @@
 {stdenv, fetchgit}:
 
 stdenv.mkDerivation {
-  name = "cm-frontend-2.0.0";
+  name = "cm-frontend-2.0.1";
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
-      rev = "f7279bfdb7ec219dacf6db14df3a73b04a86cf84";
-      sha256 = "189ln0lph8i33yhns3h01pj9v89j1wm9mzj67bm1vg026ynsr2h1";
+      rev = "d7b0beeb523224490133ee1c1dd7e65363c8d746";
+      sha256 = "0qxmyq5nhsp63vdp8rqpwl7krixafily8dvlxcba56ggkwz0saqj";
   };
   
   installPhase = ''
