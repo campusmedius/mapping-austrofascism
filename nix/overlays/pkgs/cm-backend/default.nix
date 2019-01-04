@@ -12,7 +12,7 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "cm-backend-0.0.8";
+  name = "cm-backend-2.0.0";
   
   pythonenv = pythonenv;
   python = python;
@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
-      rev = "2a15fb06270845c1a58547839134ee0b9b052284";
-      sha256 = "0349xb0hby1ncx42kk32fppgw99iwj4l8215w74dp07b9bj3lz01";
+      rev = "f7279bfdb7ec219dacf6db14df3a73b04a86cf84";
+      sha256 = "189ln0lph8i33yhns3h01pj9v89j1wm9mzj67bm1vg026ynsr2h1";
   };
 
   buildInputs = [ uwsgi-python pythonenv ];
