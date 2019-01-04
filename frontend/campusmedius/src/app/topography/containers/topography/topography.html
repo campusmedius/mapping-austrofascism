@@ -8,12 +8,12 @@
         <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
     </button>
     <div class="info-container">
-        <div *ngIf="selectedEvent; else topographyStart" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
-            <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+        <div *ngIf="selectedEvent" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
+            <cm-info-event-nav *ngIf="!isPage" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
             <div class="info-body" fxFill>
-                <div class="info-content">
+                <div class="info-content" [ngClass]="{'ispage': isPage}">
                     <div #infoheading class="info-heading">
-                        <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+                        <span  *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                         <div class="cite-button-wrapper">
                             <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
                                 <span class="cm-square-quote"></span>
@@ -33,13 +33,6 @@
                 </div>
             </div>
         </div>
-        <ng-template #topographyStart>
-            <div class="topography-start" fxLayout="column" fxLayoutAlign="center none" >
-                <h1>Topography</h1>
-                <p>Lorem ipsum dolor sit amet, <i>consectetur adipiscing elit</i>. Etiam nec justo mollis, imperdiet elit id, ullamcorper metus. Sed aliquam massa in bibendum ultricies. Integer rhoncus elit dui, sed viverra massa venenatis rhoncus. Nunc mauris purus, tempus a faucibus nec, tincidunt quis nisi. Nam accumsan mollis pretium. Duis non accumsan velit. Praesent venenatis nisi in pretium ullamcorper. Vestibulum efficitur lobortis sem.
-                </p>
-            </div>
-        </ng-template>
     </div>
 </div>
 
@@ -53,13 +46,16 @@
 
 <div *ngIf="isMobile" class="mobile-info">
     <div #mobileshortinfo class="mobile-short-info">
-        <div class="event-nav-wrapper">
+        <div *ngIf="!isPage" class="event-nav-wrapper">
             <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
         </div>
         <div class="info">
-            <div class="info-heading">
-                <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+            <div class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
+                <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
+            </div>
+            <div *ngIf="isPage" class="mobile-abstract">
+                 <cm-dynamic-abstract [content]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"></cm-dynamic-abstract>
             </div>
             <div class="intro">
                 <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
@@ -71,7 +67,7 @@
     <div class="mobile-full-info" *ngIf="sidepanelState === 'full'" >
         <div class="info-body-mobile">
             <div #infoheading class="info-heading">
-                <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+                <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                 <div class="cite-button-wrapper">
                     <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
                         <span class="cm-square-quote"></span>

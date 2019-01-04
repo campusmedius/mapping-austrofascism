@@ -1,4 +1,4 @@
-<div #marker
+<div #marker *ngIf="mapAvailable"
      [routerLink]="['/topography', 'events', event.id]"
      queryParamsHandling="merge"
      class="marker"

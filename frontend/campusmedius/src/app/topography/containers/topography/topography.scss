@@ -19,6 +19,10 @@
     height: 100%;
 }
 
+.ispage {
+    margin-top: 70px;
+}
+
 cm-map {
     @media screen and (max-width: $break-mobile) {
         display: block;
@@ -55,7 +59,8 @@ cm-map {
 .info-content {
     width: 70%;
     max-width: 900px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .info-body-mobile {
@@ -202,6 +207,10 @@ cm-map {
         width: 100%;
         text-align: center;
     }
+}
+
+.info-heading-mobile-ispage {
+    margin-top: 15px;
 }
 
 $back-to-top-size: 32px;

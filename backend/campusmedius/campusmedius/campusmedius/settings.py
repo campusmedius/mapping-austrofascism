@@ -32,6 +32,7 @@ CORS_ORIGIN_ALLOW_ALL = bool(os.environ.get('CORS_ORIGIN_ALLOW_ALL', True))
 
 INSTALLED_APPS = [
     'rest_framework',
+    'main',
     'topography',
     # 'topology',
     'information',

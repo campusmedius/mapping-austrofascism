@@ -3,16 +3,16 @@
         <mat-icon class="cm-menu"></mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" >
-        <button mat-menu-item routerLink="/about" routerLinkActive="active">{{'header.about' | translate}}</button>
-        <button mat-menu-item routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</button>
-        <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button>
-        <button mat-menu-item routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</button>
-        <button mat-menu-item routerLink="/team" routerLinkActive="active">{{'header.team' | translate}}</button>
-        <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button>
+        <button mat-menu-item routerLink="/about" [queryParams]="{info:'full'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.about' | translate}}</button>
+        <button mat-menu-item routerLink="/topography/events/1" [queryParams]="{info:'short'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.topography' | translate}}</button>
+        <button mat-menu-item routerLink="/team" [queryParams]="{info:'full'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.team' | translate}}</button>
+        <!-- <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button> -->
+        <!-- <button mat-menu-item routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</button> -->
+        <!-- <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button> -->
     </mat-menu>
 </div>
 <div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center">
-    <img routerLink="/" class="logo" src="./assets/logo.svg">
+    <img routerLink="/" [queryParams]="{info:'short'}" queryParamsHandling="merge" class="logo" src="./assets/logo.svg">
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end">
     <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">

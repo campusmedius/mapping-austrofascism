@@ -14,5 +14,8 @@
     },
     "timeline": {
         "header": "timeline"
+    },
+    "map": {
+        "webgl": "Map cannot be displayed. Your Browser doesn't support WebGL.<br><a href=\"https://get.webgl.org/\" target=\"_blank\">For more help, please click this link.</a>"
     }
 }

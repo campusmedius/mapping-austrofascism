@@ -539,17 +539,23 @@ export class MapComponent implements OnInit {
             }
         ]
     };
+
+    public noWebGL = false;
+
     constructor(
         private router: Router,
         private zone: NgZone
-    ) { }
-
-    ngOnInit() {
+    ) {
         // check webgl
         const canvas = document.createElement('canvas');
         const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
         if (!gl || !(gl instanceof WebGLRenderingContext)) {
-            alert('No Webgl found');
+            this.noWebGL = true;
+        }
+    }
+
+    ngOnInit() {
+        if (this.noWebGL) {
             return;
         }
 
@@ -560,7 +566,7 @@ export class MapComponent implements OnInit {
             minZoom: MIN_ZOOM,
             style: 'mapbox://styles/mapbox/streets-v9',
             center: [16.4, 48.2], // starting position
-            zoom: 14 // starting zoom
+            zoom: 12.14 // starting zoom
         });
 
         this.map.on('zoomend', (e) => {

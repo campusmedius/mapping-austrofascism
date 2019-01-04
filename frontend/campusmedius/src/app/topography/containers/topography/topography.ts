@@ -28,7 +28,6 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 const SIDEPANEL_WIDTH = {
     'full': '75%',
     'short': '470px',
-    'intro': '40%'
 };
 
 @Component({
@@ -44,13 +43,11 @@ const SIDEPANEL_WIDTH = {
         trigger('sidenav', [
             state('full', style({ width: SIDEPANEL_WIDTH['full'] })),
             state('short', style({ width: SIDEPANEL_WIDTH['short'] })),
-            state('intro', style({ width: SIDEPANEL_WIDTH['intro'] })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('timeline', [
             state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['full'] + ')' })),
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['short'] + ')' })),
-            state('intro', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['intro'] + ')' })),
             transition('* <=> *', animate('300ms ease-in'))
         ])
     ]
@@ -66,7 +63,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
     selectedEvent: Event;
     nextEvent: Event;
     previousEvent: Event;
-    sidepanelState = 'intro'; // full, short, intro
+    sidepanelState = 'short'; // full, short
     sidepanelWidth: string;
 
     @ViewChild(MapComponent) map: MapComponent;
@@ -74,6 +71,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
+    public mobileOverlayAboutHeight = '345px';
+    public mobileOverlayDefaultHeight = '200px';
+
+    private isPage = false;
 
     constructor(
         private store: Store<fromTopography.State>,
@@ -103,6 +104,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 if (this.isMobile && this.sidepanelState === 'full') {
                     setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
                 }
+                if (this.selectedEvent) {
+                    setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
+                }
             }
         });
 
@@ -112,18 +116,28 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
         this.selectedEventsSubscription = this.store.select(fromTopography.getSelectedEvent)
             .subscribe((e) => {
-                this.selectedEvent = e.current;
+                this.selectedEvent = <any>e.current;
                 this.nextEvent = e.next;
                 this.previousEvent = e.previous;
                 if (e.current) {
-                    if (this.sidepanelState === 'intro') {
-                        this.sidepanelState = 'short';
-                        this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                    if (e.current.id === 'about' || e.current.id === 'team') {
+                        this.isPage = true;
+                        if (e.current.id === 'team') {
+                            this.sidepanelState = 'full';
+                        }
+                        if (e.current.id === 'about') {
+                            this.mobileOverlayHeight = this.mobileOverlayAboutHeight;
+                        }
+                    } else {
+                        this.isPage = false;
+                        this.mobileOverlayHeight = this.mobileOverlayDefaultHeight;
                     }
+
+                    this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                     if (!this.isMobile) {
                         this.scrollToService.scrollTo({
                             target: this.infoheading,
-                            offset: -50
+                            offset: -150
                         });
                     }
                     if (this.isMobile && this.sidepanelState === 'full') {
@@ -131,8 +145,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));
                 } else {
-                    this.sidepanelState = 'intro';
-                    this.sidepanelWidth = SIDEPANEL_WIDTH['intro'];
+                    this.sidepanelState = 'short';
+                    this.sidepanelWidth = SIDEPANEL_WIDTH['short'];
                 }
             });
 
@@ -181,7 +195,11 @@ export class TopographyComponent implements OnInit, OnDestroy {
         if (this.sidepanelState === 'full') {
             this.sidepanelState = 'short';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-            this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            if (this.selectedEvent.id === 'team') {
+                this.router.navigate(['/about'], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            } else {
+                this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            }
         } else {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
@@ -200,7 +218,12 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public mobileShowShort() {
         this.sidepanelState = 'short';
-        this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+        if (this.selectedEvent.id === 'team') {
+            this.router.navigate(['/about'], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+        } else {
+            this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+        }
+
     }
 
     @HostListener('scroll')

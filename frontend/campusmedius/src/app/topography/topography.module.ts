@@ -15,6 +15,7 @@ import { TimelineMobileComponent } from './components/timeline-mobile/timeline-m
 import { InfoEventNavComponent } from './components/info-event-nav/info-event-nav';
 
 import { EventService } from './services/events';
+import { PageService } from './services/pages';
 
 import { routes } from './routes';
 
@@ -25,6 +26,7 @@ import { MapEventComponent } from './components/map-event/map-event.component';
 import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
 
 import { EventResolver } from './guards/event';
+import { AboutTeamResolver } from './guards/about-team';
 import { DynamicInformationComponent } from './components/dynamic-information/dynamic-information.component';
 import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
 import { DynamicAbstractComponent } from './components/dynamic-abstract/dynamic-abstract.component';
@@ -72,7 +74,9 @@ import { DynamicAbstractComponent } from './components/dynamic-abstract/dynamic-
     ],
     providers: [
         EventService,
-        EventResolver
+        PageService,
+        EventResolver,
+        AboutTeamResolver
     ]
 })
 export class TopographyModule { }

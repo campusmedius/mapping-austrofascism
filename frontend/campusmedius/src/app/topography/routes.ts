@@ -2,23 +2,35 @@ import { Routes } from '@angular/router';
 
 import { TopographyComponent } from './containers/topography/topography';
 import { EventResolver } from './guards/event';
+import { AboutTeamResolver } from './guards/about-team';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'about',
+        component: TopographyComponent,
+        resolve: { loaded: EventResolver },
+        data: {
+            reuse: true
+        }
+    },
+    {
+        path: 'team',
+        component: TopographyComponent,
+        resolve: { loaded: EventResolver },
+        data: {
+            reuse: true
+        }
+    },
+    {
+        path: 'topography',
         pathMatch: 'full',
-        redirectTo: 'events/99'
+        redirectTo: 'topography/events/1'
     }, {
-        path: 'events',
+        path: 'topography/events',
         pathMatch: 'full',
-        redirectTo: 'events/99'
-        // component: TopographyComponent,
-        // resolve: { loaded: EventResolver },
-        // data: {
-        //     reuse: true
-        // }
+        redirectTo: 'topography/events/1'
     }, {
-        path: 'events/:eventId',
+        path: 'topography/events/:eventId',
         component: TopographyComponent,
         resolve: { loaded: EventResolver },
         data: {

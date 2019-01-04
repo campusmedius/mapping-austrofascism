@@ -5,3 +5,5 @@
 </div>
 <div #map></div>
 <ng-content></ng-content>
+<div *ngIf="noWebGL" [innerHtml]="'map.webgl' | translate" class="nowebgl">
+</div>

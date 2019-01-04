@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^main/', include('main.urls')),
     # url(r'^topology/', include('topology.urls')),
     url(r'^topography/', include('topography.urls')),
     url(r'^information/', include('information.urls')),

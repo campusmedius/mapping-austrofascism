@@ -13,11 +13,11 @@ export function loadTopography() {
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/topography/events/99',
+        redirectTo: 'about',
         pathMatch: 'full'
     },
     {
-        path: 'topography',
+        path: '',
         loadChildren: loadTopography
     },
     // {
@@ -28,6 +28,9 @@ export const routes: Routes = [
     //     path: 'mediality',
     //     loadChildren: () => MedialityModule
     // },
-    { path: '**', component: NotFoundPageComponent }
+    {
+        path: '**',
+        redirectTo: 'about',
+    }
 ];
 

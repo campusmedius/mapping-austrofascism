@@ -1,5 +1,6 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromEvents from './events';
+import * as fromPages from './pages';
 import * as fromInformation from '../../information/reducers';
 import { selectRouteInfo } from '../../core/reducers';
 import { Information } from '../../information/models/information';
@@ -7,6 +8,7 @@ import { getInformationEntities } from '../../information/reducers';
 
 export interface TopographyState {
     events: fromEvents.State;
+    pages: fromPages.State;
 }
 
 export interface State {
@@ -15,6 +17,7 @@ export interface State {
 
 export const reducers = {
     events: fromEvents.reducer,
+    pages: fromPages.reducer
 };
 
 /**
@@ -54,6 +57,11 @@ export const getEventEntitiesState = createSelector(
     state => state.events
 );
 
+export const getPageEntitiesState = createSelector(
+    getTopographyState,
+    state => state.pages
+);
+
 export const getEventTimeFilter = createSelector(
     getEventEntitiesState,
     fromEvents.getTimeFilter
@@ -74,17 +82,41 @@ export const {
     selectTotal: getTotalEvents,
 } = fromEvents.adapter.getSelectors(getEventEntitiesState);
 
+
+export const {
+    selectIds: getPageIds,
+    selectEntities: getPageEntities,
+    selectAll: getAllPages,
+    selectTotal: getTotalPages,
+} = fromPages.adapter.getSelectors(getPageEntitiesState);
+
 export const getSelectedEvent = createSelector(
+    getPageEntities,
     getEventEntities,
     selectRouteInfo,
-    (entities, routerInfo: any) => {
+    (pages, events, routerInfo: any) => {
+        if (routerInfo.url.startsWith('/about')) {
+            const page = pages['1'];
+            page.id = 'about';
+            page.informationId = 'about';
+            page.coordinates = <any>{ lng: 16.373090, lat: 48.208385 };
+            return { current: page, previous: null, next: null };
+        }
+        if (routerInfo.url.startsWith('/team')) {
+            const page = pages['2'];
+            page.id = 'team';
+            page.informationId = 'team';
+            page.coordinates = <any>{ lng: 16.373090, lat: 48.208385 };
+            return { current: page, previous: null, next: null };
+        }
+
         const selectedId = routerInfo.params.eventId;
         if (selectedId) {
-            const selectedEvent = entities[selectedId];
+            const selectedEvent = events[selectedId];
             return {
                 current: selectedEvent,
-                previous: entities[selectedEvent.previousEvent] || null,
-                next: entities[selectedEvent.nextEvent] || null
+                previous: events[selectedEvent.previousEvent] || null,
+                next: events[selectedEvent.nextEvent] || null
             };
         } else {
             return { current: null, previous: null, next: null };
@@ -120,3 +152,13 @@ export const getSelectedInformation = createSelector(
         return null;
     }
 );
+
+export const getPagesLoaded = createSelector(getPageEntitiesState, fromPages.getLoaded);
+
+export const getEventsPagesLoaded = createSelector(getEventsLoaded, getPagesLoaded,
+    (events, pages) => {
+        return {
+            eventsLoaded: events,
+            pagesLoaded: pages
+        };
+    });

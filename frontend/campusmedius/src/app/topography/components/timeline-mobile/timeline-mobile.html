@@ -9,8 +9,6 @@
     <div *ngFor="let row of rows" class="events-row">
         <div *ngFor="let line of row"
              class="event"
-             [routerLink]="['/topography', 'events', line.event.id]"
-             queryParamsHandling="merge"
              [style.left.%]="line.left"
              [style.width.%]="line.width">
             <div class="bar" [ngClass]="{'active': this.filteredIds.indexOf(line.event.id) !== -1, 'selected': selectedEvent && selectedEvent.id === line.event.id }"></div>
@@ -34,3 +32,4 @@
         <div class="endlabel">{{timelineEnd.locale(lang).format(baselineLabelFormat)}}</div>
     </div>
 </div>
+
