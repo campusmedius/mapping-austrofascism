@@ -1,4 +1,5 @@
 <div #marker *ngIf="mapAvailable"
+     title="{{ (lang === 'de' ? event.titleDe : event.titleEn) | striphtml }}"
      [routerLink]="['/topography', 'events', event.id]"
      queryParamsHandling="merge"
      class="marker"

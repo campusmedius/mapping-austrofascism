@@ -5,6 +5,8 @@ import { Event } from '../../models/event';
 
 import { Marker } from 'mapbox-gl';
 
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+
 @Component({
     selector: 'cm-map-event',
     templateUrl: './map-event.component.html',
@@ -12,6 +14,7 @@ import { Marker } from 'mapbox-gl';
 })
 export class MapEventComponent implements OnInit, AfterViewInit {
     @Input() event: Event;
+    @Input() lang: string;
     @Input() active: boolean;
     @Input() selected: boolean;
 

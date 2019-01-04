@@ -66,6 +66,9 @@
 
 .events {
     margin-top: 30px;
+    @media screen and (max-width: $break-mobile) {
+        margin-top: 25px;
+    }
 }
 
 .events-row {
@@ -163,7 +166,7 @@
     color: white;
     font-size: $small2-font-size;
     position: relative;
-    top: -1.5em;
+    top: -1.6em;
     left: -15px;
     width: 35px;
     text-align: center;

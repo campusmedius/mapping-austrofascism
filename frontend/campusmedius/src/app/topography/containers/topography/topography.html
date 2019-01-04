@@ -1,5 +1,5 @@
 <cm-map [overlayBottomSize]="!isMobile ? timelineHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? timelineHeight : '0px'" >
-    <cm-map-event *ngFor="let event of events$ | async" [event]="event" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
+    <cm-map-event *ngFor="let event of events$ | async" [event]="event" [lang]="translate.currentLang" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
     </cm-map-event>
 </cm-map>
 
@@ -55,7 +55,7 @@
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
             </div>
             <div *ngIf="isPage" class="mobile-abstract">
-                 <cm-dynamic-abstract [content]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"></cm-dynamic-abstract>
+                 <cm-dynamic-abstract [content]="translate.currentLang === 'de' ? mobileAbstractDe : mobileAbstractEn"></cm-dynamic-abstract>
             </div>
             <div class="intro">
                 <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>

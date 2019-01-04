@@ -19,7 +19,7 @@
     <div #baseline class="baseline">
         <div class="selectedline" [style.left.%]="leftHandleX" [style.right.%]="100 - rightHandleX"></div>
         <div #handleleft class="handle handle-left" [style.left.%]="leftHandleX" [ngClass]="{'move': moveLeftHandle}">
-            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
+            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight + 3">
                 <div class="indicatorlabel">{{leftHandleLabel}}</div>
             </div>
         </div>

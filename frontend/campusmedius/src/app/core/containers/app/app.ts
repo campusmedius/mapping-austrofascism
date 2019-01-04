@@ -16,8 +16,6 @@ export class AppComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router
     ) {
-        this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
         this.translate.addLangs(['en', 'de']);
         translate.setDefaultLang('de');
 

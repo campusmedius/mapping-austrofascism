@@ -75,6 +75,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
     public mobileOverlayDefaultHeight = '200px';
 
     private isPage = false;
+    public mobileAbstractDe: string;
+    public mobileAbstractEn: string;
 
     constructor(
         private store: Store<fromTopography.State>,
@@ -121,9 +123,18 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.previousEvent = e.previous;
                 if (e.current) {
                     if (e.current.id === 'about' || e.current.id === 'team') {
+                        if (this.isMobile && e.current.id === 'about') {
+                            let tmp = e.current.abstractDe.replace('<p>', '').replace('</p>', '').split('. ');
+                            this.mobileAbstractDe = '<p>' + tmp[0] + '.</p>';
+                            tmp = e.current.abstractEn.replace('<p>', '').replace('</p>', '').split('. ');
+                            this.mobileAbstractEn = '<p>' + tmp[0] + '.</p>';
+                        }
+
                         this.isPage = true;
                         if (e.current.id === 'team') {
                             this.sidepanelState = 'full';
+                            this.mobileAbstractEn = '';
+                            this.mobileAbstractDe = '';
                         }
                         if (e.current.id === 'about') {
                             this.mobileOverlayHeight = this.mobileOverlayAboutHeight;

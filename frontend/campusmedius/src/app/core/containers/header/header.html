@@ -11,7 +11,7 @@
         <!-- <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button> -->
     </mat-menu>
 </div>
-<div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center">
+<div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
     <img routerLink="/" [queryParams]="{info:'short'}" queryParamsHandling="merge" class="logo" src="./assets/logo.svg">
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end">

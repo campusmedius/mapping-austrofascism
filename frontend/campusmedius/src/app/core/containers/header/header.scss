@@ -8,7 +8,7 @@
     background-color: $header-color;
     font-family: $title-regular-font;
     width: 100%;
-    position: fixed;
+    position: absolute;
     a {
         color: $inactive-font-color;
         text-decoration: none !important;
@@ -61,7 +61,7 @@
     color: $map-overlay-active-color;
     height: 2.2rem;
     @media screen and (max-width: $break-mobile) {
-        height: 1.5rem;
+        height: 1.9rem;
     }
     &:focus {
         outline: 0;

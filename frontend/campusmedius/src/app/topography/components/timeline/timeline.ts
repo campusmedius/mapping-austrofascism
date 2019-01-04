@@ -190,7 +190,7 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         });
 
         this.rows = rows;
-        this.indicatorLineHeight = this.rows.length * 13 + 32;
+        this.indicatorLineHeight = this.rows.length * 13 + 39;
     }
 
     private getLabel(step: number) {

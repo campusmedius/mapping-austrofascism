@@ -11,9 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { StripHtmlPipe } from './pipes/strip-html.pipe';
 
 export const COMPONENTS = [
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    StripHtmlPipe
 ];
 
 @NgModule({

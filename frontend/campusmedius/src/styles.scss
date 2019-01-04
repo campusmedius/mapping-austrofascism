@@ -156,7 +156,7 @@ cm-info-event-nav {
 }
 
 .ngx-gallery-preview-text-content {
-    max-width: 900px;
+    max-width: 1000px;
     margin: auto;
 }
 
@@ -181,16 +181,12 @@ ngx-gallery-preview{
         font-size: 40px;
     }
     cm-caption-content {
-        max-height: 8.7rem;
+        max-height: 6rem;
         overflow-y: auto;
         display: block;
-    }
-}
-
-.issafari .ngx-gallery-preview-top {
-    top: $header-height;
-    @media screen and (max-width: $break-mobile) {
-        top: $header-height-mobile;
+        p {
+            margin: 0px;
+        }
     }
 }
 
