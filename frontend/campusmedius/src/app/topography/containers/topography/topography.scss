@@ -3,7 +3,6 @@
 :host {
     display: block;
     height: calc(100vh - #{$header-height});
-    top: $header-height;
     position: relative;
     @media screen and (max-width: $break-mobile) {
         height: calc(100vh - #{$header-height-mobile});

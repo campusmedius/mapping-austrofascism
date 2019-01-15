@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '../../ngx-gallery/index';
 
 import { Gallery, Image, Audio, Video } from '../../models/information';
-import { InformationComponent } from '../information/information.component';
 
 import 'hammerjs';
 
@@ -15,18 +14,16 @@ import 'hammerjs';
     styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, OnDestroy {
-    @Input() id: string;
+    @Input() data: Gallery;
+    @Input() lang: string;
 
     public galleryOptions: NgxGalleryOptions[];
     public galleryImages: NgxGalleryImage[];
 
-    public data: Gallery;
-    public lang: string;
-
     public isMobile: boolean;
     mediaSubscription: Subscription;
 
-    constructor(private information: InformationComponent,
+    constructor(
         private media: ObservableMedia,
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
@@ -39,9 +36,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.lang = this.information.lang;
-        this.data = this.information.data.media.galleries[this.id];
-
         this.galleryOptions = [{
             'previewInfinityMove': true,
             'previewKeyboardNavigation': true,

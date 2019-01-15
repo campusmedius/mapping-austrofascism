@@ -2,7 +2,7 @@ import {
     Component, OnInit, Input
 } from '@angular/core';
 
-import { Information } from '../../models/information';
+import { Block } from '../../models/information';
 
 @Component({
     selector: 'cm-information',
@@ -10,11 +10,12 @@ import { Information } from '../../models/information';
     styleUrls: ['./information.component.scss']
 })
 export class InformationComponent implements OnInit {
-    @Input() data: Information;
-    @Input() lang: string;
+    @Input() content: Block[];
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+    }
 
 }

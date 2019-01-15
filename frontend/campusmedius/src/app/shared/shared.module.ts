@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { StripHtmlPipe } from './pipes/strip-html.pipe';
@@ -27,6 +28,7 @@ export const COMPONENTS = [
         MatIconModule,
         MatButtonModule,
         MatDialogModule,
+        ScrollingModule,
         TranslateModule.forChild()
     ],
     declarations: COMPONENTS,
@@ -37,6 +39,7 @@ export const COMPONENTS = [
         MatMenuModule,
         MatIconModule,
         MatButtonModule,
+        ScrollingModule,
         TranslateModule
     ],
     entryComponents: []

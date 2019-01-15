@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { CoreModule } from '../core/core.module';
 
 import { SharedModule } from '../shared/shared.module';
 import { InformationModule } from '../information/information.module';
@@ -27,15 +28,14 @@ import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
 
 import { EventResolver } from './guards/event';
 import { AboutTeamResolver } from './guards/about-team';
-import { DynamicInformationComponent } from './components/dynamic-information/dynamic-information.component';
 import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
-import { DynamicAbstractComponent } from './components/dynamic-abstract/dynamic-abstract.component';
 
 
 @NgModule({
     imports: [
         CommonModule,
         SharedModule,
+        CoreModule,
         InformationModule,
 
         /**
@@ -65,9 +65,7 @@ import { DynamicAbstractComponent } from './components/dynamic-abstract/dynamic-
         MapEventComponent,
         InfoEventNavComponent,
         InfoTimestampPipe,
-        DynamicInformationComponent,
         CiteDialogComponent,
-        DynamicAbstractComponent
     ],
     entryComponents: [
         CiteDialogComponent

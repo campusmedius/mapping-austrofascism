@@ -1,6 +1,5 @@
 import {
-    Component, OnInit, Input, ViewChild, ViewContainerRef,
-    ComponentRef, NgModule, ModuleWithComponentFactories, Compiler, OnDestroy
+    Component, OnInit, Input, ViewChild, OnDestroy
 } from '@angular/core';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import {
@@ -17,7 +16,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '../../ngx-gallery/index';
 
 import { Image } from '../../models/information';
-import { InformationComponent } from '../information/information.component';
 
 @Component({
     selector: 'cm-image',
@@ -32,14 +30,13 @@ import { InformationComponent } from '../information/information.component';
     ]
 })
 export class ImageComponent implements OnInit, OnDestroy {
-    @Input() id: string;
+    @Input() data: Image;
+    @Input() lang: string;
+
     @ViewChild('gallery') gallery: NgxGalleryComponent;
 
     public galleryOptions: NgxGalleryOptions[];
     public galleryImages: NgxGalleryImage[];
-
-    public data: Image;
-    public lang: string;
 
     public isMobile: boolean;
 
@@ -47,7 +44,7 @@ export class ImageComponent implements OnInit, OnDestroy {
 
     mediaSubscription: Subscription;
 
-    constructor(private information: InformationComponent,
+    constructor(
         private media: ObservableMedia,
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
@@ -60,9 +57,6 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.lang = this.information.lang;
-        this.data = this.information.data.media.images[this.id];
-
         this.galleryOptions = [{
             'image': false,
             'thumbnails': false,

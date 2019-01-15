@@ -9,7 +9,6 @@ import {
 } from '@angular/animations';
 
 import { Video } from '../../models/information';
-import { InformationComponent } from '../information/information.component';
 
 import * as Hls from 'hls.js';
 
@@ -26,22 +25,17 @@ import * as Hls from 'hls.js';
     ]
 })
 export class VideoComponent implements OnInit {
-    @Input() id: string;
+    @Input() data: Video;
+    @Input() lang: string;
 
     @ViewChild('video') videoElement: ElementRef;
-
-    public data: Video;
-    public lang: string;
 
     public opened = false;
     private hls: Hls;
 
-    constructor(private information: InformationComponent) { }
+    constructor() { }
 
-    ngOnInit() {
-        this.lang = this.information.lang;
-        this.data = this.information.data.media.videos[this.id];
-    }
+    ngOnInit() { }
 
     toggle() {
         if (!this.opened) {

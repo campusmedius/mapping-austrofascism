@@ -12,7 +12,7 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "cm-backend-0.0.6";
+  name = "cm-backend-0.2.1";
   
   pythonenv = pythonenv;
   python = python;

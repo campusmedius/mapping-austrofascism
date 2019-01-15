@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Block } from '../../models/information';
 
 @Component({
     selector: 'cm-quote',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./quote.component.scss']
 })
 export class QuoteComponent implements OnInit {
+    @Input() content: Block[];
+    @Input() lang: string;
 
     constructor() { }
 

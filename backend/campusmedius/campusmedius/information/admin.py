@@ -3,30 +3,17 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 import re
 
-from softhyphen.html import hyphenate
-
 from .models import Image, Audio, Video, Gallery
 from .models import MediaEntity
 from .models import Information
 
-IMAGE_PATTERN = re.compile(r'<cm-image id=\"([0-9]+)\">')
-VIDEO_PATTERN = re.compile(r'<cm-video id=\"([0-9]+)\">')
-AUDIO_PATTERN = re.compile(r'<cm-audio id=\"([0-9]+)\">')
-GALLERY_PATTERN = re.compile(r'<cm-gallery id=\"([0-9]+)\">')
-
-
-class MediaForm(forms.ModelForm):
-    def clean(self):
-        cleaned_data = super(MediaForm, self).clean()
-
-        cleaned_data['caption_en'] = hyphenate(
-            cleaned_data['caption_en'], language="en-en")
-        cleaned_data['caption_de'] = hyphenate(
-            cleaned_data['caption_de'], language="de-de")
+IMAGE_PATTERN = re.compile(r'<cm-image.*?id=\"([0-9]+)\".*?>')
+VIDEO_PATTERN = re.compile(r'<cm-video.*?id=\"([0-9]+)\".*?>')
+AUDIO_PATTERN = re.compile(r'<cm-audio.*?id=\"([0-9]+)\".*?>')
+GALLERY_PATTERN = re.compile(r'<cm-gallery.*?id=\"([0-9]+)\".*?>')
 
 
 class ImageAdmin(admin.ModelAdmin):
-    form = MediaForm
     list_display = (
         'id',
         'phaidra_id',
@@ -42,7 +29,6 @@ admin.site.register(Image, ImageAdmin)
 
 
 class AudioAdmin(admin.ModelAdmin):
-    form = MediaForm
     list_display = (
         'id',
         'phaidra_id',
@@ -58,7 +44,6 @@ admin.site.register(Audio, AudioAdmin)
 
 
 class VideoAdmin(admin.ModelAdmin):
-    form = MediaForm
     list_display = (
         'id',
         'phaidra_id',
@@ -102,11 +87,6 @@ def find_all_ids(pattern, cleaned_data):
 class InformationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(InformationForm, self).clean()
-
-        cleaned_data['content_en'] = hyphenate(
-            cleaned_data['content_en'], language="en-en")
-        cleaned_data['content_de'] = hyphenate(
-            cleaned_data['content_de'], language="de-de")
 
         try:
             cleaned_data['media_images'] = [

@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 
 from .models import Image, Audio, Video, Gallery
@@ -6,6 +7,33 @@ from .models import Information
 IMAGE_URL = 'https://services.phaidra.univie.ac.at/api/imageserver?IIIF={}.tif/full/{}/0/default.jpg'
 VIDEO_URL = 'https://stream-cd.univie.ac.at/media/phaidra/{}_hi.mp4/playlist.m3u8'
 AUDIO_URL = 'https://phaidra.univie.ac.at/open/{}'
+
+IMAGE_BLOCK_PATTERN = '<cm-(image).*?id=\\\"([0-9]+?)\\\".*?>.*?<\/cm-image>'
+VIDEO_BLOCK_PATTERN = '<cm-(video).*?id=\\\"([0-9]+?)\\\".*?>.*?<\/cm-video>'
+AUDIO_BLOCK_PATTERN = '<cm-(audio).*?id=\\\"([0-9]+?)\\\".*?>.*?<\/cm-audio>'
+GALLERY_BLOCK_PATTERN = '<cm-(gallery).*?id=\\\"([0-9]+?)\\\".*?>.*?<\/cm-gallery>'
+
+NOTE_BLOCK_PATTERN = '<cm-(note)>(.*?)<\/cm-note>'
+QUOTE_BLOCK_PATTERN = '<cm-(quote)>(.*?)<\/cm-quote>'
+
+LINK_INTERN_PATTERN = '<cm-(link-intern).*?href=\\\"(.*?)\\\".*?>(.*?)<\/cm-link-intern>'
+LINK_INPAGE_PATTERN = '<cm-(link-inpage).*?href=\\\"(.*?)\\\".*?>(.*?)<\/cm-link-inpage>'
+LINK_EXTERN_PATTERN = '<cm-(link-extern).*?href=\\\"(.*?)\\\".*?>(.*?)<\/cm-link-extern>'
+
+BLOCK_PATTERN = [
+    IMAGE_BLOCK_PATTERN,
+    VIDEO_BLOCK_PATTERN,
+    AUDIO_BLOCK_PATTERN,
+    GALLERY_BLOCK_PATTERN,
+    NOTE_BLOCK_PATTERN,
+    QUOTE_BLOCK_PATTERN,
+    LINK_EXTERN_PATTERN,
+    LINK_INPAGE_PATTERN,
+    LINK_EXTERN_PATTERN
+]
+
+BLOCK_TYPES = ['image', 'video', 'audio', 'gallery', 'note', 'quote',
+               'link-intern', 'link-inpage', 'link-extern', 'html']
 
 
 # Helper field
@@ -130,36 +158,82 @@ class GallerySerializer(serializers.ModelSerializer):
 
 
 class InformationSerializer(serializers.ModelSerializer):
-    media = serializers.SerializerMethodField()
+    content_de = serializers.SerializerMethodField()
+    content_en = serializers.SerializerMethodField()
 
     class Meta:
         model = Information
-        fields = (
-            'id',
-            'title_de',
-            'title_en',
-            'content_de',
-            'content_en',
-            'media',
-        )
+        fields = ('id', 'title_de', 'title_en', 'content_de', 'content_en')
 
-    def get_media(self, obj):
-        media = {'galleries': {}, 'images': {}, 'videos': {}, 'audios': {}}
+    def _serialize_content(self, content):
+        # strip p tags
+        content = content.replace('<p>', '')
+        content = content.replace('</p>', '<br><br>')
 
-        for gallery in obj.media_galleries.all():
-            data = GallerySerializer(gallery, context=self.context).data
-            media['galleries'][str(data['id'])] = data
+        split_content = re.split(r'|'.join(BLOCK_PATTERN), content)
+        result = []
+        i = 0
+        while i < len(split_content):
+            entry = split_content[i]
+            if entry is not None:
+                if entry == 'image':
+                    image = Image.objects.get(pk=int(split_content[i+1]))
+                    result.append({
+                        'data': ImageSerializer(image, context=self.context).data,
+                        'type': 'image'
+                    })
+                    i += 1
+                elif entry == 'video':
+                    video = Video.objects.get(pk=int(split_content[i+1]))
+                    result.append({
+                        'data': VideoSerializer(video, context=self.context).data,
+                        'type': 'video'
+                    })
+                    i += 1
+                elif entry == 'gallery':
+                    gallery = Gallery.objects.get(pk=int(split_content[i+1]))
+                    result.append({
+                        'data': GallerySerializer(gallery, context=self.context).data,
+                        'type': 'gallery'
+                    })
+                    i += 1
+                elif entry == 'audio':
+                    audio = Audio.objects.get(pk=int(split_content[i+1]))
+                    result.append({
+                        'data': AudioSerializer(audio, context=self.context).data,
+                        'type': 'audio'
+                    })
+                    i += 1
+                elif entry in ['note', 'quote']:
+                    result.append({
+                        'data': {
+                            'content': self._serialize_content(split_content[i+1])
+                        },
+                        'type': entry
+                    })
+                    i += 1
+                elif entry in ['link-intern', 'link-inpage', 'link-extern']:
+                    result.append({
+                        'data': {
+                            'href': split_content[i+1],
+                            'text': split_content[i+2]
+                        },
+                        'type': entry
+                    })
+                    i += 2
+                else:
+                    result.append({
+                        'data': {
+                            'html': entry
+                        },
+                        'type': 'html'
+                    })
+            i += 1
 
-        for image in obj.media_images.all():
-            data = ImageSerializer(image, context=self.context).data
-            media['images'][str(data['id'])] = data
+        return result
 
-        for audio in obj.media_audios.all():
-            data = AudioSerializer(audio, context=self.context).data
-            media['audios'][str(data['id'])] = data
+    def get_content_de(self, obj):
+        return self._serialize_content(obj.content_de)
 
-        for video in obj.media_videos.all():
-            data = VideoSerializer(video, context=self.context).data
-            media['videos'][str(data['id'])] = data
-
-        return media
+    def get_content_en(self, obj):
+        return self._serialize_content(obj.content_en)

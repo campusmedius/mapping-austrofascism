@@ -16,6 +16,6 @@
         "header": "Zeitleiste"
     },
     "map": {
-        "webgl": "Die Karte kann nicht dargestellt werden. Ihr Browser unterstützt kein WebGL.<br><a href=\"https://get.webgl.org/\" target=\"_blank\">Weiter Informationen finden Sie hier.</a>"
+        "webgl": "Die Karte kann nicht dargestellt werden. Ihr Browser unterstützt kein WebGL.<br><a href=\"https://get.webgl.org/\" target=\"_blank\">Weitere Informationen finden Sie hier.</a>"
     }
 }

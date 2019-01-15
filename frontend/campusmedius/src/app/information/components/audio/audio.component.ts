@@ -9,7 +9,6 @@ import {
 } from '@angular/animations';
 
 import { Audio } from '../../models/information';
-import { InformationComponent } from '../information/information.component';
 
 @Component({
     selector: 'cm-audio',
@@ -24,19 +23,14 @@ import { InformationComponent } from '../information/information.component';
     ]
 })
 export class AudioComponent implements OnInit {
-    @Input() id: string;
-
-    public data: Audio;
-    public lang: string;
+    @Input() data: Audio;
+    @Input() lang: string;
 
     public opened = false;
 
-    constructor(private information: InformationComponent) { }
+    constructor() { }
 
-    ngOnInit() {
-        this.lang = this.information.lang;
-        this.data = this.information.data.media.audios[this.id];
-    }
+    ngOnInit() { }
 
     public onRightClick(e) {
         e.preventDefault();

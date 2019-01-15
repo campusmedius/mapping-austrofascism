@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
     trigger,
     state,
@@ -7,6 +7,8 @@ import {
     transition,
     query
 } from '@angular/animations';
+
+import { Block } from '../../models/information';
 
 @Component({
     selector: 'cm-note',
@@ -21,6 +23,9 @@ import {
     ]
 })
 export class NoteComponent implements OnInit {
+    @Input() content: Block[];
+    @Input() lang: string;
+
     public opened = false;
 
     constructor() { }
