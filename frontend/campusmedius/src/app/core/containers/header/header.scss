@@ -9,6 +9,9 @@
     font-family: $title-regular-font;
     width: 100%;
     position: relative;
+    @media screen and (max-width: $break-mobile) {
+        position: static;
+    }
     a {
         color: $inactive-font-color;
         text-decoration: none !important;

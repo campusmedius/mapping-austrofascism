@@ -19,16 +19,6 @@ html {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   font-weight: 400;
-
-  -webkit-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-
-  @media screen and (max-width: $break-mobile) {
-      -webkit-hyphens: manual;
-      -ms-hyphens: manual;
-      hyphens: manual;
-  }
 }
 
 
@@ -37,6 +27,10 @@ html {
     @media screen and (max-width: $break-mobile) {
         position: fixed !important;
     }
+}
+
+.ptag {
+    height: 1em;
 }
 
 /**
@@ -207,14 +201,13 @@ cm-image ngx-gallery-arrows {
         top: 0px;
         right: 0px;
         position: absolute;
-        font-size: $base-font-size;
+        font-size: 1.1em;
+        @media screen and (max-width: $break-mobile) {
+            font-size: 1.2em;
+        }
         color: $accent-color;
         background-color: #fff;
     }
-}
-
-cm-information > :last-child {
-    margin-bottom: 120px;
 }
 
 cm-information {
@@ -253,4 +246,8 @@ button.mat-icon-button
             opacity: 0;
         }
     }
+}
+
+.mat-button-wrapper > span {
+    position: relative;
 }

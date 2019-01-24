@@ -9,7 +9,7 @@
                 <img *ngIf="opened" [src]="isMobile ? data.data.mobileFull : data.data.full" (click)="showImage()" (contextmenu)="onRightClick($event)" />
                 <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages" (previewOpen)="previewOpened()" (previewClose)="previewClosed()"></ngx-gallery>
             </div>
-            <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe"></cm-caption>
+            <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe" [lang]="lang"></cm-caption>
         </div>
     </div>
 </span>

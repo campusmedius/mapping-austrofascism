@@ -11,6 +11,7 @@ import { Block } from '../../models/information';
 })
 export class InformationComponent implements OnInit {
     @Input() content: Block[];
+    @Input() lang: string;
 
     constructor() { }
 

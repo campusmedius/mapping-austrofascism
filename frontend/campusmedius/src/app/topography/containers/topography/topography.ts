@@ -68,6 +68,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     @ViewChild(MapComponent) map: MapComponent;
     @ViewChild('infoheading') infoheading: ElementRef;
+    @ViewChild('mobilefullinfo') mobilefullinfo: ElementRef;
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
@@ -104,7 +105,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                    setTimeout(() => this.mobilefullinfo.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
                 }
                 if (this.selectedEvent) {
                     setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
@@ -124,10 +125,18 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 if (e.current) {
                     if (e.current.id === 'about' || e.current.id === 'team') {
                         if (this.isMobile && e.current.id === 'about') {
-                            let tmp = e.current.abstractDe.replace('<p>', '').replace('</p>', '').split('. ');
-                            this.mobileAbstractDe = '<p>' + tmp[0] + '.</p>';
-                            tmp = e.current.abstractEn.replace('<p>', '').replace('</p>', '').split('. ');
-                            this.mobileAbstractEn = '<p>' + tmp[0] + '.</p>';
+                            this.mobileAbstractDe = <any>[{
+                                type: 'html',
+                                data: {
+                                    html: '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Geistes- und Kulturwissenschaften.</p>'
+                                }
+                            }];
+                            this.mobileAbstractEn = <any>[{
+                                type: 'html',
+                                data: {
+                                    html: '<p><i>Campus Medius</i> explores and expands the possibilities of digital cartography in the humanities.</p>'
+                                }
+                            }];
                         }
 
                         this.isPage = true;
@@ -152,7 +161,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
                         });
                     }
                     if (this.isMobile && this.sidepanelState === 'full') {
-                        setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                        setTimeout(() => this.mobilefullinfo.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));
                 } else {
@@ -223,7 +232,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
         this.sidepanelState = 'full';
         this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
         setTimeout(() => {
-            this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
+            this.mobilefullinfo.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
         });
     }
 
@@ -237,9 +246,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     }
 
-    @HostListener('scroll')
     private onScroll() {
-        if (this.elementRef.nativeElement.scrollTop < 160) {
+        if (this.mobilefullinfo.nativeElement.scrollTop < 160) {
             this.mobileShowShort();
         };
     }

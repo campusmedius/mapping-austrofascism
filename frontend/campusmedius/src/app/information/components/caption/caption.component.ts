@@ -11,6 +11,8 @@ import { InformationModule } from '../../information.module';
 })
 export class CaptionComponent implements OnInit {
     @Input() content: string;
+    @Input() lang: string;
+
     constructor() { }
 
     ngOnInit() {

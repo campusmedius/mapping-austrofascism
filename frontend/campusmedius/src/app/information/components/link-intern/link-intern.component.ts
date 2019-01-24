@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LinkInternComponent implements OnInit {
     @Input() href: string;
     @Input() info = 'full';
+    @Input() text = '';
 
     constructor() { }
 

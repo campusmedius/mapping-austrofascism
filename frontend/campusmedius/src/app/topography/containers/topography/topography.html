@@ -10,8 +10,8 @@
     <div class="info-container">
         <div *ngIf="selectedEvent" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
             <cm-info-event-nav *ngIf="!isPage" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
-            <div class="info-body" fxFill>
-                <div class="info-content" [ngClass]="{'ispage': isPage}">
+            <div class="info-body" [ngClass]="{'ispage': isPage}" fxFill>
+                <div class="info-content">
                     <div #infoheading class="info-heading">
                         <span  *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                         <div class="cite-button-wrapper">
@@ -22,12 +22,12 @@
                         <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
                     </div>
                     <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
-                            <div [innerHtml]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"></div>
+                        <cm-information [content]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn" [lang]="translate.currentLang"></cm-information>
                         <button mat-flat-button class="btn-read-more" color="warn" (click)="toggleInformationPanel()">{{'info.read-more' | translate | uppercase}}</button>
                     </div>
                     <ng-template #fullInfo>
                         <div *ngIf="information$ | async as information">
-                            <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentDe" [lang]="translate.currentLang"></cm-information>
+                            <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang"></cm-information>
                         </div>
                     </ng-template>
                 </div>
@@ -44,27 +44,28 @@
 </ng-template>
 
 
-<div *ngIf="isMobile" class="mobile-info">
-    <div #mobileshortinfo class="mobile-short-info">
-        <div *ngIf="!isPage" class="event-nav-wrapper">
-            <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+<div #mobileshortinfo *ngIf="isMobile" class="mobile-short-info">
+    <div *ngIf="!isPage" class="event-nav-wrapper">
+        <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+    </div>
+    <div class="info">
+        <div class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
+            <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+            <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
         </div>
-        <div class="info">
-            <div class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
-                <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
-                <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
-            </div>
-            <div *ngIf="isPage" class="mobile-abstract">
-                 <div [innerHtml]="translate.currentLang === 'de' ? mobileAbstractDe : mobileAbstractEn"></div>
-            </div>
-            <div class="intro">
-                <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
-            </div>
+        <div *ngIf="isPage" class="mobile-abstract">
+                <cm-information [content]="translate.currentLang === 'de' ? mobileAbstractDe : mobileAbstractEn" [lang]="translate.currentLang"></cm-information>
+        </div>
+        <div class="intro">
+            <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
         </div>
     </div>
-    <div class="placeholder-scroll" *ngIf="isMobile && sidepanelState === 'full'">
+</div>
+
+<div #mobilefullinfo *ngIf="isMobile && sidepanelState === 'full'" class="mobile-info" (scroll)="onScroll()">
+    <div class="placeholder-scroll">
     </div>
-    <div class="mobile-full-info" *ngIf="sidepanelState === 'full'" >
+    <div class="mobile-full-info">
         <div class="info-body-mobile">
             <div #infoheading class="info-heading">
                 <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
@@ -76,7 +77,7 @@
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
             </div>
             <div *ngIf="information$ | async as information">
-                <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentDe" [lang]="translate.currentLang"></cm-information>
+                <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang"></cm-information>
             </div>
             <button mat-icon-button class="back-to-top" (click)="mobileShowShort()">
                 <span class="cm-back-to-top"></span>

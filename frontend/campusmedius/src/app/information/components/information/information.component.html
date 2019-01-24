@@ -1,12 +1,12 @@
-<span *ngFor="let block of content" [ngSwitch]="block.type">
-    <span *ngSwitchCase="'html'" [innerHtml]="block.data.html" [lang]="lang"></span>
+<span *ngFor="let block of (content || [])" [ngSwitch]="block.type">
+    <span *ngSwitchCase="'html'" [innerHtml]="block.data.html | sanitizeHtml" [lang]="lang"></span>
     <cm-note *ngSwitchCase="'note'" [content]="block.data.content" [lang]="lang"></cm-note>
     <cm-quote *ngSwitchCase="'quote'" [content]="block.data.content" [lang]="lang"></cm-quote>
     <cm-image *ngSwitchCase="'image'" [data]="block.data" [lang]="lang"></cm-image>
     <cm-audio *ngSwitchCase="'audio'" [data]="block.data" [lang]="lang"></cm-audio>
     <cm-video *ngSwitchCase="'video'" [data]="block.data" [lang]="lang"></cm-video>
     <cm-gallery *ngSwitchCase="'gallery'" [data]="block.data" [lang]="lang"></cm-gallery>
-    <cm-link-intern *ngSwitchCase="'link-intern'" [href]="block.data.href" [info]="block.data.info">{{ block.data.text }}</cm-link-intern>
-    <cm-link-inpage *ngSwitchCase="'link-inpage'" [href]="block.data.href">{{ block.data.text }}</cm-link-inpage>
-    <cm-link-extern *ngSwitchCase="'link-extern'" [href]="block.data.href">{{ block.data.text }}</cm-link-extern>
+    <cm-link-intern *ngSwitchCase="'link-intern'" [href]="block.data.href" [info]="block.data.info" [text]="block.data.text"></cm-link-intern>
+    <cm-link-inpage *ngSwitchCase="'link-inpage'" [href]="block.data.href" [text]="block.data.text"></cm-link-inpage>
+    <cm-link-extern *ngSwitchCase="'link-extern'" [href]="block.data.href" [text]="block.data.text"></cm-link-extern>
 </span>

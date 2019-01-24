@@ -6,7 +6,7 @@
     position: relative;
     @media screen and (max-width: $break-mobile) {
         height: calc(100vh - #{$header-height-mobile});
-        top: $header-height-mobile;
+        position: static;
         overflow-y: auto;
         overflow-x: hidden;
         width: 100%;
@@ -66,8 +66,7 @@ cm-map {
     width: 100%;
     box-sizing: border-box;
     display: inline-block;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
     padding: 0px 15px;
     position: relative;
     z-index: 12;
@@ -172,13 +171,13 @@ cm-map {
     position: relative;
     width: 0px;
     height: 0px;
+    top: 1px;
+    @media screen and (max-width: $break-mobile) {
+        top: -1px;
+    }
 }
 
-.placeholder-scroll {
-    height: calc(100vh - #{$header-height-mobile});
-    width: 100%;
-    position: relative;
-}
+
 
 .mobile-short-info {
     position: fixed;
@@ -205,6 +204,20 @@ cm-map {
     .event-nav-wrapper {
         width: 100%;
         text-align: center;
+    }
+}
+
+.mobile-info {
+    position: fixed;
+    top: $header-height-mobile;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 999;
+    height: calc(100vh - #{$header-height-mobile});
+    width: 100%;
+    .placeholder-scroll {
+        height: 100%;
+        width: 100%;
     }
 }
 

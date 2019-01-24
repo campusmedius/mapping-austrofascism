@@ -42,7 +42,7 @@ import * as Hls from 'hls.js';
                 <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index" (onChange)="showAtIndex($event)"></ngx-gallery-bullets>
             </div>
             <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" (click)="$event.stopPropagation()">
-<div class="ngx-gallery-preview-text-content"><cm-caption [content]="description"></cm-caption></div>
+<div class="ngx-gallery-preview-text-content"><cm-caption [content]="description" [lang]="'de'"></cm-caption></div>
 </div>
         </div>
     `,

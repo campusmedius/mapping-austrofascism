@@ -9,6 +9,7 @@ import { TopographyComponent } from '../../../topography/containers/topography/t
 })
 export class LinkInpageComponent implements OnInit {
     @Input() href: string;
+    @Input() text = '';
 
     constructor(private _scrollToService: ScrollToService, private topography: TopographyComponent) { }
 
