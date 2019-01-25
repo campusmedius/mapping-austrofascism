@@ -8,8 +8,8 @@
         "team": "Projektteam"
     },
     "info": {
-        "next": "nachher",
-        "previous": "vorher",
+        "next": "weiter",
+        "previous": "zurück",
         "read-more": "Weiterlesen",
         "metadata": "Metadaten"
     },

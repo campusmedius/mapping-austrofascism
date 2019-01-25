@@ -15,7 +15,7 @@
                     <div #infoheading class="info-heading">
                         <span  *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                         <div class="cite-button-wrapper">
-                            <button *ngIf="sidepanelState === 'full'" title="{{'info.metadata' | translate}}" mat-icon-button class="cite-button" (click)="showCite()">
+                            <button *ngIf="sidepanelState === 'full'" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button class="cite-button" (click)="showCite()">
                                 <span class="cm-square-quote-alt"></span>
                             </button>
                         </div>
@@ -49,8 +49,8 @@
         <cm-info-event-nav [isMobile]="true" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
     </div>
     <div class="info">
-        <div class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
-            <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
+        <div *ngIf="!isPage" class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
+            <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
             <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
         </div>
         <div *ngIf="isPage" class="mobile-abstract">

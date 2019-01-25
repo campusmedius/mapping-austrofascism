@@ -181,13 +181,17 @@ ngx-gallery-preview{
     .ngx-gallery-arrow {
         font-size: 40px;
     }
-    cm-caption-content {
+    cm-caption {
         max-height: 6rem;
         overflow-y: auto;
         display: block;
         p {
             margin: 0px;
         }
+    }
+    #gallery-video {
+        width: 100%;
+        height: 100%;
     }
 }
 

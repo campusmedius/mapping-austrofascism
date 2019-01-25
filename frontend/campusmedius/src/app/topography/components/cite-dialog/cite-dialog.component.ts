@@ -21,7 +21,11 @@ export class CiteDialogComponent implements OnInit {
     ngOnInit() {
         this.titleEn = '"' + this.data.event.titleEn + '" in <i>Campus Medius';
         this.titleDe = '"' + this.data.event.titleDe + '" in <i>Campus Medius';
-        this.url = 'https://campusmedius.net/topography/events/' + this.data.event.id + '?lang=' + this.translate.currentLang + '&info=full';
+        if (this.data.event.id === 'about' || this.data.event.id === 'team') {
+            this.url = 'https://campusmedius.net/' + this.data.event.id + '?lang=' + this.translate.currentLang + '&info=full';
+        } else {
+            this.url = 'https://campusmedius.net/topography/events/' + this.data.event.id + '?lang=' + this.translate.currentLang + '&info=full';
+        }
     }
 
     close() {

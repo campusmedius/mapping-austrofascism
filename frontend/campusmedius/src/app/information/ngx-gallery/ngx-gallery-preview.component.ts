@@ -33,8 +33,10 @@ import * as Hls from 'hls.js';
 
 <img *ngIf="isOpen && this.types[this.index] === 'image' && src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (contextmenu)="onRightClick($event)" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
 
-<video id="gallery-video" *ngIf="isOpen && this.types[this.index] === 'video' && src" controls controlsList="nodownload" (contextmenu)="onRightClick($event)" preload="metadata" #previewImage class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
-</video>
+<div id="gallery-video-container" *ngIf="isOpen && this.types[this.index] === 'video' && src" (contextmenu)="onRightClick($event)" class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+   <video id="gallery-video" controls controlsList="nodownload" preload="metadata" (contextmenu)="onRightClick($event)">
+   </video>
+</div>
 
 <audio *ngIf="this.types[this.index] === 'audio' && src" [src]="src" controls controlsList="nodownload" (contextmenu)="onRightClick($event)" preload="none" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
 </audio>
@@ -465,6 +467,10 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                     });
                 } else {
                     videoElement.nativeElement.src = this.images[this.index];
+                    videoElement.addEventListener('loadedmetadata', function() {
+                        videoElement.play();
+                        videoElement.stop();
+                    });
                 }
                 this.loading = false;
             });
