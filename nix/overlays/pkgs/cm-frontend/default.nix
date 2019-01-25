@@ -5,8 +5,8 @@ stdenv.mkDerivation {
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
-      rev = "5316370179cf8487968955d21b5fb4f99a803854";
-      sha256 = "1wq3vx61plvnfs4z7y818v5b3mv0aarmia89hmmzxda4c0m71fjd";
+      rev = "8bd33a876710f62511a2512f7ce7715b9f136b0c";
+      sha256 = "1pcdsqgfnxgrvmn3nizsawii7l2xrf339n9j1jfd9v6q6jn7swbx";
   };
   
   installPhase = ''
