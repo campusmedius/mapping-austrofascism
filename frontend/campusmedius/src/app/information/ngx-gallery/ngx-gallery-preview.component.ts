@@ -35,6 +35,9 @@ import * as Hls from 'hls.js';
 
 <div id="gallery-video-container" *ngIf="isOpen && this.types[this.index] === 'video' && src" (contextmenu)="onRightClick($event)" class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
    <video id="gallery-video" controls controlsList="nodownload" preload="metadata" (contextmenu)="onRightClick($event)">
+
+    <source src="https://stream-cd.univie.ac.at/media/phaidra/444b684f4677022f329491b6eab260c3c37272c2_hi.mp4/playlist.m3u8" type="application/x-mpegURL">
+
    </video>
 </div>
 
@@ -454,26 +457,26 @@ export class NgxGalleryPreviewComponent implements OnChanges {
         }
 
         if (this.types[this.index] === 'video') {
-            setTimeout(() => {
-                const videoElement = <any>document.getElementById('gallery-video');
-                if (Hls.isSupported()) {
-                    this.hls = new Hls({
-                        maxBufferLength: 10,
-                        maxBufferSize: 1000 * 512
-                    });
-                    this.hls.attachMedia(videoElement);
-                    this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-                        this.hls.loadSource(<string>this.images[this.index]);
-                    });
-                } else {
-                    videoElement.nativeElement.src = this.images[this.index];
-                    videoElement.addEventListener('loadedmetadata', function() {
-                        videoElement.play();
-                        videoElement.stop();
-                    });
-                }
-                this.loading = false;
-            });
+            // setTimeout(() => {
+            //     const videoElement = <any>document.getElementById('gallery-video');
+            //     if (Hls.isSupported()) {
+            //         this.hls = new Hls({
+            //             maxBufferLength: 10,
+            //             maxBufferSize: 1000 * 512
+            //         });
+            //         this.hls.attachMedia(videoElement);
+            //         this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+            //             this.hls.loadSource(<string>this.images[this.index]);
+            //         });
+            //     } else {
+            //         videoElement.nativeElement.src = this.images[this.index];
+            //         videoElement.addEventListener('loadedmetadata', function() {
+            //             videoElement.play();
+            //             videoElement.stop();
+            //         });
+            //     }
+            //     this.loading = false;
+            // });
         }
         if (this.types[this.index] === 'audio') {
             setTimeout(() => {
