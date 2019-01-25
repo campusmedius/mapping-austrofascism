@@ -34,7 +34,7 @@ import * as Hls from 'hls.js';
 <img *ngIf="isOpen && this.types[this.index] === 'image' && src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src" (contextmenu)="onRightClick($event)" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
 
 <video id="gallery-video" controls controlsList="nodownload" preload="metadata" *ngIf="isOpen && this.types[this.index] === 'video' && src" (contextmenu)="onRightClick($event)" class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
-    <source *ngIf="isnativ" src="https://stream-cd.univie.ac.at/media/phaidra/444b684f4677022f329491b6eab260c3c37272c2_hi.mp4/playlist.m3u8" type="application/x-mpegURL">
+    <source id="gallery-video-src" *ngIf="isnativ" src="" type="application/x-mpegURL">
 </video>
 
 <audio *ngIf="this.types[this.index] === 'audio' && src" [src]="src" controls controlsList="nodownload" (contextmenu)="onRightClick($event)" preload="none" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
@@ -454,7 +454,12 @@ export class NgxGalleryPreviewComponent implements OnChanges {
         }
 
         if (this.types[this.index] === 'video') {
-            this.isnativ = false;
+            if (Hls.isSupported()) {
+                this.isnativ = false;
+            } else {
+                this.isnativ = true;
+            }
+
             setTimeout(() => {
                 const videoElement = <any>document.getElementById('gallery-video');
                 if (Hls.isSupported()) {
@@ -467,13 +472,8 @@ export class NgxGalleryPreviewComponent implements OnChanges {
                         this.hls.loadSource(<string>this.images[this.index]);
                     });
                 } else {
-                    // videoElement.nativeElement.src = this.images[this.index];
-                    // videoElement.addEventListener('loadedmetadata', function() {
-                    //     videoElement.play();
-                    //     videoElement.stop();
-                    // });
-                    this.isnativ = true;
-                    alert('test');
+                    const videoElementSrc = <any>document.getElementById('gallery-video-src');
+                    videoElementSrc.nativeElement.src = this.images[this.index];
                 }
                 this.loading = false;
             });
