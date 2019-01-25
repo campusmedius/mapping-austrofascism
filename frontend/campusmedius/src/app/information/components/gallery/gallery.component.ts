@@ -80,11 +80,17 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        document.getElementsByClassName('mobile-info')[0].classList.add('noscroll');
+        const elements = document.getElementsByClassName('mobile-info');
+        if (elements[0]) {
+            elements[0].classList.add('noscroll');
+        }
     }
 
     public previewClosed() {
-        document.getElementsByClassName('mobile-info')[0].classList.remove('noscroll');
+        const elements = document.getElementsByClassName('mobile-info');
+        if (elements[0]) {
+            elements[0].classList.remove('noscroll');
+        }
     }
 
     ngOnDestroy() {
