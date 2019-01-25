@@ -1,11 +1,13 @@
 <div fxLayout="row" fxLayoutAlign=" center" class="wrapper">
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="end center" *ngIf="previousEvent" class="previous" (click)="select(previousEvent)">
         <span class="arrow cm-chevron-left"></span>
-        <span class="text" [innerHtml]="translate.currentLang === 'de' ? previousEvent.titleDe : previousEvent.titleEn"></span>
+        <span *ngIf="!isMobile" class="text" [innerHtml]="translate.currentLang === 'de' ? previousEvent.titleDe : previousEvent.titleEn"></span>
+        <span *ngIf="isMobile" class="text">{{'info.previous' | translate}}</span>
     </div>
     <div fxFlex class="cm-seperator"></div>
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center" *ngIf="nextEvent" class="next" (click)="select(nextEvent)">
-        <span class="text" [innerHtml]="translate.currentLang === 'de' ? nextEvent.titleDe : nextEvent.titleEn"></span>
+        <span *ngIf="!isMobile" class="text" [innerHtml]="translate.currentLang === 'de' ? nextEvent.titleDe : nextEvent.titleEn"></span>
+        <span *ngIf="isMobile" class="text">{{'info.next' | translate}}</span>
         <span class="arrow cm-chevron-right"></span>
     </div>
 </div>

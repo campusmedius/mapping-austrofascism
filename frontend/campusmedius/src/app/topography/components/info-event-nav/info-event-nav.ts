@@ -12,6 +12,7 @@ import { Event } from '../../models/event';
 export class InfoEventNavComponent implements OnInit {
     @Input() nextEvent: Event;
     @Input() previousEvent: Event;
+    @Input() isMobile: boolean;
 
     @Output() eventSelected = new EventEmitter<Event>();
 

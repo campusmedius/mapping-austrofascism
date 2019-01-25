@@ -86,7 +86,7 @@ def serialize_content(content, context):
             elif entry in ['link-intern', 'link-inpage', 'link-extern']:
                 result.append({
                     'data': {
-                        'href': split_content[i+1],
+                        'href': split_content[i+1].replace('&amp;', '&'),
                         'text': split_content[i+2]
                     },
                     'type': entry

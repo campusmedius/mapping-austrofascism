@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-square-quote-alt:before {
+  content: "\e91b";
+}
 .cm-square-image-big:before {
   content: "\e90f";
 }

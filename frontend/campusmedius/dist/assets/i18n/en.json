@@ -8,14 +8,15 @@
         "team": "Project Team"
     },
     "info": {
-        "next": "Next",
-        "previous": "Back",
-        "read-more": "Read more"
+        "next": "next",
+        "previous": "previous",
+        "read-more": "Read more",
+        "metadata": "Metadata"
     },
     "timeline": {
         "header": "timeline"
     },
     "map": {
-        "webgl": "Map cannot be displayed. Your browser does not support WebGL.<br><a href=\"https://get.webgl.org/\" target=\"_blank\">For more info, please click this link.</a>"
+        "webgl": "The map cannot be displayed. Your web browser does not support WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">For more information, please follow this link.</a>"
     }
 }

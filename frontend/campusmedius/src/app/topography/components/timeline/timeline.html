@@ -28,7 +28,7 @@
                 <div class="indicatorlabel">{{rightHandleLabel}}</div>
             </div>
         </div>
-        <div class="startlabel">{{timelineStart.locale(lang).format(baselineLabelFormat)}}</div>
-        <div class="endlabel">{{timelineEnd.locale(lang).format(baselineLabelFormat)}}</div>
+        <div class="startlabel">{{timelineStart.utcOffset(60).locale(lang).format(baselineLabelFormat)}}</div>
+        <div class="endlabel">{{timelineEnd.utcOffset(60).locale(lang).format(baselineLabelFormat)}}</div>
     </div>
 </div>

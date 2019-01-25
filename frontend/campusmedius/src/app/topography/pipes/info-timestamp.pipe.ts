@@ -24,14 +24,14 @@ export class InfoTimestampPipe implements PipeTransform {
             event.end.locale('en');
 
             if (event.id === '9') {
-                return event.start.format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a');
+                return event.start.utcOffset(60).format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a');
             }
 
-            str = event.start.format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a') + ' – ';
+            str = event.start.utcOffset(60).format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a') + ' – ';
             if (sameDay) {
-                str += event.end.format('h:mm a');
+                str += event.end.utcOffset(60).format('h:mm a');
             } else {
-                str += event.end.format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a');
+                str += event.end.utcOffset(60).format('MMMM D, YYYY \xa0\xa0\xa0 h:mm a');
             }
         }
         if (lang === 'de') {
@@ -39,15 +39,15 @@ export class InfoTimestampPipe implements PipeTransform {
             event.end.locale('de-at');
 
             if (event.id === '9') {
-                return event.start.format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' Uhr';
+                return event.start.utcOffset(60).format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' Uhr';
             }
 
             if (sameDay) {
-                str = event.start.format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' – ';
-                str += event.end.format('k:mm') + ' Uhr';
+                str = event.start.utcOffset(60).format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' – ';
+                str += event.end.utcOffset(60).format('k:mm') + ' Uhr';
             } else {
-                str = event.start.format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' Uhr – ';
-                str += event.end.format('D. MMMM YYYY \xa0\xa0\xa0 h:mm') + ' Uhr';
+                str = event.start.utcOffset(60).format('D. MMMM YYYY \xa0\xa0\xa0 k:mm') + ' Uhr – ';
+                str += event.end.utcOffset(60).format('D. MMMM YYYY \xa0\xa0\xa0 h:mm') + ' Uhr';
             }
         }
         return str;

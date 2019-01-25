@@ -30,7 +30,14 @@ html {
 }
 
 .ptag {
-    height: 1em;
+    height: 0px;
+    margin-top: 1.3em;
+    margin-bottom: 1.3em;
+}
+
+cm-caption .ptag {
+    margin-top: 0em;
+    margin-bottom: 0em;
 }
 
 /**
@@ -124,13 +131,13 @@ cm-info-event-nav {
 }
 
 .mat-menu-panel {
+    width: 7rem;
     background: $map-overlay-background-color;
-    margin-top: 15px;
+    margin-top: 13px;
     @media screen and (max-width: $break-mobile) {
-        margin-top: 3px;
+        margin-top: 2px;
     }
     margin-left: -10px;
-    width: 170px;
     border-radius: 0px !important;
     .mat-menu-item {
         font-size: $small-font-size;

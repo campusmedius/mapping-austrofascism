@@ -89,11 +89,11 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        document.getElementsByTagName('cm-topography')[0].classList.add('noscroll');
+        document.getElementsByClassName('mobile-info')[0].classList.add('noscroll');
     }
 
     public previewClosed() {
-        document.getElementsByTagName('cm-topography')[0].classList.remove('noscroll');
+        document.getElementsByClassName('mobile-info')[0].classList.remove('noscroll');
     }
 
     ngOnDestroy() {

@@ -1,5 +1,5 @@
 <cm-map [overlayBottomSize]="!isMobile ? timelineHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? timelineHeight : '0px'" >
-    <cm-map-event *ngFor="let event of events$ | async" [event]="event" lang="translate.currentLang" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
+    <cm-map-event *ngFor="let event of events$ | async" [event]="event" [lang]="translate.currentLang" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
     </cm-map-event>
 </cm-map>
 
@@ -9,14 +9,14 @@
     </button>
     <div class="info-container">
         <div *ngIf="selectedEvent" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
-            <cm-info-event-nav *ngIf="!isPage" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+            <cm-info-event-nav [isMobile]="false" *ngIf="!isPage" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
             <div class="info-body" [ngClass]="{'ispage': isPage}" fxFill>
                 <div class="info-content">
                     <div #infoheading class="info-heading">
                         <span  *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                         <div class="cite-button-wrapper">
-                            <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
-                                <span class="cm-square-quote"></span>
+                            <button *ngIf="sidepanelState === 'full'" title="{{'info.metadata' | translate}}" mat-icon-button class="cite-button" (click)="showCite()">
+                                <span class="cm-square-quote-alt"></span>
                             </button>
                         </div>
                         <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
@@ -46,7 +46,7 @@
 
 <div #mobileshortinfo *ngIf="isMobile" class="mobile-short-info">
     <div *ngIf="!isPage" class="event-nav-wrapper">
-        <cm-info-event-nav [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+        <cm-info-event-nav [isMobile]="true" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
     </div>
     <div class="info">
         <div class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
@@ -71,7 +71,7 @@
                 <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
                 <div class="cite-button-wrapper">
                     <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
-                        <span class="cm-square-quote"></span>
+                        <span class="cm-square-quote-alt"></span>
                     </button>
                 </div>
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>

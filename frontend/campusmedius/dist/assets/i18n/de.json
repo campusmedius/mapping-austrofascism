@@ -8,14 +8,15 @@
         "team": "Projektteam"
     },
     "info": {
-        "next": "Weiter",
-        "previous": "Zurück",
-        "read-more": "Weiterlesen"
+        "next": "nachher",
+        "previous": "vorher",
+        "read-more": "Weiterlesen",
+        "metadata": "Metadaten"
     },
     "timeline": {
         "header": "Zeitleiste"
     },
     "map": {
-        "webgl": "Die Karte kann nicht dargestellt werden. Ihr Browser unterstützt kein WebGL.<br><a href=\"https://get.webgl.org/\" target=\"_blank\">Weitere Informationen finden Sie hier.</a>"
+        "webgl": "Die Karte kann nicht dargestellt werden. Ihr Webbrowser unterstützt kein WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">Bitte folgen Sie diesem Link für nähere Informationen.</a>"
     }
 }

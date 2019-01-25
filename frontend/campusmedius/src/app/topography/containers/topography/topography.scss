@@ -11,6 +11,7 @@
         overflow-x: hidden;
         width: 100%;
     }
+    overflow-x: hidden;
 }
 
 
@@ -48,7 +49,7 @@ cm-map {
     padding-top: 50px;
     .btn-read-more {
         width: 100%;
-        margin-top: 40px;
+        margin-top: 20px;
         margin-bottom: 50px;
     }
     width: 100%;
@@ -84,8 +85,9 @@ cm-map {
 }
 
 
+
 .info-heading {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     .time-info {
         color: $secondary-font-color;
         font-size: $small-font-size;

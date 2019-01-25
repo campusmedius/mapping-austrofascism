@@ -44,7 +44,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
             'closeIcon': 'cm-square-close',
             'thumbnailsSwipe': true,
             'previewSwipe': true,
-            'image': false, 'height': '200px', width: '100%'
+            'image': false, 'height': '200px', width: '100%',
         }, {
             'breakpoint': 1400,
             'thumbnailsColumns': 3
@@ -80,11 +80,11 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        document.getElementsByTagName('cm-topography')[0].classList.add('noscroll');
+        document.getElementsByClassName('mobile-info')[0].classList.add('noscroll');
     }
 
     public previewClosed() {
-        document.getElementsByTagName('cm-topography')[0].classList.remove('noscroll');
+        document.getElementsByClassName('mobile-info')[0].classList.remove('noscroll');
     }
 
     ngOnDestroy() {
