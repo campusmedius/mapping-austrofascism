@@ -180,5 +180,6 @@ TINYMCE_DEFAULT_CONFIG = {
         'saveCursorPosition': True,
         'width': 1200,
         'path': 'CodeMirror-5.19.0/'
-    }
+    },
+    'convert_urls': False
 }

@@ -30,7 +30,19 @@
         left: 0;
         bottom: 0;
         right: 0;
+      }
+     #isie {
+        max-width: 900px;
+        margin: auto;
+        margin-top: 50px;
+        font-size: 20px;
+        padding: 20px;
+        line-height: 1.5rem;
+        color: #4d4d4d;
+         display: none;
+         z-index: 999999;
      }
+
     </style>
 
 <link rel="stylesheet" href="styles.e5e6f463ca1a0187b2ee.css"></head>
@@ -38,5 +50,19 @@
     <cm-app>
         <div class="spinner"></div>
     </cm-app>
-<script type="text/javascript" src="runtime.9196297b4c1b95796909.js"></script><script type="text/javascript" src="polyfills.79c9af7eae4aa91d3e22.js"></script><script type="text/javascript" src="main.cd47cc68c69f753e7025.js"></script></body>
+    <div id="isie">
+        <p>
+            <i>Campus Medius</i> does not run anymore on Internet Explorer. Please use the website in one of the following web browsers: Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge.
+        </p>
+        <p>
+            <i>Campus Medius</i> läuft nicht mehr im Internet Explorer. Bitte nutzen Sie die Website in einem der folgenden Webbrowser: Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge.
+        </p>
+    </div>
+
+    <script type="text/javascript">
+     // IE stuff
+     var isIE = /*@cc_on!@*/false || !!document.documentMode;
+     if (isIE) document.getElementById("isie").style.display = "block";
+    </script>
+<script type="text/javascript" src="runtime.493c2aa00cd09005c0ea.js"></script><script type="text/javascript" src="polyfills.79c9af7eae4aa91d3e22.js"></script><script type="text/javascript" src="main.cd47cc68c69f753e7025.js"></script></body>
 </html>

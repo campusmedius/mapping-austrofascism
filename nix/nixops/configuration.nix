@@ -50,12 +50,12 @@
                 extraConfig = ''
                     uwsgi_pass unix:///var/run/campusmedius/backend/uwsgi.sock;
 
-                     uwsgi_cache my_cache;
-                     uwsgi_cache_bypass 0;
-                     uwsgi_cache_use_stale error timeout updating http_500;
-                     uwsgi_cache_valid 200 5m;
-                     uwsgi_cache_key $scheme$host$request_uri;
-                     uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
+                    # uwsgi_cache my_cache;
+                    # uwsgi_cache_bypass 0;
+                    # uwsgi_cache_use_stale error timeout updating http_500;
+                    # uwsgi_cache_valid 200 5m;
+                    # uwsgi_cache_key $scheme$host$request_uri;
+                    # uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
                     
                     auth_basic campusmedius;
                     auth_basic_user_file /run/keys/basicAuth;

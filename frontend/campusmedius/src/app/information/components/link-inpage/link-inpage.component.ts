@@ -17,19 +17,10 @@ export class LinkInpageComponent implements OnInit {
     }
 
     public scrollTo(anchor: string) {
-        if (this.topography.isMobile) {
-            this._scrollToService.scrollTo({
-                target: anchor,
-                container: <any>document.getElementsByTagName('cm-topography')[0],
-                offset: -30
-            });
-        } else {
-            this._scrollToService.scrollTo({
-                target: anchor
-            });
-        }
-
-
+        this._scrollToService.scrollTo({
+            target: anchor,
+            offset: -30
+        });
     }
 
 }

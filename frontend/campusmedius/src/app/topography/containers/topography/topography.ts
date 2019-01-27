@@ -81,8 +81,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
     public mobileOverlayDefaultHeight = '200px';
 
     private isPage = false;
-    public mobileAbstractDe: string;
-    public mobileAbstractEn: string;
+    public mobileAbstractDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>';
+    public mobileAbstractEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>';
 
     constructor(
         private store: Store<fromTopography.State>,
@@ -105,6 +105,16 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+        this.route.fragment.subscribe((fragment: string) => {
+            if (fragment) {
+                setTimeout(() => {
+                    this.scrollToService.scrollTo({
+                        target: fragment,
+                        offset: -30
+                    });
+                }, 300);
+            }
+        });
         this.route.queryParams.subscribe(queryParams => {
             if (queryParams['info']) {
                 this.sidepanelState = queryParams['info'];
@@ -129,16 +139,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.previousEvent = e.previous;
                 if (e.current) {
                     if (e.current.id === 'about' || e.current.id === 'team') {
-                        if (this.isMobile && e.current.id === 'about') {
-                            this.mobileAbstractDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>';
-                            this.mobileAbstractEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>';
-                        }
-
                         this.isPage = true;
                         if (e.current.id === 'team') {
                             this.sidepanelState = 'full';
-                            this.mobileAbstractEn = '';
-                            this.mobileAbstractDe = '';
                         }
                         if (e.current.id === 'about') {
                             this.mobileOverlayHeight = this.mobileOverlayAboutHeight;

@@ -10,9 +10,20 @@ export class LinkInternComponent implements OnInit {
     @Input() info = 'full';
     @Input() text = '';
 
+    public fragment = '';
+
     constructor() { }
 
     ngOnInit() {
+        if (this.href.indexOf('#')) {
+            const split = this.href.split('#');
+            this.href = split[0];
+            this.fragment = split[1];
+        }
+
+        if (this.href.startsWith('events')) {
+            this.href = /topography/ + this.href;
+        }
     }
 
 }

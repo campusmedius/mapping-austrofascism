@@ -54,7 +54,7 @@
             <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
         </div>
         <div *ngIf="isPage" class="mobile-abstract">
-                <div [innerHtml]="translate.currentLang === 'de' ? mobileAbstractDe : mobileAbstractEn" [lang]="translate.currentLang"></div>
+                <div [innerHTML]="translate.currentLang === 'de' ? mobileAbstractDe : mobileAbstractEn" [lang]="translate.currentLang"></div>
         </div>
         <div class="intro">
             <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
