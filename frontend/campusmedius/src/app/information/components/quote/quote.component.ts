@@ -8,7 +8,7 @@ import { Block } from '../../models/information';
     styleUrls: ['./quote.component.scss']
 })
 export class QuoteComponent implements OnInit {
-    @Input() content: Block[];
+    @Input() content: string;
     @Input() lang: string;
 
     constructor() { }

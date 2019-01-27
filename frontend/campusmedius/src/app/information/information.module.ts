@@ -82,6 +82,16 @@ export const COMPONENTS = [
     providers: [
         InformationService
     ],
-    entryComponents: []
+    entryComponents: [
+        NoteComponent,
+        QuoteComponent,
+        GalleryComponent,
+        ImageComponent,
+        VideoComponent,
+        AudioComponent,
+        LinkInternComponent,
+        LinkExternComponent,
+        LinkInpageComponent
+    ]
 })
 export class InformationModule { }

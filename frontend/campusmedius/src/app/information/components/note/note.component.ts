@@ -23,7 +23,7 @@ import { Block } from '../../models/information';
     ]
 })
 export class NoteComponent implements OnInit {
-    @Input() content: Block[];
+    @Input() content: string;
     @Input() lang: string;
 
     public opened = false;

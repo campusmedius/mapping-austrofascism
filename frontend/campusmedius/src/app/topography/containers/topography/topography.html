@@ -27,7 +27,7 @@
                     </div>
                     <ng-template #fullInfo>
                         <div *ngIf="information$ | async as information">
-                            <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang"></cm-information>
+                            <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang" [media]="information.media"></cm-information>
                         </div>
                     </ng-template>
                 </div>
@@ -77,7 +77,7 @@
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
             </div>
             <div *ngIf="information$ | async as information">
-                <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang"></cm-information>
+                <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang" [media]="information.media"></cm-information>
             </div>
             <button mat-icon-button class="back-to-top" (click)="mobileShowShort()">
                 <span class="cm-back-to-top"></span>

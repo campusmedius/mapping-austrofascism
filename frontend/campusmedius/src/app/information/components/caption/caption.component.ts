@@ -16,6 +16,5 @@ export class CaptionComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-    }
-
+    } l
 }

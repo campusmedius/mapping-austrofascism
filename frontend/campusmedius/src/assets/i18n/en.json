@@ -8,8 +8,8 @@
         "team": "Project Team"
     },
     "info": {
-        "next": "next",
-        "previous": "back",
+        "next": "next event",
+        "previous": "previous event",
         "read-more": "Read more",
         "metadata": "Metadata"
     },

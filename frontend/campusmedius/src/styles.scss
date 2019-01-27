@@ -29,17 +29,6 @@ html {
     }
 }
 
-.ptag {
-    height: 0px;
-    margin-top: 1.3em;
-    margin-bottom: 1.3em;
-}
-
-cm-caption .ptag {
-    margin-top: 0em;
-    margin-bottom: 0em;
-}
-
 /**
  * Firefox specific rule
  */
@@ -224,6 +213,7 @@ cm-image ngx-gallery-arrows {
 cm-information {
     h2 {
         margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
     }
 }
 

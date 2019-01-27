@@ -128,13 +128,13 @@ export class TopographyComponent implements OnInit, OnDestroy {
                             this.mobileAbstractDe = <any>[{
                                 type: 'html',
                                 data: {
-                                    html: '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Kulturwissenschaften.</p>'
+                                    html: '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>'
                                 }
                             }];
                             this.mobileAbstractEn = <any>[{
                                 type: 'html',
                                 data: {
-                                    html: '<p><i>Campus Medius</i> explores and expands the possibilities of digital cartography in the humanities.</p>'
+                                    html: '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>'
                                 }
                             }];
                         }
