@@ -125,18 +125,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 if (e.current) {
                     if (e.current.id === 'about' || e.current.id === 'team') {
                         if (this.isMobile && e.current.id === 'about') {
-                            this.mobileAbstractDe = <any>[{
-                                type: 'html',
-                                data: {
-                                    html: '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>'
-                                }
-                            }];
-                            this.mobileAbstractEn = <any>[{
-                                type: 'html',
-                                data: {
-                                    html: '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>'
-                                }
-                            }];
+                            this.mobileAbstractDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>';
+                            this.mobileAbstractEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>';
                         }
 
                         this.isPage = true;

@@ -1,12 +1,9 @@
 from rest_framework import serializers
 
-from information.serializers import serialize_content
 from .models import Event
 
 
 class EventSerializer(serializers.ModelSerializer):
-    abstract_de = serializers.SerializerMethodField()
-    abstract_en = serializers.SerializerMethodField()
     coordinates = serializers.SerializerMethodField()
     information_id = serializers.SerializerMethodField()
     information = serializers.HyperlinkedRelatedField(
@@ -33,9 +30,3 @@ class EventSerializer(serializers.ModelSerializer):
         internal[
             'location'] = data['coordinates']['lat'] + ',' + data['coordinates']['lng']
         return internal
-
-    def get_abstract_de(self, obj):
-        return serialize_content(obj.abstract_de, self.context)
-
-    def get_abstract_en(self, obj):
-        return serialize_content(obj.abstract_en, self.context)
