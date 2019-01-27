@@ -27,12 +27,12 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
     'full': '75%',
-    'short': '30%',
+    'short': '40%',
 };
 
 const TIMELINE_WIDTH = {
     'full': '25%',
-    'short': '70%',
+    'short': '60%',
 };
 
 @Component({
