@@ -27,7 +27,12 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
     'full': '75%',
-    'short': '470px',
+    'short': '30%',
+};
+
+const TIMELINE_WIDTH = {
+    'full': '25%',
+    'short': '70%',
 };
 
 @Component({
@@ -46,8 +51,8 @@ const SIDEPANEL_WIDTH = {
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('timeline', [
-            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['full'] + ')' })),
-            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['short'] + ')' })),
+            state('full', style({ width: TIMELINE_WIDTH['full'] })),
+            state('short', style({ width: TIMELINE_WIDTH['short'] })),
             transition('* <=> *', animate('300ms ease-in'))
         ])
     ]
