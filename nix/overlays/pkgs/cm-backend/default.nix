@@ -20,8 +20,8 @@ stdenv.mkDerivation {
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
-      rev = "25163f28c456a426545e7f5ef270c49f2f027769";
-      sha256 = "1ykvs7znjpywr45ak2mm9d9wa8wjlyk5x1zzfiiya3qrlgq3qqjn";
+      rev = "4edea8093fafddaa37905ee2cc8c0b62703abb8e";
+      sha256 = "1w4f7hclf646kqvppafksbcqykn1vq7q2qlllp91zn1dv0zl79sf";
   };
 
   buildInputs = [ uwsgi-python pythonenv ];
