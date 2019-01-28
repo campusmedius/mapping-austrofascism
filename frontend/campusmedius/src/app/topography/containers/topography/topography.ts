@@ -77,7 +77,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
-    public mobileOverlayAboutHeight = '345px';
+    public mobileOverlayAboutHeight = '300px';
     public mobileOverlayDefaultHeight = '200px';
 
     private isPage = false;

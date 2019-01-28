@@ -5,7 +5,10 @@
 }
 
 .container {
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
+    @media screen and (max-width: $break-mobile) {
+        padding-bottom: 0px;
+    }
     background: $text-block-background-color;
     margin-top: 5px;
     margin-bottom: 20px;
@@ -50,4 +53,7 @@ img {
 
 video {
     width: 100%;
+    @media screen and (min-width: $break-mobile) {
+        margin-bottom: 17px;
+    }
 }
