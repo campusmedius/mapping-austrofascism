@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
+
+declare var safari;
 
 @Component({
     selector: 'cm-app',
@@ -20,6 +23,10 @@ export class AppComponent implements OnInit {
     public showHeader = true;
     public removeHeader = false;
 
+    public lang: string;
+
+    currentLang$: Observable<string>;
+
     constructor(
         private translate: TranslateService,
         private route: ActivatedRoute,
@@ -27,6 +34,7 @@ export class AppComponent implements OnInit {
     ) {
         (<any>document).isIE = /*@cc_on!@*/false || !!(<any>document).documentMode;
         (<any>document).isEdge = !(<any>document).isIE && !!(<any>window).StyleMedia;
+        (<any>document).isSafari = /constructor/i.test((<any>window).HTMLElement) || (function(p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
 
         this.translate.addLangs(['en', 'de']);
         translate.setDefaultLang('de');
@@ -44,6 +52,7 @@ export class AppComponent implements OnInit {
 
         setLangTo = setLangTo ? setLangTo : 'en';
         this.translate.use(setLangTo);
+        this.lang = setLangTo;
     }
 
     ngOnInit() {
@@ -51,6 +60,9 @@ export class AppComponent implements OnInit {
             if (queryParams['lang'] && queryParams['lang'].match(/en|de/)) {
                 this.translate.use(queryParams['lang']);
             }
+        });
+        this.currentLang$ = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.lang = event.lang;
         });
     }
 }

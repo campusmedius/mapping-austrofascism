@@ -80,16 +80,22 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        const elements = document.getElementsByTagName('cm-topography');
+        const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
+            if (!this.isMobile && (<any>window).isSafari) {
+                elements[0].style.zIndex = 99;
+            }
         }
     }
 
     public previewClosed() {
-        const elements = document.getElementsByTagName('cm-topography');
+        const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
+            if (!this.isMobile && (<any>window).isSafari) {
+                elements[0].style.zIndex = '';
+            }
         }
     }
 

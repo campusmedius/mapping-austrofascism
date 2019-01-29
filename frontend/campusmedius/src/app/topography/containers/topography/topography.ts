@@ -110,13 +110,17 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        if ((<any>window).isSafari) {
+            this.elementRef.nativeElement.style.webkitTransform = 'translate3d(0,0,0)';
+        }
+
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
         this.route.fragment.subscribe((fragment: string) => {
             if (fragment) {
                 setTimeout(() => {
                     this.scrollToService.scrollTo({
                         target: fragment,
-                        offset: -30
+                        offset: -70
                     });
                 }, 300);
             }
@@ -131,6 +135,11 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 if (this.selectedEvent) {
                     setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
                 }
+            }
+            if (this.sidepanelState === 'short') {
+                this.app.removeHeader = false;
+                this.app.showHeader = true;
+                this.showTitleHeaderMobile = false;
             }
             this.adjustTimelineForEdge();
         });
@@ -174,6 +183,12 @@ export class TopographyComponent implements OnInit, OnDestroy {
                     this.sidepanelWidth = SIDEPANEL_WIDTH['short'];
                 }
 
+                if (this.sidepanelState === 'short') {
+                    this.app.removeHeader = false;
+                    this.app.showHeader = true;
+                    this.showTitleHeaderMobile = false;
+                }
+
                 this.adjustTimelineForEdge();
             });
 
@@ -192,7 +207,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
             if ((<any>document).isEdge) {
                 setTimeout(() => {
                     (<any>document.getElementsByTagName('cm-timeline')[0]).style.width = '25%';
-                });
+                }, 300);
             }
         } else {
             if ((<any>document).isEdge) {

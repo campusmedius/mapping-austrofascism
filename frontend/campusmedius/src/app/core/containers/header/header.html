@@ -15,8 +15,8 @@
     <img routerLink="/" [queryParams]="{info:'short'}" queryParamsHandling="merge" class="logo" src="./assets/logo.svg">
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end">
-    <span class="nav-lang" *ngIf="currentLang$ | async as currentLang">
-        <a (click)="changeLanguage('en')" [ngClass]="{'active': currentLang === 'en'}">EN</a>
-        <a (click)="changeLanguage('de')" [ngClass]="{'active': currentLang === 'de'}">DE</a>
+    <span class="nav-lang">
+        <a (click)="changeLanguage('en')" [ngClass]="{'active': lang === 'en'}">EN</a>
+        <a (click)="changeLanguage('de')" [ngClass]="{'active': lang === 'de'}">DE</a>
     </span>
 </div>

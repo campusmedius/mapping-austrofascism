@@ -2,13 +2,10 @@
 
 :host {
     display: block;
-    height: calc(100vh - #{$header-height});
+    height: 100vh;
     position: relative;
     overflow: hidden;
-    top: $header-height;
     @media screen and (max-width: $break-mobile) {
-        top: 0px;
-        height: 100vh;
         overflow-x: hidden;
         overflow-y: auto;
         width: 100%;
@@ -164,8 +161,8 @@ cm-map {
     -webkit-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
     position: absolute;
     right: 0px;
-    top: 0px;
-    height: 100%;
+    top: $header-height;
+    height: calc(100vh - #{$header-height});
     width: 450px;
 }
 
@@ -238,9 +235,6 @@ cm-map {
     -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
 }
 
-cm-info-event-nav {
-    float: right;
-}
 
 .mobile-short-info {
     position: fixed;
