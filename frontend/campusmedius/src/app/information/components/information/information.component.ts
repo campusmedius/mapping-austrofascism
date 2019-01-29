@@ -89,9 +89,14 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                 } else if (e.tagName === 'CM-LINK-INTERN') {
                     const text = e.innerHTML;
                     const href = e.attributes.href.value;
+                    let info = null;
+                    if (e.attributes.info) {
+                        info = e.attributes.info.value;
+                    }
                     componentRef = this.linkInternFactory.create(this.injector, [], e);
                     componentRef.instance.text = text;
                     componentRef.instance.href = href;
+                    componentRef.instance.info = info;
                 } else if (e.tagName === 'CM-LINK-EXTERN') {
                     const text = e.innerHTML;
                     const href = e.attributes.href.value;

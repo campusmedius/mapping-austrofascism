@@ -1,5 +1,10 @@
 @import './../../../../scss/_variables.scss';
 
+:host {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
 .animation-container {
     overflow: hidden;
 }

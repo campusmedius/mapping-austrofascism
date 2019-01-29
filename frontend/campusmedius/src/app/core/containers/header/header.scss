@@ -8,10 +8,9 @@
     background-color: $header-color;
     font-family: $title-regular-font;
     width: 100%;
-    position: relative;
-    @media screen and (max-width: $break-mobile) {
-        position: static;
-    }
+    position: fixed;
+    top: 0px;
+    z-index: 20;
     a {
         color: $inactive-font-color;
         text-decoration: none !important;

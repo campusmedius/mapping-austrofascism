@@ -4,14 +4,16 @@
     display: block;
     height: calc(100vh - #{$header-height});
     position: relative;
-    @media screen and (max-width: $break-mobile) {
-        height: calc(100vh - #{$header-height-mobile});
-        position: static;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 100%;
-    }
     overflow: hidden;
+    top: $header-height;
+    @media screen and (max-width: $break-mobile) {
+        top: 0px;
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        position: fixed;
+    }
 }
 
 
@@ -27,8 +29,10 @@ cm-map {
     @media screen and (max-width: $break-mobile) {
         display: block;
         width: 100%;
-        height: calc(100vh - #{$header-height-mobile});
+        height: 100%;
         position: fixed;
+        height: calc(100vh - #{$header-height-mobile});
+        top: $header-height-mobile;
     }
 }
 
@@ -45,7 +49,7 @@ cm-map {
 .info-body {
     display: inline-block;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: overlay;
     padding-top: 55px;
     .btn-read-more {
         width: 100%;
@@ -54,6 +58,10 @@ cm-map {
     }
     width: 100%;
     box-sizing: border-box;
+}
+
+.info-container-mobile {
+    margin-bottom: 80px;
 }
 
 .info-content {
@@ -83,7 +91,9 @@ cm-map {
             left: 0px;
         }
     }
-    box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.4), 0 16px 24px 2px rgba(0, 0, 0, 0.44), 0 6px 30px 5px rgba(0, 0, 0, 0.22) !important;
+    box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
 }
 
 
@@ -138,6 +148,9 @@ cm-map {
         font-size: 24px;
         margin-top: -5px;
     }
+    box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
 }
 
 .sidepanel {
@@ -146,7 +159,9 @@ cm-map {
     width: 65%;
     background: white;
     z-index: 30;
-    box-shadow: 0 8px 10px -5px rgba(0,0,0,.4), 0 16px 24px 2px rgba(0,0,0,.44), 0 6px 30px 5px rgba(0,0,0,.22) !important;
+    box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
     position: absolute;
     right: 0px;
     top: 0px;
@@ -171,6 +186,7 @@ cm-map {
     border-radius: 0px;
 }
 
+
 .cite-button-wrapper {
     position: relative;
     width: 0px;
@@ -181,7 +197,50 @@ cm-map {
     }
 }
 
+.title-header {
+    height: $header-height;
+    h1 {
+        font-size: 0.9rem;
+        margin: 0px;
+        margin-left: 10px;
+    }
+    .cite-button {
+        left: 0px;
+        top: -2px;
+        position: relative;
+    }
+    position: absolute;
+    left: 20px;
+}
 
+.title-header-mobile {
+    height: $header-height-mobile;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 0px 15px;
+    position: fixed;
+    top: 0px;
+    z-index: 99;
+    background-color: white;
+    width: 100%;
+    h1 {
+        font-size: 0.9rem;
+        margin: 0px;
+        margin-left: 10px;
+    }
+    .cite-button {
+        left: 0px;
+        top: -2px;
+        position: relative;
+    }
+    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+}
+
+cm-info-event-nav {
+    float: right;
+}
 
 .mobile-short-info {
     position: fixed;
@@ -192,7 +251,9 @@ cm-map {
     bottom: 0px;
     padding-top: 5px;
     z-index: 10;
-    box-shadow: 0 8px 10px -5px rgba(0, 0, 0, 0.4), 0 16px 24px 2px rgba(0, 0, 0, 0.44), 0 6px 30px 5px rgba(0, 0, 0, 0.22) !important;
+    box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
     .btn-read-more {
         width: 100%;
     }
@@ -211,16 +272,15 @@ cm-map {
     }
 }
 
+.mobile-full-info {
+    min-height: 300px;
+}
+
 .mobile-info {
-    position: fixed;
-    top: $header-height-mobile;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    z-index: 999;
-    height: calc(100vh - #{$header-height-mobile});
+    z-index: 15;
     width: 100%;
     .placeholder-scroll {
-        height: 100%;
+        height: 100vh;
         width: 100%;
     }
 }
@@ -229,12 +289,12 @@ cm-map {
     margin-top: 15px;
 }
 
-$back-to-top-size: 32px;
+$back-to-top-size: 26px;
 
 .back-to-top {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
+    right: 15px;
+    top: 7px;
     width: $back-to-top-size;
     min-width: $back-to-top-size;
     height: $back-to-top-size;

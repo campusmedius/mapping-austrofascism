@@ -10,6 +10,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import { AppComponent } from '../../../core/containers/app/app';
 import { MapComponent } from '../../components/map/map';
 import { CiteDialogComponent } from '../../components/cite-dialog/cite-dialog.component';
 
@@ -27,13 +28,9 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
     'full': '75%',
-    'short': '40%',
+    'short': '470px',
 };
 
-const TIMELINE_WIDTH = {
-    'full': '25%',
-    'short': '60%',
-};
 
 @Component({
     selector: 'cm-topography',
@@ -51,9 +48,14 @@ const TIMELINE_WIDTH = {
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('timeline', [
-            state('full', style({ width: TIMELINE_WIDTH['full'] })),
-            state('short', style({ width: TIMELINE_WIDTH['short'] })),
+            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['full'] + ')' })),
+            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['short'] + ')' })),
             transition('* <=> *', animate('300ms ease-in'))
+        ]),
+        trigger('titleHeader', [
+            state('0', style({ opacity: 0 })),
+            state('1', style({ opacity: 1 })),
+            transition('0 <=> 1', animate('300ms ease-in'))
         ])
     ]
 })
@@ -73,7 +75,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     @ViewChild(MapComponent) map: MapComponent;
     @ViewChild('infoheading') infoheading: ElementRef;
-    @ViewChild('mobilefullinfo') mobilefullinfo: ElementRef;
+    @ViewChild('fullinfo') fullinfo: ElementRef;
+
+    public showTitleHeader = false;
+    public showTitleHeaderMobile = false;
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
@@ -92,7 +97,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         private media: ObservableMedia,
         private scrollToService: ScrollToService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef,
+        private app: AppComponent
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -120,12 +126,13 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.mobilefullinfo.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
                 }
                 if (this.selectedEvent) {
                     setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
                 }
             }
+            this.adjustTimelineForEdge();
         });
 
         this.events$ = this.store.select(fromTopography.getAllEvents);
@@ -159,13 +166,15 @@ export class TopographyComponent implements OnInit, OnDestroy {
                         });
                     }
                     if (this.isMobile && this.sidepanelState === 'full') {
-                        setTimeout(() => this.mobilefullinfo.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                        setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
                     }
                     setTimeout(() => this.map.flyTo(e.current.coordinates));
                 } else {
                     this.sidepanelState = 'short';
                     this.sidepanelWidth = SIDEPANEL_WIDTH['short'];
                 }
+
+                this.adjustTimelineForEdge();
             });
 
         this.information$ = this.store.select(fromTopography.getSelectedInformation);
@@ -178,6 +187,21 @@ export class TopographyComponent implements OnInit, OnDestroy {
         });
     }
 
+    private adjustTimelineForEdge() {
+        if (this.sidepanelState === 'full') {
+            if ((<any>document).isEdge) {
+                setTimeout(() => {
+                    (<any>document.getElementsByTagName('cm-timeline')[0]).style.width = '25%';
+                });
+            }
+        } else {
+            if ((<any>document).isEdge) {
+                setTimeout(() => {
+                    (<any>document.getElementsByTagName('cm-timeline')[0]).style.width = '';
+                });
+            }
+        }
+    }
 
     public showCite() {
         const dialogRef = this.dialog.open(CiteDialogComponent, {
@@ -230,24 +254,51 @@ export class TopographyComponent implements OnInit, OnDestroy {
         this.sidepanelState = 'full';
         this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
         setTimeout(() => {
-            this.mobilefullinfo.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
+            this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
         });
     }
 
     public mobileShowShort() {
-        this.sidepanelState = 'short';
-        if (this.selectedEvent.id === 'team') {
-            this.router.navigate(['/about'], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
-        } else {
-            this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+        if (this.sidepanelState !== 'short') {
+            this.sidepanelState = 'short';
+            if (this.selectedEvent.id === 'team') {
+                this.router.navigate(['/about'], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            } else {
+                this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            }
         }
-
     }
 
     private onScroll() {
-        if (this.mobilefullinfo.nativeElement.scrollTop < 160) {
+        if (this.fullinfo.nativeElement.scrollTop < 110) {
+            this.showTitleHeader = false;
+        } else {
+            this.showTitleHeader = true;
+        }
+    }
+
+    @HostListener('scroll')
+    private onMobileScroll() {
+        if (this.elementRef.nativeElement.scrollTop < 170) {
             this.mobileShowShort();
-        };
+        }
+        if (this.elementRef.nativeElement.scrollTop < (this.map.mapElement.nativeElement.clientHeight + 150)) {
+            if (this.showTitleHeaderMobile) {
+                this.app.removeHeader = false;
+                setTimeout(() => {
+                    this.showTitleHeaderMobile = false;
+                    this.app.showHeader = true;
+                });
+            }
+        } else {
+            if (!this.showTitleHeaderMobile) {
+                this.showTitleHeaderMobile = true;
+                this.app.showHeader = false;
+                setTimeout(() => {
+                    this.app.removeHeader = true;
+                }, 300);
+            }
+        }
     }
 
     ngOnDestroy() {

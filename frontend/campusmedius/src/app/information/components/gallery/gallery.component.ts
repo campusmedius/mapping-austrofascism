@@ -80,14 +80,14 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        const elements = document.getElementsByClassName('mobile-info');
+        const elements = document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
         }
     }
 
     public previewClosed() {
-        const elements = document.getElementsByClassName('mobile-info');
+        const elements = document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
         }
