@@ -84,6 +84,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
+        this.opened.emit();
+
         const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
         placeholders[0].style.height = '0px';
 
@@ -94,7 +96,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
                 elements[0].style.zIndex = 99;
             }
         }
-        this.opened.emit();
     }
 
     public previewClosed() {

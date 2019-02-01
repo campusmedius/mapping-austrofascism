@@ -79,6 +79,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public showTitleHeader = false;
     public showTitleHeaderMobile = false;
+    private galleryIsOpen = false;
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
@@ -309,6 +310,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     @HostListener('scroll')
     private onMobileScroll() {
+        if (this.galleryIsOpen) {
+            return;
+        }
+
         if (this.elementRef.nativeElement.scrollTop < 170) {
             this.mobileShowShort();
         }
@@ -332,12 +337,14 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     public galleryClosed() {
+        this.galleryIsOpen = false;
         if (!this.showTitleHeaderMobile) {
             this.app.removeHeader = false;
         }
     }
 
     public galleryOpened() {
+        this.galleryIsOpen = true;
         this.app.removeHeader = true;
     }
 
