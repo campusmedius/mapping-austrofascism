@@ -92,10 +92,8 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        if ((<any>document).isSafari) {
-            const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
-            placeholders[0].style.height = '0px';
-        }
+        const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
+        placeholders[0].style.height = '0px';
 
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
@@ -108,10 +106,8 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewClosed() {
-        if ((<any>document).isSafari) {
-            const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
-            placeholders[0].style.height = '';
-        }
+        const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
+        placeholders[0].style.height = '';
 
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
