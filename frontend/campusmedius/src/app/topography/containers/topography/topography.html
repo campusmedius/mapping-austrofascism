@@ -15,7 +15,14 @@
                 </button>
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
             </div>
-            <cm-info-event-nav [isMobile]="false" *ngIf="!isPage" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+            <cm-info-event-nav [isMobile]="false" *ngIf="!isPage; else upbutton" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+            <ng-template #upbutton>
+                <div *ngIf="sidepanelState === 'full'" class="up-header" [@titleHeader]="showTitleHeader">
+                    <button mat-icon-button class="back-to-top" (click)="scrollup()">
+                        <span class="cm-back-to-top"></span>
+                    </button>
+                </div>
+            </ng-template>
             <div #fullinfo class="info-body" [ngClass]="{'ispage': isPage}" fxFill (scroll)="onScroll()">
                 <div class="info-content">
                     <div #infoheading class="info-heading">
@@ -78,7 +85,7 @@
                     <span class="cm-square-quote-alt"></span>
                 </button>
                 <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
-                <button mat-icon-button class="back-to-top" (click)="mobileShowShort()">
+                <button mat-icon-button class="back-to-top-mobile" (click)="mobileShowShort()">
                     <span class="cm-back-to-top"></span>
                 </button>
             </div>

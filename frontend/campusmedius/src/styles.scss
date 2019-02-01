@@ -19,8 +19,12 @@ html {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   font-weight: 400;
+  -webkit-text-size-adjust: 100%;
 }
 
+.hide {
+    opacity: 0;
+}
 
 .noscroll {
     overflow: hidden !important;
@@ -203,7 +207,7 @@ cm-image ngx-gallery-arrows {
 .ngx-gallery-thumbnail {
     .cm-square-zoom {
         top: 0px;
-        right: 0px;
+        right: 1px;
         position: absolute;
         font-size: 1.1em;
         @media screen and (max-width: $break-mobile) {
@@ -211,6 +215,13 @@ cm-image ngx-gallery-arrows {
         }
         color: $accent-color;
         background-color: #fff;
+    }
+
+    .cm-square-zoom:before {
+        display: inline-block;
+        width: 18px;
+        left: -2px;
+        position: relative;
     }
 }
 
@@ -256,3 +267,4 @@ button.mat-icon-button
 .mat-button-wrapper > span {
     position: relative;
 }
+

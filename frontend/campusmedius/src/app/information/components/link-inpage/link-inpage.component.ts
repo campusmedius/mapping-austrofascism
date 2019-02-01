@@ -19,7 +19,7 @@ export class LinkInpageComponent implements OnInit {
     public scrollTo(anchor: string) {
         this._scrollToService.scrollTo({
             target: anchor,
-            offset: -30
+            offset: -60
         });
     }
 

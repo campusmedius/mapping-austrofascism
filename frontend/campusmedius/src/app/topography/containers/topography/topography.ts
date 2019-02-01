@@ -203,19 +203,34 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     private adjustTimelineForEdge() {
+        const element = (<any>document.getElementsByTagName('cm-timeline')[0]);
+        if (!element) {
+            return;
+        }
         if (this.sidepanelState === 'full') {
             if ((<any>document).isEdge) {
-                setTimeout(() => {
-                    (<any>document.getElementsByTagName('cm-timeline')[0]).style.width = '25%';
-                }, 300);
+                if (element.style.width === '25%') {
+                    setTimeout(() => {
+                        element.style.width = '25%';
+                    }, 300);
+                }
             }
         } else {
             if ((<any>document).isEdge) {
-                setTimeout(() => {
-                    (<any>document.getElementsByTagName('cm-timeline')[0]).style.width = '';
-                });
+                if (element.style.width === '') {
+                    setTimeout(() => {
+                        element.style.width = '';
+                    });
+                }
             }
         }
+    }
+
+    public scrollup() {
+        this.scrollToService.scrollTo({
+            target: this.infoheading,
+            offset: -150
+        });
     }
 
     public showCite() {

@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '../../ngx-gallery/index';
 
 import { Image } from '../../models/information';
+import { AppComponent } from '../../../core/containers/app/app';
 
 @Component({
     selector: 'cm-image',
@@ -46,6 +47,7 @@ export class ImageComponent implements OnInit, OnDestroy {
 
     constructor(
         private media: ObservableMedia,
+        private app: AppComponent
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -89,6 +91,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
+        this.app.removeHeader = true;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
@@ -99,6 +102,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewClosed() {
+        this.app.removeHeader = false;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');

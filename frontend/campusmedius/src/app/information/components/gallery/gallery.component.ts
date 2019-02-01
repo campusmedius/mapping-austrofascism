@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '../../ngx-gallery/index';
 
 import { Gallery, Image, Audio, Video } from '../../models/information';
+import { AppComponent } from '../../../core/containers/app/app';
 
 import 'hammerjs';
 
@@ -25,6 +26,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
     constructor(
         private media: ObservableMedia,
+        private app: AppComponent
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -80,6 +82,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
+        this.app.removeHeader = true;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
@@ -90,11 +93,19 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewClosed() {
+        this.app.removeHeader = false;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
             if (!this.isMobile && (<any>window).isSafari) {
                 elements[0].style.zIndex = '';
+            }
+        }
+        const previewElements = <any>document.getElementsByClassName('ngx-gallery-preview-wrapper');
+        if (previewElements[0]) {
+            const audioElements = previewElements[0].getElementsByTagName('audio');
+            for (const e of audioElements) {
+                e.pause();
             }
         }
     }

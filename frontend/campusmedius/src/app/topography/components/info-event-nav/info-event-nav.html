@@ -4,7 +4,7 @@
         <span *ngIf="previousEvent && !isMobile" class="text" [innerHtml]="translate.currentLang === 'de' ? previousEvent.titleDe : previousEvent.titleEn"></span>
         <span *ngIf="previousEvent && isMobile" class="text">{{'info.previous' | translate}}</span>
     </div>
-    <div fxFlex class="cm-seperator" *ngIf="nextEvent && previousEvent"></div>
+    <div fxFlex class="cm-seperator" [ngClass]="{'hide': !nextEvent || !previousEvent}"></div>
     <div fxFlex="50" fxLayout="row" fxLayoutAlign="start center" class="next" (click)="select(nextEvent)">
         <span *ngIf="nextEvent && !isMobile" class="text" [innerHtml]="translate.currentLang === 'de' ? nextEvent.titleDe : nextEvent.titleEn"></span>
         <span *ngIf="nextEvent && isMobile" class="text">{{'info.next' | translate}}</span>

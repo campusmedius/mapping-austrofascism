@@ -559,12 +559,11 @@ export class MapComponent implements OnInit {
             return;
         }
 
-        mapboxgl.accessToken = 'pk.eyJ1IjoiY2FydDBncmFwaCIsImEiOiI2Z1FEdEJVIn0.y2iW4bIEbP-xCQ8BU3-RjA';
         this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
-            style: 'mapbox://styles/mapbox/streets-v9',
+            style: 'https://maps.tilehosting.com/styles/basic/style.json?key=3ArApzlHwZU6CL6VqeL8',
             center: [16.4, 48.2], // starting position
             zoom: 12.14 // starting zoom
         });
