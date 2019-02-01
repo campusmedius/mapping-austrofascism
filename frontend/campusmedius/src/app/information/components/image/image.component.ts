@@ -92,6 +92,11 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
+        if ((<any>document).isSafari) {
+            const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
+            placeholders[0].style.height = '0px';
+        }
+
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
@@ -103,6 +108,11 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewClosed() {
+        if ((<any>document).isSafari) {
+            const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
+            placeholders[0].style.height = '';
+        }
+
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');

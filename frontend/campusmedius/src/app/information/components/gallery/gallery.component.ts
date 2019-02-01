@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -27,7 +27,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
     mediaSubscription: Subscription;
 
     constructor(
-        private media: ObservableMedia
+        private media: ObservableMedia,
+        private elmentRef: ElementRef
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -83,6 +84,11 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
+        if ((<any>document).isSafari) {
+            const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
+            placeholders[0].style.height = '0px';
+        }
+
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
@@ -94,6 +100,11 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewClosed() {
+        if ((<any>document).isSafari) {
+            const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
+            placeholders[0].style.height = '';
+        }
+
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');

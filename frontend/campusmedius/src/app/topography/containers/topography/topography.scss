@@ -62,6 +62,12 @@ cm-map {
     height: 80px;
 }
 
+.info-container-mobile:after {
+    content: "";
+    height: 80px;
+    display: block;
+}
+
 .info-content {
     padding-bottom: 120px;
     width: 70%;
