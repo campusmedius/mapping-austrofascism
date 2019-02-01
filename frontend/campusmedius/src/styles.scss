@@ -206,10 +206,12 @@ cm-image ngx-gallery-arrows {
 
 .ngx-gallery-thumbnail {
     .cm-square-zoom {
-        top: 0px;
+        top: 1px;
         right: 1px;
         position: absolute;
         font-size: 1.1em;
+        width: 18px;
+        height: 18px;
         @media screen and (max-width: $break-mobile) {
             font-size: 1.2em;
         }
@@ -219,8 +221,8 @@ cm-image ngx-gallery-arrows {
 
     .cm-square-zoom:before {
         display: inline-block;
-        width: 18px;
         left: -2px;
+        top: -2px;
         position: relative;
     }
 }

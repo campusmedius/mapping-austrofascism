@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs/Subscription';
 
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '../../ngx-gallery/index';
 
 import { Gallery, Image, Audio, Video } from '../../models/information';
-import { AppComponent } from '../../../core/containers/app/app';
 
 import 'hammerjs';
 
@@ -18,6 +17,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
     @Input() data: Gallery;
     @Input() lang: string;
 
+    @Output() closed = new EventEmitter();
+    @Output() opened = new EventEmitter();
+
     public galleryOptions: NgxGalleryOptions[];
     public galleryImages: NgxGalleryImage[];
 
@@ -25,8 +27,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
     mediaSubscription: Subscription;
 
     constructor(
-        private media: ObservableMedia,
-        private app: AppComponent
+        private media: ObservableMedia
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -82,7 +83,6 @@ export class GalleryComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        this.app.removeHeader = true;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
@@ -90,10 +90,10 @@ export class GalleryComponent implements OnInit, OnDestroy {
                 elements[0].style.zIndex = 99;
             }
         }
+        this.opened.emit();
     }
 
     public previewClosed() {
-        this.app.removeHeader = false;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
@@ -108,6 +108,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
                 e.pause();
             }
         }
+        this.closed.emit();
     }
 
     ngOnDestroy() {

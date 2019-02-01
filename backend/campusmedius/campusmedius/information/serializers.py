@@ -64,7 +64,7 @@ class ImageSerializer(serializers.ModelSerializer):
             'thumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
             'mobileThumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
             'full': IMAGE_URL.format(obj.phaidra_id, 'full'),
-            'mobileFull': IMAGE_URL.format(obj.phaidra_id, 'full')
+            'mobileFull': IMAGE_URL.format(obj.phaidra_id, '1920,')
         }
 
 

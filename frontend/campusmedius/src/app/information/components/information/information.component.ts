@@ -1,7 +1,10 @@
 import {
     Component, OnInit, AfterViewInit, OnDestroy, OnChanges, Input, ElementRef, ComponentFactory,
-    ComponentFactoryResolver, ViewChild, ViewContainerRef, ComponentRef, Injector, ApplicationRef
+    ComponentFactoryResolver, ViewChild, ViewContainerRef, ComponentRef, Injector, ApplicationRef,
+    Output, EventEmitter
 } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { InformationMedia } from '../../models/information';
 
@@ -25,6 +28,10 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
     @Input() lang: string;
     @Input() media: InformationMedia;
 
+    @Output() galleryClosed = new EventEmitter();
+    @Output() galleryOpened = new EventEmitter();
+
+    private subscriptions: Subscription[] = [];
 
     private noteFactory: ComponentFactory<NoteComponent>;
     private quoteFactory: ComponentFactory<QuoteComponent>;
@@ -114,11 +121,23 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                     componentRef = this.galleryFactory.create(this.injector, [], e);
                     componentRef.instance.data = this.media.galleries[id];
                     componentRef.instance.lang = this.lang;
+                    this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
+                        this.galleryOpened.emit();
+                    }));
+                    this.subscriptions.push(componentRef.instance.closed.subscribe(() => {
+                        this.galleryClosed.emit();
+                    }));
                 } else if (e.tagName === 'CM-IMAGE') {
                     const id = e.attributes.id.value;
                     componentRef = this.imageFactory.create(this.injector, [], e);
                     componentRef.instance.data = this.media.images[id];
                     componentRef.instance.lang = this.lang;
+                    this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
+                        this.galleryOpened.emit();
+                    }));
+                    this.subscriptions.push(componentRef.instance.closed.subscribe(() => {
+                        this.galleryClosed.emit();
+                    }));
                 } else if (e.tagName === 'CM-VIDEO') {
                     const id = e.attributes.id.value;
                     componentRef = this.videoFactory.create(this.injector, [], e);
@@ -137,6 +156,9 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
     }
 
     private destroyAllDynamicComponents() {
+        this.subscriptions.forEach((s) => {
+            s.unsubscribe();
+        });
         this.componentRefs.forEach((c) => {
             c.destroy();
         });

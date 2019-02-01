@@ -331,6 +331,16 @@ export class TopographyComponent implements OnInit, OnDestroy {
         }
     }
 
+    public galleryClosed() {
+        if (!this.showTitleHeaderMobile) {
+            this.app.removeHeader = false;
+        }
+    }
+
+    public galleryOpened() {
+        this.app.removeHeader = true;
+    }
+
     ngOnDestroy() {
         this.filteredIdsSubscription.unsubscribe();
         this.selectedEventsSubscription.unsubscribe();

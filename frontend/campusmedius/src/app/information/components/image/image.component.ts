@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, Input, ViewChild, OnDestroy
+    Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter
 } from '@angular/core';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import {
@@ -16,7 +16,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '../../ngx-gallery/index';
 
 import { Image } from '../../models/information';
-import { AppComponent } from '../../../core/containers/app/app';
 
 @Component({
     selector: 'cm-image',
@@ -34,6 +33,9 @@ export class ImageComponent implements OnInit, OnDestroy {
     @Input() data: Image;
     @Input() lang: string;
 
+    @Output() closed = new EventEmitter();
+    @Output() opened = new EventEmitter();
+
     @ViewChild('gallery') gallery: NgxGalleryComponent;
 
     public galleryOptions: NgxGalleryOptions[];
@@ -41,13 +43,12 @@ export class ImageComponent implements OnInit, OnDestroy {
 
     public isMobile: boolean;
 
-    public opened = false;
+    public isOpen = false;
 
     mediaSubscription: Subscription;
 
     constructor(
-        private media: ObservableMedia,
-        private app: AppComponent
+        private media: ObservableMedia
     ) {
         this.mediaSubscription = media.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -91,7 +92,6 @@ export class ImageComponent implements OnInit, OnDestroy {
     }
 
     public previewOpened() {
-        this.app.removeHeader = true;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
@@ -99,10 +99,10 @@ export class ImageComponent implements OnInit, OnDestroy {
                 elements[0].style.zIndex = 99;
             }
         }
+        this.opened.emit();
     }
 
     public previewClosed() {
-        this.app.removeHeader = false;
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
@@ -110,6 +110,7 @@ export class ImageComponent implements OnInit, OnDestroy {
                 elements[0].style.zIndex = '';
             }
         }
+        this.closed.emit();
     }
 
     ngOnDestroy() {
