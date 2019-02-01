@@ -39,6 +39,10 @@ cm-map {
     z-index: 10;
 }
 
+.padding-bottom {
+    color: #fff;
+}
+
 .info-container {
     color: $primary-font-color;
     height: 100%;
@@ -276,6 +280,7 @@ cm-map {
 .mobile-info {
     z-index: 15;
     width: 100%;
+    min-height: 100vh;
     .placeholder-scroll {
         height: 100vh;
         width: 100%;

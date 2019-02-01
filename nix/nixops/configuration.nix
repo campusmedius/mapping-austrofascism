@@ -57,22 +57,22 @@
                     # uwsgi_cache_key $scheme$host$request_uri;
                     # uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
                     
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/static" = {
                 alias = "${pkgs.cm-backend}/share/campusmedius/static";
                 extraConfig = ''
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/media" = {
                 alias = "${config.services.campusmedius.backend.mediaDir}";
                 extraConfig = ''
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/tiles" = {
@@ -87,8 +87,8 @@
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
                 extraConfig = ''
                     try_files $uri $uri/ /index.html;
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             forceSSL = false;

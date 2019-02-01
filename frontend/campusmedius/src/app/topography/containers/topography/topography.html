@@ -100,8 +100,8 @@
             </div>
             <div class="info-container-mobile" *ngIf="information$ | async as information">
                 <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang" [media]="information.media" (galleryOpened)="galleryOpened()" (galleryClosed)="galleryClosed()"></cm-information>
-                <div>
-                    <br><br><br>
+                <div class="padding-bottom">
+                    <br><br><br><br><br>---
                 </div>
             </div>
         </div>
