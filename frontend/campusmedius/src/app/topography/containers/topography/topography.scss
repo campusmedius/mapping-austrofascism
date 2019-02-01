@@ -79,6 +79,7 @@ cm-map {
     padding: 0px 15px;
     position: relative;
     z-index: 12;
+    min-height: 100vh;
     background: #ffffff;
     .info-heading {
         margin-top: 50px;
@@ -273,14 +274,9 @@ cm-map {
     }
 }
 
-.mobile-full-info {
-    min-height: 300px;
-}
-
 .mobile-info {
     z-index: 15;
     width: 100%;
-    min-height: 100vh;
     .placeholder-scroll {
         height: 100vh;
         width: 100%;

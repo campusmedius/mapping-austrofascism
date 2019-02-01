@@ -228,6 +228,29 @@ cm-image ngx-gallery-arrows {
     }
 }
 
+.image {
+    .cm-square-zoom {
+        top: 1px;
+        right: 1px;
+        position: absolute;
+        font-size: 1.1em;
+        width: 18px;
+        height: 18px;
+        @media screen and (max-width: $break-mobile) {
+            font-size: 1.2em;
+        }
+        color: $accent-color;
+        background-color: #fff;
+    }
+
+    .cm-square-zoom:before {
+        display: inline-block;
+        left: -1px;
+        top: -1px;
+        position: relative;
+    }
+}
+
 cm-information {
     h2 {
         margin-top: 2.5rem;
