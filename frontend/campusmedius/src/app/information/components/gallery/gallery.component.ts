@@ -87,7 +87,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
         this.opened.emit();
 
         const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
-        placeholders[0].style.height = '0px';
+        if (placeholders[0]) {
+            placeholders[0].style.height = '0px';
+        }
 
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
@@ -100,7 +102,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
 
     public previewClosed() {
         const placeholders = <any>document.getElementsByClassName('placeholder-scroll');
-        placeholders[0].style.height = '';
+        if (placeholders[0]) {
+            placeholders[0].style.height = '';
+        }
 
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {

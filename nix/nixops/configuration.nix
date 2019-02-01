@@ -50,12 +50,12 @@
                 extraConfig = ''
                     uwsgi_pass unix:///var/run/campusmedius/backend/uwsgi.sock;
 
-                    # uwsgi_cache my_cache;
-                    # uwsgi_cache_bypass 0;
-                    # uwsgi_cache_use_stale error timeout updating http_500;
-                    # uwsgi_cache_valid 200 5m;
-                    # uwsgi_cache_key $scheme$host$request_uri;
-                    # uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
+                    uwsgi_cache my_cache;
+                    uwsgi_cache_bypass 0;
+                    uwsgi_cache_use_stale error timeout updating http_500;
+                    uwsgi_cache_valid 200 5m;
+                    uwsgi_cache_key $scheme$host$request_uri;
+                    uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
                     
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
@@ -91,9 +91,8 @@
                     #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
-            forceSSL = false;
-            # sslCertificate = "/run/keys/sslCertificate";
-            # sslCertificateKey = "/run/keys/sslCertificateKey";
+            forceSSL = true;
+            enableACME = true;
         };
         appendHttpConfig = ''
           uwsgi_cache_path /var/spool/nginx/cache levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;
