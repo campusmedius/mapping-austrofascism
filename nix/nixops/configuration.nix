@@ -38,6 +38,13 @@
     # Open ports in the firewall.
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
     
+    security.acme.certs."campusmedius.net" = {
+      webroot = "/var/lib/acme/acme-challenge";
+      extraDomains = {
+        "www.campusmedius.net" = null;
+      };
+    };
+    
     services.nginx = {
         enable = true;
         recommendedGzipSettings = true;
@@ -47,7 +54,7 @@
         appendConfig = "worker_processes 2;";
         virtualHosts."www.campusmedius.net" = {
             forceSSL = true;
-            enableACME = true;
+            useACMEHost = "campusmedius.net";
             locations."/" = {
               extraConfig = ''
                 return  301 https://campusmedius.net$request_uri;
@@ -101,7 +108,7 @@
                 '';
             };
             forceSSL = true;
-            enableACME = true;
+            useACMEHost = "campusmedius.net";
         };
         appendHttpConfig = ''
           uwsgi_cache_path /var/spool/nginx/cache levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;
