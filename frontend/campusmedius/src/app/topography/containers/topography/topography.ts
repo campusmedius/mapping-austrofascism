@@ -205,26 +205,24 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     private adjustTimelineForEdge() {
-        const element = (<any>document.getElementsByTagName('cm-timeline')[0]);
-        if (!element) {
-            return;
-        }
-        if (this.sidepanelState === 'full') {
-            if ((<any>document).isEdge) {
-                if (element.style.width === '25%') {
-                    setTimeout(() => {
-                        element.style.width = '25%';
-                    }, 300);
+        if ((<any>document).isEdge) {
+            setTimeout(() => {
+                const element = (<any>document.getElementsByTagName('cm-timeline')[0]);
+                if (!element) {
+                    return;
                 }
-            }
-        } else {
-            if ((<any>document).isEdge) {
-                if (element.style.width === '') {
-                    setTimeout(() => {
+                if (this.sidepanelState === 'full') {
+                    if (element.style.width !== '25%') {
+                        setTimeout(() => {
+                            element.style.width = '25%';
+                        }, 300);
+                    }
+                } else {
+                    if (element.style.width !== '') {
                         element.style.width = '';
-                    });
+                    }
                 }
-            }
+            });
         }
     }
 

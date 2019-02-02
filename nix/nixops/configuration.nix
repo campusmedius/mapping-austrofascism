@@ -45,6 +45,15 @@
         recommendedProxySettings = true;
         recommendedTlsSettings = false;
         appendConfig = "worker_processes 2;";
+        virtualHosts."www.campusmedius.net" = {
+            forceSSL = true;
+            enableACME = true;
+            locations."/" = {
+              extraConfig = ''
+                return  301 https://campusmedius.net$request_uri;
+              '';
+            };
+        };
         virtualHosts."campusmedius.net" = {
             locations."/api" = {
                 extraConfig = ''

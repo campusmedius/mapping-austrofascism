@@ -9,6 +9,7 @@
     <div *ngFor="let row of rows" class="events-row">
         <div *ngFor="let line of row"
              class="event"
+             title="{{ (lang === 'de' ? line.event.titleDe : line.event.titleEn) | striphtml }}"
              [routerLink]="['/topography', 'events', line.event.id]"
              queryParamsHandling="merge"
              [style.left.%]="line.left"
