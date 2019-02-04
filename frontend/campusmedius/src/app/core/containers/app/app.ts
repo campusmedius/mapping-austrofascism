@@ -40,17 +40,19 @@ export class AppComponent implements OnInit {
         translate.setDefaultLang('de');
 
         let setLangTo = null;
-        if (this.route.snapshot.queryParams['lang'] && this.route.snapshot.queryParams['lang'].match(/en|de/)) {
-            setLangTo = this.route.snapshot.queryParams['lang'];
+
+        const queryLang = this.getParameterByName('lang', window.location.href.toLowerCase());
+        if (queryLang && queryLang.match(/en|de/)) {
+            setLangTo = queryLang;
         }
 
         if (!setLangTo) {
-            if (translate.getBrowserLang().match(/en|de/)) {
-                setLangTo = translate.getBrowserLang();
+            if (this.translate.getBrowserLang().match(/en|de/)) {
+                setLangTo = this.translate.getBrowserLang();
             }
         }
 
-        setLangTo = setLangTo ? setLangTo : 'en';
+        setLangTo = setLangTo ? setLangTo : 'de';
         this.translate.use(setLangTo);
         this.lang = setLangTo;
     }
@@ -64,5 +66,21 @@ export class AppComponent implements OnInit {
         this.currentLang$ = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
             this.lang = event.lang;
         });
+    }
+
+    private getParameterByName(name, url) {
+        if (!url) {
+            url = window.location.href;
+        }
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        const results = regex.exec(url);
+        if (!results) {
+            return null;
+        }
+        if (!results[2]) {
+            return '';
+        }
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 }

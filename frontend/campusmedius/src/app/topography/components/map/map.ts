@@ -561,12 +561,15 @@ export class MapComponent implements OnInit {
 
         this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
+            attributionControl: false,
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
-            style: 'https://maps.tilehosting.com/styles/basic/style.json?key=3ArApzlHwZU6CL6VqeL8',
+            style: 'https://maps.tilehosting.com/styles/basic/style.json?key=brAo6RmTE7XFx0xVmwYo',
             center: [16.4, 48.2], // starting position
             zoom: 12.14 // starting zoom
         });
+
+        this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
 
         this.map.on('zoomend', (e) => {
             const zoom = e.target.getZoom();

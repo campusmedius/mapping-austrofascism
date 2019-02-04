@@ -6,8 +6,17 @@
 }
 
 
-:host /deep/ .mapboxgl-control-container {
-    display: none;
+:host /deep/ .mapboxgl-ctrl-attrib {
+    @media screen and (min-width: $break-mobile) {
+        right: 470px;
+        bottom: 40px;
+        position: fixed;
+    }
+    @media screen and (max-width: $break-mobile) {
+        right: 0px;
+        top: 85px;
+        position: fixed;
+    }
 }
 
 .map-control {
