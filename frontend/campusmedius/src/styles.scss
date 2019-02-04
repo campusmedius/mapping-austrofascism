@@ -278,6 +278,10 @@ a:active {
     color: $accent-color;
 }
 
+.mapboxgl-ctrl-attrib.mapboxgl-compact::after {
+    opacity: 0.5;
+}
+
 // fix button focus on dialog close
 button.mat-icon-button
 {
