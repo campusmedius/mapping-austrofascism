@@ -2,8 +2,6 @@ import { Routes } from '@angular/router';
 import { NotFoundPageComponent } from './core/containers/not-found-page';
 
 import { TopographyModule } from './topography/topography.module';
-//import { TopologyModule } from './topology/topology.module';
-//import { MedialityModule } from './mediality/mediality.module';
 
 
 export function loadTopography() {

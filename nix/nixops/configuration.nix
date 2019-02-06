@@ -69,9 +69,11 @@
                     uwsgi_cache my_cache;
                     uwsgi_cache_bypass 0;
                     uwsgi_cache_use_stale error timeout updating http_500;
-                    uwsgi_cache_valid 200 5m;
+                    uwsgi_cache_valid 200 10m;
                     uwsgi_cache_key $scheme$host$request_uri;
                     uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
+                    
+                    expires 10m;
                     
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
@@ -81,7 +83,8 @@
                 alias = "${pkgs.cm-backend}/share/campusmedius/static";
                 extraConfig = ''
                     #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic_user_file /run/keys/basicAuth;                    
+                    expires 10m;
                 '';
             };
             locations."/media" = {
@@ -89,6 +92,7 @@
                 extraConfig = ''
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
+                    expires 24h;
                 '';
             };
             locations."/tiles" = {
@@ -97,6 +101,7 @@
                     try_files $uri /tiles/1/1/1.png;
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
+                    expires 24h;
                 '';
             };
             locations."/" = {
@@ -105,6 +110,7 @@
                     try_files $uri $uri/ /index.html;
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
+                    expires 10m;
                 '';
             };
             forceSSL = true;
