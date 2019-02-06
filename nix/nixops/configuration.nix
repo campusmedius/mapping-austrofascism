@@ -85,6 +85,7 @@
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;                    
                     expires 10m;
+                    etag off;
                 '';
             };
             locations."/media" = {
@@ -93,6 +94,7 @@
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
                     expires 24h;
+                    etag off;
                 '';
             };
             locations."/tiles" = {
@@ -102,6 +104,7 @@
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
                     expires 24h;
+                    etag off;
                 '';
             };
             locations."/" = {
@@ -111,6 +114,7 @@
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
                     expires 10m;
+                    etag off;
                 '';
             };
             forceSSL = true;

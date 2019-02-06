@@ -18,14 +18,6 @@ export const routes: Routes = [
         path: '',
         loadChildren: loadTopography
     },
-    // {
-    //     path: 'topology',
-    //     loadChildren: () => TopologyModule
-    // },
-    // {
-    //     path: 'mediality',
-    //     loadChildren: () => MedialityModule
-    // },
     {
         path: '**',
         redirectTo: 'about',
