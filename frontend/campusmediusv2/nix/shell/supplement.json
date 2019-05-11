@@ -1,0 +1,7 @@
+[
+    "@angular/cli",
+    "typescript",
+    "tslint",
+    "typescript-formatter",
+    "js-beautify"
+]

@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+
+@import "./scss/material.scss";
+@import './scss/fonts.scss';
+@import './scss/variables.scss';
+@import './scss/icons.scss';
+
+/**
+ * Fix fonts that render as bold in Firefox
+ *
+ * Put this near the top of your style.css
+ * Before any overriding styles
+ */
+
+html {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-weight: 400;
+  -webkit-text-size-adjust: 100%;
+}

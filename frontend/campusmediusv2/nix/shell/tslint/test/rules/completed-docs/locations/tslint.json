@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "completed-docs": [true, {
+      "methods": {
+        "locations": ["instance"]
+      },
+      "properties": {
+        "locations": ["static"]
+      }
+    }]
+  }
+}
