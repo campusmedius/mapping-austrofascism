@@ -564,7 +564,7 @@ export class MapComponent implements OnInit {
             attributionControl: false,
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
-            style: 'https://maps.tilehosting.com/styles/basic/style.json?key=brAo6RmTE7XFx0xVmwYo',
+            style: 'https://api.maptiler.com/maps/basic/style.json?key=g05kAyrAe1kws4m6nIJh',
             center: [16.4, 48.2], // starting position
             zoom: 12.14 // starting zoom
         });
