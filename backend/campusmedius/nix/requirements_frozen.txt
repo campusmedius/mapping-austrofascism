@@ -1,5 +1,4 @@
-appdirs==1.4.3
-beautifulsoup4==4.6.3
+beautifulsoup4==4.8.2
 Django==1.11.16
 django-cors-headers==2.1.0
 django-extensions==1.9.8
@@ -10,9 +9,8 @@ django-tinymce4-lite==1.6.0
 djangorestframework==3.7.3
 djangorestframework-camel-case==0.2.0
 jsmin==2.2.2
-packaging==16.8
 Pillow==2.1.0
-pyparsing==2.2.0
-pytz==2018.7
-six==1.12.0
-typing==3.6.6
+pytz==2019.3
+six==1.14.0
+soupsieve==2.0
+typing==3.7.4.1

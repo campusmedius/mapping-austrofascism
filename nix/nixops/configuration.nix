@@ -79,8 +79,8 @@
                     #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
-            locations."/static" = {
-                alias = "${pkgs.cm-backend}/share/campusmedius/static";
+            locations."/static/" = {
+                alias = "${pkgs.cm-backend}/share/campusmedius/static/";
                 extraConfig = ''
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;                    
@@ -88,8 +88,8 @@
                     etag off;
                 '';
             };
-            locations."/media" = {
-                alias = "${config.services.campusmedius.backend.mediaDir}";
+            locations."/media/" = {
+                alias = "${config.services.campusmedius.backend.mediaDir}/";
                 extraConfig = ''
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
@@ -97,8 +97,8 @@
                     etag off;
                 '';
             };
-            locations."/tiles" = {
-                alias = "${pkgs.cm-tiles}/share/campusmedius/tiles";
+            locations."/tiles/" = {
+                alias = "${pkgs.cm-tiles}/share/campusmedius/tiles/";
                 extraConfig = ''
                     try_files $uri /tiles/1/1/1.png;
                     #auth_basic campusmedius;
