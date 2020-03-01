@@ -1,0 +1,46 @@
+export enum BadExportedEnum { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      [Documentation must exist for exported enums.]
+
+/**
+ * ...
+ */
+export enum ExportedEnum {
+    BadExportedMember
+    ~~~~~~~~~~~~~~~~~      [Documentation must exist for exported enum members.]
+ }
+
+/**
+ * ...
+ */
+export enum GoodExportedEnum { }
+
+enum BadInternalEnum {
+    InternalMember
+ }
+
+/**
+ * ...
+ */
+enum GoodInternalEnum {
+    /**
+     * ...
+     */
+    GoodInternalMember
+}
+
+export interface BadExportedInterface { }
+
+export interface GoodExportedInterface { }
+
+interface BadInternalInterface { }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      [Documentation must exist for interfaces.]
+
+/**
+ * ...
+ */
+interface GoodInternalInterface { }
+
+const internalVariable = 1;
+
+export const exportedVariable = 2;
+             ~~~~~~~~~~~~~~~~~~~~       [Documentation must exist for exported variables.]

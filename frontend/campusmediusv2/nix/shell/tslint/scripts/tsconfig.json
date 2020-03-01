@@ -1,0 +1,12 @@
+{
+    "version": "2.2.2",
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "sourceMap": true,
+        "target": "es5",
+        "lib": ["es6"]
+    }
+}

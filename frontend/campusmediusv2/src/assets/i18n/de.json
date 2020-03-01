@@ -1,0 +1,22 @@
+{
+    "header": {
+        "topography": "Topographie",
+        "topology": "Topologie",
+        "mediality": "Medialität",
+        "about": "Überblick",
+        "contact": "Kontakt",
+        "team": "Team"
+    },
+    "info": {
+        "next": "nächstes Ereignis",
+        "previous": "vorheriges Ereignis",
+        "read-more": "Weiterlesen",
+        "metadata": "Metadaten"
+    },
+    "timeline": {
+        "header": "Zeitleiste"
+    },
+    "map": {
+        "webgl": "Die Karte kann nicht dargestellt werden. Ihr Webbrowser unterstützt kein WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">Bitte folgen Sie diesem Link für nähere Informationen.</a>"
+    }
+}
