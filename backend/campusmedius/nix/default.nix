@@ -16,6 +16,7 @@ stdenv.mkDerivation {
   
   pythonenv = pythonenv;
   python = python;
+  pythonPackages = python37Packages;
   uwsgi = uwsgi-python;
   
   src = ../../campusmedius;

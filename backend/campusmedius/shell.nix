@@ -7,7 +7,19 @@ let
   pythonPackages = backend.pythonPackages;
   uwsgi-python = backend.uwsgi;
 in
+stdenv.mkDerivation rec {
+  name = "env";
 
-(pythonenv.override (old: {
-      extraLibs = old.extraLibs ++ [ uwsgi-python python36Packages.flake8 python36Packages.yapf emacs ];
-})).env
+  # Customizable development requirements
+  buildInputs = [
+    emacs
+    uwsgi-python
+    (pythonenv.override (old: {
+      extraLibs = old.extraLibs ++ [ uwsgi-python pythonPackages.flake8 pythonPackages.yapf ];
+    }))
+  ];
+
+  # Customizable development shell setup with at last SSL certs set
+  shellHook = ''
+  '';
+}

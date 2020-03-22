@@ -40,7 +40,7 @@ then
     echo -e "$(text-style yellow)Setup development environment$(text-style reset)"
     $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh run backend;'"
     $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh run frontend;'"
-    # $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env backend --editor;'"
+    $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env backend --editor;'"
     $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env frontend --editor;'"
     sleep 3
     echo -e "$(text-style yellow)Opening backend in browser$(text-style reset)"

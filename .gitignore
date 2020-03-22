@@ -1,3 +1,4 @@
 *.pyc
 .directory
 backend/tiles/
+guide.md
