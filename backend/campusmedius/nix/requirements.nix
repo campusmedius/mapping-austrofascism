@@ -2,7 +2,7 @@
 # See more at: https://github.com/nix-community/pypi2nix
 #
 # COMMAND:
-#   pypi2nix -V python36 -r requirements.txt
+#   pypi2nix -V python37 -r requirements.txt
 #
 
 { pkgs ? import <nixpkgs> {},
@@ -18,7 +18,7 @@ let
   import "${toString pkgs.path}/pkgs/top-level/python-packages.nix" {
     inherit pkgs;
     inherit (pkgs) stdenv;
-    python = pkgs.python36;
+    python = pkgs.python37;
   };
 
   commonBuildInputs = [];
@@ -28,7 +28,7 @@ let
     let
       pkgs = builtins.removeAttrs pkgs' ["__unfix__"];
       interpreterWithPackages = selectPkgsFn: pythonPackages.buildPythonPackage {
-        name = "python36-interpreter";
+        name = "python37-interpreter";
         buildInputs = [ makeWrapper ] ++ (selectPkgsFn pkgs);
         buildCommand = ''
           mkdir -p $out/bin
@@ -95,10 +95,10 @@ let
     };
 
     "django" = python.mkDerivation {
-      name = "django-1.11.16";
+      name = "django-1.11.28";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/35/1d/59836bce4c9cfded261e21c0abd6a4629de6d289522d0fd928117d8eb985/Django-1.11.16.tar.gz";
-        sha256 = "29268cc47816a44f27308e60f71da635f549c47d8a1d003b28de55141df75791";
+        url = "https://files.pythonhosted.org/packages/52/be/e4bfd6db49d6b94112668ef3dcfb027c8717729a8daebf5c9fd19a4c5115/Django-1.11.28.tar.gz";
+        sha256 = "b33ce35f47f745fea6b5aa3cf3f4241069803a3712d423ac748bd673a39741eb";
 };
       doCheck = commonDoCheck;
       buildInputs = commonBuildInputs ++ [ ];

@@ -1,8 +1,8 @@
-{stdenv, fetchgit, uwsgi, python36, python36Packages}:
+{stdenv, fetchgit, uwsgi, python37, python37Packages}:
 
 let
     uwsgi-python = uwsgi.override { plugins = [ "python3" ]; };
-    python = python36;
+    python = python37;
     pythonenv = let
         pipy2nix = import ./requirements.nix { };
     in
@@ -12,7 +12,7 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "cm-backend-2.0.1";
+  name = "cm-backend-2.0.2";
   
   pythonenv = pythonenv;
   python = python;
