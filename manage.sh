@@ -5,84 +5,74 @@ source ./tools/ansi_colors.sh
 
 working_dir=`pwd`
 
-# env
-if [ "$_arg_command" = "env" ]
-then
-  if [ "$_arg_sub_command" = "backend" ]
+function env_backend(){
+  info "Change into backend environment"
+  cd backend/campusmedius
+  if [ "$_arg_editor" = on ]
   then
-    echo -e "$(_ts y)Change into backend environment$(_tr)"
-    cd backend/campusmedius
+    info "Run editor"
+    nix-shell --command "emacs"
+  else
+    nix-shell
+  fi
+}
 
-    if [ "$_arg_editor" = on ]
-    then
-      echo -e "$(_ts y)Run editor$(_tr)"
-      nix-shell --command "emacs"
-    else
-      nix-shell
-    fi
-  fi
-  if [ "$_arg_sub_command" = "frontend" ]
+function env_frontend(){
+  info "Change into frontend environment"
+  cd frontend/campusmedius
+  if [ "$_arg_editor" = on ]
   then
-    echo -e "$(_ts y)Change into frontend environment$(_tr)"
-    cd frontend/campusmedius
-    
-    if [ "$_arg_editor" = on ]
-    then
-      echo -e "$(_ts y)Run editor$(_tr)"
-      nix-shell --command "emacs"
-    else
-      nix-shell
-    fi
+    info "Run editor"
+    nix-shell --command "emacs"
+  else
+    nix-shell
   fi
+}
+
+function env_develop(){
   # setup a development environment, frontend, backend server and editor and start chrome
-  if [  "$_arg_sub_command" = "develop" ]
-  then
-    echo -e "$(_ts y)Setup development environment$(_tr)"
-    echo -e "$(_ts y)Start backend$(_tr)"
-    $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh run backend;'" &
-    echo -e "$(_ts y)Start frontend$(_tr)"
-    $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh run frontend;'" &
-    echo -e "$(_ts y)Open backend editor$(_tr)"
-    $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env backend --editor;'" &
-    echo -e "$(_ts y)Open frontend editor$(_tr)"
-    $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env frontend --editor;'" &
-    echo -e "$(_ts y)Opening backend in browser$(_tr)"
-    xdg-open http://localhost:8000/admin &
-    echo -e "$(_ts y)Opening frontend in browser$(_tr)"
-    xdg-open http://localhost:4200 &
-  fi
+  info "Setup development environment"
+  info "Start backend"
+  $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh run backend;'" &
+  info "Start frontend"
+  $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh run frontend;'" &
+  info "Open backend editor"
+  $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env backend --editor;'" &
+  info "Open frontend editor"
+  $_arg_terminal -e "bash -c 'cd $working_dir; ./manage.sh env frontend --editor;'" &
+  info "Opening backend in browser"
+  xdg-open http://localhost:8000/admin &
+  info "Opening frontend in browser"
+  xdg-open http://localhost:4200 &
+}
+
+function init_frontend(){
+  info "Init frontend angular project"
+  cd frontend/campusmedius
+  nix-shell --command "npm install"
+}
+
+function init_backend(){
+  warning "Nothing to initialize"
+}
+
+function run_backend(){
+  info "Run backend server"
+  cd backend/campusmedius
+  nix-shell --command "python campusmedius/manage.py runserver"
+}
+
+function run_frontend(){
+  info "Run frontend dev server"
+  cd frontend/campusmedius
+  nix-shell --command "ng serve"
+}
+
+# run command
+cmd="${_arg_command}_${_arg_sub_command}"
+if [ `type -t $cmd`"" == 'function' ]; then
+  $cmd
+else
+  error "Commond does not exist"
+  ./`basename $0` --help
 fi
-
-# init
-if [ "$_arg_command" = "init" ]
-then
-  if [ "$_arg_sub_command" = "backend" ]
-  then
-    echo -e "$(_ts r)Nothing to do$(_tr)"
-  fi
-  if [ "$_arg_sub_command" = "frontend" ]
-  then
-    echo -e "$(_ts y)Init frontend angular project$(_tr)"
-    cd frontend/campusmedius
-    nix-shell --command "npm install"
-  fi
-fi
-
-# run
-if [ "$_arg_command" = "run" ]
-then
-  if [ "$_arg_sub_command" = "backend" ]
-  then
-    echo -e "$(_ts y)Run backend server$(_tr)"
-    cd backend/campusmedius
-    nix-shell --command "python campusmedius/manage.py runserver"
-  fi
-  if [ "$_arg_sub_command" = "frontend" ]
-  then
-    echo -e "$(_ts y)Run frontend dev server$(_tr)"
-    cd frontend/campusmedius
-    nix-shell --command "ng serve"
-  fi
-fi
-
-

@@ -25,7 +25,7 @@
 #     echo -e "This is $(text-color 5 5 0) yellow $(text-reset)"
 #     echo -e "This is $(text-style bold blue underline) fancy $(text-reset)"
 
-function _ts {
+function text-style {
     while [ $# -gt 0 ]; do
 	case "$1" in
 	    reset)       echo -ne "\E[0m" ;;  # terminal default
@@ -48,28 +48,28 @@ function _ts {
 	    reveal)      echo -ne "\E[28m" ;; # cancel conceal
 	    nostrike)    echo -ne "\E[29m" ;; # cancel strike
 
-	    b)           echo -ne "\E[30m" ;;
-	    r)           echo -ne "\E[31m" ;;
-	    g)           echo -ne "\E[32m" ;;
-	    y)           echo -ne "\E[33m" ;;
-	    b)           echo -ne "\E[34m" ;;
-	    m)           echo -ne "\E[35m" ;;
-	    c)           echo -ne "\E[36m" ;;
-	    w)           echo -ne "\E[37m" ;;
+	    black)       echo -ne "\E[30m" ;;
+	    red)         echo -ne "\E[31m" ;;
+	    green)       echo -ne "\E[32m" ;;
+	    yellow)      echo -ne "\E[33m" ;;
+	    blue)        echo -ne "\E[34m" ;;
+	    magenta)     echo -ne "\E[35m" ;;
+	    cyan)        echo -ne "\E[36m" ;;
+	    white)       echo -ne "\E[37m" ;;
 	    xterm)       echo -ne "\E[38;5;$2m" ; shift ;;
 
 	    default)     echo -ne "\E[39m" ;;
 
-	    bgb)         echo -ne "\E[40m" ;;
-	    bgr)         echo -ne "\E[41m" ;;
-	    bgg)         echo -ne "\E[42m" ;;
-	    bgy)         echo -ne "\E[43m" ;;
-	    bgb)         echo -ne "\E[44m" ;;
-	    bgm)         echo -ne "\E[45m" ;;
-	    bgc)         echo -ne "\E[46m" ;;
-	    bgw)         echo -ne "\E[47m" ;;
-	    bgx)         echo -ne "\E[48;5;$2m" ; shift ;;
-	    bgd)         echo -ne "\E[49m" ;;
+	    bgblack)     echo -ne "\E[40m" ;;
+	    bgred)       echo -ne "\E[41m" ;;
+	    bggreen)     echo -ne "\E[42m" ;;
+	    bgyellow)    echo -ne "\E[43m" ;;
+	    bgblue)      echo -ne "\E[44m" ;;
+	    bgmagenta)   echo -ne "\E[45m" ;;
+	    bgcyan)      echo -ne "\E[46m" ;;
+	    bgwhite)     echo -ne "\E[47m" ;;
+	    bgxterm)     echo -ne "\E[48;5;$2m" ; shift ;;
+	    bgdefault)   echo -ne "\E[49m" ;;
 
 	    *)
 		echo -"ne \E[0m"
@@ -81,14 +81,30 @@ function _ts {
     done
 }
 
-function _tc {
-    _ts xterm $(expr 16 + 36 \* $1 + 6 \* $2 + $3)
+function text-color {
+    text-style xterm $(expr 16 + 36 \* $1 + 6 \* $2 + $3)
 }
 
-function _bc {
-    _ts bgxterm $(expr 16 + 36 \* $1 + 6 \* $2 + $3)
+function background-color {
+    text-style bgxterm $(expr 16 + 36 \* $1 + 6 \* $2 + $3)
 }
 
-function _tr {
-    _ts reset
+function text-reset {
+    text-style reset
+}
+
+function info {
+    echo -e "$(text-style blue)$1$(text-reset)"
+}
+
+function warning {
+    echo -e "$(text-style yellow)$1$(text-reset)"
+}
+
+function error {
+    echo -e "$(text-style red bold)x $(text-reset)$(text-style red)$1$(text-reset)"
+}
+
+function success {
+    echo -e "$(text-style green)\xE2\x9C\x94 $1$(text-reset)"
 }

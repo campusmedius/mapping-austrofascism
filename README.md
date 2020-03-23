@@ -1,6 +1,6 @@
 # campusmedius
 
-Code for campusmedius.org
+Code for campusmedius.net
 
 
 
