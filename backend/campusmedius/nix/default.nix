@@ -10,15 +10,17 @@ let
         };
 in
 stdenv.mkDerivation {
-  name = "cm-backend-0.2.2";
+  name = "cm-backend-dev";
   pythonenv = pythonenv;
   python = python;
   uwsgi = uwsgi-python;
   src = ../../campusmedius;
   buildInputs = [ uwsgi-python pythonenv ];
   installPhase = ''
-    ${pythonenv}/bin/python ./campusmedius/manage.py collectstatic --noinput
     mkdir -p $out/share/campusmedius
+    cd ./campusmedius
+    ${pythonenv}/bin/python ./manage.py collectstatic --noinput
+    cd ..
     cp -R ./* $out/share/campusmedius/
   '';
   shellHook = ''
