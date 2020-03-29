@@ -37,7 +37,8 @@
 
     # Open ports in the firewall.
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
-    
+
+    security.acme.preliminarySelfsigned = true;
     security.acme.certs."campusmedius.net" = {
       webroot = "/var/lib/acme/acme-challenge";
       extraDomains = {
@@ -111,8 +112,8 @@
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
                 extraConfig = ''
                     try_files $uri $uri/ /index.html;
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
                     expires 10m;
                     etag off;
                 '';

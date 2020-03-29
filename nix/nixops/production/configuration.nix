@@ -32,9 +32,7 @@
             djangoAllowedHosts = ["campusmedius.net" "131.130.75.201"];
         };
         
-        #keys
-        deployment.keys.sslCertificate.text = builtins.readFile ./keys/nginx.crt;
-        deployment.keys.sslCertificateKey.text = builtins.readFile ./keys/nginx.key;
+        # keys
         deployment.keys.basicAuth.text = builtins.readFile ./keys/basicAuth;
         deployment.keys.basicAuth.group = "keys";
         deployment.keys.basicAuth.permissions = "0640";

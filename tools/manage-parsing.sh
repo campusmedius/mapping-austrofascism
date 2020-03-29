@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # ARG_POSITIONAL_SINGLE([command],[.])
-# ARG_TYPE_GROUP_SET([command],[COMMAND],[command],[env,init,run])
+# ARG_TYPE_GROUP_SET([command],[COMMAND],[command],[env, init, run, deploy, ssh])
 # ARG_POSITIONAL_SINGLE([sub-command],[.])
-# ARG_TYPE_GROUP_SET([subcommand],[SUBCOMMAND],[sub-command],[backend, frontend, develop])
+# ARG_TYPE_GROUP_SET([subcommand],[SUBCOMMAND],[sub-command],[backend, frontend, development, staging, production, deployments])
 # ARG_OPTIONAL_SINGLE([terminal],[t],[Terminal to use for 'env develop'],[xterm])
 # ARG_OPTIONAL_BOOLEAN([editor],[e],[Start editor in env])
 # ARG_DEFAULTS_POS([])
@@ -28,23 +28,23 @@ die()
 
 command()
 {
-	local _allowed=("env" "init" "run") _seeking="$1"
+	local _allowed=("env" "init" "run" "deploy" "ssh") _seeking="$1"
 	for element in "${_allowed[@]}"
 	do
 		test "$element" = "$_seeking" && echo "$element" && return 0
 	done
-	die "Value '$_seeking' (of argument '$2') doesn't match the list of allowed values: 'env', 'init' and 'run'" 4
+	die "Value '$_seeking' (of argument '$2') doesn't match the list of allowed values: 'env', 'init', 'run', 'deploy' and 'ssh'" 4
 }
 
 
 subcommand()
 {
-	local _allowed=("backend" "frontend" "develop") _seeking="$1"
+	local _allowed=("backend" "frontend" "development" "staging" "production" "deployments") _seeking="$1"
 	for element in "${_allowed[@]}"
 	do
 		test "$element" = "$_seeking" && echo "$element" && return 0
 	done
-	die "Value '$_seeking' (of argument '$2') doesn't match the list of allowed values: 'backend', 'frontend' and 'develop'" 4
+	die "Value '$_seeking' (of argument '$2') doesn't match the list of allowed values: 'backend', 'frontend', 'development', 'staging', 'production' and 'deployments'" 4
 }
 
 
@@ -68,8 +68,8 @@ print_help()
 {
 	printf '%s\n' "Script to manage environments and delpoyments for campusmedius"
 	printf 'Usage: %s [-t|--terminal <arg>] [-e|--(no-)editor] [-h|--help] <command> <sub-command>\n' "$0"
-	printf '\t%s\n' "<command>: .. Can be one of: 'env', 'init' and 'run'"
-	printf '\t%s\n' "<sub-command>: .. Can be one of: 'backend', 'frontend' and 'develop'"
+	printf '\t%s\n' "<command>: .. Can be one of: 'env', 'init', 'run', 'deploy' and 'ssh'"
+	printf '\t%s\n' "<sub-command>: .. Can be one of: 'backend', 'frontend', 'development', 'staging', 'production' and 'deployments'"
 	printf '\t%s\n' "-t, --terminal: Terminal to use for 'env develop' (default: 'xterm')"
 	printf '\t%s\n' "-e, --editor, --no-editor: Start editor in env (off by default)"
 	printf '\t%s\n' "-h, --help: Prints help"

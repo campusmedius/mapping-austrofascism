@@ -11,7 +11,7 @@ Script to manage environments and delpoyments for campusmedius
 --------------------------------------------------------------
 
 :Author: |AUTHOR|
-:Date:   2020-03-22
+:Date:   2020-03-29
 :Version: |VERSION|
 :Manual section: |MAN_SECTION|
 

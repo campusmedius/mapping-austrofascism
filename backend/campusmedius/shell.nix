@@ -4,7 +4,7 @@ let
   backend = callPackage ./nix/default.nix { };
   pythonenv = backend.pythonenv;
   python = backend.python;
-  pythonPackages = backend.pythonPackages;
+  pythonPackages = python37Packages;
   uwsgi-python = backend.uwsgi;
 in
 stdenv.mkDerivation rec {

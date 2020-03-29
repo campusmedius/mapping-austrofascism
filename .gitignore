@@ -2,3 +2,7 @@
 .directory
 backend/tiles/
 guide.md
+nix/nixops/development/keys
+nix/nixops/staging/keys
+nix/nixops/production/keys
+
