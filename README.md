@@ -1,6 +1,6 @@
 # campusmedius
 
-Code for campusmedius.net
+Code for [campusmedius](https://campusmedius.net/)
 
 
 
@@ -109,14 +109,9 @@ To deploy the staging version:
 
 ### Production
 
+The production version is running at Uni Wien.
 
-
-## Todo
-
-- [ ] Check SSL Update
-- [ ] Download Tiles
-- [ ] Backup data to github
-- [ ] Django admin Password
-- [ ] Selfsigned Bug https://discourse.nixos.org/t/security-acme-preliminaryselfsigned-has-no-effect/4207
-- [ ] Virtualbox Bug https://github.com/NixOS/nixops/issues/1207
+```sh
+./manage.sh deploy production
+```
 
