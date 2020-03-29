@@ -3,8 +3,9 @@
 let
     uwsgi-python = uwsgi.override { plugins = [ "python3" ]; };
     python = python37;
+    version = (builtins.fromJSON (builtins.readFile ./version.json));
     pythonenv = let
-        pipy2nix = import ./requirements.nix { };
+       pipy2nix = import ./requirements.nix { };
     in
         python.buildEnv.override {
             extraLibs = builtins.attrValues pipy2nix.packages;
@@ -12,16 +13,16 @@ let
 in
 
 stdenv.mkDerivation {
-  name = "cm-backend-2.0.2";
-  
+  name = "cm-backend-${version.version}";
+
   pythonenv = pythonenv;
   python = python;
   uwsgi = uwsgi-python;
   
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
-      rev = "f75d823ec8c52cb9e57626d5e02df7b67b708bc4";
-      sha256 = "1ncprdn9x9kpqskv4x6pwvm71yhhk7b1c69zykws1p3vqkwjj76q";
+      rev = version.rev;
+      sha256 = version.sha256;
   };
 
   buildInputs = [ uwsgi-python pythonenv ];

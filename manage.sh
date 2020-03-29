@@ -2,6 +2,7 @@
 
 source ./tools/manage-parsing.sh
 source ./tools/ansi_colors.sh
+source ./tools/utils.sh
 
 working_dir=`pwd`
 
@@ -126,6 +127,28 @@ function ssh_staging(){
 
 function ssh_production(){
   nixops ssh -d cm-production campusmedius
+}
+
+function upgrade(){
+  VERSION=`cat version.json | jq -r '.version'`
+  NEW_VERSION=`incr_semver $VERSION release`
+  read -p "Current version is $VERSION, enter new version [$NEW_VERSION]: " VERSION
+  NEW_VERSION=${VERSION:-$NEW_VERSION}
+  PREFETCH=`nix-prefetch-git https://github.com/campusmedius/campusmedius.git --quiet`
+  REV=`echo $PREFETCH | jq -r '.rev'`
+  SHA256=`echo $PREFETCH | jq -r '.sha256'`
+  echo "{\"version\": \"$NEW_VERSION\", \"rev\": \"$REV\", \"sha256\": \"$SHA256\"}" | jq > version.json
+  success "Nix expressions updated"
+}
+
+function upgrade_frontend(){
+  cd nix/overlays/pkgs/cm-frontend
+  upgrade
+}
+
+function upgrade_backend(){
+  cd nix/overlays/pkgs/cm-backend
+  upgrade
 }
 
 # run command
