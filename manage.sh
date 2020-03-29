@@ -61,13 +61,16 @@ function init_deployments(){
   cd nix/nixops/development
   mkdir keys
   cd keys
-  info "Credentials for basic auth"
+  
+  info "Credentials for basic auth for development and staging"
   read -p "Username for basic auth [campusmedius]: " USER
   USER=${USER:-campusmedius}
   read -p "Password for basic auth: " PASSWORD
   printf "$USER:$(openssl passwd -5 $PASSWORD)\n" > basicAuth
+
   info "Generate django secret key"
   tr -dc 'a-z0-9!@#$%^&*(-_=+)' < /dev/urandom | head -c50 > djangoSecret
+
   cd ../..
   cp -r development/keys staging/
   
@@ -83,6 +86,29 @@ function init_deployments(){
     error "nixops cm-staging deployment exists"
   else
     nixops create configuration.nix deployment.nix -d cm-staging
+  fi
+  cd ..
+
+  cd production
+  mkdir keys
+  cd keys
+
+  info "Credentials for basic auth for production"
+  read -p "Username for basic auth [campusmedius]: " USER
+  USER=${USER:-campusmedius}
+  read -p "Password for basic auth: " PASSWORD
+  printf "$USER:$(openssl passwd -5 $PASSWORD)\n" > basicAuth
+
+  info "Generate django secret key"
+  tr -dc 'a-z0-9!@#$%^&*(-_=+)' < /dev/urandom | head -c50 > djangoSecret
+
+  cd ..
+
+  info "Create deployments in nixops for production"
+  if [[ $(nixops list | grep cm-univie) ]]; then
+    error "nixops cm-univie deployment exists"
+  else
+    nixops create configuration.nix deployment.nix -d cm-univie
   fi
 }
 
@@ -113,8 +139,7 @@ function deploy_staging(){
 }
 
 function deploy_production(){
-  cd nix/nixops/staging
-  # nixops deploy -d cm-univie
+  nixops deploy -d cm-univie
 }
 
 function ssh_development(){
@@ -126,7 +151,7 @@ function ssh_staging(){
 }
 
 function ssh_production(){
-  nixops ssh -d cm-production campusmedius
+  nixops ssh -d cm-univie campusmedius
 }
 
 function upgrade(){

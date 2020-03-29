@@ -16,6 +16,12 @@ Install nix:
 curl -L https://nixos.org/nix/install | sh
 ```
 
+To deploy the app, instal [nixops](https://github.com/NixOS/nixops):
+
+```sh
+nix-env -i nixops
+```
+
 ### Installing
 
 ```sh
@@ -54,4 +60,63 @@ Generate manpage with:
 ```sh
 argbash --type manpage --strip all tools/manage-parsing.sh -o tools/manage.man
 ```
+
+## Deployment
+
+We use [nixops](https://github.com/NixOS/nixops) for deployment. There are 2two local deployments, development and staging, and one production deployment.
+
+To initalize nixops and setup keys use:
+
+```sh
+./manage.sh init deployments
+```
+
+### Development
+
+For development deployment we use the local packages from `backend/campusmedius/nix` und `frontend/campusmedius/nix`. The overlay is defined in `nix/overlays/campusmedius-development-overlay.nix`.
+
+```sh
+./manage.sh deploy development
+```
+
+The development and staging deployment uses Virtualbox. Access VM with:
+
+```sh
+./manage.sh ssh development
+```
+
+### Staging
+
+Upgrade the version with:
+
+```sh
+./manage.sh upgrade backend
+./manage.sh upgrade frontend
+```
+
+For upgrade nix-prefetch-git and jq is required:
+
+```sh
+nix-env -iA nixos.nix-prefetch-git
+nix-env -iA nixos.jq
+```
+
+To deploy the staging version:
+
+```sh
+./manage.sh deploy staging
+```
+
+### Production
+
+
+
+## Todo
+
+- [ ] Check SSL Update
+- [ ] Download Tiles
+- [ ] Backup data to github
+- [ ] Django admin Password
+- [ ] Selfsigned Bug https://discourse.nixos.org/t/security-acme-preliminaryselfsigned-has-no-effect/4207
+- [ ] Virtualbox Bug https://github.com/NixOS/nixops/issues/1207
 
