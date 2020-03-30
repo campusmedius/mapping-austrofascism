@@ -71,10 +71,23 @@ function init_deployments(){
   info "Generate django secret key"
   tr -dc 'a-z0-9!@#$%^&*(-_=+)' < /dev/urandom | head -c50 > djangoSecret
 
+  cd ../../staging
+  mkdir keys
+  cd keys
+
+  info "Credentials for basic auth for staging and production"
+  read -p "Username for basic auth [campusmedius]: " USER
+  USER=${USER:-campusmedius}
+  read -p "Password for basic auth: " PASSWORD
+  printf "$USER:$(openssl passwd -5 $PASSWORD)\n" > basicAuth
+
+  info "Generate django secret key"
+  tr -dc 'a-z0-9!@#$%^&*(-_=+)' < /dev/urandom | head -c50 > djangoSecret
+
   cd ../..
-  cp -r development/keys staging/
+  cp -r staging/keys production/
   
-  info "Create deployments in nixops for development and staging"
+  info "Create deployments in nixops"
   cd development
   if [[ $(nixops list | grep cm-development) ]]; then
     error "nixops cm-development deployment exists"
@@ -87,22 +100,7 @@ function init_deployments(){
   else
     nixops create configuration.nix deployment.nix -d cm-staging
   fi
-  cd ..
-
-  cd production
-  mkdir keys
-  cd keys
-
-  info "Credentials for basic auth for production"
-  read -p "Username for basic auth [campusmedius]: " USER
-  USER=${USER:-campusmedius}
-  read -p "Password for basic auth: " PASSWORD
-  printf "$USER:$(openssl passwd -5 $PASSWORD)\n" > basicAuth
-
-  info "Generate django secret key"
-  tr -dc 'a-z0-9!@#$%^&*(-_=+)' < /dev/urandom | head -c50 > djangoSecret
-
-  cd ..
+  cd ../production
 
   info "Create deployments in nixops for production"
   if [[ $(nixops list | grep cm-univie) ]]; then

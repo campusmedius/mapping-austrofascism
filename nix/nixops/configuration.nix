@@ -78,8 +78,8 @@
                     
                     expires 10m;
                     
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/api" = {
