@@ -31,6 +31,11 @@
             CORSAllowAll = true;
             djangoAllowedHosts = ["campusmedius.net" "131.130.75.201"];
         };
+        # cm backend v2
+        services.campusmedius.backendv2 = {
+            CORSAllowAll = true;
+            djangoAllowedHosts = ["campusmedius.net" "131.130.75.201"];
+        };
         
         # keys
         deployment.keys.basicAuth.text = builtins.readFile ./keys/basicAuth;

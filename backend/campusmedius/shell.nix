@@ -21,5 +21,6 @@ stdenv.mkDerivation rec {
 
   # Customizable development shell setup with at last SSL certs set
   shellHook = ''
+    export DEBUG=True
   '';
 }

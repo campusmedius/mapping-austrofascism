@@ -3,6 +3,7 @@
     imports =
     [
         ../nixos/modules/services/backend.nix
+        ../nixos/modules/services/backend-v2.nix
     ];
     
     nixpkgs.overlays =
@@ -31,6 +32,7 @@
 
     # campusmedius backend
     services.campusmedius.backend.enable = true;
+    services.campusmedius.backendv2.enable = true;
     
     # Enable the OpenSSH daemon.
     services.openssh.enable = true;
@@ -63,6 +65,23 @@
             };
         };
         virtualHosts."campusmedius.net" = {
+            locations."/api/v2" = {
+                extraConfig = ''
+                    uwsgi_pass unix:///var/run/campusmedius/backendv2/uwsgi.sock;
+
+                    uwsgi_cache my_cache;
+                    uwsgi_cache_bypass 0;
+                    uwsgi_cache_use_stale error timeout updating http_500;
+                    uwsgi_cache_valid 200 10m;
+                    uwsgi_cache_key $scheme$host$request_uri;
+                    uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
+                    
+                    expires 10m;
+                    
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
+                '';
+            };
             locations."/api" = {
                 extraConfig = ''
                     uwsgi_pass unix:///var/run/campusmedius/backend/uwsgi.sock;
@@ -78,6 +97,24 @@
                     
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
+                '';
+            };
+            locations."/static/v2/" = {
+                alias = "${pkgs.cm-backend-v2}/share/campusmedius/static/";
+                extraConfig = ''
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;                    
+                    expires 10m;
+                    etag off;
+                '';
+            };
+            locations."/media/v2/" = {
+                alias = "${config.services.campusmedius.backendv2.mediaDir}/";
+                extraConfig = ''
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
+                    expires 24h;
+                    etag off;
                 '';
             };
             locations."/static/" = {

@@ -42,7 +42,7 @@ To initialize the npm packages for the angular project use:
 To initialize a development environment use the follwoing command.
 
 ```sh
-./manage.sh env develop
+./manage.sh env development
 ```
 
 The command starts the frontend and backend server, the editor for frontend and backend and opens the browser windows for frontend and backend.
