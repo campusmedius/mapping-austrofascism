@@ -63,7 +63,7 @@ argbash --type manpage --strip all tools/manage-parsing.sh -o tools/manage.man
 
 ## Deployment
 
-We use [nixops](https://github.com/NixOS/nixops) for deployment. There are 2two local deployments, development and staging, and one production deployment.
+We use [nixops](https://github.com/NixOS/nixops) for deployment. There are two local deployments, development and staging, and one production deployment.
 
 To initalize nixops and setup keys use:
 
@@ -113,5 +113,23 @@ The production version is running at Uni Wien.
 
 ```sh
 ./manage.sh deploy production
+```
+
+
+
+## Packages
+
+### Update Backend Packages
+
+To generate the nix expressions for the backend python packages pypi2nix is needed.
+
+```sh
+nix-env -iA nixos.pypi2nix
+```
+
+Edit `backend/campusmedius/nix/requirements.txt` and run:
+
+```sh
+pypi2nix -V python37 -r requirements.txt
 ```
 
