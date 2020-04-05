@@ -22,8 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
     url(r'^main/', include('main.urls')),
-    # url(r'^topology/', include('topology.urls')),
+    url(r'^topology/', include('topology.urls')),
     url(r'^topography/', include('topography.urls')),
     url(r'^information/', include('information.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

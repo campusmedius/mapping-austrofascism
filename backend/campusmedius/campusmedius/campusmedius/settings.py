@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'main',
     'topography',
-    # 'topology',
+    'topology',
     'information',
     'corsheaders',
     'django.contrib.admin',
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'location_field.apps.DefaultConfig',
     'tinymce',
+    'taggit',
+    'taggit_autosuggest',
 ]
 
 MIDDLEWARE = [

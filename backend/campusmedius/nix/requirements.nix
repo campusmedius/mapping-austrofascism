@@ -1,4 +1,4 @@
-# generated using pypi2nix tool (version: 2.0.2.dev16+g0afc9c3)
+# generated using pypi2nix tool (version: 2.0.4)
 # See more at: https://github.com/nix-community/pypi2nix
 #
 # COMMAND:
@@ -83,6 +83,7 @@ let
         sha256 = "05fd825eb01c290877657a56df4c6e4c311b3965bda790c613a3d6fb01a5462a";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."soupsieve"
@@ -101,6 +102,7 @@ let
         sha256 = "b33ce35f47f745fea6b5aa3cf3f4241069803a3712d423ac748bd673a39741eb";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."pytz"
@@ -119,6 +121,7 @@ let
         sha256 = "451bc37a514792c2b46c52362368f7985985933ecdbf1a85f82652579a5cbe01";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -135,6 +138,7 @@ let
         sha256 = "9f1c314cfd4b974f03c5589f46f33051aa1d6b5a38cfb7f8824f59e9337768ae";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."six"
@@ -154,6 +158,7 @@ let
         sha256 = "ec0ef1ba23ef95b1620f5d481334413700fb33f45cd76d56a63f4b0b1d76976a";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -170,6 +175,7 @@ let
         sha256 = "9d5be5270f23fd9949687ea7014838aba9e939127c9f2da082ffe112d34a43c8";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."django"
@@ -189,6 +195,7 @@ let
         sha256 = "2a9a8bb448fa832fd9dec0e58b12bbb070c6ec15972d46cd9324f19550d33821";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."beautifulsoup4"
@@ -201,6 +208,64 @@ let
       };
     };
 
+    "django-taggit" = python.mkDerivation {
+      name = "django-taggit-1.2.0";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/8d/6c/8b7a11936c42839fcee5bc517e719ff122b3c1c4a04956725087efe260fa/django-taggit-1.2.0.tar.gz";
+        sha256 = "4186a6ce1e1e9af5e2db8dd3479c5d31fa11a87d216a2ce5089ba3afde24a2c5";
+};
+      doCheck = commonDoCheck;
+      format = "setuptools";
+      buildInputs = commonBuildInputs ++ [ ];
+      propagatedBuildInputs = [
+        self."django"
+      ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://github.com/jazzband/django-taggit";
+        license = licenses.bsdOriginal;
+        description = "django-taggit is a reusable Django application for simple tagging.";
+      };
+    };
+
+    "django-taggit-autosuggest" = python.mkDerivation {
+      name = "django-taggit-autosuggest-0.3.8";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/09/69/cdf32da0d42453c013169f43a898c9ffeb03eb0221f4a78d1fc23eaf75a7/django-taggit-autosuggest-0.3.8.tar.gz";
+        sha256 = "38a12cab02ad376394d9de8ceefecb4edb07df8b8926a6893dc89bc6871502db";
+};
+      doCheck = commonDoCheck;
+      format = "setuptools";
+      buildInputs = commonBuildInputs ++ [ ];
+      propagatedBuildInputs = [
+        self."django-taggit"
+      ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://bitbucket.org/fabian/django-taggit-autosuggest";
+        license = licenses.mit;
+        description = "Autosuggestions for django-taggit";
+      };
+    };
+
+    "django-taggit-serializer" = python.mkDerivation {
+      name = "django-taggit-serializer-0.1.7";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/68/c4/9737e1df18ca8af0f40f46a54af08a15d75eb7afd7805ba94c87fc042ae3/django-taggit-serializer-0.1.7.tar.gz";
+        sha256 = "f712eb2482079be452bcd1e82b18a820e26427c3ee1cef2b4fcd4d6b8b9f14d0";
+};
+      doCheck = commonDoCheck;
+      format = "setuptools";
+      buildInputs = commonBuildInputs ++ [ ];
+      propagatedBuildInputs = [
+        self."django-taggit"
+        self."six"
+      ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://github.com/glemmaPaul/django-taggit-serializer";
+        license = licenses.bsdOriginal;
+        description = "The Django Taggit serializer for tDjango REST Framework";
+      };
+    };
+
     "django-tinymce4-lite" = python.mkDerivation {
       name = "django-tinymce4-lite-1.6.0";
       src = pkgs.fetchurl {
@@ -208,6 +273,7 @@ let
         sha256 = "b40e2e6b02c07279ce6d901a98dfe78e18eb227a284ff7bf70977a187fc04f71";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."django"
@@ -227,6 +293,7 @@ let
         sha256 = "067960e5e9e5586d3b2d53a1d626c4800dc33cd8309487d404fc63355674556f";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -243,6 +310,7 @@ let
         sha256 = "989c5c2d0324069fc1ecea4a5cb8913749d5f2f3c507b38977913ff1b76a719e";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -259,6 +327,7 @@ let
         sha256 = "b6df99b2cd1c75d9d342e4335b535789b8da9107ec748212706ef7bbe5c2553b";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -275,6 +344,7 @@ let
         sha256 = "c733088b9a6f856386d3fcff8c54b3c1bc623a69f7481348fe36320513d98076";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -291,6 +361,7 @@ let
         sha256 = "b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -307,6 +378,7 @@ let
         sha256 = "236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -323,6 +395,7 @@ let
         sha256 = "e914534802d7ffd233242b785229d5ba0766a7f487385e3f714446a07bf540ae";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
@@ -339,6 +412,7 @@ let
         sha256 = "91dfe6f3f706ee8cc32d38edbbf304e9b7583fb37108fef38229617f8b3eba23";
 };
       doCheck = commonDoCheck;
+      format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {

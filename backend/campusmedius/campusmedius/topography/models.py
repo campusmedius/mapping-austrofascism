@@ -1,12 +1,16 @@
+from django.utils import timezone
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from location_field.models.plain import PlainLocationField
 from tinymce.models import HTMLField
+from taggit_autosuggest.managers import TaggableManager
 
 from information.models import Information
 
 
 class Event(models.Model):
+    created = models.DateTimeField()
+    updated = models.DateTimeField()
     title_de = models.TextField()
     title_en = models.TextField()
     abstract_de = HTMLField(null=True, blank=True)
@@ -25,6 +29,7 @@ class Event(models.Model):
 
     information = models.ForeignKey(
         Information, null=True, blank=True, on_delete=models.CASCADE)
+    keywords = TaggableManager(blank=True)
 
     def __str__(self):
         return ('{} - {}').format(self.id, self.title_de)
@@ -36,3 +41,10 @@ class Event(models.Model):
     @property
     def short_abstract_en(self):
         return truncatechars(self.abstract_en, 100)
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.updated = timezone.now()
+        return super(Event, self).save(*args, **kwargs)

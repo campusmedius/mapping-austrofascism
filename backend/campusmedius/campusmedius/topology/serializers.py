@@ -1,174 +1,91 @@
 from rest_framework import serializers
-from .models import Experience, Mediator, MediatorType
-from .models import ExperienceRelation, MediatorRelation
-from .models import Mediation, Representation
-from .models import Time, TimeInterval
-from .models import Space, Location
-from .models import Weight
-from .models import Information, Text, Image, Video, Audio
+from taggit_serializer.serializers import TaggitSerializer
 
-import math
-
-TWOPI = 6.2831853071795865
-RAD2DEG = 57.2957795130823209
-
-
-class TimeIntervalSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TimeInterval
-        fields = ('id', 'end', 'start')
+from .models import Mediator, Medium, Relation
+from .models import Mediation, Experience
+from .models import Space, Time, Value
 
 
 class TimeSerializer(serializers.ModelSerializer):
-    timeIntervals = TimeIntervalSerializer(many=True, source='time_intervals')
-
     class Meta:
         model = Time
-        fields = ('id', 'name', 'timeIntervals')
-
-
-class LocationSerializer(serializers.ModelSerializer):
-    # lat = serializers.SerializerMethodField()
-    # lng = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Location
-        fields = ('id', 'lat', 'lng')
-
-    # def get_lat(self, obj):
-    #    return random.uniform(48.14, 48.27)
-
-    # def get_lng(self, obj):
-    #    return random.uniform(16.37, 16.44)
+        fields = ('id', 'name_de', 'name_en')
 
 
 class SpaceSerializer(serializers.ModelSerializer):
-    locations = LocationSerializer(many=True)
-
     class Meta:
         model = Space
-        fields = ('id', 'name', 'locations')
-
-
-class WeightSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Weight
-        fields = ('id', 'cost')
+        fields = ('id', 'name_de', 'name_en')
 
 
 class ValueSerializer(serializers.ModelSerializer):
-    weights = WeightSerializer(many=True)
-
     class Meta:
         model = Time
-        fields = ('id', 'name', 'weights')
+        fields = ('id', 'name_de', 'name_en')
 
 
-class RepresentationSerializer(serializers.ModelSerializer):
+class MediumSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Representation
-        fields = ('id', 'name')
+        model = Medium
+        fields = ('id', 'name_de', 'name_en')
 
 
 class MediationSerializer(serializers.ModelSerializer):
-    representations = RepresentationSerializer(many=True)
-
     class Meta:
         model = Mediation
-        fields = ('id', 'name', 'representations')
-
-
-class ExperienceRelationSerializer(serializers.ModelSerializer):
-    value = ValueSerializer()
-    bearing = serializers.SerializerMethodField()
-
-    class Meta:
-        model = ExperienceRelation
-        fields = ('id', 'source', 'target', 'mediation', 'value', 'bearing')
-
-    def get_bearing(self, obj):
-        deltax = obj.target.space.locations.first().lng - obj.source.space.locations.first().lng
-        deltay = obj.target.space.locations.first().lat - obj.source.space.locations.first().lat
-
-        theta = math.atan2(deltay, deltax)
-        if theta < 0.0:
-            theta += TWOPI
-
-        return RAD2DEG * theta
+        fields = ('id', 'name_de', 'name_en')
 
 
 class ExperienceSerializer(serializers.ModelSerializer):
-    space = SpaceSerializer()
-    time = TimeSerializer()
-    relationsTo = ExperienceRelationSerializer(many=True, source='sources')
-    relationsFrom = ExperienceRelationSerializer(many=True, source='targets')
-
-    mediators = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
     class Meta:
         model = Experience
-        fields = ('id', 'name', 'time', 'space', 'relationsTo',
-                  'relationsFrom', 'mediators')
+        fields = ('id', 'name_de', 'name_en')
 
 
-class MediatorTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MediatorType
-        fields = ('id', 'name')
-
-
-class TextSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Text
-        fields = ('id', 'title', 'text')
-
-
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ('id', 'title', 'description', 'file')
-
-
-class AudioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Audio
-        fields = ('id', 'title', 'description', 'file')
-
-
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        fields = ('id', 'title', 'description', 'file')
-
-
-class InformationSerializer(serializers.ModelSerializer):
-    texts = TextSerializer(many=True)
-    images = ImageSerializer(many=True)
-    audios = AudioSerializer(many=True)
-    videos = VideoSerializer(many=True)
-
-    class Meta:
-        model = Information
-        fields = ('id', 'name', 'texts', 'images', 'audios', 'videos')
-
-
-class MediatorRelationSerializer(serializers.ModelSerializer):
+class RelationSerializer(serializers.ModelSerializer):
     value = ValueSerializer()
-
-    class Meta:
-        model = MediatorRelation
-        fields = ('id', 'source', 'target', 'mediation', 'value')
-
-
-class MediatorSerializer(serializers.ModelSerializer):
-    type = MediatorTypeSerializer()
     space = SpaceSerializer()
     time = TimeSerializer()
-    informations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    relationsTo = MediatorRelationSerializer(many=True, source='sources')
-    relationsFrom = MediatorRelationSerializer(many=True, source='targets')
+    source_id = serializers.SerializerMethodField()
+    source = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name='topology_api:mediator-detail')
+    target_id = serializers.SerializerMethodField()
+    target = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name='topology_api:mediator-detail')
+
+    class Meta:
+        model = Relation
+        fields = ('id', 'source', 'source_id', 'target', 'target_id', 'value', 'space', 'time')
+
+    def get_source_id(self, obj):
+        return obj.source_id
+
+    def get_target_id(self, obj):
+        return obj.target_id
+
+
+class TagListSerializerField(serializers.Field):
+    def to_representation(self, value):
+       if type(value) is not list:
+           return [tag.name for tag in value.all()]
+       return value
+
+class MediatorSerializer(TaggitSerializer, serializers.ModelSerializer):
+    medium = MediumSerializer()
+    keywords = TagListSerializerField()
+    information_id = serializers.SerializerMethodField()
+    information = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name='information_api:information-detail')
+    relationsTo = RelationSerializer(many=True, source='sources')
+    relationsFrom = RelationSerializer(many=True, source='targets')
 
     class Meta:
         model = Mediator
-        fields = ('id', 'name', 'time', 'space', 'type', 'experience',
-                  'informations', 'relationsTo', 'relationsFrom')
+        fields = ('id', 'created', 'updated', 'name_de', 'name_en', 'abstract_de', 'abstract_en',
+                  'medium', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords')
+
+    def get_information_id(self, obj):
+        return obj.information_id
+
+
+

@@ -1,20 +1,29 @@
 from rest_framework import serializers
+from taggit_serializer.serializers import TaggitSerializer
 
 from .models import Event
 
+
+class TagListSerializerField(serializers.Field):
+    def to_representation(self, value):
+       if type(value) is not list:
+           return [tag.name for tag in value.all()]
+       return value
 
 class EventSerializer(serializers.ModelSerializer):
     coordinates = serializers.SerializerMethodField()
     information_id = serializers.SerializerMethodField()
     information = serializers.HyperlinkedRelatedField(
         read_only=True, view_name='information_api:information-detail')
+    keywords = TagListSerializerField()
 
     class Meta:
         model = Event
-        fields = ('title_de', 'title_en', 'abstract_de', 'abstract_en', 'id',
+        fields = ( 'created', 'updated','title_de', 'title_en',
+                   'abstract_de', 'abstract_en', 'id',
                   'start', 'end', 'timeline_row', 'coordinates',
                   'information_id', 'information', 'next_event',
-                  'previous_event')
+                   'previous_event', 'keywords')
 
     def get_information_id(self, obj):
         return obj.information_id

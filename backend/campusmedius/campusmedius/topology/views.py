@@ -1,24 +1,13 @@
 from rest_framework import viewsets
 
-from .models import Experience, Mediator
+from .models import Experience, Mediation
 from .models import Time, Space, Value
-from .models import Information, Mediation
-from .models import Representation
+from .models import Mediator, Medium
 
-from .serializers import ExperienceSerializer, MediatorSerializer
+from .serializers import ExperienceSerializer, MediationSerializer
 from .serializers import TimeSerializer, SpaceSerializer, ValueSerializer
-from .serializers import InformationSerializer, MediationSerializer
-from .serializers import RepresentationSerializer
+from .serializers import MediatorSerializer, MediumSerializer
 
-
-class ExperienceViewSet(viewsets.ModelViewSet):
-    queryset = Experience.objects.all()
-    serializer_class = ExperienceSerializer
-
-
-class MediatorViewSet(viewsets.ModelViewSet):
-    queryset = Mediator.objects.all()
-    serializer_class = MediatorSerializer
 
 
 class TimeViewSet(viewsets.ModelViewSet):
@@ -36,9 +25,9 @@ class ValueViewSet(viewsets.ModelViewSet):
     serializer_class = ValueSerializer
 
 
-class InformationViewSet(viewsets.ModelViewSet):
-    queryset = Information.objects.all()
-    serializer_class = InformationSerializer
+class MediumViewSet(viewsets.ModelViewSet):
+    queryset = Medium.objects.all()
+    serializer_class = MediumSerializer
 
 
 class MediationViewSet(viewsets.ModelViewSet):
@@ -46,6 +35,11 @@ class MediationViewSet(viewsets.ModelViewSet):
     serializer_class = MediationSerializer
 
 
-class RepresentationViewSet(viewsets.ModelViewSet):
-    queryset = Representation.objects.all()
-    serializer_class = RepresentationSerializer
+class ExperienceViewSet(viewsets.ModelViewSet):
+    queryset = Experience.objects.all()
+    serializer_class = ExperienceSerializer
+
+
+class MediatorViewSet(viewsets.ModelViewSet):
+    queryset = Mediator.objects.all()
+    serializer_class = MediatorSerializer
