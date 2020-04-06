@@ -9,37 +9,37 @@ from .models import Space, Time, Value
 class TimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Time
-        fields = ('id', 'name_de', 'name_en')
+        fields = ('id', 'title_de', 'title_en')
 
 
 class SpaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Space
-        fields = ('id', 'name_de', 'name_en')
+        fields = ('id', 'title_de', 'title_en')
 
 
 class ValueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Time
-        fields = ('id', 'name_de', 'name_en')
+        fields = ('id', 'title_de', 'title_en')
 
 
 class MediumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medium
-        fields = ('id', 'name_de', 'name_en')
+        fields = ('id', 'title_de', 'title_en')
 
 
 class MediationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mediation
-        fields = ('id', 'name_de', 'name_en')
+        fields = ('id', 'demand_de', 'demand_en', 'response_de', 'response_en')
 
 
 class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Experience
-        fields = ('id', 'name_de', 'name_en')
+        fields = ('id', 'title_de', 'title_en')
 
 
 class RelationSerializer(serializers.ModelSerializer):
@@ -64,15 +64,11 @@ class RelationSerializer(serializers.ModelSerializer):
         return obj.target_id
 
 
-class TagListSerializerField(serializers.Field):
-    def to_representation(self, value):
-       if type(value) is not list:
-           return [tag.name for tag in value.all()]
-       return value
-
-class MediatorSerializer(TaggitSerializer, serializers.ModelSerializer):
+class MediatorSerializer(serializers.ModelSerializer):
+    coordinates = serializers.SerializerMethodField()
     medium = MediumSerializer()
-    keywords = TagListSerializerField()
+    keywords_de = serializers.SerializerMethodField()
+    keywords_en = serializers.SerializerMethodField()
     information_id = serializers.SerializerMethodField()
     information = serializers.HyperlinkedRelatedField(
         read_only=True, view_name='information_api:information-detail')
@@ -81,11 +77,26 @@ class MediatorSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Mediator
-        fields = ('id', 'created', 'updated', 'name_de', 'name_en', 'abstract_de', 'abstract_en',
-                  'medium', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords')
+        fields = ('id', 'created', 'updated', 'title_de', 'title_en', 'abstract_de', 'abstract_en',
+                  'medium', 'coordinates', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords_de', 'keywords_en')
 
     def get_information_id(self, obj):
         return obj.information_id
 
+    def get_coordinates(self, obj):
+        return {
+            'lng': obj.location.split(',')[1],
+            'lat': obj.location.split(',')[0]
+        }
 
+    def get_keywords_de(self, value):
+        return [tag.title_de for tag in value.keywords.all()]
 
+    def get_keywords_en(self, value):
+        return [tag.title_en for tag in value.keywords.all()]
+
+    def to_internal_value(self, data):
+        internal = super().to_internal_value(data)
+        internal[
+            'location'] = data['coordinates']['lat'] + ',' + data['coordinates']['lng']
+        return internal

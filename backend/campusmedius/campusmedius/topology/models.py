@@ -1,58 +1,62 @@
 from django.utils import timezone
 from django.db import models
 from django.template.defaultfilters import truncatechars
+from location_field.models.plain import PlainLocationField
 from tinymce.models import HTMLField
 from taggit_autosuggest.managers import TaggableManager
 
 from information.models import Information
+from main.models import CampusmediusTaggedItemBase
 
 
 class Time(models.Model):
-    name_de = models.TextField()
-    name_en = models.TextField()
+    title_de = models.TextField()
+    title_en = models.TextField()
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}').format(self.id, self.title_de)
 
 
 class Space(models.Model):
-    name_de = models.TextField()
-    name_en = models.TextField()
+    title_de = models.TextField()
+    title_en = models.TextField()
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}').format(self.id, self.title_de)
 
 
 class Value(models.Model):
-    name_de = models.TextField()
-    name_en = models.TextField()
+    title_de = models.TextField()
+    title_en = models.TextField()
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}').format(self.id, self.title_de)
 
 
 class Medium(models.Model):
-    name_de = models.TextField()
-    name_en = models.TextField()
+    title_de = models.TextField()
+    title_en = models.TextField()
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}').format(self.id, self.title_de)
 
 
 class Mediator(models.Model):
-    created = models.DateTimeField()
-    updated = models.DateTimeField()
-    name_de = models.TextField()
-    name_en = models.TextField()
+    created = models.DateTimeField(null=True, blank=True)
+    updated = models.DateTimeField(null=True, blank=True)
+    title_de = models.TextField()
+    title_en = models.TextField()
     abstract_de = HTMLField(null=True, blank=True)
     abstract_en = HTMLField(null=True, blank=True)
     medium = models.ForeignKey(Medium, on_delete=models.CASCADE)
     information = models.ForeignKey(
         Information, null=True, blank=True, on_delete=models.CASCADE)
-    keywords = TaggableManager()
+    location = PlainLocationField(
+        default='48.21071849058017,16.371345520019528')
+    keywords = TaggableManager(blank=True, through=CampusmediusTaggedItemBase, verbose_name="keywords")
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}').format(self.id, self.title_de)
 
     @property
     def short_abstract_de(self):
@@ -82,18 +86,20 @@ class Relation(models.Model):
 
 
 class Mediation(models.Model):
-    name_de = models.TextField()
-    name_en = models.TextField()
+    demand_de = models.TextField()
+    demand_en = models.TextField()
+    response_de = models.TextField()
+    response_en = models.TextField()
     relations = models.ManyToManyField(Relation, blank=True, related_name='mediations')
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}: {}').format(self.id, self.demand_de, self.response_de)
 
 
 class Experience(models.Model):
-    name_de = models.TextField()
-    name_en = models.TextField()
+    title_de = models.TextField()
+    title_en = models.TextField()
     relations = models.ManyToManyField(Relation, blank=True, related_name='experiences')
 
     def __str__(self):
-        return ('{} - {}').format(self.id, self.name_de)
+        return ('{} - {}').format(self.id, self.title_de)

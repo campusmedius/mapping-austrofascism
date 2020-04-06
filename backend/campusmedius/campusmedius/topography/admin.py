@@ -23,7 +23,7 @@ class EventAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-             'all': ('admin/css/topography.css',)
+             'all': ('admin/css/admin.css',)
         }
 
 

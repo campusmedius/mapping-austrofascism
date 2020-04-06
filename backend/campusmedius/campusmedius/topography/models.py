@@ -6,11 +6,11 @@ from tinymce.models import HTMLField
 from taggit_autosuggest.managers import TaggableManager
 
 from information.models import Information
-
+from main.models import CampusmediusTaggedItemBase
 
 class Event(models.Model):
-    created = models.DateTimeField()
-    updated = models.DateTimeField()
+    created = models.DateTimeField(null=True, blank=True)
+    updated = models.DateTimeField(null=True, blank=True)
     title_de = models.TextField()
     title_en = models.TextField()
     abstract_de = HTMLField(null=True, blank=True)
@@ -29,7 +29,7 @@ class Event(models.Model):
 
     information = models.ForeignKey(
         Information, null=True, blank=True, on_delete=models.CASCADE)
-    keywords = TaggableManager(blank=True)
+    keywords = TaggableManager(blank=True, through=CampusmediusTaggedItemBase, verbose_name="keywords")
 
     def __str__(self):
         return ('{} - {}').format(self.id, self.title_de)

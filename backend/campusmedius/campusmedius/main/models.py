@@ -1,8 +1,31 @@
 from django.db import models
 from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
+from taggit.models import TagBase, GenericTaggedItemBase
 
 from information.models import Information
+
+class CampusmediusTag(TagBase):
+    title_de = models.TextField(null=True, blank=True)
+    title_en = models.TextField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        ''' On create '''
+        if not self.id:
+            self.title_de = self.name
+            self.title_en = self.name
+        return super(CampusmediusTag, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'keyword'
+
+
+class CampusmediusTaggedItemBase(GenericTaggedItemBase):
+    tag = models.ForeignKey(
+        CampusmediusTag,
+        on_delete=models.CASCADE,
+        related_name='%(app_label)s_%(class)s_items',
+    )
 
 
 class Page(models.Model):

@@ -32,6 +32,9 @@ CORS_ORIGIN_ALLOW_ALL = bool(os.environ.get('CORS_ORIGIN_ALLOW_ALL', True))
 
 INSTALLED_APPS = [
     'rest_framework',
+    'taggit',
+    'taggit_autosuggest',
+    'taggit_serializer',
     'main',
     'topography',
     'topology',
@@ -46,9 +49,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'location_field.apps.DefaultConfig',
     'tinymce',
-    'taggit',
-    'taggit_autosuggest',
-    'taggit_serializer',
 ]
 
 MIDDLEWARE = [
@@ -186,3 +186,5 @@ TINYMCE_DEFAULT_CONFIG = {
     },
     'convert_urls': False
 }
+
+TAGGIT_AUTOSUGGEST_MODELS = ('main', 'CampusmediusTag')
