@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+@import "../node_modules/font-awesome/css/font-awesome.css";
 
 @import "./scss/material.scss";
 @import './scss/fonts.scss';
@@ -20,4 +21,94 @@ html {
   font-smoothing: antialiased;
   font-weight: 400;
   -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+	  font-family: $text-regular-font;
+    i, em {
+	      font-family: $text-italics-font;
+        font-style: normal;
+    }
+    color: $primary-font-color;
+    margin: 0px;
+    font-size: $base-font-size;
+    @media screen and (max-width: $break-mobile) {
+        font-size: $mobile-base-font-size;
+    }
+    line-height: $base-line-height;
+}
+
+/**
+ * Firefox specific rule
+ */
+
+@-moz-document url-prefix() {
+    body {
+        font-weight: lighter !important;
+    }
+}
+
+/**
+ *
+ */
+
+.hide {
+    opacity: 0;
+}
+
+.noscroll {
+    overflow: hidden !important;
+    @media screen and (max-width: $break-mobile) {
+        position: fixed !important;
+    }
+}
+
+/* unvisited link */
+a:link {
+    color: $accent-color;
+}
+
+/* visited link */
+a:visited {
+    color: $accent-color;
+}
+
+/* mouse over link */
+a:hover {
+    color: $accent-color;
+}
+
+/* selected link */
+a:active {
+    color: $accent-color;
+}
+
+// fix button focus on dialog close
+button.mat-icon-button
+{
+    &.cdk-program-focused
+    {
+        .mat-button-focus-overlay
+        {
+            opacity: 0;
+        }
+    }
+}
+
+.mat-button-wrapper > span {
+    position: relative;
+}
+
+.mat-menu-panel {
+    width: 7rem;
+    background: $map-overlay-background-color;
+    margin-top: 13px;
+    @media screen and (max-width: $break-mobile) {
+        margin-top: 2px;
+    }
+    margin-left: -10px;
+    border-radius: 0px !important;
+    .mat-menu-item {
+        font-size: $small-font-size;
+    }
 }

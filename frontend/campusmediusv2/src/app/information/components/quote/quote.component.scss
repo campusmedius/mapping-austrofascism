@@ -1,0 +1,19 @@
+@import './../../../../scss/_variables.scss';
+
+:host {
+    display: block;
+    padding: 1rem 2.5rem;
+    @media screen and (max-width: $break-mobile) {
+        padding: 24px 0px;
+    }
+    font-family: $text-italics-font;
+    color: $primary-font-color;
+    ::ng-deep em, ::ng-deep i {
+	      font-family: $text-regular-font;
+        font-style: normal;
+    }
+    ::ng-deep .mat-dialog-container {
+        background: #fff;
+
+    }
+}

@@ -1,0 +1,251 @@
+{
+    "images": {
+        "1": {
+            "id": "1",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Screenshot of the first version of campusmedius.net launched in 2014, showing the homepage with the opened, unfiltered timeline (PI: Simon Ganahl, back-end coding: Rory Solomon, front-end coding: Darius Daftary, design: Mallory Brennan). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884441/methods/bdef:Content/get"
+        },
+        "2": {
+            "id": "2",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Screenshot of the first version of campusmedius.net launched in 2014, showing the homepage with the timeline filtered from 5 to 10 h (PI: Simon Ganahl, back-end coding: Rory Solomon, front-end coding: Darius Daftary, design: Mallory Brennan). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884442/methods/bdef:Content/get"
+        },
+        "3": {
+            "id": "3",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Screenshot of the first version of campusmedius.net launched in 2014, showing the basemap without the rectified map of Vienna from 1933 (PI: Simon Ganahl, back-end coding: Rory Solomon, front-end coding: Darius Daftary, design: Mallory Brennan). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884443/methods/bdef:Content/get"
+        },
+        "4": {
+            "id": "4",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Screenshot of the first version of campusmedius.net launched in 2014, showing the map of Vienna from 1933 rectified to align with the underlying GIS data of OpenStreetMap (PI: Simon Ganahl, back-end coding: Rory Solomon, front-end coding: Darius Daftary, design: Mallory Brennan). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884445/methods/bdef:Content/get"
+        },
+        "5": {
+            "id": "5",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Screenshot of the first version of campusmedius.net launched in 2014, showing the actor-network window of the event \"Radio Wien, May 14, 1933, 10:20–11:05\" (PI: Simon Ganahl, back-end coding: Rory Solomon, front-end coding: Darius Daftary, design: Mallory Brennan). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884446/methods/bdef:Content/get"
+        },
+        "6": {
+            "id": "6",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Screenshot of the first version of campusmedius.net launched in 2014, showing the description window of the event \"Radio Wien, May 14, 1933, 10:20–11:05\" (PI: Simon Ganahl, back-end coding: Rory Solomon, front-end coding: Darius Daftary, design: Mallory Brennan). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884447/methods/bdef:Content/get"
+        },
+        "7": {
+            "id": "7",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Comprehensive layout of the forthcoming version of campusmedius.net, showing the section \"Topography\" and the event \"Schönbrunn Palace, May 14, 1933, 9:00–12:00\" (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884464/methods/bdef:Content/get"
+        },
+        "8": {
+            "id": "8",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Table of the three <i>dispositifs</i> of mediation that will be implemented in the section \"Topology\" of the forthcoming version of campusmedius.net (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884477/methods/bdef:Content/get"
+        },
+        "9": {
+            "id": "9",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Icons of the mediators that will be implemented in the section \"Topology\" of the forthcoming version of campusmedius.net (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884486/methods/bdef:Content/get"
+        },
+        "10": {
+            "id": "10",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Comprehensive layout of the forthcoming version of campusmedius.net, showing the section \"Topology,\" the mediation \"How to use reason: Sovereign Sign,\" and the mediator \"Ernst Rüdiger Starhemberg\" (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884501/methods/bdef:Content/get"
+        },
+        "11": {
+            "id": "11",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Ernst Rüdiger Starhemberg giving a speech in front of the monument to Count Ernst Rüdiger von Starhemberg on Rathausplatz in Vienna on September 12, 1933. Source: Ernst Rudiger Starhemberg: <i>Between Hitler and Mussolini</i>, New York/London: Harper & Brothers 1942, fig. 3. Copyright: All rights reserved!",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906174/methods/bdef:Content/get"
+        },
+        "12": {
+            "id": "12",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Propaganda poster by the Austrian Home Guards from 1934 with a photograph of Ernst Rüdiger Starhemberg (left) and Engelbert Dollfuß, which was taken at the \"Turks Deliverance Celebration\" (<i>Türkenbefreiungsfeier</i>) on the garden terrace of Schönbrunn Palace in Vienna on May 14, 1933. Source: Bildarchiv Austria, <a href=\"http://www.bildarchivaustria.at/Pages/ImageDetail.aspx?p_iBildID=15838995\" target=\"_blank\">PLA16307046</a>. Copyright: All rights reserved!",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906175/methods/bdef:Content/get"
+        },
+        "13": {
+            "id": "13",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Comprehensive layout of the forthcoming version of campusmedius.net, showing the section \"Topology,\" the mediation \"How to capture life: Examining Gaze,\" and the mediator \"Bell & Howell 2709\" (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884509/methods/bdef:Content/get"
+        },
+        "14": {
+            "id": "14",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Photograph of Austrian Home Guard troops, marching from Schönbrunn Palace to Schwarzenbergplatz in Vienna on May 14, 1933, here on Mariahilferstraße around the area of Vienna's western railway station. Source: Bildarchiv Austria, <a href=\"http://www.bildarchivaustria.at/Pages/ImageDetail.aspx?p_iBildID=1553954\" target=\"_blank\">66.287 B</a>. Copyright: All rights reserved!",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906176/methods/bdef:Content/get"
+        },
+        "15": {
+            "id": "15",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Photograph of Austrian Home Guard members lowering the flag on Schwarzenbergplatz in Vienna on May 14, 1933 as they march past their leaders, including Engelbert Dollfuß (second from left) and Ernst Rüdiger Starhemberg (third from left), who review and salute the paramilitary parade. Source: Bildarchiv Austria, <a href=\"http://www.bildarchivaustria.at/Pages/ImageDetail.aspx?p_iBildID=1074187\" target=\"_blank\">H 2012/1</a>. Copyright: All rights reserved!",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906177/methods/bdef:Content/get"
+        },
+        "16": {
+            "id": "16",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Comprehensive layout of the forthcoming version of campusmedius.net, showing the section \"Topology,\" the mediation \"How to raise voice: Governed Transmission,\" and the mediator \"Shortwave Vehicle\" (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906170/methods/bdef:Content/get"
+        },
+        "17": {
+            "id": "17",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "First part of the questionnaire for the so-called \"RAVAG Study\" conducted by the Wirtschaftspsychologische Forschungsstelle in Austria in 1931/32. This particular form was filled out by Eduard and Anna Nowak, a married couple from Vienna. Source: Paul Felix Lazarsfeld Papers, Butler Library, Columbia University, box 34, folder 20. Copyright: All rights reserved!",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906178/methods/bdef:Content/get"
+        },
+        "18": {
+            "id": "18",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Data model of the forthcoming version of campusmedius.net (PI: Simon Ganahl, coding: Andreas Krimbacher, design: Susanne Kiesenhofer). Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884512/methods/bdef:Content/get"
+        },
+        "19": {
+            "id": "19",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Photograph of the \"Turks Deliverance Celebration\" (<i>Türkenbefreiungsfeier</i>) in the gardens of Schönbrunn Palace in Vienna on May 14, 1933. Source: Bildarchiv Austria, <a href=\"http://www.bildarchivaustria.at/Pages/ImageDetail.aspx?p_iBildID=1556436\" target=\"_blank\">Pf 15.104 C9</a>. Copyright: All rights reserved!",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:906179/methods/bdef:Content/get"
+        },
+        "20": {
+            "id": "20",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of hookah smoking created in a course taught by Simon Ganahl at UCLA in 2016. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884513/methods/bdef:Content/get"
+        },
+        "21": {
+            "id": "21",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of unboxing an iPhone created in a course taught by Simon Ganahl at UCLA in 2016. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884514/methods/bdef:Content/get"
+        },
+        "22": {
+            "id": "22",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of school noises created in a course taught by Simon Ganahl at University of Liechtenstein in 2016. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884515/methods/bdef:Content/get"
+        },
+        "23": {
+            "id": "23",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of waking up created in a course taught by Simon Ganahl at University of Liechtenstein in 2016. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884516/methods/bdef:Content/get"
+        },
+        "24": {
+            "id": "24",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of paragliding created in a course taught by Simon Ganahl at Vorarlberg University of Applied Sciences in 2017. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884517/methods/bdef:Content/get"
+        },
+        "25": {
+            "id": "25",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of cooking espresso created in a course taught by Simon Ganahl at Vorarlberg University of Applied Sciences in 2017. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884518/methods/bdef:Content/get"
+        },
+        "26": {
+            "id": "26",
+            "type": "image",
+            "format": "jpg",
+            "captionDe": "",
+            "captionEn": "Student map of venipuncture created in a course taught by Simon Ganahl at Vorarlberg University of Applied Sciences Vorarlberg in 2017. Copyright: <a href=\"https://creativecommons.org/licenses/by/4.0/\" target=\"_blank\">CC-BY 4.0</a>",
+            "url": "https://fedora.phaidra.univie.ac.at/fedora/objects/o:884519/methods/bdef:Content/get"
+        }
+    },
+    "galleries": {
+        "1": {
+            "id": "1",
+            "type": "gallery",
+            "images": ["1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+            ]
+        },
+        "2": {
+            "id": "2",
+            "type": "gallery",
+            "images": ["7",
+                "8",
+                "9",
+                "10",
+                "13",
+                "16"
+            ]
+        },
+        "3": {
+            "id": "3",
+            "type": "gallery",
+            "images": ["18",
+                "20",
+                "21",
+                "22",
+                "23",
+                "24",
+                "25",
+                "26"
+            ]
+        }
+    },
+    "videos": {},
+    "audios": {}
+}

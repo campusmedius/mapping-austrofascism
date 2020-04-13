@@ -1,0 +1,79 @@
+<button mat-button class="close cm-close" (click)="close()"></button>
+
+<div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'en'">
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Title</div>
+        <div class="content" [innerHtml]="titleEn"></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">URL</div>
+        <div class="content url">{{url}}</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Text</div>
+        <div class="content"><cm-link-intern href="/team#ganahl" [text]="'Simon Ganahl'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Code</div>
+        <div class="content"><cm-link-intern href="/team#krimbacher" [text]="'Andreas Krimbacher'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Design</div>
+        <div class="content"><cm-link-intern href="/team#kiesenhofer" [text]="'Susanne Kiesenhofer'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Updated</div>
+        <div class="content">February 1, 2019</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Copyright</div>
+        <div class="content">
+            Unless stated otherwise, this website's content is available open-access under Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en" [text]="'CC BY 4.0'"></cm-link-extern>. This license permits unrestricted use and distribution of the respective material, provided the creator(s) and the source are properly referenced, ideally in the form suggested above. For copyright details on the media objects cited in <i>Campus Medius</i>, please check the sources given in the captions.
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Sponsors</div>
+        <div class="content">
+The production of this website has been sponsored by the Austrian Science Fund (<cm-link-extern href="https://fwf.ac.at/en" text="FWF"></cm-link-extern>: J3181-G20), the City of Vienna (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), the Austrian Academy of Sciences (<cm-link-extern href="https://www.oeaw.ac.at/en" text="ÖAW"></cm-link-extern>: APART 11810), the <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Department of German Studies"></cm-link-extern> at the University of Vienna, and the digital repository <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
+        </div>
+    </div>
+</div>
+
+<div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'de'">
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Titel</div>
+        <div class="content" [innerHtml]="titleDe"></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">URL</div>
+        <div class="content url">{{url}}</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Text</div>
+        <div class="content"><cm-link-intern href="/team#ganahl" [text]="'Simon Ganahl'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Code</div>
+        <div class="content"><cm-link-intern href="/team#krimbacher" [text]="'Andreas Krimbacher'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Design</div>
+        <div class="content"><cm-link-intern href="/team#kiesenhofer" [text]="'Susanne Kiesenhofer'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Aktualisiert</div>
+        <div class="content">1. Februar 2019</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Urheberrecht</div>
+        <div class="content">
+            Wenn nicht anders angegeben, sind die Inhalte dieser Website unter Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.de" [text]="'CC BY 4.0'"></cm-link-extern> frei verfügbar. Diese Lizenz gestattet uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass der/die Urheber/innen und die Quelle eindeutig genannt werden, idealerweise in der oben vorgeschlagenen Form. Für die Urheberrechte der Medienobjekte, die in <i>Campus Medius</i> zitiert werden, bitte die angeführten Quellen konsultieren.
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Sponsoren</div>
+        <div class="content">
+            Die Produktion dieser Website wurde und wird gefördert von der Österreichischen Akademie der Wissenschaften (<cm-link-extern href="https://www.oeaw.ac.at/" text="ÖAW"></cm-link-extern>: APART 11810), dem österreichischen Wissenschaftsfonds (<cm-link-extern href="https://fwf.ac.at/" text="FWF"></cm-link-extern>: J3181-G20), der Stadt Wien (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), dem <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Institut für Germanistik"></cm-link-extern> der Universität Wien sowie dem digitalen Repositorium <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
+        </div>
+    </div>
+</div>

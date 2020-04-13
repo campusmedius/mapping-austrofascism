@@ -1,3 +1,22 @@
-<p>
-  header works!
-</p>
+<div fxFlex fxLayout ="row" fxLayoutAlign=" center" class="nav-sub">
+    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
+        <mat-icon class="cm-menu"></mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" >
+        <button mat-menu-item routerLink="/about" [queryParams]="{info:'full'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.about' | translate}}</button>
+        <button mat-menu-item routerLink="/topography/events" [queryParams]="{info:'short'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.topography' | translate}}</button>
+        <button mat-menu-item routerLink="/team" [queryParams]="{info:'full'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.team' | translate}}</button>
+        <!-- <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button> -->
+        <!-- <button mat-menu-item routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</button> -->
+        <!-- <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button> -->
+    </mat-menu>
+</div>
+<div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
+    <img routerLink="/" [queryParams]="{info:'short'}" queryParamsHandling="merge" class="logo" src="./assets/logo.svg">
+</div>
+<div fxFlex fxLayout="row" fxLayoutAlign="end">
+    <span class="nav-lang">
+        <a (click)="changeLanguage('en')" [ngClass]="{'active': lang === 'en'}">EN</a>
+        <a (click)="changeLanguage('de')" [ngClass]="{'active': lang === 'de'}">DE</a>
+    </span>
+</div>

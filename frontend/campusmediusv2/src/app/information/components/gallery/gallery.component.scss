@@ -1,0 +1,102 @@
+@import './../../../../scss/_variables.scss';
+
+:host {
+    height: 210px;
+    display: block;
+    background: $text-block-background-color;
+    margin-left: -100%;
+    margin-right: -100%;
+    padding-left: 100%;
+    padding-right: 100%;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    ::ng-deep {
+        .ngx-gallery-preview-text {
+            color: $primary-font-color !important;
+            z-index: 999 !important;
+            font-family: $caption-regular-font !important;
+            i, em {
+                font-family: $caption-italics-font !important;
+            }
+            font-size: $small-font-size !important;
+            line-height: $small-line-height !important;
+            background: $text-block-background-color !important;
+        }
+
+        .ngx-gallery-preview-text-content {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        ngx-gallery-thumbnails .ngx-gallery-arrow-left {
+            left: -60px !important;
+            .ngx-gallery-icon-content {
+                color: #8c8c8c !important;
+                font-size: 30px !important;
+            }
+        }
+
+        ngx-gallery-thumbnails .ngx-gallery-arrow-right {
+            right: -60px !important;
+            .ngx-gallery-icon-content {
+                color: #8c8c8c !important;
+                font-size: 30px !important;
+            }
+        }
+
+        ngx-gallery-preview{
+            .ngx-gallery-arrow {
+                font-size: 40px;
+            }
+            cm-caption {
+                max-height: 6rem;
+                overflow-y: auto;
+                display: block;
+                p {
+                    margin: 0px;
+                }
+            }
+            #gallery-video {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .mobile-info ngx-gallery-arrows {
+            display: none;
+        }
+
+        cm-image ngx-gallery-arrows {
+            display: none !important;
+        }
+
+
+        .ngx-gallery-close {
+            font-size: 30px;
+            background-color: #4d4d4d;
+        }
+
+        .ngx-gallery-thumbnail {
+            .cm-square-zoom {
+                top: 1px;
+                right: 1px;
+                position: absolute;
+                font-size: 1.1em;
+                width: 18px;
+                height: 18px;
+                @media screen and (max-width: $break-mobile) {
+                    font-size: 1.2em;
+                }
+                color: $accent-color;
+                background-color: #fff;
+            }
+
+            .cm-square-zoom:before {
+                display: inline-block;
+                left: -2px;
+                top: -2px;
+                position: relative;
+            }
+        }
+    }
+}

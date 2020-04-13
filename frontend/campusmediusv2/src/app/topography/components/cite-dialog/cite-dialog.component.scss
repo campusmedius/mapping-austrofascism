@@ -1,0 +1,59 @@
+@import '../../../../scss/_variables.scss';
+
+:host {
+    color: $primary-font-color;
+    font-family: $caption-regular-font;
+    ::ng-deep em, ::ng-deep i {
+	      font-family: $caption-italics-font;
+        font-style: normal;
+    }
+}
+
+.label {
+    font-family: $caption-semibold-font;
+    min-width: 100px;
+    font-size: $small2-font-size;
+    text-align: right;
+    @media screen and (max-width: $break-mobile) {
+        text-align: left;
+    }
+    padding-right: 15px;
+    line-height: 1.3rem;
+}
+
+.content {
+    font-size: $small-font-size;
+    margin-bottom: 0.6em;
+    line-height: $small-line-height;
+    overflow: hidden;
+    &.url {
+        word-break: break-all;
+    }
+}
+
+.meta-info-container {
+    float: left;
+    margin-top: -20px;
+}
+
+.close {
+    float: right;
+    display: block;
+    min-width: 20px;
+    margin-bottom: 2px;
+    width: 30px;
+    padding: 0px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+.copy {
+    height: $small-font-size;
+    line-height: $small-font-size;
+    background-color: #a7a7a7;
+    min-width: 60px;
+    font-size: 14px;
+    margin-left: 10px;
+}

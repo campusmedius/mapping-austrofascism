@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'cm-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    host: { 'class': 'row header-row' }
 })
 export class HeaderComponent implements OnInit {
+    @Input() lang: string;
 
-  constructor() { }
+    constructor(
+        private router: Router
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    public changeLanguage(lang: string) {
+        this.router.navigate([], { queryParams: { 'lang': lang }, queryParamsHandling: 'merge' });
+    }
 }

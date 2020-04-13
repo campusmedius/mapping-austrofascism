@@ -5,6 +5,6 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:8000',
-    mapTilesUrl: 'http://localhost:8001'
+    apiUrl: 'https://campusmedius.net/api',
+    mapTilesUrl: 'https://campusmedius.net/tiles'
 };

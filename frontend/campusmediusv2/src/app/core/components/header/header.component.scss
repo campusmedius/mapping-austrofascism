@@ -1,0 +1,86 @@
+@import '../../../../scss/variables.scss';
+
+:host {
+    height: $header-height;
+    @media screen and (max-width: $break-mobile) {
+        height: $header-height-mobile;
+    }
+    background-color: $header-color;
+    font-family: $title-regular-font;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 20;
+    a {
+        color: $inactive-font-color;
+        text-decoration: none !important;
+    }
+    ::ng-deep {
+        .mat-menu-panel {
+            width: 7rem;
+            background: $map-overlay-background-color;
+            margin-top: 13px;
+            @media screen and (max-width: $break-mobile) {
+                margin-top: 2px;
+            }
+            margin-left: -10px;
+            border-radius: 0px !important;
+            .mat-menu-item {
+                font-size: $small-font-size;
+            }
+        }
+    }
+}
+.nav-sub {
+    margin-left: 10px;
+    @media screen and (max-width: $break-mobile) {
+        margin-left: 5px;
+    }
+    button {
+        color: $active-font-color;
+        mat-icon {
+            font-size: 1.4rem;
+            @media screen and (max-width: $break-mobile) {
+                font-size: 1.2rem;
+            }
+            margin-top: -6px;
+        }
+    }
+}
+
+.nav-lang {
+    text-align: right;
+    font-size: $small-font-size;
+    margin-right: 10px;
+    @media screen and (max-width: $break-mobile) {
+        margin-right: 5px;
+    }
+    a {
+        line-height: $header-height;
+        @media screen and (max-width: $break-mobile) {
+            line-height: $header-height-mobile;
+        }
+        padding: 0px 6px;
+        border: solid 1px $header-color;
+        margin-right: 5px;
+        &.active, &:hover {
+            color: $inactive-font-color;
+            border: solid 1px $inactive-font-color;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.logo {
+    cursor: pointer;
+    color: $map-overlay-active-color;
+    height: 2.1rem;
+    @media screen and (max-width: $break-mobile) {
+        height: 1.9rem;
+    }
+    &:focus {
+        outline: 0;
+    }
+}
