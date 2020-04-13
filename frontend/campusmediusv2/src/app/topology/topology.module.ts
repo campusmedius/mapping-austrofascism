@@ -6,20 +6,28 @@ import { InformationModule } from '@app/information/information.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './topology.routes';
 import { MapComponent } from './components/map/map';
+import { MediatorService } from './services/mediators';
+import { MediatorsResolver, MediatorResolver } from './guards/mediator';
+import { MapMediatorComponent } from './components/map-mediator/map-mediator.component';
 
 @NgModule({
-    declarations: [
-        TopologyComponent,
-        MapComponent,
-    ],
     imports: [
         CommonModule,
         SharedModule,
         InformationModule,
         RouterModule.forChild(routes)
     ],
+    declarations: [
+        TopologyComponent,
+        MapComponent,
+        MapMediatorComponent,
+    ],
     entryComponents: [
     ],
-    providers: []
+    providers: [
+        MediatorService,
+        MediatorsResolver,
+        MediatorResolver
+    ]
 })
 export class TopologyModule { }

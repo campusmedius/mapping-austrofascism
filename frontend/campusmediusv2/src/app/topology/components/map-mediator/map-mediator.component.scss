@@ -1,0 +1,50 @@
+@import '../../../../scss/variables.scss';
+
+.marker {
+    width: 32px;
+    height: 50px;
+    cursor: pointer;
+    .icon {
+        position: absolute;
+        background-image: url('../../../../assets/icons/event-unselected.png');
+        background-size: 100% 100%;
+        width: 32px;
+        height: 50px;
+        @media screen and (max-width: $break-mobile) {
+            width: 26px;
+            height: 40px;
+            bottom: 0px;
+            left: 3px;
+        }
+        opacity: 1;
+        z-index: 100;
+    }
+    &.active .icon {
+        background-image: url('../../../../assets/icons/event-selected.png');
+    }
+    .highlight {
+        position: absolute;
+        display: none;
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+        left: -18px;
+        top: -10px;
+        @media screen and (max-width: $break-mobile) {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            left: -14px;
+            top: 0px;
+        }
+        background-color: #e2e2e2;
+        opacity: 0.8;
+        z-index: 99;
+    }
+    &:hover .highlight, &.selected .highlight {
+        display: block;
+    }
+    &:focus {
+        outline: 0;
+    }
+}

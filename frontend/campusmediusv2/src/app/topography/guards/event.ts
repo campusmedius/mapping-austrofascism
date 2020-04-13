@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { EventService } from '../services/events';
 import { InformationService } from '@app/information/services/information';
 import { Event } from '../models/event';
 import { switchMap, map } from 'rxjs/operators';
-import { Information } from '@app/information/models/information';
 
 @Injectable()
 export class EventsResolver implements Resolve<Event[]> {
-    constructor(private eventService: EventService) { };
+    constructor(private eventService: EventService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
         return this.eventService.events;
@@ -19,7 +18,7 @@ export class EventsResolver implements Resolve<Event[]> {
 @Injectable()
 export class EventResolver implements Resolve<Event> {
     constructor(private eventService: EventService,
-                private informationService: InformationService) { };
+                private informationService: InformationService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
         const id = route.paramMap.get('id');

@@ -1,6 +1,6 @@
 <cm-map [overlayBottomSize]="!isMobile ? timelineHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? timelineHeight : '0px'" >
-    <!-- <cm-map-event *ngFor="let event of events" [event]="event" [lang]="translate.currentLang" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
-         </cm-map-event>  -->
+    <cm-map-mediator *ngFor="let mediator of mediators" [mediator]="mediator" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
+    </cm-map-mediator>
 </cm-map>
 
 

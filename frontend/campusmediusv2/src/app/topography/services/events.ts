@@ -3,7 +3,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Event } from '../models/event';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 
 import * as moment from 'moment';
 

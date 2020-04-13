@@ -1,0 +1,9 @@
+<div #marker *ngIf="mapAvailable"
+     title="{{ (lang === 'de' ? mediator.titleDe : mediator.titleEn) | striphtml }}"
+     [routerLink]="['/topology', 'mediators', mediator.id]"
+     queryParamsHandling="merge"
+     class="marker"
+     [ngClass]="{'active': true, 'selected': selected}">
+    <div class="highlight"></div>
+    <div class="icon"></div>
+</div>
