@@ -10380,6 +10380,9 @@ in
       url = "https://registry.npmjs.org/@angular/cli/-/cli-8.3.15.tgz";
       sha512 = "8Mnu9MJogoej+TA10SPbh/BScVXQavnntTIruzR6gVlqtpr1P7QdOcEJE4Gji6eXTG4j4WKkipJUKN0x8TRRrw==";
     };
+    preConfigure = ''
+        export NG_CLI_ANALYTICS=false
+    '';
     dependencies = [
       sources."@angular-devkit/architect-0.803.15"
       sources."@angular-devkit/core-8.3.15"

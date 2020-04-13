@@ -5,13 +5,13 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
 
 import { AppComponent } from '@app/core';
-import { Routes } from './app.routes';
+import { routes } from './app.routes';
 
 @NgModule({
     declarations: [],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(Routes),
+        RouterModule.forRoot(routes),
         CoreModule.forRoot()
     ],
     providers: [],

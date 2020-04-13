@@ -174,6 +174,11 @@ function upgrade_backend(){
   upgrade
 }
 
+function backup_backend(){
+  scp -r root@131.130.75.201:/var/data/campusmedius backup/ 
+  scp -r root@131.130.75.201:/var/data/campusmediusv2 backup/ 
+}
+
 # run command
 cmd="${_arg_command}_${_arg_sub_command}"
 if [ `type -t $cmd`"" == 'function' ]; then
