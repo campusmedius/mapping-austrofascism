@@ -5,8 +5,8 @@
     <mat-menu #menu="matMenu" [overlapTrigger]="false" >
         <button mat-menu-item routerLink="/about" [queryParams]="{info:'full'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.about' | translate}}</button>
         <button mat-menu-item routerLink="/topography/events" [queryParams]="{info:'short'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.topography' | translate}}</button>
+        <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button>
         <button mat-menu-item routerLink="/team" [queryParams]="{info:'full'}" queryParamsHandling="merge" routerLinkActive="active">{{'header.team' | translate}}</button>
-        <!-- <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button> -->
         <!-- <button mat-menu-item routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</button> -->
         <!-- <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button> -->
     </mat-menu>

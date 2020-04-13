@@ -1,0 +1,42 @@
+@import '../../../../scss/variables.scss';
+
+:host {
+    display: block;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    @media screen and (max-width: $break-mobile) {
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        position: fixed;
+    }
+}
+
+cm-map {
+    height: calc(100vh - #{$header-height});
+    top: $header-height;
+    width: 100%;
+    position: fixed;
+    @media screen and (max-width: $break-mobile) {
+        display: block;
+        height: calc(100vh - #{$header-height-mobile});
+        top: $header-height-mobile;
+    }
+}
+
+.sidepanel {
+    overflow-y: visible;
+    visibility: visible !important;
+    width: 65%;
+    background: white;
+    z-index: 30;
+    box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
+    position: absolute;
+    right: 0px;
+    top: $header-height;
+    height: calc(100vh - #{$header-height});
+    width: 450px;
+}

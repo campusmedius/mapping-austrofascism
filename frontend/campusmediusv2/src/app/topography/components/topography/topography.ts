@@ -22,8 +22,8 @@ import { Moment } from 'moment';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
-    'full': '75%',
-    'short': '470px',
+    full: '75%',
+    short: '470px',
 };
 
 
@@ -38,13 +38,13 @@ const SIDEPANEL_WIDTH = {
             transition('full <=> short', animate('300ms ease-in'))
         ]),
         trigger('sidenav', [
-            state('full', style({ width: SIDEPANEL_WIDTH['full'] })),
-            state('short', style({ width: SIDEPANEL_WIDTH['short'] })),
+            state('full', style({ width: SIDEPANEL_WIDTH.full })),
+            state('short', style({ width: SIDEPANEL_WIDTH.short })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('timeline', [
-            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['full'] + ')' })),
-            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH['short'] + ')' })),
+            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ')' })),
+            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('titleHeader', [
@@ -146,8 +146,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
 
         this.dataSubscription = this.route.data.subscribe(data => {
-            this.events = data['events'];
-            this.selectedEvent = data['selectedEvent'];
+            this.events = data.events;
+            this.selectedEvent = data.selectedEvent;
             if (this.selectedEvent) {
                 this.previousEvent = this.selectedEvent.previousEvent;
                 this.nextEvent = this.selectedEvent.nextEvent;
@@ -275,21 +275,21 @@ export class TopographyComponent implements OnInit, OnDestroy {
             this.sidepanelState = 'short';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
             if (this.selectedEvent.id === 'team') {
-                this.router.navigate(['/about'], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+                this.router.navigate(['/about'], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             } else {
-                this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+                this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             }
         } else {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-            this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+            this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             // setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         }
     }
 
     public mobileShowMore() {
         this.sidepanelState = 'full';
-        this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
         setTimeout(() => {
             this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
         });
@@ -299,9 +299,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
         if (this.sidepanelState !== 'short') {
             this.sidepanelState = 'short';
             if (this.selectedEvent.id === 'team') {
-                this.router.navigate(['/about'], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+                this.router.navigate(['/about'], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             } else {
-                this.router.navigate([], { queryParams: { 'info': this.sidepanelState }, queryParamsHandling: 'merge' });
+                this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             }
         }
     }
@@ -357,10 +357,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.filteredIdsSubscription.unsubscribe();
-        this.selectedEventsSubscription.unsubscribe();
-        this.mediaSubscription.unsubscribe();
-        this.dataSubscription.unsubscribe();
+        // this.filteredIdsSubscription.unsubscribe();
+        // this.selectedEventsSubscription.unsubscribe();
+        // this.mediaSubscription.unsubscribe();
+        // this.dataSubscription.unsubscribe();
     }
 
 }

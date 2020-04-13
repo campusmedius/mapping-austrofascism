@@ -1,0 +1,9 @@
+<cm-map [overlayBottomSize]="!isMobile ? timelineHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? timelineHeight : '0px'" >
+    <!-- <cm-map-event *ngFor="let event of events" [event]="event" [lang]="translate.currentLang" [active]="filteredIds.indexOf(event.id) !== -1" [selected]="event === selectedEvent">
+         </cm-map-event>  -->
+</cm-map>
+
+
+<div *ngIf="!isMobile" class="sidepanel" [@sidenav]="sidepanelState" (click)="toggleInformationPanel()">
+
+</div>
