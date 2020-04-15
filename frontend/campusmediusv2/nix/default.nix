@@ -3,7 +3,7 @@
 stdenv.mkDerivation {
   name = "cm-frontend-0.2.3";
   
-  src = ../../campusmedius;
+  src = ../../campusmediusv2;
   
   installPhase = ''
     mkdir -p $out/share/campusmedius/viewer

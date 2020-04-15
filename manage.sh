@@ -190,6 +190,6 @@ cmd="${_arg_command}_${_arg_sub_command}"
 if [ `type -t $cmd`"" == 'function' ]; then
   $cmd
 else
-  error "Commond does not exist"
+  error "Command does not exist"
   ./`basename $0` --help
 fi

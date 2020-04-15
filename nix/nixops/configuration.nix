@@ -145,22 +145,25 @@
                     etag off;
                 '';
             };
+            locations."/v2/"= {
+                alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/";
+                extraConfig = ''
+                    index /v2/index.html;
+                    try_files $uri$args $uri$args/ $uri/ /v2/index.html;
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
+                    expires -1;
+                    add_header Pragma "no-cache";
+                    add_header Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0";
+                    etag off;
+                '';
+            };
             locations."/" = {
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
                 extraConfig = ''
                     try_files $uri $uri/ /index.html;
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
-                    expires 10m;
-                    etag off;
-                '';
-            };
-            locations."/v2/" = {
-                alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/";
-                extraConfig = ''
-                    try_files $uri $uri/ /index.html;
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
                     expires 10m;
                     etag off;
                 '';
