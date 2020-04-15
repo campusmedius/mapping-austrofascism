@@ -53,11 +53,15 @@ export class MapComponent implements OnInit {
             attributionControl: false,
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
-            maxPitch: 90,
-            style: './assets/map/styles/panorama_street-view.json',
-            center: [16.4, 48.2], // starting position
+            maxPitch: 89,
+//            style: './assets/map/styles/panorama_street-view.json',
+            style: './assets/map/styles/birds-eye-view.json',
+            center: [16.3128, 48.1858], // starting position
             zoom: 17.14 // starting zoom
         });
+
+        (<any>window).map = this.map;
+
 
         this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
 

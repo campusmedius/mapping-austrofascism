@@ -1,17 +1,62 @@
 @import '../../../../scss/variables.scss';
 
+.cm-mediator-icon-reframing {
+    background-image: url('../../../../assets/icons/mediator/anthem.svg');
+}
+.cm-mediator-icon-camera {
+    background-image: url('../../../../assets/icons/mediator/camera.svg');
+}
+.cm-mediator-icon-cancellation {
+    background-image: url('../../../../assets/icons/mediator/cancellation.svg');
+}
+.cm-mediator-icon-cinema {
+    background-image: url('../../../../assets/icons/mediator/cinema.svg');
+}
+.cm-mediator-icon-editorial {
+    background-image: url('../../../../assets/icons/mediator/editorial.svg');
+}
+.cm-mediator-icon-exposure {
+    background-image: url('../../../../assets/icons/mediator/exposure.svg');
+}
+.cm-mediator-icon-leader {
+    background-image: url('../../../../assets/icons/mediator/leader.svg');
+}
+.cm-mediator-icon-marketing {
+    background-image: url('../../../../assets/icons/mediator/marketing.svg');
+}
+.cm-mediator-icon-montage {
+    background-image: url('../../../../assets/icons/mediator/montage.svg');
+}
+.cm-mediator-icon-parade {
+    background-image: url('../../../../assets/icons/mediator/parade.svg');
+}
+.cm-mediator-icon-radio {
+    background-image: url('../../../../assets/icons/mediator/radio.svg');
+}
+.cm-mediator-icon-residence {
+    background-image: url('../../../../assets/icons/mediator/residence.svg');
+}
+.cm-mediator-icon-statistics {
+    background-image: url('../../../../assets/icons/mediator/statistics.svg');
+}
+.cm-mediator-icon-theater {
+    background-image: url('../../../../assets/icons/mediator/theater.svg');
+}
+.cm-mediator-icon-welfare {
+    background-image: url('../../../../assets/icons/mediator/welfare.svg');
+}
+
 .marker {
-    width: 32px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     cursor: pointer;
     .icon {
         position: absolute;
-        background-image: url('../../../../assets/icons/event-unselected.png');
         background-size: 100% 100%;
-        width: 32px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         @media screen and (max-width: $break-mobile) {
-            width: 26px;
+            width: 40px;
             height: 40px;
             bottom: 0px;
             left: 3px;
@@ -20,16 +65,15 @@
         z-index: 100;
     }
     &.active .icon {
-        background-image: url('../../../../assets/icons/event-selected.png');
+        //background-image: url('../../../../assets/icons/event-selected.png');
     }
-    .highlight {
+    .outer {
         position: absolute;
-        display: none;
-        width: 70px;
-        height: 70px;
-        border-radius: 35px;
-        left: -18px;
-        top: -10px;
+        width: 120px;
+        height: 120px;
+        border-radius: 60px;
+        left: -30px;
+        top: -30px;
         @media screen and (max-width: $break-mobile) {
             width: 60px;
             height: 60px;
@@ -37,12 +81,13 @@
             left: -14px;
             top: 0px;
         }
-        background-color: #e2e2e2;
-        opacity: 0.8;
+        background-color: #b1b1b15c;
         z-index: 99;
     }
-    &:hover .highlight, &.selected .highlight {
-        display: block;
+    &:hover, &.selected {
+        .outer {
+            background-color: #e8e8e8b0;
+        }
     }
     &:focus {
         outline: 0;

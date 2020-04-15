@@ -18,6 +18,7 @@ export class MapMediatorComponent implements OnInit {
     public marker: Marker;
 
     public mapAvailable = true;
+    public mediumType: string;
 
     constructor(private mapCmp: MapComponent) { }
 
@@ -26,6 +27,7 @@ export class MapMediatorComponent implements OnInit {
             this.mapAvailable = false;
             return;
         }
+        this.mediumType = this.mediator.medium.titleEn.toLowerCase();
     }
 
     ngAfterViewInit() {
@@ -33,6 +35,7 @@ export class MapMediatorComponent implements OnInit {
             this.mapAvailable = false;
             return;
         }
+
         this.marker = new Marker(this.markerElement.nativeElement, { offset: [0, -25] })
             .setLngLat([this.mediator.coordinates.lng, this.mediator.coordinates.lat])
             .addTo(this.mapCmp.map);
