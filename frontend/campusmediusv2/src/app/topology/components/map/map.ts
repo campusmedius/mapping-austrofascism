@@ -54,8 +54,8 @@ export class MapComponent implements OnInit {
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
             maxPitch: 89,
-//            style: './assets/map/styles/panorama_street-view.json',
-            style: './assets/map/styles/birds-eye-view.json',
+            style: './assets/map/styles/panorama_street-view.json',
+//            style: './assets/map/styles/birds-eye-view.json',
             center: [16.3128, 48.1858], // starting position
             zoom: 17.14 // starting zoom
         });
