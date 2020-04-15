@@ -1,7 +1,7 @@
 {stdenv, fetchgit}:
 
 let
-  version = (builtins.fromJSON (builtins.readFile ./version.json));
+  version = (builtins.fromJSON (builtins.readFile ./v1.json));
 in
   
   stdenv.mkDerivation {
@@ -15,7 +15,7 @@ in
   
   installPhase = ''
     mkdir -p $out/share/campusmedius/viewer
-    cd frontend/campusmediusv2
+    cd frontend/campusmedius
     cp -R ./dist/* $out/share/campusmedius/viewer/
   '';
 

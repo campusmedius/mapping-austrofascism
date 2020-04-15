@@ -122,6 +122,12 @@ function run_frontend(){
   nix-shell --command "ng serve"
 }
 
+function_build_frontend(){
+  info "Build frontend distribution package"
+  cd frontend/campusmedius
+  nix-shell --command "ng build --prod --base-href /v2/ --output-path ./dist"
+}
+
 function deploy_development(){
   nixops deploy -d cm-development
   IP=`nixops info -d cm-development --plain | awk -F '\t' '{print $6}'`

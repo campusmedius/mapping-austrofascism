@@ -155,6 +155,16 @@
                     etag off;
                 '';
             };
+            locations."/v2/" = {
+                alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/";
+                extraConfig = ''
+                    try_files $uri $uri/ /index.html;
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
+                    expires 10m;
+                    etag off;
+                '';
+            };
             forceSSL = true;
             useACMEHost = "campusmedius.net";
         };

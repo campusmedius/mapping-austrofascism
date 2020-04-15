@@ -42,6 +42,11 @@ export class TopologyComponent implements OnInit {
     public selectedMediator: Mediator;
     public information: Information;
 
+
+    public sidepanelWidth: string;
+    public timelineHeight = '40px';
+    public mobileOverlayHeight = '200px';
+
     sidepanelState = 'short'; // full, short
     isMobile = false;
 
