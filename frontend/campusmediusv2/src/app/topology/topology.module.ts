@@ -8,6 +8,8 @@ import { routes } from './topology.routes';
 import { MapComponent } from './components/map/map';
 import { MediatorService } from './services/mediators';
 import { MediatorsResolver, MediatorResolver } from './guards/mediator';
+import { MediationService } from './services/mediations';
+import { MediationsResolver, MediationResolver } from './guards/mediation';
 import { MapMediatorComponent } from './components/map-mediator/map-mediator.component';
 
 @NgModule({
@@ -27,7 +29,10 @@ import { MapMediatorComponent } from './components/map-mediator/map-mediator.com
     providers: [
         MediatorService,
         MediatorsResolver,
-        MediatorResolver
+        MediatorResolver,
+        MediationService,
+        MediationsResolver,
+        MediationResolver
     ]
 })
 export class TopologyModule { }

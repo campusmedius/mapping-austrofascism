@@ -25,6 +25,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^2.0.0",
+    "@turf/turf": "^5.1.6",
     "@types/hammerjs": "^2.0.36",
     "@types/mapbox-gl": "^1.9.0",
     "@types/moment": "^2.13.0",

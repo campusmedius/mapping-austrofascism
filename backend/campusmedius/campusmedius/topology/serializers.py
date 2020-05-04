@@ -30,18 +30,6 @@ class MediumSerializer(serializers.ModelSerializer):
         fields = ('id', 'title_de', 'title_en')
 
 
-class MediationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Mediation
-        fields = ('id', 'demand_de', 'demand_en', 'response_de', 'response_en')
-
-
-class ExperienceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Experience
-        fields = ('id', 'title_de', 'title_en')
-
-
 class RelationSerializer(serializers.ModelSerializer):
     value = ValueSerializer()
     space = SpaceSerializer()
@@ -100,3 +88,17 @@ class MediatorSerializer(serializers.ModelSerializer):
         internal[
             'location'] = data['coordinates']['lat'] + ',' + data['coordinates']['lng']
         return internal
+
+
+class MediationSerializer(serializers.ModelSerializer):
+    relations = RelationSerializer(many=True)
+    class Meta:
+        model = Mediation
+        fields = ('id', 'demand_de', 'demand_en', 'response_de', 'response_en', 'relations')
+
+
+class ExperienceSerializer(serializers.ModelSerializer):
+    relations = RelationSerializer(many=True)
+    class Meta:
+        model = Experience
+        fields = ('id', 'title_de', 'title_en', 'relations')

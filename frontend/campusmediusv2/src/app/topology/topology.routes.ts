@@ -1,24 +1,38 @@
 import { Routes } from '@angular/router';
 import { TopologyComponent } from './components/topology/topology';
 import { MediatorsResolver, MediatorResolver } from './guards/mediator';
+import { MediationsResolver, MediationResolver } from './guards/mediation';
 
 export const routes: Routes = [
     {
-        path: 'mediators/:id',
+        path: 'mediations',
         component: TopologyComponent,
         resolve: {
-            mediators: MediatorsResolver,
-            selectedMediator: MediatorResolver
+            mediations: MediationsResolver
         },
         data: {
             reuse: true
         }
     },
     {
-        path: 'mediators',
+        path: 'mediations/:mediationId',
         component: TopologyComponent,
         resolve: {
-            mediators: MediatorsResolver
+            mediations: MediationsResolver,
+            selectedMediation: MediationResolver
+        },
+        data: {
+            reuse: true
+        }
+    },
+    {
+        path: 'mediations/:mediationId/mediators/:mediatorId',
+        component: TopologyComponent,
+        resolve: {
+            mediations: MediationsResolver,
+            selectedMediation: MediationResolver,
+            mediators: MediatorsResolver,
+            selectedMediator: MediatorResolver
         },
         data: {
             reuse: true

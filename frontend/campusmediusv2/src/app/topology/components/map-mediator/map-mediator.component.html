@@ -1,6 +1,6 @@
 <div #marker *ngIf="mapAvailable"
      title="{{ (lang === 'de' ? mediator.titleDe : mediator.titleEn) | striphtml }}"
-     [routerLink]="['/topology', 'mediators', mediator.id]"
+     [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', this.mediator.relationsTo[0].targetId]"
      queryParamsHandling="merge"
      class="marker"
      [ngClass]="{'active': true, 'selected': selected}">

@@ -124,8 +124,9 @@ function run_frontend(){
 
 function_build_frontend(){
   info "Build frontend distribution package"
-  cd frontend/campusmedius
+  cd frontend/campusmediusv2
   nix-shell --command "ng build --prod --base-href /v2/ --output-path ./dist"
+  # ng build --prod --buildOptimizer=false --aot=false --optimization=false --base-href /v2/ --output-path ./dist
 }
 
 function deploy_development(){

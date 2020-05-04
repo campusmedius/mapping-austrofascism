@@ -21,7 +21,7 @@ export class MediatorResolver implements Resolve<Mediator> {
                 private informationService: InformationService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
-        const id = route.paramMap.get('id');
+        const id = route.paramMap.get('mediatorId');
         return this.mediatorService.mediator(id).pipe(
             switchMap(mediator => {
                 return forkJoin({
