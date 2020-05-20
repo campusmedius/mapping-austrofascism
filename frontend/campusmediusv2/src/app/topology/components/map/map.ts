@@ -72,7 +72,7 @@ export class MapComponent implements OnInit {
             center: <LngLat><any>nextPoint.geometry.coordinates,
             bearing: bearing,
             pitch: 67,
-            zoom: 18,
+            zoom: 17,
             easing: (t) => t
         });
 
@@ -190,13 +190,15 @@ export class MapComponent implements OnInit {
                 pitch: 44,
                 center: { lng: 16.30977750423665, lat: 48.184310981018285 }
             });
-        } else if (mediation.id === '1') {
-            this.map.setStyle('./assets/map/styles/buildings.json');
-        } else if (mediation.id === '2') {
-            this.map.setStyle('./assets/map/styles/buildings.json');
-        } else if (mediation.id === '3') {
-            this.map.setStyle('./assets/map/styles/buildings.json');
         }
+
+        // else if (mediation.id === '1') {
+        //     this.map.setStyle('./assets/map/styles/buildings.json');
+        // } else if (mediation.id === '2') {
+        //     this.map.setStyle('./assets/map/styles/buildings.json');
+        // } else if (mediation.id === '3') {
+        //     this.map.setStyle('./assets/map/styles/buildings.json');
+        // }
     }
 
     public doNavigation(mediation: Mediation, sourceMediator: Mediator, targetMediator: Mediator) {
