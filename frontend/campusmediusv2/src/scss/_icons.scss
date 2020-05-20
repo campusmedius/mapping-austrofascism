@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'cm-icons';
-  src:  url('./assets/fonts/cm-icons.eot');
-  src:  url('./assets/fonts/cm-icons.eot#iefix') format('embedded-opentype'),
-    url('./assets/fonts/cm-icons.ttf') format('truetype'),
-    url('./assets/fonts/cm-icons.woff') format('woff'),
-    url('./assets/fonts/cm-icons.svg#cm-icons') format('svg');
+  src:  url('./assets/fonts/cm-icons.eot?jasso2');
+  src:  url('./assets/fonts/cm-icons.eot?jasso2#iefix') format('embedded-opentype'),
+    url('./assets/fonts/cm-icons.ttf?jasso2') format('truetype'),
+    url('./assets/fonts/cm-icons.woff?jasso2') format('woff'),
+    url('./assets/fonts/cm-icons.svg?jasso2#cm-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -168,4 +168,3 @@
 .cm-zoom:before {
   content: "\e929";
 }
-

@@ -149,7 +149,7 @@
                 alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/";
                 extraConfig = ''
                     index /v2/index.html;
-                    try_files $uri$args $uri$args/ $uri/ /v2/index.html;
+                    try_files $uri $uri$args $uri$args/ $uri/ /v2/index.html;
                     auth_basic campusmedius;
                     auth_basic_user_file /run/keys/basicAuth;
                     expires -1;
