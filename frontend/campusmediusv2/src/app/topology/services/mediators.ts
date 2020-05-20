@@ -40,6 +40,7 @@ export class MediatorService {
                     data = data || [];
                     data.forEach(mediator => {
                         mediator.id = mediator.id + '';
+                        mediator.mediationId = Math.ceil(parseInt(mediator.id) / 5) + '';
                         mediator.relationsFrom.forEach(m => {
                             m.id += '';
                             m.sourceId += '';

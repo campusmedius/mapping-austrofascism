@@ -1,0 +1,131 @@
+@import '../../../../scss/_variables.scss';
+
+:host {
+    display: block;
+    position: absolute;
+    z-index: 9;
+    bottom: 0px;
+    width: calc(100vw - 470px);
+    @media screen and (max-width: $break-mobile) {
+        bottom: auto;
+        width: 100% !important;
+        top: $header-height-mobile;
+        position: fixed;
+        &.open {
+            top: calc(#{$header-height-mobile} - 40px);
+            z-index: 12;
+        }
+    }
+    background: $map-overlay-background-color;
+    color: white;
+    box-sizing: border-box;
+    padding: 0 20px;
+    font-family: $title-regular-font;
+    overflow: hidden;
+    .panel-control {
+        position: absolute;
+        top: 0px;
+        @media screen and (max-width: $break-mobile) {
+            bottom: 0px;
+            top: auto;
+            transform: scaleY(-1);
+        }
+        left: 50%;
+        min-width: 40px;
+        height: 16px;
+        border-radius: 0px;
+        line-height: 15px;
+        margin-left: -28px;
+        mat-icon {
+            font-size: 19px;
+            height: 15px;
+            line-height: 15px;
+            margin-top: -4px;
+        }
+    }
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.header {
+    padding: 6px 0px;
+    font-family: $title-regular-font;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+hr {
+    margin-left: -20px;
+    margin-right: -20px;
+    color: $secondary-font-color;
+    top: 38px;
+    position: relative;
+    width: calc(100% + 40px);
+}
+
+.mediation-label {
+    margin-top: 10px;
+    color: $secondary-font-color;
+    font-size: $extra-small-font-size;
+    line-height: $small2-font-size;
+    font-family: $title-regular-font;
+    .response {
+        font-family: $title-semibold-font;
+    }
+}
+
+.mediation-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.mediation {
+    text-align: center;
+    width: 175px;
+    display: inline-block;
+    position: relative;
+    &:hover, {
+        .mediation-icon, .mediation-label {
+            color: #ffffff;
+            cursor: pointer;
+        }
+    }
+    &:focus {
+        outline: 0;
+    }
+}
+
+.selected {
+    .mediation-icon, .mediation-label {
+        color: #ffffff;
+        cursor: pointer;
+    }
+}
+
+.mediation-examininggaze {
+    margin-right: 70px;
+    margin-left: 70px;
+}
+
+.mediation-icon {
+    font-size: 56px;
+    color: $secondary-font-color;
+
+}
+
+.icon-background {
+    width: 78px;
+    display: inline-block;
+    background: #666;
+}

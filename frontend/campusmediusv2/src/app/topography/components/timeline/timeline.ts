@@ -1,12 +1,10 @@
 import {
     Component,
-    OnInit,
-    OnDestroy,
     HostBinding,
     Input,
     OnChanges,
+    OnDestroy,
     SimpleChanges,
-    HostListener,
     ViewChild,
     ElementRef,
     EventEmitter,
@@ -18,8 +16,7 @@ import {
     state,
     style,
     animate,
-    transition,
-    query
+    transition
 } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

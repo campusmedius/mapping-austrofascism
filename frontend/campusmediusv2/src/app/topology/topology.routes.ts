@@ -5,21 +5,11 @@ import { MediationsResolver, MediationResolver } from './guards/mediation';
 
 export const routes: Routes = [
     {
-        path: 'mediations',
+        path: '',
         component: TopologyComponent,
         resolve: {
+            mediators: MediatorsResolver,
             mediations: MediationsResolver
-        },
-        data: {
-            reuse: true
-        }
-    },
-    {
-        path: 'mediations/:mediationId',
-        component: TopologyComponent,
-        resolve: {
-            mediations: MediationsResolver,
-            selectedMediation: MediationResolver
         },
         data: {
             reuse: true
@@ -35,7 +25,7 @@ export const routes: Routes = [
             selectedMediator: MediatorResolver
         },
         data: {
-            reuse: true
+            reuse: false
         }
     }
 ];

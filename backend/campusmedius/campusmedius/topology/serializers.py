@@ -66,7 +66,7 @@ class MediatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mediator
         fields = ('id', 'created', 'updated', 'title_de', 'title_en', 'abstract_de', 'abstract_en',
-                  'medium', 'coordinates', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords_de', 'keywords_en')
+                  'medium', 'coordinates', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords_de', 'keywords_en', 'bearing', 'pitch', 'zoom')
 
     def get_information_id(self, obj):
         return obj.information_id

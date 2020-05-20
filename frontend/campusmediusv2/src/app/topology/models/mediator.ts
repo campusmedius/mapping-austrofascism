@@ -21,5 +21,9 @@ export interface Mediator {
     keywordsEn: string;
     relationsTo: Relation[];
     relationsFrom: Relation[];
+    mediationId: string;
+    bearing: number;
+    pitch: number;
+    zoom: number;
 }
 

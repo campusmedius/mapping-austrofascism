@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Mediator } from '@app/topology/models/mediator';
 import { Mediation } from '@app/topology/models/mediation';
 import { Information } from '@app/information/models/information';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
 
 const SIDEPANEL_WIDTH = {
@@ -27,9 +28,14 @@ const SIDEPANEL_WIDTH = {
             state('short', style({ width: SIDEPANEL_WIDTH.short })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
-        trigger('timeline', [
+        trigger('mediations', [
             state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ')' })),
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
+            transition('* <=> *', animate('300ms ease-in'))
+        ]),
+        trigger('start', [
+            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ' - 200px)' })),
+            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ' - 200px)' })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('titleHeader', [
@@ -39,17 +45,21 @@ const SIDEPANEL_WIDTH = {
         ])
     ]
 })
-export class TopologyComponent implements OnInit, AfterViewInit {
+export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public mediations: Mediation[];
     public selectedMediation: Mediation;
+    public previousMediation: Mediation;
     public mediators: Mediator[];
     public visibleMediators: Mediator[];
     public selectedMediator: Mediator;
+    public previousMediator: Mediator = null;
     public information: Information;
 
+    public lang: string;
+    currentLangSubscription: Subscription;
 
     public sidepanelWidth: string;
-    public timelineHeight = '40px';
+    public mediationsHeight = '220px';
     public mobileOverlayHeight = '200px';
 
     sidepanelState = 'short'; // full, short
@@ -63,49 +73,74 @@ export class TopologyComponent implements OnInit, AfterViewInit {
     ) { }
 
     ngOnInit() {
+        this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+
         this.route.data.subscribe(data => {
-            const previousMediator = this.selectedMediator;
             this.mediations = data.mediations;
             this.selectedMediation = data.selectedMediation;
             this.mediators = data.mediators;
             this.visibleMediators = [];
             this.selectedMediator = data.selectedMediator;
 
+            if (this.selectedMediation !== this.previousMediation) {
+                this.previousMediator = null;
+            }
+
             if (this.selectedMediator) {
                 this.visibleMediators = [ this.selectedMediator ];
                 this.information = this.selectedMediator.information;
-            } else if (this.selectedMediation.id === '2') {
-                this.visibleMediators = [ this.selectedMediation.relations[0].source ];
-            } else if (this.selectedMediation.id === '3') {
-                this.visibleMediators = [ this.selectedMediation.relations[0].source ];
             }
 
-            if (previousMediator) {
-                previousMediator.relationsTo.forEach(r => {
-                    if (r.targetId === this.selectedMediator.id) {
-                        this.map.doNavigation(this.selectedMediation, r);
-                    }
-                });
+            if (this.map) {
+                this.adjustMap();
             }
+
+            this.previousMediator = this.selectedMediator;
+            this.previousMediation = this.selectedMediation;
+        });
+
+        this.currentLangSubscription = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.lang = event.lang;
         });
     }
 
     ngAfterViewInit() {
-        if (this.selectedMediation) {
-            this.map.setPerspective(this.selectedMediation);
-        }
-        if (this.selectedMediator) {
-            this.map.showMediator(this.selectedMediation, this.selectedMediator);
+        this.adjustMap();
+    }
+
+    adjustMap() {
+        this.map.setPerspective(this.selectedMediation);
+
+        if (this.previousMediator && this.previousMediator !== this.selectedMediator) {
+            this.previousMediator.relationsTo.forEach(r => {
+                if (r.targetId === this.selectedMediator.id) {
+                    this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
+                }
+            });
+            if (this.selectedMediation.id === '2') {
+                // check for backward relation in examining gaze
+                this.selectedMediator.relationsTo.forEach(r => {
+                    if (r.sourceId === this.selectedMediator.id) {
+                        this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
+                    }
+                });
+            }
         } else {
-            this.map.showMediationOverview(this.selectedMediation);
+            this.map.showMediator(this.selectedMediation, this.selectedMediator);
         }
     }
 
     public toggleInformationPanel() {
         if (this.sidepanelState === 'full') {
             this.sidepanelState = 'short';
+            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
         } else {
             this.sidepanelState = 'full';
+            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
         }
+    }
+
+    ngOnDestroy() {
+        this.currentLangSubscription.unsubscribe();
     }
 }

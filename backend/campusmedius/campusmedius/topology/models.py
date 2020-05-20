@@ -55,6 +55,10 @@ class Mediator(models.Model):
         default='48.21071849058017,16.371345520019528')
     keywords = TaggableManager(blank=True, through=CampusmediusTaggedItemBase, verbose_name="keywords")
 
+    bearing = models.FloatField(null=True, blank=True, default=0)
+    pitch = models.FloatField(null=True, blank=True, default=0)
+    zoom = models.FloatField(null=True, blank=True, default=18)
+
     def __str__(self):
         return ('{} - {}').format(self.id, self.title_de)
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, NgZone } from '@angula
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 
-import { Map, LngLat, Point as MapboxPoint } from 'mapbox-gl';
+import { Map, LngLat, Point as MapboxPoint, PointLike } from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import { LineString, Point, Feature } from '@turf/turf';
 import { Relation } from '@app/topology/models/relation';
@@ -11,7 +11,7 @@ import { Mediator } from '@app/topology/models/mediator';
 
 declare var mapboxgl: any;
 
-const MAX_ZOOM = 20;
+const MAX_ZOOM = 18;
 const MIN_ZOOM = 0;
 
 @Component({
@@ -21,6 +21,7 @@ const MIN_ZOOM = 0;
 })
 export class MapComponent implements OnInit {
     @ViewChild('map', { static: true }) mapElement: ElementRef;
+    private MAP_TILES_URL = environment.mapTilesUrl;
 
     @Input() overlayLeftSize = '0px';
     @Input() overlayRightSize = '0px';
@@ -35,7 +36,7 @@ export class MapComponent implements OnInit {
 
     public noWebGL = false;
 
-    private animationStepDistance = 0.01;
+    private animationStepDistance = 0.1;
     private animationRouteLength = 0;
     private animationRoute: Feature<LineString>;
     private animationCounter = 0;
@@ -61,16 +62,17 @@ export class MapComponent implements OnInit {
         this.animateRouteStep();
     }
 
-
     animateRouteStep() {
         const nextPoint = turf.along(this.animationRoute, this.animationCounter * this.animationStepDistance);
         const bearing = turf.bearing(this.animationLastPoint, nextPoint);
 
         // fly to next point
         this.map.easeTo({
-            duration: 50,
+            duration: 40,
             center: <LngLat><any>nextPoint.geometry.coordinates,
             bearing: bearing,
+            pitch: 67,
+            zoom: 18,
             easing: (t) => t
         });
 
@@ -94,11 +96,12 @@ export class MapComponent implements OnInit {
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
             maxPitch: 89,
-            style: './assets/map/styles/panorama_street-view.json',
+            // style: './assets/map/styles/panorama_street-view.json',
+            style: './assets/map/styles/buildings.json',
             // style: './assets/map/styles/birds-eye-view.json',
             center: [16.312149167060852, 48.184669372961885], // starting position
             pitch: 83,
-            zoom: 20 // starting zoom
+            zoom: 18 // starting zoom
         });
 
         (<any>window).map = this.map;
@@ -108,6 +111,20 @@ export class MapComponent implements OnInit {
 
         // TODO: move to topography module
         this.map.on('load', () => {
+            this.map.addLayer({
+                id: 'vienna-map-1933',
+                type: 'raster',
+                source: {
+                    type: 'raster',
+                    tiles: [
+                        `${this.MAP_TILES_URL}/{z}/{x}/{y}.png`
+                    ],
+                    tileSize: 256,
+                    scheme: 'tms',
+                    minzoom: 0,
+                    maxzoom: 22
+                }
+            }, 'building');
         });
 
     }
@@ -146,6 +163,17 @@ export class MapComponent implements OnInit {
         const mapCenter = this.map.project(this.map.getCenter());
     }
 
+    private getOverlayAdjustedCoordinates(coordinates: LngLat) {
+        const mapCenterPixel = this.map.project(this.map.getCenter());
+        const visibleMapCenterPixel = this.getVisibleMapCenterPixel();
+        const coordPixel = this.map.project(coordinates);
+
+        const centerX = coordPixel.x + (mapCenterPixel.x - visibleMapCenterPixel.x);
+        const centerY = coordPixel.y + (mapCenterPixel.y - visibleMapCenterPixel.y);
+
+        return this.map.unproject({ x: centerX, y: centerY } as PointLike);
+    }
+
     public zoomIn() {
         this.map.zoomIn(<any>{ around: this.getVisibleMapCenterLatLng() });
     }
@@ -154,94 +182,82 @@ export class MapComponent implements OnInit {
         this.map.zoomOut(<any>{ around: this.getVisibleMapCenterLatLng() });
     }
 
-    public MEDIATOR_BEARING = {
-        '6': 10,
-        '7': 130,
-        '8': -160,
-        '9': 40,
-        '10': 50,
-        '11': 10,
-        '12': 115,
-        '13': -30,
-        '14': 80,
-        '15': 135
-    }
-
     public setPerspective(mediation: Mediation) {
-        if (mediation.id === '1') {
-            this.map.setStyle('./assets/map/styles/birds-eye-view.json');
+        if (!mediation) {
             this.map.jumpTo({
-                pitch: 0,
-                bearing: 0
+                zoom: 16.58,
+                bearing: -172.8,
+                pitch: 44,
+                center: { lng: 16.30977750423665, lat: 48.184310981018285 }
             });
+        } else if (mediation.id === '1') {
+            this.map.setStyle('./assets/map/styles/buildings.json');
         } else if (mediation.id === '2') {
-            this.map.setStyle('./assets/map/styles/panorama_street-view.json');
-            this.map.jumpTo({
-                zoom: 16,
-                pitch: 68.5
-            });
-        } else if (mediation.id === '2') {
-            this.map.setStyle('./assets/map/styles/panorama_street-view.json');
-            this.map.jumpTo({
-                zoom: 20,
-                pitch: 83
-            });
+            this.map.setStyle('./assets/map/styles/buildings.json');
+        } else if (mediation.id === '3') {
+            this.map.setStyle('./assets/map/styles/buildings.json');
         }
     }
 
-    public doNavigation(mediation: Mediation, relation: Relation) {
+    public doNavigation(mediation: Mediation, sourceMediator: Mediator, targetMediator: Mediator) {
         if (mediation.id === '1') {
-            if (relation.targetId === '16') {
+            if (targetMediator.id === '16') {
                 this.map.flyTo({
                     zoom: 1,
-                    duration: 6000
+                    duration: 200
                 });
             } else {
                 this.map.flyTo({
-                    zoom: 17,
-                    duration: 6000
+                    center: targetMediator.coordinates,
+                    zoom: targetMediator.zoom,
+                    duration: 200
                 });
             }
         } else if (mediation.id === '2') {
             this.map.flyTo({
-                center: relation.target.coordinates,
-                bearing: this.MEDIATOR_BEARING[relation.targetId],
-                duration: 4000
+                center: targetMediator.coordinates,
+                bearing: targetMediator.bearing,
+                pitch: targetMediator.pitch,
+                zoom: targetMediator.zoom,
+                duration: 6000,
+                curve: 0.1
             });
         } else if (mediation.id === '3') {
-            this.animateRoute(this.routes[relation.sourceId][relation.targetId]);
-        }
-    }
+            console.log(sourceMediator.id + '-' + targetMediator.id);
 
-    public showMediationOverview(mediation: Mediation) {
-        if (mediation.id === '1') {
-            this.map.jumpTo({
-                zoom: 1
-            });
-        } else if (mediation.id === '2') {
-            this.showMediator(mediation, mediation.relations[0].source);
-        } else if (mediation.id === '3') {
-            this.showMediator(mediation, mediation.relations[0].source);
+            let route =  turf.lineString([
+                [
+                    sourceMediator.coordinates.lng,
+                    sourceMediator.coordinates.lat
+                ],
+                [
+                    targetMediator.coordinates.lng,
+                    targetMediator.coordinates.lat
+                ]
+            ]);
+            if (this.routes[sourceMediator.id] && this.routes[sourceMediator.id][targetMediator.id]) {
+                route = this.routes[sourceMediator.id][targetMediator.id];
+            }
+            this.animateRoute(route);
         }
     }
 
     public showMediator(mediation: Mediation, mediator: Mediator) {
-        if (mediation.id === '1') {
-            this.map.jumpTo({
-                center: mediator.coordinates,
-                zoom: 17
-            });
-        } else if (mediation.id === '2') {
-            this.map.jumpTo({
-                center: mediator.coordinates,
-                bearing: this.MEDIATOR_BEARING[mediator.id]
-            });
-        } else if (mediation.id === '3') {
-            this.map.jumpTo({
-                center: mediator.coordinates,
-                bearing: this.MEDIATOR_BEARING[mediator.id]
-            });
-        }
+        this.map.jumpTo({
+            center: mediator.coordinates,
+            zoom: mediator.zoom,
+            pitch: 0,
+            bearing: 0
+        });
+        this.map.jumpTo({
+            center: this.getOverlayAdjustedCoordinates(mediator.coordinates),
+        });
+        //this.map.setPitch(mediator.pitch);
+        this.map.jumpTo({
+            around: mediator.coordinates,
+            pitch: mediator.pitch,
+            bearing: mediator.bearing
+        });
     }
 
     private routes = {

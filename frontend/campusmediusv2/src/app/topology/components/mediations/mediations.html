@@ -1,0 +1,43 @@
+<div class="header" (click)="toggle()">
+    <button mat-flat-button color="warn" class="panel-control">
+        <mat-icon fontSet="fa" fontIcon="fa-caret-down" [@panelControl]="opened"></mat-icon>
+    </button>
+    <span>{{'mediations.header' | translate }}</span>
+</div>
+
+<div class="mediation-container">
+    <hr>
+    <div class="mediation"
+         [ngClass]="{'selected': selectedMediation && selectedMediation.id === '1' }"
+         [routerLink]="['/topology/mediations/1/mediators/1']">
+        <div class="icon-background">
+            <div class="mediation-icon cm-topology-circle-sovereignsign"></div>
+        </div>
+        <div class="mediation-label">
+            <div class="demand">{{'mediations.sovereignSignsDemand' | translate }}</div>
+            <div class="response">{{'mediations.sovereignSignsResponse' | translate }}</div>
+        </div>
+    </div>
+    <div class="mediation mediation-examininggaze"
+         [ngClass]="{'selected': selectedMediation && selectedMediation.id === '2' }"
+         [routerLink]="['/topology/mediations/2/mediators/6']">
+        <div class="icon-background">
+            <div class="mediation-icon cm-topology-circle-examininggaze"></div>
+        </div>
+        <div class="mediation-label">
+            <div class="demand">{{'mediations.examiningGazesDemand' | translate }}</div>
+            <div class="response">{{'mediations.examiningGazesResponse' | translate }}</div>
+        </div>
+    </div>
+    <div class="mediation selected"
+         [ngClass]="{'selected': selectedMediation && selectedMediation.id === '3' }"
+         [routerLink]="['/topology/mediations/3/mediators/11']">
+        <div class="icon-background">
+            <div class="mediation-icon cm-topology-circle-governedtransmission"></div>
+        </div>
+        <div class="mediation-label">
+            <div class="demand">{{'mediations.governedTransmissionsDemand' | translate }}</div>
+            <div class="response">{{'mediations.governedTransmissionsResponse' | translate }}</div>
+        </div>
+    </div>
+</div>

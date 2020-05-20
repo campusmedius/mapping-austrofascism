@@ -1,4 +1,27 @@
-<cm-map [overlayBottomSize]="!isMobile ? timelineHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? timelineHeight : '0px'" >
+<cm-map [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? mediationsHeight : '0px'" >
     <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
     </cm-map-mediator>
 </cm-map>
+
+<div *ngIf="!isMobile" class="sidepanel" [@sidenav]="sidepanelState">
+    <button mat-button class="sidenav-control" (click)="toggleInformationPanel()" *ngIf="sidepanelState !== 'intro'">
+        <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
+    </button>
+    <div class="info-container">
+
+    </div>
+</div>
+
+
+<cm-mediations [@mediations]="sidepanelState" [selectedMediation]="selectedMediation" (height)="mediationsHeight = $event"></cm-mediations>
+
+<div *ngIf="!selectedMediator" class="start-container" [@start]="sidepanelState">
+    <div *ngFor="let mediator of mediators.slice(0,15)"
+         [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]"
+         class="mediator">
+        <div class="icon cm-mediator-icon-{{ mediator.medium.titleEn.toLowerCase() }}"></div><br>
+        <div class="mediator-label">
+            {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
+        </div>
+    </div>
+</div>

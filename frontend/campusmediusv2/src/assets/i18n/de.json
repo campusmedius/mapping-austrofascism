@@ -16,6 +16,15 @@
     "timeline": {
         "header": "Zeitleiste"
     },
+    "mediations": {
+        "header": "Mediationen",
+        "sovereignSignsDemand": "Den Verstand gebrauchen:",
+        "sovereignSignsResponse": "Souveräne Zeichen",
+        "examiningGazesDemand": "Das Leben einfangen:",
+        "examiningGazesResponse": "Prüfende Blicke",
+        "governedTransmissionsDemand": "Die Stimme erheben:",
+        "governedTransmissionsResponse": "Gelenkte Sendungen"
+    },
     "map": {
         "webgl": "Die Karte kann nicht dargestellt werden. Ihr Webbrowser unterstützt kein WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">Bitte folgen Sie diesem Link für nähere Informationen.</a>"
     }

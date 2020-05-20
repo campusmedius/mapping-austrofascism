@@ -10,7 +10,8 @@ import { MediatorService } from './services/mediators';
 import { MediatorsResolver, MediatorResolver } from './guards/mediator';
 import { MediationService } from './services/mediations';
 import { MediationsResolver, MediationResolver } from './guards/mediation';
-import { MapMediatorComponent } from './components/map-mediator/map-mediator.component';
+import { MapMediatorComponent } from './components/map-mediator/map-mediator';
+import { MediationsComponent } from './components/mediations/mediations';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { MapMediatorComponent } from './components/map-mediator/map-mediator.com
         TopologyComponent,
         MapComponent,
         MapMediatorComponent,
+        MediationsComponent,
     ],
     entryComponents: [
     ],
