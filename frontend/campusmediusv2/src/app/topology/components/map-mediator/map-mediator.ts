@@ -20,7 +20,6 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
     public marker: Marker;
 
     public mapAvailable = true;
-    public mediumType: string;
 
     constructor(private mapCmp: MapComponent) { }
 
@@ -29,7 +28,6 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
             this.mapAvailable = false;
             return;
         }
-        this.mediumType = this.mediator.medium.titleEn.toLowerCase();
     }
 
     ngAfterViewInit() {

@@ -1,14 +1,15 @@
 @import '../../../../scss/variables.scss';
 
 .marker {
-    width: 60px;
-    height: 60px;
     cursor: pointer;
-    .icon-mediator {
+    font-size: 0.9rem;
+    .icon {
+        fill: $main-color;
+        color: $main-color;
         position: absolute;
         background-size: 100% 100%;
-        width: 60px;
-        height: 60px;
+        width: 90px;
+        height: 90px;
         @media screen and (max-width: $break-mobile) {
             width: 40px;
             height: 40px;
@@ -20,11 +21,11 @@
     }
     .outer {
         position: absolute;
-        width: 120px;
-        height: 120px;
-        border-radius: 60px;
-        left: -30px;
-        top: -30px;
+        width: 170px;
+        height: 170px;
+        border-radius: 85px;
+        left: -40px;
+        top: -40px;
         @media screen and (max-width: $break-mobile) {
             width: 60px;
             height: 60px;
@@ -32,7 +33,7 @@
             left: -14px;
             top: 0px;
         }
-        background-color: #b1b1b15c;
+        background-color: #b1b1b1d9;
         z-index: 99;
     }
     &:hover, &.selected {
@@ -53,19 +54,19 @@
         }
     }
     .up {
-        top: 11px;
-        left: 54px;
+        top: 12px;
+        left: 76px;
     }
     .left {
-        top: 54px;
+        top: 77px;
         left: 11px;
     }
     .down {
-        bottom: 11px;
-        left: 54px;
+        bottom: 12px;
+        left: 76px;
     }
     .right {
-        top: 54px;
-        right: 11px;
+        top: 77px;
+        right: 12px;
     }
 }

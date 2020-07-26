@@ -1,0 +1,69 @@
+@import '../../../../scss/variables.scss';
+
+:host {
+    position: absolute;
+    top: $header-height;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blur {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    z-index: 1;
+}
+
+.start-container {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    z-index: 2;
+}
+
+.mediator {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    &:focus {
+        outline: 0;
+    }
+    .icon {
+        background-size: 100% 100%;
+        cursor: pointer;
+        width: 90px;
+        height: 90px;
+        display: inline-block;
+    }
+}
+
+.mediation {
+    height: 33%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &.not-selected {
+        .mediator {
+            opacity: 0.5;
+        }
+    }
+}
+
+.mediator-label {
+    display: inline-block;
+    font-size: $extra-small-font-size;
+    font-family: $title-regular-font;
+    color: $primary-font-color;
+    position: relative;
+    top: -2px;
+    line-height: 2;
+    background-color: #ffffff;
+    padding: 0px 12px;
+    border-radius: 12px;
+}

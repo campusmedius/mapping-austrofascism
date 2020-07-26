@@ -1,0 +1,51 @@
+<div class="blur"></div>
+<div class="start-container">
+    <div class="mediation"
+         [ngClass]="{'not-selected': selectedMediationId === '2' || selectedMediationId === '3'}"
+         (mouseenter) ="selectMediation('1')"
+         (mouseleave)="selectMediation(null)">
+        <div *ngFor="let mediator of mediators.slice(0,5)"
+             (mouseenter)="selectMediator(mediator)"
+             (mouseleave)="selectMediator(null)"
+             class="mediator">
+            <div [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]">
+                <svg viewBox="0 0 150 150" class="icon cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediators.svg#mediator-{{ mediator.id }}"></use></svg><br>
+                <div class="mediator-label">
+                    {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mediation"
+         [ngClass]="{'not-selected': selectedMediationId === '1' || selectedMediationId === '3'}"
+         (mouseenter)="selectMediation('2')"
+         (mouseleave)="selectMediation(null)">
+        <div *ngFor="let mediator of mediators.slice(5,10)"
+             (mouseenter)="selectMediator(mediator)"
+             (mouseleave)="selectMediator(null)"
+             class="mediator">
+            <div [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]">
+                <svg viewBox="0 0 150 150" class="icon cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediators.svg#mediator-{{ mediator.id }}"></use></svg><br>
+                <div class="mediator-label">
+                    {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mediation"
+         [ngClass]="{'not-selected': selectedMediationId === '1' || selectedMediationId === '2'}"
+         (mouseenter)="selectMediation('3')"
+         (mouseleave)="selectMediation(null)">
+        <div *ngFor="let mediator of mediators.slice(10,15)"
+             (mouseenter)="selectMediator(mediator)"
+             (mouseleave)="selectMediator(null)"
+             class="mediator">
+            <div [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]">
+                <svg viewBox="0 0 150 150" class="icon cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediators.svg#mediator-{{ mediator.id }}"></use></svg><br>
+                <div class="mediator-label">
+                    {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

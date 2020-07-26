@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 @font-face {
   font-family: 'cm-icons';
   src:  url('./assets/fonts/cm-icons.eot?jasso2');
@@ -167,4 +169,14 @@
 }
 .cm-zoom:before {
   content: "\e929";
+}
+
+
+.cm-topology-icon {
+    fill: $main-color;
+    color: $main-color;
+    &:hover, &.selected {
+        color: $accent-color;
+        cursor: pointer;
+    }
 }

@@ -13,15 +13,55 @@
 </div>
 
 
-<cm-mediations [@mediations]="sidepanelState" [selectedMediation]="selectedMediation" (height)="mediationsHeight = $event"></cm-mediations>
+<cm-mediations
+    [@mediationsPanel]="sidepanelState"
+    [mediations]="mediations"
+    [selectedMediation]="selectedMediation || focusedMediation"
+    [selectedMediator]="selectedMediator || focusedMediator"
+    (height)="mediationsHeight = $event"
+    (focusedMediation)="focusedMediation = $event"></cm-mediations>
 
-<div *ngIf="!selectedMediator" class="start-container" [@start]="sidepanelState">
-    <div *ngFor="let mediator of mediators.slice(0,15)"
+<cm-start-selector
+    *ngIf="!selectedMediator"
+    [mediators]="mediators.slice(1,16)"
+    [mediations]="mediations"
+    [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
+    [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
+    [lang]="translate.currentLang"
+    [selectedMediationId]="focusedMediation ? focusedMediation.id : null"
+    (focusedMediation)="focusedMediation = $event"
+    (focusedMediator)="focusedMediator = $event"></cm-start-selector>
+
+
+<div *ngIf="atGod" class="god-container">
+    <div *ngFor="let mediator of mediators.slice(0,5)"
+         class="mediator icon cm-mediator-{{ mediator.medium.titleEn.toLowerCase() }}"
          [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]"
-         class="mediator">
+         >
         <div class="icon cm-mediator-icon-{{ mediator.medium.titleEn.toLowerCase() }}"></div><br>
         <div class="mediator-label">
             {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
         </div>
     </div>
+</div>
+
+<div class="info-box">
+    <table>
+        <tr>
+            <td class="label">Ort</td>
+            <td class="text">Redaktion der Neuen Freien Presse</td>
+        </tr>
+        <tr>
+            <td class="label">Moment</td>
+            <td class="text">Publikationen von "Humbug, Bluff und Ballyhoo"</td>
+        </tr>
+        <tr>
+            <td class="label">Raum</td>
+            <td class="text">550m entfernt</td>
+        </tr>
+        <tr>
+            <td class="label">Zeit</td>
+            <td class="text">1 Stunde später</td>
+        </tr>
+    </table>
 </div>

@@ -8,6 +8,7 @@ import {
 } from '@angular/animations';
 import { Mediation } from '@app/topology/models/mediation';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Mediator } from '@app/topology/models/mediator';
 
 
 const OPENED_HEIGHT = '220px';
@@ -35,16 +36,24 @@ const CLOSED_HEIGHT = '40px';
     ]
 })
 export class MediationsComponent implements OnInit, AfterViewInit {
+    @Input() mediations: Mediation[];
     @Input() selectedMediation: Mediation;
+    @Input() selectedMediator: Mediator;
 
     @Output() height = new EventEmitter<string>();
+    @Output() focusedMediation = new EventEmitter<Mediation>();
 
     @HostBinding('@panel')
     public opened = true;
 
+    public mediationsById = {};
+
     constructor(private translate: TranslateService) { }
 
     ngOnInit() {
+        this.mediations.forEach((m) => {
+            this.mediationsById[m.id] = m;
+        });
     }
 
 
@@ -55,5 +64,9 @@ export class MediationsComponent implements OnInit, AfterViewInit {
     public toggle() {
         this.opened = !this.opened;
         this.height.emit(this.opened ? OPENED_HEIGHT : CLOSED_HEIGHT);
+    }
+
+    selectMediation(mediationId: string) {
+        this.focusedMediation.emit(this.mediationsById[mediationId]);
     }
 }

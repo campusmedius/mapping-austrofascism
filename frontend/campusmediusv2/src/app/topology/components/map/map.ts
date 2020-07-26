@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
 
     public noWebGL = false;
 
-    private animationStepDistance = 0.1;
+    private animationStepDistance = 0.04;
     private animationRouteLength = 0;
     private animationRoute: Feature<LineString>;
     private animationCounter = 0;
@@ -68,11 +68,11 @@ export class MapComponent implements OnInit {
 
         // fly to next point
         this.map.easeTo({
-            duration: 40,
+            duration: 50,
             center: <LngLat><any>nextPoint.geometry.coordinates,
             bearing: bearing,
             pitch: 67,
-            zoom: 17,
+            zoom: 16.5,
             easing: (t) => t
         });
 
@@ -83,6 +83,22 @@ export class MapComponent implements OnInit {
         if ((this.animationCounter * this.animationStepDistance) < this.animationRouteLength) {
             this.map.once('moveend', () => this.animateRouteStep());
         }
+    }
+
+    navigateToGod() {
+        this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
+        this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'none');
+
+        this.map.flyTo({
+            zoom: 1.3,
+            duration: 2000,
+        });
+
+        setTimeout(() => {
+            this.map.jumpTo({
+                center: this.getOverlayAdjustedCoordinates(<any>[0,0])
+            })
+        }, 2000);
     }
 
     ngOnInit() {
@@ -101,7 +117,7 @@ export class MapComponent implements OnInit {
             // style: './assets/map/styles/birds-eye-view.json',
             center: [16.312149167060852, 48.184669372961885], // starting position
             pitch: 83,
-            zoom: 18 // starting zoom
+            zoom: 5 // starting zoom
         });
 
         (<any>window).map = this.map;
@@ -122,9 +138,27 @@ export class MapComponent implements OnInit {
                     tileSize: 256,
                     scheme: 'tms',
                     minzoom: 0,
-                    maxzoom: 22
+                    maxzoom: 18
                 }
             }, 'building');
+
+
+            this.map.addLayer({
+                id: 'eckebrecht',
+                type: 'raster',
+                source: {
+                    type: 'image',
+                    url: './assets/eckebrecht.jpg',
+                    coordinates:
+                    [
+                        [-180, 70],
+                        [180, 70],
+                        [180, -70],
+                        [-180, -70]
+                    ]
+                }
+            });
+            this.map.setLayoutProperty('eckebrecht', 'visibility', 'none');
         });
 
     }
@@ -203,17 +237,23 @@ export class MapComponent implements OnInit {
 
     public doNavigation(mediation: Mediation, sourceMediator: Mediator, targetMediator: Mediator) {
         if (mediation.id === '1') {
-            if (targetMediator.id === '16') {
-                this.map.flyTo({
-                    zoom: 1,
-                    duration: 200
-                });
+            if (targetMediator.id === '0') {
+                this.navigateToGod();
             } else {
                 this.map.flyTo({
                     center: targetMediator.coordinates,
                     zoom: targetMediator.zoom,
-                    duration: 200
+                    duration: 2000
                 });
+
+                setTimeout(() => {
+                    this.map.setLayoutProperty('eckebrecht', 'visibility', 'none');
+                    this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'visible');
+                    this.map.jumpTo({
+                        center: this.getOverlayAdjustedCoordinates(targetMediator.coordinates)
+                    })
+                }, 2000);
+
             }
         } else if (mediation.id === '2') {
             this.map.flyTo({
@@ -245,6 +285,11 @@ export class MapComponent implements OnInit {
     }
 
     public showMediator(mediation: Mediation, mediator: Mediator) {
+        if (mediator.id === '0') {
+            this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
+            this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'none');
+        }
+
         this.map.jumpTo({
             center: mediator.coordinates,
             zoom: mediator.zoom,
@@ -260,6 +305,8 @@ export class MapComponent implements OnInit {
             pitch: mediator.pitch,
             bearing: mediator.bearing
         });
+
+
     }
 
     private routes = {

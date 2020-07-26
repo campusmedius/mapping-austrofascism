@@ -2,39 +2,40 @@
      class="marker"
      [ngClass]="{'active': true, 'selected': selected}">
     <div class="outer">
-        <div class="icon  icon-relation up cm-chevron-double-up"
+        <div class="icon-relation up cm-chevron-double-up"
              *ngIf="mediation.id !== '2'"
              title="{{ (lang === 'de' ? mediator.relationsTo[0].target.titleDe : mediator.relationsTo[0].target.titleEn) | striphtml }}"
              [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', mediator.relationsTo[0].targetId]"
              queryParamsHandling="merge"></div>
-        <div class="icon icon-relation left cm-chevron-double-left"
+        <div class="icon-relation left cm-chevron-double-left"
              *ngIf="mediation.id === '3'"
              title="{{ (lang === 'de' ? mediator.relationsTo[1].target.titleDe : mediator.relationsTo[1].target.titleEn) | striphtml }}"
              [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', mediator.relationsTo[1].targetId]"
              queryParamsHandling="merge"></div>
-        <div class="icon icon-relation right cm-chevron-double-right"
+        <div class="icon-relation right cm-chevron-double-right"
              *ngIf="mediation.id === '3'"
              title="{{ (lang === 'de' ? mediator.relationsTo[2].target.titleDe : mediator.relationsTo[2].target.titleEn) | striphtml }}"
              [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', mediator.relationsTo[2].targetId]"
              queryParamsHandling="merge"></div>
-        <div class="icon icon-relation down cm-chevron-double-down"
+        <div class="icon-relation down cm-chevron-double-down"
              *ngIf="mediation.id === '3'"
              title="{{ (lang === 'de' ? mediator.relationsTo[3].target.titleDe : mediator.relationsTo[3].target.titleEn) | striphtml }}"
              [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', mediator.relationsTo[3].targetId]"
              queryParamsHandling="merge"></div>
 
-        <div class="icon icon-relation left cm-chevron-double-left"
+        <div class="icon-relation left cm-chevron-double-left"
              *ngIf="mediation.id === '2' && mediator.relationsFrom.length"
              title="{{ (lang === 'de' ? mediator.relationsFrom[0].source.titleDe : mediator.relationsFrom[0].source.titleEn) | striphtml }}"
              [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', mediator.relationsFrom[0].sourceId]"
              queryParamsHandling="merge"></div>
-        <div class="icon icon-relation right cm-chevron-double-right"
+        <div class="icon-relation right cm-chevron-double-right"
              *ngIf="mediation.id === '2' && mediator.relationsTo.length"
              title="{{ (lang === 'de' ? mediator.relationsTo[0].target.titleDe : mediator.relationsTo[0].target.titleEn) | striphtml }}"
              [routerLink]="['/topology', 'mediations', mediation.id, 'mediators', mediator.relationsTo[0].targetId]"
              queryParamsHandling="merge"></div>
     </div>
     <div
-        title="{{ (lang === 'de' ? mediator.titleDe : mediator.titleEn) | striphtml }}"
-        class="icon icon-mediator cm-mediator-icon-{{mediumType}}"></div>
+        title="{{ (lang === 'de' ? mediator.titleDe : mediator.titleEn) | striphtml }}">
+        <svg viewBox="0 0 150 150" class="icon cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediators.svg#mediator-{{ mediator.id }}"></use></svg>
+    </div>
 </div>

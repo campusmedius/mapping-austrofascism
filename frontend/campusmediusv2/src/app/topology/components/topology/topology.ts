@@ -28,14 +28,9 @@ const SIDEPANEL_WIDTH = {
             state('short', style({ width: SIDEPANEL_WIDTH.short })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
-        trigger('mediations', [
+        trigger('mediationsPanel', [
             state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ')' })),
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
-            transition('* <=> *', animate('300ms ease-in'))
-        ]),
-        trigger('start', [
-            state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ' - 200px)' })),
-            state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ' - 200px)' })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('titleHeader', [
@@ -48,10 +43,12 @@ const SIDEPANEL_WIDTH = {
 export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public mediations: Mediation[];
     public selectedMediation: Mediation;
+    public focusedMediation: Mediation;
     public previousMediation: Mediation;
     public mediators: Mediator[];
     public visibleMediators: Mediator[];
     public selectedMediator: Mediator;
+    public focusedMediator: Mediator;
     public previousMediator: Mediator = null;
     public information: Information;
 
@@ -61,6 +58,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public sidepanelWidth: string;
     public mediationsHeight = '220px';
     public mobileOverlayHeight = '200px';
+
+    public atGod = false;
 
     sidepanelState = 'short'; // full, short
     isMobile = false;
@@ -110,6 +109,16 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     adjustMap() {
         this.map.setPerspective(this.selectedMediation);
+
+        if (!this.selectedMediator) {
+            return;
+        }
+
+        if (this.selectedMediator.id === '0') {
+            this.atGod = true;
+        } else {
+            this.atGod = false;
+        }
 
         if (this.previousMediator && this.previousMediator !== this.selectedMediator) {
             this.previousMediator.relationsTo.forEach(r => {

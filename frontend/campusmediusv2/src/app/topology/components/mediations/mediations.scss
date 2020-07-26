@@ -96,9 +96,12 @@ hr {
     display: inline-block;
     position: relative;
     &:hover, {
+        cursor: pointer;
         .mediation-icon, .mediation-label {
             color: #ffffff;
-            cursor: pointer;
+        }
+        .icon {
+            opacity: 1;
         }
     }
     &:focus {
@@ -110,6 +113,9 @@ hr {
     .mediation-icon, .mediation-label {
         color: #ffffff;
         cursor: pointer;
+    }
+    .icon {
+        opacity: 1;
     }
 }
 
@@ -128,4 +134,15 @@ hr {
     width: 78px;
     display: inline-block;
     background: #666;
+}
+
+.icon {
+    width: 56px;
+    height: 56px;
+    opacity: 0.5;
+}
+
+.none-selected:hover {
+    fill: $main-color;
+    color: $main-color;
 }
