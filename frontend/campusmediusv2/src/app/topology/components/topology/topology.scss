@@ -22,9 +22,8 @@
 }
 
 cm-map {
-    height: calc(100vh - #{$header-height});
-    top: $header-height;
-    width: 100%;
+    width: calc(100% + 300px);
+    height: calc(100% - 3.3rem + 300px);
     position: fixed;
     @media screen and (max-width: $break-mobile) {
         display: block;
@@ -80,38 +79,7 @@ cm-map {
     width: 450px;
 }
 
-.god-container {
-    .mediator-label {
-        background: white;
-        border-radius: 5px;
-        padding: 10px 10px;
-    }
-    .cm-mediator-leader {
-        position: fixed;
-        top: 200px;
-        left: 530px;
-    }
-    .cm-mediator-editorial {
-        position: fixed;
-        top: 300px;
-        left: 400px;
-    }
-    .cm-mediator-residence {
-        position: fixed;
-        top: 300px;
-        left: 660px
-    }
-    .cm-mediator-theater {
-        position: fixed;
-        top: 450px;
-        left: 460px;
-    }
-    .cm-mediator-reframing {
-        position: fixed;
-        top: 450px;
-        left: 600px;
-    }
-}
+
 
 .info-box {
     display: none;

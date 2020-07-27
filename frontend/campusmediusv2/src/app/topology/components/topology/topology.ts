@@ -33,6 +33,16 @@ const SIDEPANEL_WIDTH = {
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
+        trigger('mapTopOffset', [
+            state('open', style({ top: 'calc(-260px + 3.3rem)' })),
+            state('closed', style({ top: 'calc(-170px + 3.3rem)' })),
+            transition('* <=> *', animate('300ms ease-in'))
+        ]),
+        trigger('mapLeftOffset', [
+            state('full', style({ left: 'calc(-35% - 150px)' })),
+            state('short', style({ left: '-385px' })),
+            transition('* <=> *', animate('300ms ease-in'))
+        ]),
         trigger('titleHeader', [
             state('0', style({ opacity: 0 })),
             state('1', style({ opacity: 1 })),
@@ -62,6 +72,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public atGod = false;
 
     sidepanelState = 'short'; // full, short
+    mediationState = 'open'; // open, closed
     isMobile = false;
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
@@ -86,7 +97,19 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             if (this.selectedMediator) {
-                this.visibleMediators = [ this.selectedMediator ];
+                if (this.selectedMediator.id === '0') {
+                    if (this.previousMediator) {
+                        setTimeout(() => {
+                            this.atGod = true;
+                        }, 4000);
+                    } else {
+                        this.atGod = true;
+                    }
+                } else {
+                    this.atGod = false;
+                    this.visibleMediators = [ this.selectedMediator ];
+                }
+
                 this.information = this.selectedMediator.information;
             }
 
@@ -112,12 +135,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (!this.selectedMediator) {
             return;
-        }
-
-        if (this.selectedMediator.id === '0') {
-            this.atGod = true;
-        } else {
-            this.atGod = false;
         }
 
         if (this.previousMediator && this.previousMediator !== this.selectedMediator) {

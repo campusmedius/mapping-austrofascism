@@ -13,6 +13,7 @@ import { MediationsResolver, MediationResolver } from './guards/mediation';
 import { MapMediatorComponent } from './components/map-mediator/map-mediator';
 import { MediationsComponent } from './components/mediations/mediations';
 import { StartSelectorComponent } from './components/start-selector/start-selector';
+import { GodSelectorComponent } from './components/god-selector/god-selector';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { StartSelectorComponent } from './components/start-selector/start-select
         MapMediatorComponent,
         MediationsComponent,
         StartSelectorComponent,
+        GodSelectorComponent,
     ],
     entryComponents: [
     ],

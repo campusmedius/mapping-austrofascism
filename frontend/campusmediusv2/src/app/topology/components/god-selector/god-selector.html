@@ -1,0 +1,11 @@
+<div class="god-container">
+    <div *ngFor="let mediator of mediators.slice(0,5)"
+        class="mediator icon cm-mediator-{{ mediator.medium.titleEn.toLowerCase() }}"
+        [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]"
+    >
+        <svg viewBox="0 0 150 150" class="icon cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediators.svg#mediator-{{ mediator.id }}"></use></svg><br>
+        <div class="mediator-label">
+            {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
+        </div>
+    </div>
+</div>

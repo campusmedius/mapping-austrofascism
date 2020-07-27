@@ -1,4 +1,9 @@
-<cm-map [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight" [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'" [overlayTopSize]="isMobile ? mediationsHeight : '0px'" >
+<cm-map
+    [@mapTopOffset]="mediationState"
+    [@mapLeftOffset]="sidepanelState"
+    [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
+    [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
+    [overlayTopSize]="isMobile ? mediationsHeight : '0px'" >
     <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
     </cm-map-mediator>
 </cm-map>
@@ -19,6 +24,7 @@
     [selectedMediation]="selectedMediation || focusedMediation"
     [selectedMediator]="selectedMediator || focusedMediator"
     (height)="mediationsHeight = $event"
+    (state)="mediationState = $event"
     (focusedMediation)="focusedMediation = $event"></cm-mediations>
 
 <cm-start-selector
@@ -33,17 +39,11 @@
     (focusedMediator)="focusedMediator = $event"></cm-start-selector>
 
 
-<div *ngIf="atGod" class="god-container">
-    <div *ngFor="let mediator of mediators.slice(0,5)"
-         class="mediator icon cm-mediator-{{ mediator.medium.titleEn.toLowerCase() }}"
-         [routerLink]="['/topology', 'mediations', mediator.mediationId, 'mediators', mediator.id]"
-         >
-        <div class="icon cm-mediator-icon-{{ mediator.medium.titleEn.toLowerCase() }}"></div><br>
-        <div class="mediator-label">
-            {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
-        </div>
-    </div>
-</div>
+<cm-god-selector
+    *ngIf="atGod"
+    [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
+    [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
+    [mediators]="mediators.slice(1,16)"></cm-god-selector>
 
 <div class="info-box">
     <table>

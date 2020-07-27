@@ -41,6 +41,7 @@ export class MediationsComponent implements OnInit, AfterViewInit {
     @Input() selectedMediator: Mediator;
 
     @Output() height = new EventEmitter<string>();
+    @Output() state = new EventEmitter<string>();
     @Output() focusedMediation = new EventEmitter<Mediation>();
 
     @HostBinding('@panel')
@@ -64,6 +65,7 @@ export class MediationsComponent implements OnInit, AfterViewInit {
     public toggle() {
         this.opened = !this.opened;
         this.height.emit(this.opened ? OPENED_HEIGHT : CLOSED_HEIGHT);
+        this.state.emit(this.opened ? 'open' : 'closed');
     }
 
     selectMediation(mediationId: string) {
