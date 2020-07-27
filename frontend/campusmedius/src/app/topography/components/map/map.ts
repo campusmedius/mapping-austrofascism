@@ -598,7 +598,7 @@ export class MapComponent implements OnInit {
                     'tiles': [
                         `${this.MAP_TILES_URL}/{z}/{x}/{y}.png`
                     ],
-                    'tileSize': 256,
+                    'tileSize': 512,
                     'scheme': 'tms'
                 }
             });
