@@ -41,6 +41,8 @@
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
 
     security.acme.preliminarySelfsigned = true;
+    security.acme.email = "campusmedius@gmail.com";
+    security.acme.acceptTerms = true;
     security.acme.certs."campusmedius.net" = {
       webroot = "/var/lib/acme/acme-challenge";
       extraDomains = {

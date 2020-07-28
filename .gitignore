@@ -1,6 +1,7 @@
 *.pyc
 .directory
 backend/tiles/
+backend/tiles_bck/
 nix/nixops/development/keys
 nix/nixops/staging/keys
 nix/nixops/production/keys
