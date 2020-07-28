@@ -18,7 +18,7 @@
         "vienna1933": {
                     "type": "raster",
                     "tiles": [
-                        "https://campusmedius.net/tiles/{z}/{x}/{y}.png"
+                        "/tiles/{z}/{x}/{y}.png"
                     ],
                     "tileSize": 512,
                     "scheme": "tms",
