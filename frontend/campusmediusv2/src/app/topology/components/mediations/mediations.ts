@@ -7,7 +7,7 @@ import {
     transition
 } from '@angular/animations';
 import { Mediation } from '@app/topology/models/mediation';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Mediator } from '@app/topology/models/mediator';
 
 

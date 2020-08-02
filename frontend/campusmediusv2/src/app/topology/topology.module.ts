@@ -14,6 +14,7 @@ import { MapMediatorComponent } from './components/map-mediator/map-mediator';
 import { MediationsComponent } from './components/mediations/mediations';
 import { StartSelectorComponent } from './components/start-selector/start-selector';
 import { GodSelectorComponent } from './components/god-selector/god-selector';
+import { InfoBoxComponent } from './components/info-box/info-box';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { GodSelectorComponent } from './components/god-selector/god-selector';
         MediationsComponent,
         StartSelectorComponent,
         GodSelectorComponent,
+        InfoBoxComponent,
     ],
     entryComponents: [
     ],

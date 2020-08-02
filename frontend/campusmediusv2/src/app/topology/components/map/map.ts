@@ -64,10 +64,10 @@ export class MapComponent implements OnInit {
         const duration = 15000 * distance / 8.2; // normalize to longest distance
 
         this.map.easeTo({
-            zoom: 16,
-            pitch: 59.5,
+            zoom: 16.5,
+            pitch: 75,
             bearing: bearing,
-            duration: 2000,
+            duration: 500,
             easing: (t) => t
         });
 
@@ -82,7 +82,7 @@ export class MapComponent implements OnInit {
                     zoom: target.zoom,
                     pitch: target.pitch,
                     bearing: target.bearing,
-                    duration: 2000,
+                    duration: 500,
                     easing: (t) => t
                 });
             });

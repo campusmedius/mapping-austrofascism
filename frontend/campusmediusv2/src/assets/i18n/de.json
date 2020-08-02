@@ -25,6 +25,15 @@
         "governedTransmissionsDemand": "Die Stimme erheben:",
         "governedTransmissionsResponse": "Gelenkte Sendungen"
     },
+    "infobox": {
+        "place": "Ort",
+        "moment": "Moment",
+        "space": "Raum",
+        "time": "Zeit",
+        "earlier": " Stunden früher",
+        "later": " Stunden später",
+        "away": "m entfernt"
+    },
     "map": {
         "webgl": "Die Karte kann nicht dargestellt werden. Ihr Webbrowser unterstützt kein WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">Bitte folgen Sie diesem Link für nähere Informationen.</a>"
     }

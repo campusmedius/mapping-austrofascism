@@ -40,15 +40,9 @@
     # Open ports in the firewall.
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
 
-    security.acme.preliminarySelfsigned = true;
+    #security.acme.preliminarySelfsigned = true;
     security.acme.email = "campusmedius@gmail.com";
     security.acme.acceptTerms = true;
-    security.acme.certs."campusmedius.net" = {
-      webroot = "/var/lib/acme/acme-challenge";
-      extraDomains = {
-        "www.campusmedius.net" = null;
-      };
-    };
     
     services.nginx = {
         enable = true;
@@ -58,8 +52,10 @@
         recommendedTlsSettings = false;
         appendConfig = "worker_processes 2;";
         virtualHosts."www.campusmedius.net" = {
-            forceSSL = true;
-            useACMEHost = "campusmedius.net";
+            #forceSSL = true;
+            addSSL = true;
+            enableACME = true;
+            #useACMEHost = "campusmedius.net";
             locations."/" = {
               extraConfig = ''
                 return  301 https://campusmedius.net$request_uri;
@@ -140,7 +136,7 @@
             locations."/tiles/" = {
                 alias = "${pkgs.cm-tiles}/share/campusmedius/tiles/";
                 extraConfig = ''
-                    try_files $uri /tiles/1/1/1.png;
+                    try_files $uri /tiles/empty.png;
                     #auth_basic campusmedius;
                     #auth_basic_user_file /run/keys/basicAuth;
                     expires 24h;
@@ -170,8 +166,10 @@
                     etag off;
                 '';
             };
-            forceSSL = true;
-            useACMEHost = "campusmedius.net";
+            #forceSSL = true;
+            #useACMEHost = "campusmedius.net";
+            addSSL = true;
+            enableACME = true;
         };
         appendHttpConfig = ''
           uwsgi_cache_path /var/spool/nginx/cache levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;

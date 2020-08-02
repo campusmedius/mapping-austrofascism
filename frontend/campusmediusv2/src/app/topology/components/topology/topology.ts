@@ -7,6 +7,7 @@ import { Mediation } from '@app/topology/models/mediation';
 import { Information } from '@app/information/models/information';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
+import { InfoBoxComponent } from '../info-box/info-box';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -31,6 +32,11 @@ const SIDEPANEL_WIDTH = {
         trigger('mediationsPanel', [
             state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ')' })),
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
+            transition('* <=> *', animate('300ms ease-in'))
+        ]),
+        trigger('infoBox', [
+            state('open', style({ bottom: '240px' })),
+            state('closed', style({ bottom: '60px' })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('mapTopOffset', [
@@ -76,6 +82,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     isMobile = false;
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
+    @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;      ;
 
     constructor(
         private translate: TranslateService,
@@ -90,7 +97,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.selectedMediation = data.selectedMediation;
             this.mediators = data.mediators;
             this.visibleMediators = [];
-            this.selectedMediator = data.selectedMediator;
+            this.selectedMediator = data.selectedMediator ? data.selectedMediator : null;
 
             if (this.selectedMediation !== this.previousMediation) {
                 this.previousMediator = null;
@@ -137,22 +144,28 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
+
         if (this.previousMediator && this.previousMediator !== this.selectedMediator) {
+            let foundRelation = false;
             this.previousMediator.relationsTo.forEach(r => {
                 if (r.targetId === this.selectedMediator.id) {
+                    foundRelation = true;
+                    this.infoBox.navigateToMediator(this.selectedMediator, r, 'forward');
                     this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
                 }
             });
-            if (this.selectedMediation.id === '2') {
+            if (!foundRelation && this.selectedMediation.id === '2') {
                 // check for backward relation in examining gaze
                 this.selectedMediator.relationsTo.forEach(r => {
                     if (r.sourceId === this.selectedMediator.id) {
+                        this.infoBox.navigateToMediator(this.selectedMediator, r, 'backward');
                         this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
                     }
                 });
             }
         } else {
             this.map.showMediator(this.selectedMediation, this.selectedMediator);
+            this.infoBox.initSpaceTime(this.selectedMediator);
         }
     }
 

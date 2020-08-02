@@ -27,5 +27,7 @@ export interface Relation {
     value: Value;
     space: Space;
     time: Time;
+    spaceDifference: number;
+    timeDifference: number;
 }
 

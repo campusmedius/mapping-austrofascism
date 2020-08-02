@@ -11,12 +11,17 @@ export interface Mediator {
     titleEn: string;
     abstractDe: string;
     abstractEn: string;
+    placeDe: string;
+    placeEn: string;
+    momentDe: string;
+    momentEn: string;
     created: Moment;
     updated: Moment;
     medium: Medium;
     information: Information;
     informationId: string;
     coordinates: LngLat;
+    time: Moment;
     keywordsDe: string;
     keywordsEn: string;
     relationsTo: Relation[];

@@ -41,6 +41,9 @@ export class MediatorService {
                     data.forEach(mediator => {
                         mediator.id = mediator.id + '';
                         mediator.mediationId = Math.ceil(parseInt(mediator.id) / 5) + '';
+                        if (mediator.mediationId === '0') {
+                            mediator.mediationId = '1';
+                        }
                         mediator.relationsFrom.forEach(m => {
                             m.id += '';
                             m.sourceId += '';
@@ -59,6 +62,7 @@ export class MediatorService {
                         mediator.information = null;
                         mediator.created = moment(mediator.created);
                         mediator.updated = moment(mediator.updated);
+                        mediator.time = moment(mediator.time);
                     });
                     return data;
                 }));

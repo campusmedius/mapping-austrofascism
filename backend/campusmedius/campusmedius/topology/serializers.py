@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from taggit_serializer.serializers import TaggitSerializer
+from geopy.distance import geodesic
 
 from .models import Mediator, Medium, Relation
 from .models import Mediation, Experience
@@ -40,16 +41,26 @@ class RelationSerializer(serializers.ModelSerializer):
     target_id = serializers.SerializerMethodField()
     target = serializers.HyperlinkedRelatedField(
         read_only=True, view_name='topology_api:mediator-detail')
+    space_difference = serializers.SerializerMethodField()
+    time_difference = serializers.SerializerMethodField()
 
     class Meta:
         model = Relation
-        fields = ('id', 'source', 'source_id', 'target', 'target_id', 'value', 'space', 'time')
+        fields = ('id', 'source', 'source_id', 'target', 'target_id', 'value', 'space', 'time', 'space_difference', 'time_difference')
 
     def get_source_id(self, obj):
         return obj.source_id
 
     def get_target_id(self, obj):
         return obj.target_id
+
+    def get_space_difference(self, obj):
+        return geodesic(obj.source.location.split(','),
+                        obj.target.location.split(',')).meters
+
+    def get_time_difference(self, obj):
+        diff = obj.target.time - obj.source.time
+        return diff.total_seconds() / 3600
 
 
 class MediatorSerializer(serializers.ModelSerializer):
@@ -65,8 +76,8 @@ class MediatorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mediator
-        fields = ('id', 'created', 'updated', 'title_de', 'title_en', 'abstract_de', 'abstract_en',
-                  'medium', 'coordinates', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords_de', 'keywords_en', 'bearing', 'pitch', 'zoom')
+        fields = ('id', 'created', 'updated', 'title_de', 'title_en', 'place_de', 'place_en', 'moment_de', 'moment_en', 'abstract_de', 'abstract_en',
+                  'medium', 'coordinates', 'time', 'information_id', 'information', 'relationsTo', 'relationsFrom', 'keywords_de', 'keywords_en', 'bearing', 'pitch', 'zoom')
 
     def get_information_id(self, obj):
         return obj.information_id

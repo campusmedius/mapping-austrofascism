@@ -25,6 +25,15 @@
         "governedTransmissionsDemand": "How to raise voice:",
         "governedTransmissionsResponse": "Governed Transmissions"
     },
+    "infobox": {
+        "place": "place",
+        "moment": "moment",
+        "space": "space",
+        "time": "time",
+        "earlier": " hours earlier",
+        "later": " hours later",
+        "away": "m away"
+    },
     "map": {
         "webgl": "The map cannot be displayed. Your web browser does not support WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">For more information, please follow this link.</a>"
     }

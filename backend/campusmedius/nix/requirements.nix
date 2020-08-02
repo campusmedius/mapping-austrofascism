@@ -77,10 +77,10 @@ let
 
   generated = self: {
     "beautifulsoup4" = python.mkDerivation {
-      name = "beautifulsoup4-4.8.2";
+      name = "beautifulsoup4-4.9.1";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/52/ba/0e121661f529e7f456e903bf5c4d255b8051d8ce2b5e629c5212efe4c3f1/beautifulsoup4-4.8.2.tar.gz";
-        sha256 = "05fd825eb01c290877657a56df4c6e4c311b3965bda790c613a3d6fb01a5462a";
+        url = "https://files.pythonhosted.org/packages/c6/62/8a2bef01214eeaa5a4489eca7104e152968729512ee33cb5fbbc37a896b7/beautifulsoup4-4.9.1.tar.gz";
+        sha256 = "73cc4d115b96f79c7d77c1c7f7a0a8d4c57860d1041df407dd1aae7f07a77fd7";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -320,6 +320,42 @@ let
       };
     };
 
+    "geographiclib" = python.mkDerivation {
+      name = "geographiclib-1.50";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/a5/b3/bac57fe2db304dc7e64e7d1597848b28b76ba5c2527c3076df091c9391f8/geographiclib-1.50.tar.gz";
+        sha256 = "12bd46ee7ec25b291ea139b17aa991e7ef373e21abd053949b75c0e9ca55c632";
+};
+      doCheck = commonDoCheck;
+      format = "setuptools";
+      buildInputs = commonBuildInputs ++ [ ];
+      propagatedBuildInputs = [ ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://geographiclib.sourceforge.io/1.50/python";
+        license = licenses.mit;
+        description = "The geodesic routines from GeographicLib";
+      };
+    };
+
+    "geopy" = python.mkDerivation {
+      name = "geopy-2.0.0";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/f3/c0/fd2ee60dee697708fd4af26ff9b8105a9b9cbf6fa42e3724ca1a28388b2b/geopy-2.0.0.tar.gz";
+        sha256 = "b88e189f0d2e0051da45b6311d5b2ced59afaf1378eb27ebb57eaf37c166a03b";
+};
+      doCheck = commonDoCheck;
+      format = "setuptools";
+      buildInputs = commonBuildInputs ++ [ ];
+      propagatedBuildInputs = [
+        self."geographiclib"
+      ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://github.com/geopy/geopy";
+        license = licenses.mit;
+        description = "Python Geocoding Toolbox";
+      };
+    };
+
     "jsmin" = python.mkDerivation {
       name = "jsmin-2.2.2";
       src = pkgs.fetchurl {
@@ -355,10 +391,10 @@ let
     };
 
     "pytz" = python.mkDerivation {
-      name = "pytz-2019.3";
+      name = "pytz-2020.1";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/82/c3/534ddba230bd4fbbd3b7a3d35f3341d014cca213f369a9940925e7e5f691/pytz-2019.3.tar.gz";
-        sha256 = "b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be";
+        url = "https://files.pythonhosted.org/packages/f4/f6/94fee50f4d54f58637d4b9987a1b862aeb6cd969e73623e02c5c00755577/pytz-2020.1.tar.gz";
+        sha256 = "c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -372,10 +408,10 @@ let
     };
 
     "six" = python.mkDerivation {
-      name = "six-1.14.0";
+      name = "six-1.15.0";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/21/9f/b251f7f8a76dec1d6651be194dfba8fb8d7781d10ab3987190de8391d08e/six-1.14.0.tar.gz";
-        sha256 = "236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a";
+        url = "https://files.pythonhosted.org/packages/6b/34/415834bfdafca3c5f451532e8a8d9ba89a21c9743a0c59fbd0205c7f9426/six-1.15.0.tar.gz";
+        sha256 = "30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -389,10 +425,10 @@ let
     };
 
     "soupsieve" = python.mkDerivation {
-      name = "soupsieve-2.0";
+      name = "soupsieve-2.0.1";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/15/53/3692c565aea19f7d9dd696fee3d0062782e9ad5bf9535267180511a15967/soupsieve-2.0.tar.gz";
-        sha256 = "e914534802d7ffd233242b785229d5ba0766a7f487385e3f714446a07bf540ae";
+        url = "https://files.pythonhosted.org/packages/3e/db/5ba900920642414333bdc3cb397075381d63eafc7e75c2373bbc560a9fa1/soupsieve-2.0.1.tar.gz";
+        sha256 = "a59dc181727e95d25f781f0eb4fd1825ff45590ec8ff49eadfd7f1a537cc0232";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -406,10 +442,10 @@ let
     };
 
     "typing" = python.mkDerivation {
-      name = "typing-3.7.4.1";
+      name = "typing-3.7.4.3";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/67/b0/b2ea2bd67bfb80ea5d12a5baa1d12bda002cab3b6c9b48f7708cd40c34bf/typing-3.7.4.1.tar.gz";
-        sha256 = "91dfe6f3f706ee8cc32d38edbbf304e9b7583fb37108fef38229617f8b3eba23";
+        url = "https://files.pythonhosted.org/packages/05/d9/6eebe19d46bd05360c9a9aae822e67a80f9242aabbfc58b641b957546607/typing-3.7.4.3.tar.gz";
+        sha256 = "1187fb9c82fd670d10aa07bbb6cfcfe4bdda42d6fab8d5134f04e8c4d0b71cc9";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -425,7 +461,7 @@ let
   localOverridesFile = ./requirements_override.nix;
   localOverrides = import localOverridesFile { inherit pkgs python; };
   commonOverrides = [
-        (let src = pkgs.fetchFromGitHub { owner = "nix-community"; repo = "pypi2nix-overrides"; rev = "100c15ec7dfe7d241402ecfb1e796328d0eaf1ec"; sha256 = "0akfkvdakcdxc1lrxznh1rz2811x4pafnsq3jnyr5pn3m30pc7db"; } ; in import "${src}/overrides.nix" { inherit pkgs python; })
+        (let src = pkgs.fetchFromGitHub { owner = "nix-community"; repo = "pypi2nix-overrides"; rev = "90e891e83ffd9e55917c48d24624454620d112f0"; sha256 = "0cl1r3sxibgn1ks9xyf5n3rdawq4hlcw4n6xfhg3s1kknz54jp9y"; } ; in import "${src}/overrides.nix" { inherit pkgs python; })
   ];
   paramOverrides = [
     (overrides { inherit pkgs python; })

@@ -17,6 +17,7 @@
     </div>
 </div>
 
+<cm-info-box *ngIf="selectedMediator" [@infoBox]="mediationState"></cm-info-box>
 
 <cm-mediations
     [@mediationsPanel]="sidepanelState"
@@ -44,24 +45,3 @@
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
     [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
     [mediators]="mediators.slice(1,16)"></cm-god-selector>
-
-<div class="info-box">
-    <table>
-        <tr>
-            <td class="label">Ort</td>
-            <td class="text">Redaktion der Neuen Freien Presse</td>
-        </tr>
-        <tr>
-            <td class="label">Moment</td>
-            <td class="text">Publikationen von "Humbug, Bluff und Ballyhoo"</td>
-        </tr>
-        <tr>
-            <td class="label">Raum</td>
-            <td class="text">550m entfernt</td>
-        </tr>
-        <tr>
-            <td class="label">Zeit</td>
-            <td class="text">1 Stunde später</td>
-        </tr>
-    </table>
-</div>

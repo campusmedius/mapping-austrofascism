@@ -1,0 +1,23 @@
+@import '../../../../scss/_variables.scss';
+
+:host {
+    position: absolute;
+    background: $map-overlay-background-color;
+    padding: 20px;
+    left: 20px;
+    opacity: 0.8;
+    color: $active-font-color;
+    font-size: $extra-small-font-size;
+    line-height: 1rem;
+    bottom: 0px;
+    width: 300px;
+}
+
+.label {
+    font-family: $caption-semibold-font;
+    width: 65px;
+}
+
+.content {
+    font-family: $caption-regular-font;
+}

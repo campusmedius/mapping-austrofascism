@@ -46,6 +46,10 @@ class Mediator(models.Model):
     updated = models.DateTimeField(null=True, blank=True)
     title_de = models.TextField()
     title_en = models.TextField()
+    place_de = models.TextField()
+    place_en = models.TextField()
+    moment_de = models.TextField()
+    moment_en = models.TextField()
     abstract_de = HTMLField(null=True, blank=True)
     abstract_en = HTMLField(null=True, blank=True)
     medium = models.ForeignKey(Medium, on_delete=models.CASCADE)
@@ -53,6 +57,7 @@ class Mediator(models.Model):
         Information, null=True, blank=True, on_delete=models.CASCADE)
     location = PlainLocationField(
         default='48.21071849058017,16.371345520019528')
+    time = models.DateTimeField()
     keywords = TaggableManager(blank=True, through=CampusmediusTaggedItemBase, verbose_name="keywords")
 
     bearing = models.FloatField(null=True, blank=True, default=0)
