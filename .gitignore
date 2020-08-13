@@ -5,5 +5,10 @@ backend/tiles_bck/
 nix/nixops/development/keys
 nix/nixops/staging/keys
 nix/nixops/production/keys
-mapping
+mapping/**/*.tif
+mapping/**/*.cst
+mapping/**/*.shp
+mapping/**/*.dbf
+mapping/**/*.prj
+mapping/**/*.shx
 .#*

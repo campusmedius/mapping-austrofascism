@@ -209,7 +209,7 @@ export class InfoBoxComponent implements OnInit, OnChanges {
     }
 
     private getSovereignSignTimeStr(year: number, time: Moment) {
-        return year + ' a, ' + time.dayOfYear() + ' d, ' + time.hours() + 'h p. Chr.';
+        return year + ' a, ' + time.dayOfYear() + ' d, ' + time.hours() + ' h p. Chr.';
     }
 
     private getSovereignSignSpaceStr(coordinates: any) {

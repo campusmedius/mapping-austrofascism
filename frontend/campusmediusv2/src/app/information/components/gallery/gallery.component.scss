@@ -28,7 +28,7 @@
             margin: auto;
         }
 
-        ngx-gallery-thumbnails .ngx-gallery-arrow-left {
+        .ngx-gallery-thumbnails .ngx-gallery-arrow-left {
             left: -60px !important;
             .ngx-gallery-icon-content {
                 color: #8c8c8c !important;
@@ -36,7 +36,7 @@
             }
         }
 
-        ngx-gallery-thumbnails .ngx-gallery-arrow-right {
+        .ngx-gallery-thumbnails .ngx-gallery-arrow-right {
             right: -60px !important;
             .ngx-gallery-icon-content {
                 color: #8c8c8c !important;
@@ -44,11 +44,11 @@
             }
         }
 
-        ngx-gallery-preview{
+        .ngx-gallery-preview{
             .ngx-gallery-arrow {
                 font-size: 40px;
             }
-            cm-caption {
+            .cm-caption {
                 max-height: 6rem;
                 overflow-y: auto;
                 display: block;
@@ -66,7 +66,7 @@
             display: none;
         }
 
-        cm-image ngx-gallery-arrows {
+        .cm-image ngx-gallery-arrows {
             display: none !important;
         }
 

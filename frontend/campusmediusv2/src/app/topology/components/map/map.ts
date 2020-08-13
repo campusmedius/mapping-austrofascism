@@ -63,29 +63,29 @@ export class MapComponent implements OnInit {
 
         const duration = 15000 * distance / 8.2; // normalize to longest distance
 
+        // this.map.easeTo({
+        //     zoom: 16.5,
+        //     pitch: 75,
+        //     bearing: bearing,
+        //     duration: 500,
+        //     easing: (t) => t
+        // });
         this.map.easeTo({
-            zoom: 16.5,
-            pitch: 75,
-            bearing: bearing,
-            duration: 500,
+            center: target.coordinates,
+            duration: duration,
             easing: (t) => t
         });
-
         this.map.once('moveend', () => {
-            this.map.easeTo({
-                center: target.coordinates,
-                duration: duration,
-                easing: (t) => t
-            });
-            this.map.once('moveend', () => {
-                this.map.easeTo({
-                    zoom: target.zoom,
-                    pitch: target.pitch,
-                    bearing: target.bearing,
-                    duration: 500,
-                    easing: (t) => t
-                });
-            });
+
+            // this.map.once('moveend', () => {
+            //     this.map.easeTo({
+            //         zoom: target.zoom,
+            //         pitch: target.pitch,
+            //         bearing: target.bearing,
+            //         duration: 500,
+            //         easing: (t) => t
+            //     });
+            // });
         });
 
     }
