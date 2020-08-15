@@ -22,12 +22,12 @@ import { InformationService } from './services/information';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NgxGalleryActionComponent } from './ngx-gallery/ngx-gallery-action.component';
-import { NgxGalleryArrowsComponent } from './ngx-gallery/ngx-gallery-arrows.component';
-import { NgxGalleryBulletsComponent } from './ngx-gallery/ngx-gallery-bullets.component';
-import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image.component';
-import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails.component';
-import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview.component';
+import { NgxGalleryActionComponent } from './ngx-gallery/ngx-gallery-action/ngx-gallery-action.component';
+import { NgxGalleryArrowsComponent } from './ngx-gallery/ngx-gallery-arrows/ngx-gallery-arrows.component';
+import { NgxGalleryBulletsComponent } from './ngx-gallery/ngx-gallery-bullets/ngx-gallery-bullets.component';
+import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image/ngx-gallery-image.component';
+import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails/ngx-gallery-thumbnails.component';
+import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview/ngx-gallery-preview.component';
 import { NgxGalleryComponent } from './ngx-gallery/ngx-gallery.component';
 
 export const COMPONENTS = [

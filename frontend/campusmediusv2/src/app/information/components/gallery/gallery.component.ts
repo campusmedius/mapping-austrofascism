@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef }
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '../../ngx-gallery/index';
+import { NgxGalleryOptions } from '../../ngx-gallery/ngx-gallery-options';
+import { NgxGalleryAnimation } from '../../ngx-gallery/ngx-gallery-animation';
+import { NgxGalleryImage } from '../../ngx-gallery/ngx-gallery-image';
 
 import { Gallery, Image, Audio, Video } from '../../models/information';
 
@@ -48,7 +50,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
             'closeIcon': 'cm-square-close',
             'thumbnailsSwipe': true,
             'previewSwipe': true,
-            'image': false, 'height': '200px', width: '100%',
+            'image': false,
+            'height': '200px',
+            'width': '100%'
         }, {
             'breakpoint': 1400,
             'thumbnailsColumns': 3
@@ -74,7 +78,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
             }
 
             galleryImages.push({
-                type: e.type,
+                cmtype: e.type,
                 small: smallUrl,
                 big: bigUrl,
                 description: caption

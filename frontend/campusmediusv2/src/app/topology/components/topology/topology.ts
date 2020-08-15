@@ -77,7 +77,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public atGod = false;
 
-    sidepanelState = 'short'; // full, short
+    sidepanelState = 'full'; // full, short
     mediationState = 'open'; // open, closed
     isMobile = false;
 

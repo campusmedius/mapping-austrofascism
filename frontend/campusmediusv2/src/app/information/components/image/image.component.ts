@@ -13,7 +13,10 @@ import {
 
 import { Subscription } from 'rxjs';
 
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, NgxGalleryComponent } from '../../ngx-gallery/index';
+import { NgxGalleryComponent } from '../../ngx-gallery/ngx-gallery.component';
+import { NgxGalleryOptions } from '../../ngx-gallery/ngx-gallery-options';
+import { NgxGalleryAnimation } from '../../ngx-gallery/ngx-gallery-animation';
+import { NgxGalleryImage } from '../../ngx-gallery/ngx-gallery-image';
 
 import { Image } from '../../models/information';
 
@@ -74,12 +77,14 @@ export class ImageComponent implements OnInit, OnDestroy {
             full = this.data.data.mobileFull;
         }
 
-        this.galleryImages = [{
-            type: 'image',
+        this.galleryImages = [
+          {
+            cmtype: 'image',
             small: full,
             big: full,
             description: this.lang === 'de' ? this.data.captionDe : this.data.captionEn
-        }];
+        }
+      ];
 
     }
 

@@ -1,0 +1,50 @@
+<ngx-gallery-arrows *ngIf="arrows" (prevClick)="showPrev()" (nextClick)="showNext()" [prevDisabled]="!canShowPrev()"
+                    [nextDisabled]="!canShowNext()" [arrowPrevIcon]="arrowPrevIcon"
+                    [arrowNextIcon]="arrowNextIcon"></ngx-gallery-arrows>
+<div class="ngx-gallery-preview-top">
+  <div class="ngx-gallery-preview-icons">
+    <ngx-gallery-action *ngFor="let action of actions" [icon]="action.icon" [disabled]="action.disabled"
+                        [titleText]="action.titleText" (closeClick)="action.onClick($event, index)"></ngx-gallery-action>
+    <a *ngIf="download && src" [href]="src" class="ngx-gallery-icon" aria-hidden="true" download>
+      <i class="ngx-gallery-icon-content {{ downloadIcon }}"></i>
+    </a>
+    <ngx-gallery-action *ngIf="zoom" [icon]="zoomOutIcon" [disabled]="!canZoomOut()"
+                        (closeClick)="zoomOut()"></ngx-gallery-action>
+    <ngx-gallery-action *ngIf="zoom" [icon]="zoomInIcon" [disabled]="!canZoomIn()"
+                        (closeClick)="zoomIn()"></ngx-gallery-action>
+    <ngx-gallery-action *ngIf="rotate" [icon]="rotateLeftIcon" (closeClick)="rotateLeft()"></ngx-gallery-action>
+    <ngx-gallery-action *ngIf="rotate" [icon]="rotateRightIcon" (closeClick)="rotateRight()"></ngx-gallery-action>
+    <ngx-gallery-action *ngIf="fullscreen" [icon]="'ngx-gallery-fullscreen ' + fullscreenIcon"
+                        (closeClick)="manageFullscreen()"></ngx-gallery-action>
+    <ngx-gallery-action [icon]="'ngx-gallery-close ' + closeIcon" (closeClick)="close()"></ngx-gallery-action>
+  </div>
+</div>
+<div class="ngx-spinner-wrapper ngx-gallery-center" [class.ngx-gallery-active]="showSpinner">
+  <i class="ngx-gallery-icon ngx-gallery-spinner {{spinnerIcon}}" aria-hidden="true"></i>
+</div>
+<div class="ngx-gallery-preview-wrapper" (click)="closeOnClick && close()" (mouseup)="mouseUpHandler($event)"
+     (mousemove)="mouseMoveHandler($event)" (touchend)="mouseUpHandler($event)" (touchmove)="mouseMoveHandler($event)">
+  <div class="ngx-gallery-preview-img-wrapper">
+
+    <img *ngIf="isOpen && this.types[this.index] === 'image' && src" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" [src]="src"
+    (contextmenu)="onRightClick($event)" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()"
+    (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)"
+    [class.ngx-gallery-active]="!loading" [class.animation]="animation"
+     [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'"/>
+
+     <video id="gallery-video" controls controlsList="nodownload" preload="metadata" *ngIf="!isnativ && isOpen && this.types[this.index] === 'video' && src" (contextmenu)="onRightClick($event)" class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+         <source id="gallery-video-src" *ngIf="isnativ" src="" type="application/x-mpegURL">
+     </video>
+
+     <video [src]="src" id="gallery-video" controls controlsList="nodownload" preload="metadata" *ngIf="isnativ && isOpen && this.types[this.index] === 'video' && src" (contextmenu)="onRightClick($event)" class="ngx-gallery-preview-img ngx-gallery-preview-video  ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+     </video>
+
+    <audio *ngIf="isOpen && this.types[this.index] === 'audio' && src" [src]="src" controls controlsList="nodownload" (contextmenu)="onRightClick($event)" preload="none" #previewImage class="ngx-gallery-preview-img ngx-gallery-center" (click)="$event.stopPropagation()" (mouseenter)="imageMouseEnter()" (mouseleave)="imageMouseLeave()" (mousedown)="mouseDownHandler($event)" (touchstart)="mouseDownHandler($event)" [class.ngx-gallery-active]="!loading" [class.animation]="animation" [class.ngx-gallery-grab]="canDragOnZoom()" [style.transform]="getTransform()" [style.left]="positionLeft + 'px'" [style.top]="positionTop + 'px'">
+    </audio>
+
+    <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index"
+                         (bulletChange)="showAtIndex($event)"></ngx-gallery-bullets>
+  </div>
+  <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" [innerHTML]="description"
+       (click)="$event.stopPropagation()"></div>
+</div>
