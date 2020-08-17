@@ -150,7 +150,8 @@ export class InfoBoxComponent implements OnInit, OnChanges {
         const steps = 50;
         const distance = turf.distance([relation.source.coordinates.lng, relation.source.coordinates.lat],
                                        [relation.target.coordinates.lng, relation.target.coordinates.lat]);
-        const duration = 15000 * distance / 8.2; // normalize to longest distance
+        let duration = 15000 * distance / 8.2; // normalize to longest distance
+        duration = duration - 500;
         const stepTime = duration / steps;
 
         const spaceDifference = relation.spaceDifference;

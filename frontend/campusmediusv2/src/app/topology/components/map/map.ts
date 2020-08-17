@@ -75,7 +75,7 @@ export class MapComponent implements OnInit {
             duration: duration,
             easing: (t) => t
         });
-        this.map.once('moveend', () => {
+        //this.map.once('moveend', () => {
 
             // this.map.once('moveend', () => {
             //     this.map.easeTo({
@@ -86,7 +86,7 @@ export class MapComponent implements OnInit {
             //         easing: (t) => t
             //     });
             // });
-        });
+        //});
 
     }
 
