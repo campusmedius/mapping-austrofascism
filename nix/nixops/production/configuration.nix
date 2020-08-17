@@ -43,5 +43,16 @@
         deployment.keys.basicAuth.permissions = "0640";
         deployment.keys.djangoSecret.text = builtins.readFile ./keys/djangoSecret;
 
+        services.nginx = {
+            virtualHosts."www.campusmedius.net" = {
+                addSSL = true;
+                enableACME = true;
+            };
+            virtualHosts."campusmedius.net" = {
+                addSSL = true;
+                enableACME = true;
+            };
+        };
+
     };
 } 

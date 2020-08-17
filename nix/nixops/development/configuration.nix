@@ -33,5 +33,17 @@
         deployment.keys.djangoSecret.text = builtins.readFile ./keys/djangoSecret;
         
         networking.hostName = "campusmedius";
+
+        services.nginx = {
+            virtualHosts."www.campusmedius.net" = {
+                addSSL = false;
+                enableACME = false;
+            };
+            virtualHosts."campusmedius.net" = {
+                addSSL = false;
+                enableACME = false;
+            };
+        };
+
     };
 } 

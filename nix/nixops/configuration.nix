@@ -52,10 +52,6 @@
         recommendedTlsSettings = false;
         appendConfig = "worker_processes 2;";
         virtualHosts."www.campusmedius.net" = {
-            #forceSSL = true;
-            addSSL = true;
-            enableACME = true;
-            #useACMEHost = "campusmedius.net";
             locations."/" = {
               extraConfig = ''
                 return  301 https://campusmedius.net$request_uri;
@@ -166,10 +162,6 @@
                     etag off;
                 '';
             };
-            #forceSSL = true;
-            #useACMEHost = "campusmedius.net";
-            addSSL = true;
-            enableACME = true;
         };
         appendHttpConfig = ''
           uwsgi_cache_path /var/spool/nginx/cache levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;
