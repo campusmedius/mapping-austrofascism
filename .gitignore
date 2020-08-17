@@ -18,6 +18,11 @@ backend/tiles/15
 backend/tiles/16
 backend/tiles/17
 backend/tiles/18
+backend/tiles/tiles.tar.gz
+backend/tiles/googlemaps.html
+backend/tiles/leaflet.html
+backend/tiles/openlayers.html
+backend/tiles/tilemapresource.xml
 nix/nixops/development/keys
 nix/nixops/staging/keys
 nix/nixops/production/keys
