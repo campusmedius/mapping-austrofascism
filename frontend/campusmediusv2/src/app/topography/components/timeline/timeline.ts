@@ -158,6 +158,10 @@ export class TimelineComponent implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     private setupRows(events: Event[]) {
+        if (!events) {
+            return;
+        }
+
         const rows = [];
 
         events.forEach((event: Event) => {

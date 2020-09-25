@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
-import { NotFoundPageComponent } from './core/components/not-found-page';
 
 import { TopographyModule } from './topography/topography.module';
 import { TopologyModule } from './topology/topology.module';
+import { StartPageComponent } from './core/components/start-page/start-page';
+import { AboutPageComponent } from './core/components/about-page/about-page';
+import { TeamPageComponent } from './core/components/team-page/team-page';
 
 
 export function loadTopography() {
@@ -14,11 +16,18 @@ export function loadTopology() {
 }
 
 export const routes: Routes = [
-    // {
-    //     path: '',
-    //     redirectTo: 'about',
-    //     pathMatch: 'full'
-    // },
+    {
+        path: '',
+        component: StartPageComponent
+    },
+    {
+        path: 'about',
+        component: AboutPageComponent
+    },
+    {
+        path: 'team',
+        component: TeamPageComponent
+    },
     {
        path: 'topography',
        loadChildren: loadTopography
@@ -27,9 +36,9 @@ export const routes: Routes = [
         path: 'topology',
         loadChildren: loadTopology
     },
-    // {
-    //     path: '**',
-    //     redirectTo: 'about',
-    // }
+    {
+        path: '**',
+        redirectTo: '',
+    }
 ];
 

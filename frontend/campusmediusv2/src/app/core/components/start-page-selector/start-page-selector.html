@@ -1,0 +1,13 @@
+<div class="selector-topography"
+routerLink="/topography" routerLinkActive="active"
+(mouseenter) ="activateHover('topography')" (mouseleave)="activateHover(null)">
+  <div class="not-selected-overlay" [ngClass]="{'active': active === 'topology'}"></div>
+  <div class="label">{{'header.topography' | translate}}</div>
+</div>
+<div class="seperator"></div>
+<div class="selector-topology"
+routerLink="/topology" routerLinkActive="active"
+(mouseenter) ="activateHover('topology')" (mouseleave)="activateHover(null)">
+  <div class="not-selected-overlay" [ngClass]="{'active': active === 'topography'}"></div>
+  <div class="label">{{'header.topology' | translate}}</div>
+</div>

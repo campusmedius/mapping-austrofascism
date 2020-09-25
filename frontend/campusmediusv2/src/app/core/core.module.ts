@@ -1,16 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
-import { AppComponent } from './components/app/app.component';
+import { HeaderComponent } from './components/header/header';
+import { AppComponent } from './components/app/app';
+import { StartPageComponent } from './components/start-page/start-page';
+import { StartPageSelectorComponent } from './components/start-page-selector/start-page-selector';
+import { TeamPageComponent } from './components/team-page/team-page';
+import { AboutPageComponent } from './components/about-page/about-page';
 import { NotFoundPageComponent } from './components/not-found-page';
 import { SharedModule } from '@app/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 
+
 export const COMPONENTS = [
     AppComponent,
     NotFoundPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    StartPageComponent,
+    StartPageSelectorComponent,
+    TeamPageComponent,
+    AboutPageComponent
 ];
 
 @NgModule({

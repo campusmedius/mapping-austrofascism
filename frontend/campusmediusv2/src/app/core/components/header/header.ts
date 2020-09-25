@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'cm-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
+    templateUrl: './header.html',
+    styleUrls: ['./header.scss'],
     host: { 'class': 'row header-row' }
 })
 export class HeaderComponent implements OnInit {

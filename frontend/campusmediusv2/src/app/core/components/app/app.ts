@@ -8,8 +8,8 @@ declare var safari;
 
 @Component({
     selector: 'cm-app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+    templateUrl: './app.html',
+    styleUrls: ['./app.scss'],
     animations: [
         trigger('header', [
             state('0', style({ opacity: 0 })),

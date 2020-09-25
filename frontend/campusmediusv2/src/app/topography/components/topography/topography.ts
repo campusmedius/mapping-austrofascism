@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, HostListener
+    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, HostListener, ChangeDetectorRef
 } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
@@ -9,7 +9,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { Observable ,  Subscription } from 'rxjs';
 
-import { AppComponent } from '@app/core/components/app/app.component';
+import { AppComponent } from '@app/core/components/app/app';
 import { MapComponent } from '../../components/map/map';
 import { CiteDialogComponent } from '../../components/cite-dialog/cite-dialog.component';
 
@@ -97,7 +97,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
         private mediaObserver: MediaObserver,
         private scrollToService: ScrollToService,
         private elementRef: ElementRef,
-        private app: AppComponent
+        private app: AppComponent,
+        private cd: ChangeDetectorRef
     ) {
         this.mediaSubscription = mediaObserver.media$.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -153,6 +154,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
             }
+            this.cd.detectChanges();
         });
 
         // this.filteredIdsSubscription = this.store.select(fromTopography.getFilteredEventIds)
@@ -260,6 +262,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
         if (key === 'end') {
             end = time;
         }
+
+        this.filteredIds = ['1', '2'];
 
     }
 

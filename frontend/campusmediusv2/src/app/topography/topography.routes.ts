@@ -16,7 +16,7 @@ export const routes: Routes = [
 
     },
     {
-        path: 'events',
+        path: '',
         component: TopographyComponent,
         resolve: {
             events: EventsResolver
