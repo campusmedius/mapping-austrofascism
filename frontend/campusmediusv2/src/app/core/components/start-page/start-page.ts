@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Page } from '@app/information/models/page';
 
 @Component({
   selector: 'cm-start-page',

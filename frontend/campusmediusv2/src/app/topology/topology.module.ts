@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TopologyComponent } from './components/topology/topology';
 import { SharedModule } from '@app/shared/shared.module';
 import { InformationModule } from '@app/information/information.module';
+import { CoreModule } from '@app/core/core.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './topology.routes';
 import { MapComponent } from './components/map/map';
@@ -19,6 +20,7 @@ import { InfoBoxComponent } from './components/info-box/info-box';
 @NgModule({
     imports: [
         CommonModule,
+        CoreModule,
         SharedModule,
         InformationModule,
         RouterModule.forChild(routes)

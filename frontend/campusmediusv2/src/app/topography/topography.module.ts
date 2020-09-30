@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@app/shared/shared.module';
 import { InformationModule } from '@app/information/information.module';
+import { CoreModule } from '@app/core/core.module';
 
 import { TopographyComponent } from './components/topography/topography';
 import { MapComponent } from './components/map/map';
@@ -23,6 +24,7 @@ import { EventsResolver, EventResolver } from './guards/event';
 @NgModule({
     imports: [
         CommonModule,
+        CoreModule,
         SharedModule,
         InformationModule,
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header';
+import { SidepanelComponent } from './components/sidepanel/sidepanel';
 import { AppComponent } from './components/app/app';
 import { StartPageComponent } from './components/start-page/start-page';
 import { StartPageSelectorComponent } from './components/start-page-selector/start-page-selector';
@@ -17,6 +18,7 @@ export const COMPONENTS = [
     AppComponent,
     NotFoundPageComponent,
     HeaderComponent,
+    SidepanelComponent,
     StartPageComponent,
     StartPageSelectorComponent,
     TeamPageComponent,

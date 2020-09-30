@@ -131,42 +131,6 @@ cm-map {
     }
 }
 
-.sidenav-control {
-    height: $header-height;
-    top: $header-height;
-    position: absolute;
-    right: 100%;
-    display: block;
-    background: white;
-    width: 25px;
-    min-width: 20px;
-    padding: 0px;
-    color: $secondary-font-color;
-    border-radius: 0px;
-    .mat-icon {
-        font-size: 24px;
-        margin-top: -5px;
-    }
-    box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
-    -moz-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
-    -webkit-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
-}
-
-.sidepanel {
-    overflow-y: visible;
-    visibility: visible !important;
-    width: 65%;
-    background: white;
-    z-index: 30;
-    box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
-    -moz-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
-    -webkit-box-shadow: -3px 0 5px rgba(57, 63, 72, 0.3);
-    position: absolute;
-    right: 0px;
-    top: $header-height;
-    height: calc(100vh - #{$header-height});
-    width: 450px;
-}
 
 .cite-button {
     width: $base-font-size;

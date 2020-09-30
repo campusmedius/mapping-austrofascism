@@ -1,0 +1,4 @@
+<button *ngIf="showControl" mat-button class="control" (click)="controlClick.emit()">
+    <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@control]="state"></mat-icon>
+</button>
+<ng-content></ng-content>

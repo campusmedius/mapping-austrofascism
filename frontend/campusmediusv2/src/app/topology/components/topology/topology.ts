@@ -19,11 +19,6 @@ const SIDEPANEL_WIDTH = {
     templateUrl: './topology.html',
     styleUrls: ['./topology.scss'],
     animations: [
-        trigger('sidenavIcon', [
-            state('full', style({ transform: 'scaleX(1)' })),
-            state('short', style({ transform: 'scaleX(-1)' })),
-            transition('full <=> short', animate('300ms ease-in'))
-        ]),
         trigger('sidenav', [
             state('full', style({ width: SIDEPANEL_WIDTH.full })),
             state('short', style({ width: SIDEPANEL_WIDTH.short })),

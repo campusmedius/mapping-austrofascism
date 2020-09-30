@@ -26,17 +26,11 @@ const SIDEPANEL_WIDTH = {
     short: '470px',
 };
 
-
 @Component({
     selector: 'cm-topography',
     templateUrl: './topography.html',
     styleUrls: ['./topography.scss'],
     animations: [
-        trigger('sidenavIcon', [
-            state('full', style({ transform: 'scaleX(1)' })),
-            state('short', style({ transform: 'scaleX(-1)' })),
-            transition('full <=> short', animate('300ms ease-in'))
-        ]),
         trigger('sidenav', [
             state('full', style({ width: SIDEPANEL_WIDTH.full })),
             state('short', style({ width: SIDEPANEL_WIDTH.short })),
@@ -278,16 +272,11 @@ export class TopographyComponent implements OnInit, OnDestroy {
         if (this.sidepanelState === 'full') {
             this.sidepanelState = 'short';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-            if (this.selectedEvent.id === 'team') {
-                this.router.navigate(['/about'], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
-            } else {
-                this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
-            }
         } else {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
             this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
-            // setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
+            setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         }
     }
 

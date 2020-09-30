@@ -8,10 +8,7 @@
     </cm-map-mediator>
 </cm-map>
 
-<div *ngIf="!isMobile" class="sidepanel" [@sidenav]="sidepanelState">
-    <button mat-button class="sidenav-control" (click)="toggleInformationPanel()" *ngIf="sidepanelState !== 'intro'">
-        <mat-icon fontSet="fa" fontIcon="fa-caret-right" [@sidenavIcon]="sidepanelState"></mat-icon>
-    </button>
+<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="sidepanelState !== 'intro'" (controlClick)="toggleInformationPanel()" >
     <div *ngIf="selectedMediator" class="info-container">
             <div #fullinfo class="info-body" fxFill>
                 <div class="info-content">
@@ -36,7 +33,7 @@
                 </div>
             </div>
     </div>
-</div>
+</cm-sidepanel>
 
 <cm-info-box *ngIf="selectedMediator" [@infoBox]="mediationState"></cm-info-box>
 
