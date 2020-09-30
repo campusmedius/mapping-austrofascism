@@ -13,6 +13,14 @@
     }
 }
 
+.info-container {
+    color: $primary-font-color;
+    height: 100%;
+}
+
+.short-info-container {
+  margin-top: 100px;
+}
 
 .row, .col {
     height: 100%;

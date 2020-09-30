@@ -19,6 +19,7 @@ import { Page } from '@app/information/models/page';
 import { Event } from '../../models/event';
 
 import { Moment } from 'moment';
+import * as moment from 'moment';
 
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
@@ -64,6 +65,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
     mediaSubscription: Subscription;
     isMobile: boolean;
     filteredIds: string[] = [];
+    timeFilterStart: Moment = moment('1933-05-13T13:00Z');
+    timeFilterEnd: Moment = moment('1933-05-14T13:00Z');
     sidepanelState = 'short'; // full, short
     sidepanelWidth: string;
 
@@ -111,105 +114,22 @@ export class TopographyComponent implements OnInit, OnDestroy {
         }
 
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-        // this.route.fragment.subscribe((fragment: string) => {
-        //     if (fragment) {
-        //         setTimeout(() => {
-        //             this.scrollToService.scrollTo({
-        //                 target: fragment,
-        //                 offset: -70
-        //             });
-        //         }, 300);
-        //     }
-        // });
-        // this.route.queryParams.subscribe(queryParams => {
-        //     if (queryParams['info']) {
-        //         this.sidepanelState = queryParams['info'];
-        //         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-        //         if (this.isMobile && this.sidepanelState === 'full') {
-        //             setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
-        //         }
-        //         if (this.selectedEvent) {
-        //             setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
-        //         }
-        //     }
-        //     if (this.sidepanelState === 'short') {
-        //         this.app.removeHeader = false;
-        //         this.app.showHeader = true;
-        //         this.showTitleHeaderMobile = false;
-        //     }
-        //     this.adjustTimelineForEdge();
-        // });
-
-
 
         this.dataSubscription = this.route.data.subscribe(data => {
             this.events = data.events;
+            this.generateTimeFilterIds();
             this.selectedEvent = data.selectedEvent;
             if (this.selectedEvent) {
                 this.previousEvent = this.selectedEvent.previousEvent;
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
+                setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
             } else {
               this.page = data.pages.find(p => p.titleEn === 'Overview');
             }
             this.cd.detectChanges();
         });
 
-        // this.filteredIdsSubscription = this.store.select(fromTopography.getFilteredEventIds)
-        //     .subscribe((ids: string[]) => this.filteredIds = ids);
-
-        // this.selectedEventsSubscription = this.store.select(fromTopography.getSelectedEvent)
-        //     .subscribe((e) => {
-        //         this.selectedEvent = <any>e.current;
-        //         this.nextEvent = e.next;
-        //         this.previousEvent = e.previous;
-        //         if (e.current) {
-        //             if (e.current.id === 'about' || e.current.id === 'team') {
-        //                 this.isPage = true;
-        //                 if (e.current.id === 'team') {
-        //                     this.sidepanelState = 'full';
-        //                 }
-        //                 if (e.current.id === 'about') {
-        //                     this.mobileOverlayHeight = this.mobileOverlayAboutHeight;
-        //                 }
-        //             } else {
-        //                 this.isPage = false;
-        //                 this.mobileOverlayHeight = this.mobileOverlayDefaultHeight;
-        //             }
-
-        //             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-        //             if (!this.isMobile) {
-        //                 this.scrollToService.scrollTo({
-        //                     target: this.infoheading,
-        //                     offset: -150
-        //                 });
-        //             }
-        //             if (this.isMobile && this.sidepanelState === 'full') {
-        //                 setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
-        //             }
-        //             setTimeout(() => this.map.flyTo(e.current.coordinates));
-        //         } else {
-        //             this.sidepanelState = 'short';
-        //             this.sidepanelWidth = SIDEPANEL_WIDTH['short'];
-        //         }
-
-        //         if (this.sidepanelState === 'short') {
-        //             this.app.removeHeader = false;
-        //             this.app.showHeader = true;
-        //             this.showTitleHeaderMobile = false;
-        //         }
-
-        //         this.adjustTimelineForEdge();
-        //     });
-
-        // this.information$ = this.store.select(fromTopography.getSelectedInformation);
-
-        // this.router.navigate(['.'], {
-        //     relativeTo: this.route,
-        //     queryParams: { 'lang': this.translate.currentLang },
-        //     queryParamsHandling: 'merge',
-        //     replaceUrl: true
-        // });
     }
 
     private adjustTimelineForEdge() {
@@ -251,18 +171,25 @@ export class TopographyComponent implements OnInit, OnDestroy {
     }
 
     public updateTimeFilter(key: string, time: Moment) {
-        let start = null;
-        let end = null;
-
         if (key === 'start') {
-            start = time;
+            this.timeFilterStart = time;
         }
         if (key === 'end') {
-            end = time;
+            this.timeFilterEnd = time;
         }
 
-        this.filteredIds = ['1', '2'];
+        this.generateTimeFilterIds();
+    }
 
+    private generateTimeFilterIds() {
+      const ids = [];
+      this.events.forEach(event => {
+          if (event.end.isAfter(this.timeFilterStart) && event.start.isBefore(this.timeFilterEnd)) {
+              ids.push(event.id);
+          }
+      });
+
+      this.filteredIds = ids;
     }
 
     public eventSelected(event: Event) {
@@ -276,6 +203,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
         if (this.sidepanelState === 'full') {
             this.sidepanelState = 'short';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+            setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         } else {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
@@ -357,11 +285,6 @@ export class TopographyComponent implements OnInit, OnDestroy {
         this.app.removeHeader = true;
     }
 
-    ngOnDestroy() {
-        // this.filteredIdsSubscription.unsubscribe();
-        // this.selectedEventsSubscription.unsubscribe();
-        // this.mediaSubscription.unsubscribe();
-        // this.dataSubscription.unsubscribe();
-    }
+    ngOnDestroy() { }
 
 }
