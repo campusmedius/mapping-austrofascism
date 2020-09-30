@@ -119,6 +119,13 @@ hr {
     }
 }
 
+.icon-wrapper {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  left: 10px;
+}
+
 .mediation-examininggaze {
     margin-right: 70px;
     margin-left: 70px;
@@ -132,8 +139,10 @@ hr {
 
 .icon-background {
     width: 78px;
+    height: 50px;
     display: inline-block;
     background: #666;
+    position: relative;
 }
 
 .icon {

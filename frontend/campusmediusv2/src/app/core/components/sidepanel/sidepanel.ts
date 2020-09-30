@@ -16,7 +16,7 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
 })
 export class SidepanelComponent implements OnInit {
 
-  @HostBinding('style.width') @Input() width: string = '450px';
+  @HostBinding('style.width') @Input() width: string = '470px';
   @Input() showControl = false;
   @Input() state: string;
 

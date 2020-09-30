@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Page } from '@app/information/models/page';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 
 @Component({
   selector: 'cm-team-page',
@@ -8,15 +12,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TeamPageComponent implements OnInit {
 
+  public page: Page;
+
   constructor(
-      private route: ActivatedRoute
+      private translate: TranslateService,
+      private route: ActivatedRoute,
+      private dialog: MatDialog,
+      private router: Router
   ) { }
 
 
   ngOnInit() {
-        this.route.data.subscribe(data => {
-            console.log(data);
-        });
+      this.route.data.subscribe(data => {
+          this.page = data.pages.find(p => p.titleEn === 'Team');
+      });
+  }
+
+  public showCite() {
+      const dialogRef = this.dialog.open(CiteDialogComponent, {
+          width: '800px',
+          maxHeight: '90vh',
+          data: { event: this.page },
+          autoFocus: false
+      });
   }
 
 }

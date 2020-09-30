@@ -13,10 +13,8 @@
          [ngClass]="{'selected': selectedMediation && selectedMediation.id === '1' }"
          [routerLink]="['/topology/mediations/1/mediators/1']">
         <div class="icon-background">
-            <svg *ngIf="selectedMediator && ['0','1','2','3','4','5'].includes(selectedMediator.id); else sovsignnotselected" viewBox="0 0 150 150" class="icon selected cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-{{selectedMediator.id}}"></use></svg>
-            <ng-template #sovsignnotselected>
-                <svg viewBox="0 0 150 150" class="icon none-selected cm-topology-icon"><use xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-1"></use></svg>
-            </ng-template>
+            <div class="icon-wrapper"><svg viewBox="0 0 150 150" class="icon none-selected cm-topology-icon"><use xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-1"></use></svg></div>
+            <div class="icon-wrapper"><svg *ngIf="selectedMediator && ['0','1','2','3','4','5'].includes(selectedMediator.id)" viewBox="0 0 150 150" class="icon selected cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-{{selectedMediator.id}}"></use></svg></div>
         </div>
         <div class="mediation-label">
             <div class="demand">{{'mediations.sovereignSignsDemand' | translate }}</div>
@@ -29,10 +27,8 @@
          [ngClass]="{'selected': selectedMediation && selectedMediation.id === '2' }"
          [routerLink]="['/topology/mediations/2/mediators/6']">
         <div class="icon-background">
-            <svg *ngIf="selectedMediator && ['6','7','8','9','10'].includes(selectedMediator.id); else exgazenotselected" viewBox="0 0 150 150" class="icon selected cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-{{selectedMediator.id}}"></use></svg>
-            <ng-template #exgazenotselected>
-                <svg viewBox="0 0 150 150" class="icon none-selected cm-topology-icon"><use xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-6"></use></svg>
-            </ng-template>
+            <div class="icon-wrapper"><svg viewBox="0 0 150 150" class="icon none-selected cm-topology-icon"><use xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-6"></use></svg></div>
+            <div class="icon-wrapper"><svg *ngIf="selectedMediator && ['6','7','8','9','10'].includes(selectedMediator.id)" viewBox="0 0 150 150" class="icon selected cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-{{selectedMediator.id}}"></use></svg></div>
         </div>
         <div class="mediation-label">
             <div class="demand">{{'mediations.examiningGazesDemand' | translate }}</div>
@@ -45,10 +41,8 @@
          [ngClass]="{'selected': selectedMediation && selectedMediation.id === '3' }"
          [routerLink]="['/topology/mediations/3/mediators/11']">
         <div class="icon-background">
-            <svg *ngIf="selectedMediator && ['11','12','13','14','15'].includes(selectedMediator.id); else govnotselected" viewBox="0 0 150 150" class="icon selected cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-{{selectedMediator.id}}"></use></svg>
-            <ng-template #govnotselected>
-                <svg viewBox="0 0 150 150" class="icon none-selected cm-topology-icon"><use xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-11"></use></svg>
-            </ng-template>
+            <div class="icon-wrapper"><svg viewBox="0 0 150 150" class="icon none-selected cm-topology-icon"><use xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-11"></use></svg></div>
+            <div class="icon-wrapper"><svg *ngIf="selectedMediator && ['11','12','13','14','15'].includes(selectedMediator.id)" viewBox="0 0 150 150" class="icon selected cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediations.svg#mediator-{{selectedMediator.id}}"></use></svg></div>
         </div>
         <div class="mediation-label">
             <div class="demand">{{'mediations.governedTransmissionsDemand' | translate }}</div>

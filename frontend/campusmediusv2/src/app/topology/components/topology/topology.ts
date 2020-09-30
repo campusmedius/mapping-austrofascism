@@ -5,9 +5,12 @@ import { Subscription } from 'rxjs';
 import { Mediator } from '@app/topology/models/mediator';
 import { Mediation } from '@app/topology/models/mediation';
 import { Information } from '@app/information/models/information';
+import { Page } from '@app/information/models/page';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
 import { InfoBoxComponent } from '../info-box/info-box';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -62,6 +65,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public focusedMediator: Mediator;
     public previousMediator: Mediator = null;
     public information: Information;
+    public page: Page;
 
     public lang: string;
     currentLangSubscription: Subscription;
@@ -80,8 +84,10 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;      ;
 
     constructor(
-        private translate: TranslateService,
-        private route: ActivatedRoute
+      private translate: TranslateService,
+      private route: ActivatedRoute,
+      private dialog: MatDialog,
+      private router: Router
     ) { }
 
     ngOnInit() {
@@ -114,6 +120,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 this.information = this.selectedMediator.information;
+            } else {
+              this.page = data.pages.find(p => p.titleEn === 'Overview');
             }
 
             if (this.map) {
@@ -172,6 +180,10 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
         }
+    }
+
+    public readMore() {
+      this.router.navigate(['/topology/mediations/1/mediators/1'], { queryParamsHandling: 'merge' });
     }
 
     ngOnDestroy() {

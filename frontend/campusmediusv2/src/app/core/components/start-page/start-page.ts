@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Page } from '@app/information/models/page';
 
@@ -14,12 +14,17 @@ export class StartPageComponent implements OnInit {
 
     constructor(
         private translate: TranslateService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit() {
           this.route.data.subscribe(data => {
               this.page = data.pages.find(p => p.titleEn === 'Overview');
           });
+    }
+
+    readMore() {
+      this.router.navigate(['/about'], { queryParamsHandling: 'merge' });
     }
 }

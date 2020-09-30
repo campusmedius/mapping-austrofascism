@@ -11,7 +11,6 @@ import { MapEventComponent } from './components/map-event/map-event.component';
 import { TimelineComponent } from './components/timeline/timeline';
 import { TimelineMobileComponent } from './components/timeline-mobile/timeline-mobile';
 import { InfoEventNavComponent } from './components/info-event-nav/info-event-nav';
-import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
 
 import { EventService } from './services/events';
 
@@ -38,10 +37,8 @@ import { EventsResolver, EventResolver } from './guards/event';
         MapEventComponent,
         InfoEventNavComponent,
         InfoTimestampPipe,
-        CiteDialogComponent,
     ],
     entryComponents: [
-        CiteDialogComponent
     ],
     providers: [
         EventService,

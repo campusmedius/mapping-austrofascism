@@ -1,0 +1,24 @@
+<div class="info-body" fxFill>
+    <div class="info-content">
+
+        <div class="info-heading">
+            <span class="sub-heading" [innerHtml]="subTitle"></span>
+            <div class="cite-button-wrapper">
+                <button *ngIf="state === 'full'" [title]="lang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button class="cite-button" (click)="citeClick.emit()">
+                    <span class="cm-square-quote-alt"></span>
+                </button>
+            </div>
+            <h1 [innerHtml]="title"></h1>
+        </div>
+        <div *ngIf="state === 'short'; else fullInfo" class="intro">
+            <cm-information [content]="abstract" [lang]="lang"></cm-information>
+            <button mat-flat-button class="btn-read-more" color="warn" (click)="moreClick.emit()">{{'info.read-more' | translate | uppercase}}</button>
+        </div>
+        <ng-template #fullInfo>
+            <div *ngIf="content">
+                <cm-information [content]="content" [lang]="lang" [media]="media"></cm-information>
+            </div>
+        </ng-template>
+
+    </div>
+</div>

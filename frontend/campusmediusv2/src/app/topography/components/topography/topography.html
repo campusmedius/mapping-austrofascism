@@ -3,9 +3,11 @@
     </cm-map-event>
 </cm-map>
 
-<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="sidepanelState !== 'intro'" (controlClick)="toggleInformationPanel()" >
+<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedEvent" (controlClick)="toggleInformationPanel()" >
     <div class="info-container">
-        <div *ngIf="selectedEvent" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
+
+
+        <div *ngIf="selectedEvent; else startPage" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
             <div *ngIf="sidepanelState === 'full'" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
                 <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
                     <span class="cm-square-quote-alt"></span>
@@ -20,29 +22,29 @@
                     </button>
                 </div>
             </ng-template>
-            <div #fullinfo class="info-body" [ngClass]="{'ispage': isPage}" fxFill (scroll)="onScroll()">
-                <div class="info-content">
-                    <div #infoheading class="info-heading">
-                        <span  *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
-                        <div class="cite-button-wrapper">
-                            <button *ngIf="sidepanelState === 'full'" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button class="cite-button" (click)="showCite()">
-                                <span class="cm-square-quote-alt"></span>
-                            </button>
-                        </div>
-                        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
-                    </div>
-                    <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
-                        <cm-information [content]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn" [lang]="translate.currentLang"></cm-information>
-                        <button mat-flat-button class="btn-read-more" color="warn" (click)="toggleInformationPanel()">{{'info.read-more' | translate | uppercase}}</button>
-                    </div>
-                    <ng-template #fullInfo>
-                        <div *ngIf="information">
-                            <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang" [media]="information.media"></cm-information>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
+
+
+            <cm-info-container
+             [lang]="translate.currentLang"
+             [title]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"
+             [subTitle]="selectedEvent | infoTimestamp:translate.currentLang"
+             [state]="sidepanelState"
+             [abstract]="translate.currentLang === 'de' ? selectedEvent.abstractDe : selectedEvent.abstractEn"
+             [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn"
+             [media]="information.media"
+             (citeClick)="showCite()"
+             (moreClick)="toggleInformationPanel()">
+            </cm-info-container>
+
         </div>
+        <ng-template #startPage>
+            <cm-info-container
+             [lang]="translate.currentLang"
+             [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
+             [abstract]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn"
+             (moreClick)="readMore()">
+            </cm-info-container>
+        </ng-template>
     </div>
 </cm-sidepanel>
 

@@ -8,30 +8,27 @@
     </cm-map-mediator>
 </cm-map>
 
-<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="sidepanelState !== 'intro'" (controlClick)="toggleInformationPanel()" >
-    <div *ngIf="selectedMediator" class="info-container">
-            <div #fullinfo class="info-body" fxFill>
-                <div class="info-content">
-                    <div #infoheading class="info-heading">
-                        <span class="medium-info" [innerHtml]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe : selectedMediator.medium.titleEn"></span>
-                        <div class="cite-button-wrapper">
-                            <button *ngIf="sidepanelState === 'full'" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button class="cite-button" (click)="showCite()">
-                                <span class="cm-square-quote-alt"></span>
-                            </button>
-                        </div>
-                        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"></h1>
-                    </div>
-                    <div *ngIf="sidepanelState === 'short'; else fullInfo" class="intro">
-                        <cm-information [content]="translate.currentLang === 'de' ? selectedMediator.abstractDe : selectedMediator.abstractEn" [lang]="translate.currentLang"></cm-information>
-                        <button mat-flat-button class="btn-read-more" color="warn" (click)="toggleInformationPanel()">{{'info.read-more' | translate | uppercase}}</button>
-                    </div>
-                    <ng-template #fullInfo>
-                        <div *ngIf="information">
-                            <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang" [media]="information.media"></cm-information>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
+<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedMediator && !atGod" (controlClick)="toggleInformationPanel()" >
+    <div class="info-container">
+        <cm-info-container *ngIf="selectedMediator; else startPage"
+         [lang]="translate.currentLang"
+         [title]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"
+         [subTitle]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe : selectedMediator.medium.titleEn"
+         [state]="sidepanelState"
+         [abstract]="translate.currentLang === 'de' ? selectedMediator.abstractDe : selectedMediator.abstractEn"
+         [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn"
+         [media]="information.media"
+         (citeClick)="showCite()"
+         (moreClick)="toggleInformationPanel()">
+        </cm-info-container>
+        <ng-template #startPage>
+            <cm-info-container
+             [lang]="translate.currentLang"
+             [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
+             [abstract]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn"
+             (moreClick)="readMore()">
+            </cm-info-container>
+        </ng-template>
     </div>
 </cm-sidepanel>
 

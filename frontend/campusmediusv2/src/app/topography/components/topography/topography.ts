@@ -11,9 +11,10 @@ import { Observable ,  Subscription } from 'rxjs';
 
 import { AppComponent } from '@app/core/components/app/app';
 import { MapComponent } from '../../components/map/map';
-import { CiteDialogComponent } from '../../components/cite-dialog/cite-dialog.component';
+import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 
 import { Information } from '../../../information/models/information';
+import { Page } from '@app/information/models/page';
 
 import { Event } from '../../models/event';
 
@@ -54,6 +55,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
     public nextEvent: Event;
     public previousEvent: Event;
     public information: Information;
+    public page: Page;
 
     dataSubscription: Subscription;
 
@@ -147,6 +149,8 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.previousEvent = this.selectedEvent.previousEvent;
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
+            } else {
+              this.page = data.pages.find(p => p.titleEn === 'Overview');
             }
             this.cd.detectChanges();
         });
@@ -278,6 +282,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
             this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         }
+    }
+
+    public readMore() {
+      this.router.navigate(['/topography/events/1'], { queryParamsHandling: 'merge' });
     }
 
     public mobileShowMore() {

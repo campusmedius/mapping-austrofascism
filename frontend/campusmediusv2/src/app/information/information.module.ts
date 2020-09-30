@@ -6,6 +6,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { InfoContainerComponent } from './components/info-container/info-container';
 import { InformationComponent } from './components/information/information.component';
 import { ImageComponent } from './components/image/image.component';
 import { VideoComponent } from './components/video/video.component';
@@ -17,6 +18,7 @@ import { CaptionComponent } from './components/caption/caption.component';
 import { LinkExternComponent } from './components/link-extern/link-extern.component';
 import { LinkInpageComponent } from './components/link-inpage/link-inpage.component';
 import { LinkInternComponent } from './components/link-intern/link-intern.component';
+import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
 
 import { InformationService } from './services/information';
 import { PageService } from './services/page';
@@ -34,6 +36,7 @@ import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview/ng
 import { NgxGalleryComponent } from './ngx-gallery/ngx-gallery.component';
 
 export const COMPONENTS = [
+    InfoContainerComponent,
     InformationComponent,
     ImageComponent,
     AudioComponent,
@@ -45,6 +48,7 @@ export const COMPONENTS = [
     LinkExternComponent,
     LinkInpageComponent,
     LinkInternComponent,
+    CiteDialogComponent,
     NgxGalleryActionComponent,
     NgxGalleryArrowsComponent,
     NgxGalleryBulletsComponent,
@@ -85,7 +89,8 @@ export const COMPONENTS = [
         AudioComponent,
         LinkInternComponent,
         LinkExternComponent,
-        LinkInpageComponent
+        LinkInpageComponent,
+        CiteDialogComponent
     ]
 })
 export class InformationModule { }
