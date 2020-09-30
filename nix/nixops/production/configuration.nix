@@ -45,11 +45,11 @@
 
         services.nginx = {
             virtualHosts."www.campusmedius.net" = {
-                addSSL = true;
+                forceSSL = true;
                 enableACME = true;
             };
             virtualHosts."campusmedius.net" = {
-                addSSL = true;
+                forceSSL = true;
                 enableACME = true;
             };
         };
