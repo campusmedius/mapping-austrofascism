@@ -1,6 +1,8 @@
 <cm-start-page-selector></cm-start-page-selector>
 <div class="sidepanel">
-  <div class="info-container">
-
+  <div *ngIf="page" class="info-container">
+    <h1 [innerHtml]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"></h1>
+    <cm-information [content]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn" [lang]="translate.currentLang"></cm-information>
+    <button mat-flat-button class="btn-read-more" color="warn" routerLink="/about" routerLinkActive="active">{{'info.read-more' | translate | uppercase}}</button>
   </div>
 </div>

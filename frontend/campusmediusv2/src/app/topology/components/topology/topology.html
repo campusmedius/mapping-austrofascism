@@ -1,4 +1,4 @@
-<cm-map
+<cm-map *ngIf="selectedMediator"
     [@mapTopOffset]="mediationState"
     [@mapLeftOffset]="sidepanelState"
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"

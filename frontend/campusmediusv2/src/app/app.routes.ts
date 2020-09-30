@@ -5,6 +5,7 @@ import { TopologyModule } from './topology/topology.module';
 import { StartPageComponent } from './core/components/start-page/start-page';
 import { AboutPageComponent } from './core/components/about-page/about-page';
 import { TeamPageComponent } from './core/components/team-page/team-page';
+import { PagesResolver } from '@app/information/guards/page';
 
 
 export function loadTopography() {
@@ -18,15 +19,24 @@ export function loadTopology() {
 export const routes: Routes = [
     {
         path: '',
-        component: StartPageComponent
+        component: StartPageComponent,
+        resolve: {
+            pages: PagesResolver
+        }
     },
     {
         path: 'about',
-        component: AboutPageComponent
+        component: AboutPageComponent,
+        resolve: {
+            pages: PagesResolver
+        }
     },
     {
         path: 'team',
-        component: TeamPageComponent
+        component: TeamPageComponent,
+        resolve: {
+            pages: PagesResolver
+        }
     },
     {
        path: 'topography',
@@ -41,4 +51,3 @@ export const routes: Routes = [
         redirectTo: '',
     }
 ];
-

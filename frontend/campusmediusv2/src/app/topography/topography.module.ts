@@ -13,7 +13,6 @@ import { InfoEventNavComponent } from './components/info-event-nav/info-event-na
 import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
 
 import { EventService } from './services/events';
-import { PageService } from './services/pages';
 
 import { InfoTimestampPipe } from './pipes/info-timestamp.pipe';
 
@@ -44,7 +43,6 @@ import { EventsResolver, EventResolver } from './guards/event';
     ],
     providers: [
         EventService,
-        PageService,
         EventsResolver,
         EventResolver
     ]

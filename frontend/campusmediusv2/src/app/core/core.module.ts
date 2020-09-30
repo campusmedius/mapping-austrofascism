@@ -8,6 +8,7 @@ import { TeamPageComponent } from './components/team-page/team-page';
 import { AboutPageComponent } from './components/about-page/about-page';
 import { NotFoundPageComponent } from './components/not-found-page';
 import { SharedModule } from '@app/shared/shared.module';
+import { InformationModule } from '@app/information/information.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 
@@ -26,6 +27,7 @@ export const COMPONENTS = [
     declarations: COMPONENTS,
     imports: [
         CommonModule,
+        InformationModule,
         SharedModule,
         RouterModule,
         TranslateModule.forChild()

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Information } from '..//models/information';
+import { Information } from '../models/information';
 import { environment } from '../../../environments/environment';
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -47,6 +47,3 @@ export class InformationService {
                 }));
     }
 }
-
-
-

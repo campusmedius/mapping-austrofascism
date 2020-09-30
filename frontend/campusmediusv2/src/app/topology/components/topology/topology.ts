@@ -92,6 +92,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit() {
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
 
+
         this.route.data.subscribe(data => {
             this.mediations = data.mediations;
             this.selectedMediation = data.selectedMediation;
@@ -138,12 +139,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     adjustMap() {
-        this.map.setPerspective(this.selectedMediation);
-
         if (!this.selectedMediator) {
             return;
         }
 
+        this.map.setPerspective(this.selectedMediation);
 
         if (this.previousMediator && this.previousMediator !== this.selectedMediator) {
             let foundRelation = false;

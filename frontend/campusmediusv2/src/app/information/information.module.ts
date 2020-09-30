@@ -19,6 +19,9 @@ import { LinkInpageComponent } from './components/link-inpage/link-inpage.compon
 import { LinkInternComponent } from './components/link-intern/link-intern.component';
 
 import { InformationService } from './services/information';
+import { PageService } from './services/page';
+
+import { PagesResolver } from './guards/page';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -69,7 +72,9 @@ export const COMPONENTS = [
         ScrollToModule
     ],
     providers: [
-        InformationService
+        InformationService,
+        PageService,
+        PagesResolver
     ],
     entryComponents: [
         NoteComponent,

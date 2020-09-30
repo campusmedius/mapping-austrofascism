@@ -173,3 +173,10 @@ cm-map {
     position: absolute;
     left: 25px;
 }
+
+cm-start-selector {
+  background-image: url("../../../../assets/topology.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-color: $map-overlay-background-color;
+}

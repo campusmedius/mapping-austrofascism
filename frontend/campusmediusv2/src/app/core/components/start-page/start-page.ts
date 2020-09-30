@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-start-page',
@@ -7,11 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartPageComponent implements OnInit {
 
+    public page: Page;
 
-  constructor() { }
+    constructor(
+        private translate: TranslateService,
+        private route: ActivatedRoute
+    ) { }
 
-  ngOnInit() {
-  }
-
-
+    ngOnInit() {
+          this.route.data.subscribe(data => {
+              this.page = data.pages.find(p => p.titleEn === 'Overview');
+          });
+    }
 }
