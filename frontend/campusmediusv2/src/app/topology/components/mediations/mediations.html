@@ -5,7 +5,7 @@
     <span>{{'mediations.header' | translate }}</span>
 </div>
 
-<div class="mediation-container">
+<div class="mediation-container" [ngClass]="{'short': sidepanelState == 'full'}">
     <hr>
     <div class="mediation"
          (mouseenter)="selectMediation('1')"

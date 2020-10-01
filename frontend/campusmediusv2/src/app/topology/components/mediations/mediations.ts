@@ -39,6 +39,7 @@ export class MediationsComponent implements OnInit, AfterViewInit {
     @Input() mediations: Mediation[];
     @Input() selectedMediation: Mediation;
     @Input() selectedMediator: Mediator;
+    @Input() sidepanelState: string;
 
     @Output() height = new EventEmitter<string>();
     @Output() state = new EventEmitter<string>();
