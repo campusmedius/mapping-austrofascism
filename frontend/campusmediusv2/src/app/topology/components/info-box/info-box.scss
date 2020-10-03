@@ -5,12 +5,12 @@
     background: $map-overlay-background-color;
     padding: 20px;
     left: 20px;
-    opacity: 0.8;
+    opacity: 0.9;
     color: $active-font-color;
     font-size: $small2-font-size;
     line-height: 1rem;
     bottom: 0px;
-    width: 300px;
+    min-width: 300px;
 }
 
 .label {
@@ -20,4 +20,13 @@
 
 .content {
     font-family: $caption-regular-font;
+}
+
+::ng-deep {
+  .content {
+    i, em {
+        font-family: $caption-italics-font !important;
+        font-style: normal;
+    }
+  }
 }

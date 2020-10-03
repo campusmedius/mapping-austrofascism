@@ -168,7 +168,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         } else {
             this.map.showMediator(this.selectedMediation, this.selectedMediator);
-            this.infoBox.initSpaceTime(this.selectedMediator);
+            this.infoBox.setSpaceTime(this.selectedMediator, 0, 0);
         }
     }
 

@@ -1,7 +1,9 @@
-import { Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, OnDestroy, SimpleChanges, ChangeDetectorRef, Input } from '@angular/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { Mediator } from '@app/topology/models/mediator';
 import { Moment } from 'moment';
+import * as moment from 'moment';
 import { LngLat } from 'mapbox-gl';
 import { Relation } from '@app/topology/models/relation';
 import * as turf from '@turf/turf';
@@ -11,24 +13,27 @@ import * as turf from '@turf/turf';
     templateUrl: './info-box.html',
     styleUrls: ['./info-box.scss']
 })
-export class InfoBoxComponent implements OnInit, OnChanges {
+export class InfoBoxComponent implements OnInit, OnDestroy {
     mediator: Mediator;
     public spaceStr: string;
+    private space = 0;
     public timeStr: string;
-    public space: number;
-    public time: number;
-    public isSovereignSigns: boolean;
-    public isOrigin: boolean;
+    private time = 0;
+    private inAnimation = false;
+    currentLangSubscription: Subscription;
 
     constructor(private translate: TranslateService, private cdRef: ChangeDetectorRef) { }
 
     ngOnInit() {
+      this.currentLangSubscription = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+          this.setSpaceTime(this.mediator, this.space, this.time);
+      });
     }
 
 
     public navigateToMediator(mediator: Mediator, relation: Relation, direction: string) {
         if (['0', '1', '2', '3', '4', '5'].includes(mediator.id)) {
-            this.animateSovereignSign(mediator);
+            this.animateSovereignSign(mediator, relation);
         }
         else if (['6', '7', '8', '9', '10'].includes(mediator.id)) {
             this.animateExaminingGaze(mediator, relation, direction);
@@ -37,21 +42,26 @@ export class InfoBoxComponent implements OnInit, OnChanges {
         }
     }
 
-    private animateSovereignSign(mediator: Mediator) {
+    private animateSovereignSign(mediator: Mediator, relation: Relation) {
         const steps = 50;
         const duration = 4500;
         const stepTime = duration / steps;
         const previousMediator = this.mediator;
         this.mediator = mediator;
 
-        const previousYear = previousMediator.time.year();
         const previousCoordinates = previousMediator.coordinates;
+        let timeDifference = relation.timeDifference;
+        if (timeDifference < 0) {
+          timeDifference = -timeDifference
+        }
 
         const startTime = new Date().getTime();
         const endTime = startTime + duration;
 
         if (mediator.id === '0') {
             var timer = setInterval(() => {
+                this.inAnimation = true;
+
                 var now = new Date().getTime();
                 var currentStep = Math.max((endTime - now) / duration, 0) * steps;
 
@@ -61,18 +71,20 @@ export class InfoBoxComponent implements OnInit, OnChanges {
                 }
                 this.spaceStr = this.getSovereignSignSpaceStr(coordinates);
 
-                const year = Math.round((previousYear / steps) * currentStep);
-                this.timeStr = this.getSovereignSignTimeStr(year, mediator.time);
+                const time = Math.round((timeDifference / steps) * currentStep);
+                this.timeStr = this.getSovereignSignTimeStr(time);
 
                 if (currentStep === 0) {
-                    this.spaceStr = '0';
-                    this.timeStr = '0';
                     clearInterval(timer);
+                    this.inAnimation = false;
+                    this.setSpaceTime(mediator, 0, 0);
                 }
                 this.cdRef.detectChanges();
             }, stepTime);
         } else {
             var timer = setInterval(() => {
+                this.inAnimation = true;
+
                 var now = new Date().getTime();
                 var currentStep = Math.min((now - startTime) / duration, 1) * steps;
 
@@ -82,11 +94,12 @@ export class InfoBoxComponent implements OnInit, OnChanges {
                 }
                 this.spaceStr = this.getSovereignSignSpaceStr(coordinates);
 
-                const year = Math.round((mediator.time.year() / steps) * currentStep);
-                this.timeStr = this.getSovereignSignTimeStr(year, mediator.time);
+                const time = Math.round((timeDifference / steps) * currentStep);
+                this.timeStr = this.getSovereignSignTimeStr(time);
 
                 if (currentStep === steps) {
                     clearInterval(timer);
+                    this.inAnimation = false;
                 }
                 this.cdRef.detectChanges();
             }, stepTime);
@@ -98,55 +111,40 @@ export class InfoBoxComponent implements OnInit, OnChanges {
         const steps = 50;
         const duration = 5000;
         const stepTime = duration / steps;
+        const previousMediator = this.mediator;
+        this.mediator = mediator;
 
-        const spaceDifference = relation.spaceDifference;
-        const timeDiffernce = relation.timeDifference;
+        const baseSpace = previousMediator.distanceFromStart;
+        const spaceDifference = mediator.distanceFromStart - previousMediator.distanceFromStart;
+        const baseTime = previousMediator.timeToEnd;
+        const timeDiffernce = mediator.timeToEnd - previousMediator.timeToEnd;
 
         const startTime = new Date().getTime();
         const endTime = startTime + duration;
 
-        this.isOrigin = false;
+        var timer = setInterval(() => {
+            this.inAnimation = true;
 
-        if (direction === 'forward') {
-            var timer = setInterval(() => {
-                var now = new Date().getTime();
-                var currentStep = Math.min((now - startTime) / duration, 1) * steps;
+            var now = new Date().getTime();
+            var currentStep = Math.min((now - startTime) / duration, 1) * steps;
 
-                this.space = Math.round((spaceDifference / steps) * currentStep);
-                this.time = Math.round((timeDiffernce / steps) * currentStep);
+            var space = baseSpace + ((spaceDifference / steps) * currentStep);
+            this.spaceStr = this.getExaminingGazeSpaceStr(space);
+            var time = baseTime + ((timeDiffernce / steps) * currentStep);
+            this.timeStr = this.getExaminingGazeTimeStr(time);
 
-                if (currentStep === steps) {
-                    clearInterval(timer);
-                }
-                this.cdRef.detectChanges();
-            }, stepTime);
-        } else {
-            var timer = setInterval(() => {
-                var now = new Date().getTime();
-                var currentStep = Math.max((endTime - now) / duration, 0) * steps;
-
-                this.space = Math.round((spaceDifference / steps) * currentStep);
-                this.time = Math.round((timeDiffernce / steps) * currentStep);
-
-                if (currentStep === 0) {
-                    if (mediator.id === '6') {
-                        this.spaceStr = '0';
-                        this.timeStr = '0';
-                        this.isOrigin = true;
-                    } else {
-                        this.space = Math.round(mediator.relationsFrom[0].spaceDifference);
-                        this.time = Math.round(mediator.relationsFrom[0].timeDifference);
-                        this.isOrigin = false;
-                    }
-                    clearInterval(timer);
-                }
-                this.cdRef.detectChanges();
-            }, stepTime);
-        }
-
+            if (currentStep === steps) {
+                clearInterval(timer);
+                this.inAnimation = false;
+                this.setSpaceTime(mediator, space, time);
+            }
+            this.cdRef.detectChanges();
+        }, stepTime);
     }
 
     private animateGovernedTransmission(mediator: Mediator, relation: Relation) {
+        this.mediator = mediator;
+
         const steps = 50;
         const distance = turf.distance([relation.source.coordinates.lng, relation.source.coordinates.lat],
                                        [relation.target.coordinates.lng, relation.target.coordinates.lat]);
@@ -159,66 +157,147 @@ export class InfoBoxComponent implements OnInit, OnChanges {
 
         const startTime = new Date().getTime();
 
-        this.isOrigin = false;
-
         var timer = setInterval(() => {
+            this.inAnimation = true;
+
             var now = new Date().getTime();
             var currentStep = Math.min((now - startTime) / duration, 1) * steps;
 
-            this.space = Math.round((spaceDifference / steps) * currentStep);
-            this.time = Math.round((timeDiffernce / steps) * currentStep);
+            this.spaceStr = this.getGovernedTransmissionSpaceStr((spaceDifference / steps) * currentStep);
+            this.timeStr = this.getGovernedTransmissionTimeStr((timeDiffernce / steps) * currentStep);
 
             if (currentStep === steps) {
                 clearInterval(timer);
+                this.inAnimation = false;
             }
             this.cdRef.detectChanges();
         }, stepTime);
 
     }
 
-    public initSpaceTime(mediator: Mediator) {
-        this.isSovereignSigns = false;
-        this.isOrigin = false;
+    public setSpaceTime(mediator: Mediator, space: Number, time: Number) {
+        if (this.inAnimation) {
+          return
+        }
 
         if (mediator.mediationId === '1') {
-            this.isSovereignSigns = true;
             if (mediator.id === '0') {
                 this.spaceStr = '0';
                 this.timeStr = '0';
-                this.isOrigin = true;
             } else {
                 this.spaceStr = this.getSovereignSignSpaceStr(mediator.coordinates);
-                this.timeStr = this.getSovereignSignTimeStr(mediator.time.year(), mediator.time);
+                this.timeStr = this.getSovereignSignTimeStr(mediator.relationsFrom[0].timeDifference);
             }
         } else if (mediator.mediationId === '2') {
             if (mediator.id === '6') {
-                this.spaceStr = '0';
-                this.timeStr = '0';
-                this.isOrigin = true;
+                this.spaceStr = this.translate.currentLang === 'de' ? 'Anfang' : 'Start';
+                this.timeStr = this.translate.currentLang === 'de' ? 'Ende' : 'End';
+            } else if (mediator.id === '10') {
+                this.spaceStr = this.translate.currentLang === 'de' ? 'Ende' : 'End';
+                this.timeStr = this.translate.currentLang === 'de' ? 'Anfang' : 'Start';
             } else {
-                this.space = Math.round(mediator.relationsFrom[0].spaceDifference);
-                this.time = Math.round(mediator.relationsFrom[0].timeDifference);
+                this.spaceStr = this.getExaminingGazeSpaceStr(mediator.distanceFromStart);
+                this.timeStr = this.getExaminingGazeTimeStr(mediator.timeToEnd);
             }
         } else {
-            this.spaceStr = '0';
-            this.timeStr = '0';
-            this.isOrigin = true;
+            this.spaceStr = this.getGovernedTransmissionSpaceStr(space);
+            this.timeStr = this.getGovernedTransmissionTimeStr(time);
         }
 
         this.mediator = mediator;
         this.cdRef.detectChanges();
     }
 
-    private getSovereignSignTimeStr(year: number, time: Moment) {
-        return year + ' a, ' + time.dayOfYear() + ' d, ' + time.hours() + ' h p. Chr.';
+    private getSovereignSignTimeStr(time) {
+      return this.getTimeStr(time, ' p. Chr.')
     }
 
     private getSovereignSignSpaceStr(coordinates: any) {
-        return parseFloat(coordinates.lat).toFixed(6).toString() + ' | ' + parseFloat(coordinates.lng).toFixed(6).toString();
+        return 'N ' + parseFloat(coordinates.lat).toFixed(6).toString() + '° | E ' + parseFloat(coordinates.lng).toFixed(6).toString() + '°';
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        console.log(changes);
+    private getExaminingGazeTimeStr(time) {
+      this.time = time;
+
+      let suffix = '';
+      if (this.translate.currentLang === 'de') {
+        suffix = ' vor dem Ende';
+      } else {
+        suffix = ' before the end';
+      }
+
+      return this.getTimeStr(time, suffix)
+    }
+
+    private getExaminingGazeSpaceStr(space) {
+      this.space = space;
+
+      if (this.translate.currentLang === 'de') {
+        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") + ' m vom Anfang';
+      } else {
+        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' m from the start';
+      }
+    }
+
+    private getGovernedTransmissionTimeStr(time) {
+      this.time = time;
+
+      if (time === 0) {
+        return '0';
+      }
+
+      let suffix = '';
+      if (this.translate.currentLang === 'de') {
+        suffix = 'später';
+      } else {
+        suffix = 'later';
+      }
+      if (time < 0) {
+        time = -time;
+        if (this.translate.currentLang === 'de') {
+          suffix = 'früher';
+        } else {
+          suffix = 'earlier';
+        }
+      }
+
+      return this.getTimeStr(time, suffix)
+    }
+
+    private getGovernedTransmissionSpaceStr(space) {
+      this.space = space;
+
+      if (space === 0) {
+        return '0';
+      }
+
+      if (this.translate.currentLang === 'de') {
+        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") + ' m entfernt';
+      } else {
+        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' m away';
+      }
+    }
+
+    private getTimeStr(time, suffix) {
+      let hours = Math.floor(time);
+      const minutes = Math.round((time - hours) * 60);
+      if (hours > 48) {
+        const days = Math.floor(hours / 24);
+        hours = hours - (days * 24);
+        let daysStr = days.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")
+        if (this.translate.currentLang === 'en') {
+          daysStr = days.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        }
+        return daysStr + ' d ' + hours + ' h ' + minutes + ' min ' + suffix;
+      } else if (hours > 0) {
+        return hours + ' h ' + minutes + ' min ' + suffix;
+      } else {
+        return minutes + ' min ' + suffix;
+      }
+    }
+
+    ngOnDestroy() {
+        this.currentLangSubscription.unsubscribe();
     }
 
 }

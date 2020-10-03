@@ -48,8 +48,8 @@ export class GalleryComponent implements OnInit, OnDestroy {
             'arrowPrevIcon': 'cm-chevron-left',
             'arrowNextIcon': 'cm-chevron-right',
             'closeIcon': 'cm-square-close',
-            'thumbnailsSwipe': true,
-            'previewSwipe': true,
+            'thumbnailsSwipe': false,  // TODO: restrict swipe to mobile
+            'previewSwipe': false, // TODO: restrict swipe to mobile
             'image': false,
             'height': '200px',
             'width': '100%'

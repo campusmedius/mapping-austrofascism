@@ -6,6 +6,7 @@ from .models import Mediator, Medium, Relation
 from .models import Mediation, Experience
 from .models import Space, Time, Value
 
+HOURS_UNTIL_YEAR_1000 = 8765820
 
 class TimeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,7 +61,15 @@ class RelationSerializer(serializers.ModelSerializer):
 
     def get_time_difference(self, obj):
         diff = obj.target.time - obj.source.time
-        return diff.total_seconds() / 3600
+        hours = diff.total_seconds() / 3600
+
+        if obj.source.id == '0':
+            hours += HOURS_UNTIL_YEAR_1000
+			
+        if obj.target.id == '0':
+            hours -= HOURS_UNTIL_YEAR_1000
+	
+        return hours
 
 
 class MediatorSerializer(serializers.ModelSerializer):

@@ -178,6 +178,10 @@ cm-image ngx-gallery-arrows {
     display: none !important;
 }
 
+.ngx-gallery-arrow {
+    font-size: 50px;
+}
+
 .ngx-gallery-close {
     font-size: 30px;
     background-color: #4d4d4d;
@@ -212,7 +216,6 @@ ngx-gallery-thumbnail {
 
 .ngx-gallery-icon {
     color: white;
-    font-size: 25px;
     position: absolute;
     z-index: 2000;
     display: inline-block;

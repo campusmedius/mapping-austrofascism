@@ -30,5 +30,6 @@ export interface Mediator {
     bearing: number;
     pitch: number;
     zoom: number;
+    distanceFromStart?: number
+    timeToEnd?: number;
 }
-

@@ -10,22 +10,11 @@
         </div>
         <div fxLayout="row">
             <div class="label">{{'infobox.space' | translate }}</div>
-            <div class="content" *ngIf="!isSovereignSigns && !isOrigin; else spaceStrTemplate"> {{ space }}{{'infobox.away' | translate }}</div>
-            <ng-template #spaceStrTemplate>
-                <div class="content">{{ spaceStr }}</div>
-            </ng-template>
+            <div class="content">{{ spaceStr }}</div>
         </div>
         <div fxLayout="row">
             <div class="label">{{'infobox.time' | translate }}</div>
-            <div *ngIf="!isSovereignSigns && !isOrigin; else timeStrTemplate">
-                <div class="content" *ngIf="time < 0; else laterTemplate">{{ time * -1 }}{{'infobox.earlier' | translate }}</div>
-                <ng-template #laterTemplate>
-                    <div class="content">{{ time }}{{'infobox.later' | translate }}</div>
-                </ng-template>
-            </div>
-            <ng-template #timeStrTemplate>
-                <div class="content">{{ timeStr }}</div>
-            </ng-template>
+            <div class="content">{{ timeStr }}</div>
         </div>
     </div>
 </div>

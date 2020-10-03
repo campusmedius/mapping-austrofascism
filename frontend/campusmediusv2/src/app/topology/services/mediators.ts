@@ -64,7 +64,34 @@ export class MediatorService {
                         mediator.updated = moment(mediator.updated);
                         mediator.time = moment(mediator.time);
                     });
+
+                    this.setExaminingGazeDistanceAndTime(data);
+
                     return data;
                 }));
+    }
+
+    private setExaminingGazeDistanceAndTime(mediators) {
+      const m_1 = mediators.find(m => m.id === '6');
+      const m_2 = mediators.find(m => m.id === '7');
+      const m_3 = mediators.find(m => m.id === '8');
+      const m_4 = mediators.find(m => m.id === '9');
+      const m_5 = mediators.find(m => m.id === '10');
+
+      mediators = [m_1, m_2, m_3, m_4, m_5];
+
+      let distanceFromStart = 0;
+      for (let i = 0; i < 4; i++) {
+        mediators[i].distanceFromStart = distanceFromStart;
+        distanceFromStart += mediators[i].relationsTo[0].spaceDifference;
+      };
+      mediators[4].distanceFromStart = distanceFromStart;
+
+      let timeToEnd = 0;
+      for (let i = 4; i > 0; i--) {
+        mediators[i].timeToEnd = timeToEnd;
+        timeToEnd -= mediators[i].relationsFrom[0].timeDifference;
+      };
+      mediators[0].timeToEnd = timeToEnd;
     }
 }
