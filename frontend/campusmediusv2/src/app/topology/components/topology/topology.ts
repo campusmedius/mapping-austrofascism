@@ -76,6 +76,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public atGod = false;
 
+    private timer: number;
+
     sidepanelState = 'short'; // full, short
     mediationState = 'open'; // open, closed
     isMobile = false;
@@ -95,6 +97,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
         this.route.data.subscribe(data => {
+            this.resetAnimations();
+
             this.mediations = data.mediations;
             this.selectedMediation = data.selectedMediation;
             this.mediators = data.mediators;
@@ -108,7 +112,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.selectedMediator) {
                 if (this.selectedMediator.id === '0') {
                     if (this.previousMediator) {
-                        setTimeout(() => {
+                        this.timer = setTimeout(() => {
                             this.atGod = true;
                         }, 4000);
                     } else {
@@ -139,6 +143,16 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.adjustMap();
+    }
+
+    resetAnimations() {
+      clearTimeout(this.timer);
+      if(this.infoBox) {
+        this.infoBox.stopAnimation();
+      }
+      if(this.map) {
+        this.map.stopAnimation();
+      }
     }
 
     adjustMap() {

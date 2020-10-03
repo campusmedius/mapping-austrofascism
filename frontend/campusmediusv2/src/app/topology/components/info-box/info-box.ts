@@ -20,6 +20,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
     public timeStr: string;
     private time = 0;
     private inAnimation = false;
+    private timer: number;
     currentLangSubscription: Subscription;
 
     constructor(private translate: TranslateService, private cdRef: ChangeDetectorRef) { }
@@ -29,7 +30,6 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
           this.setSpaceTime(this.mediator, this.space, this.time);
       });
     }
-
 
     public navigateToMediator(mediator: Mediator, relation: Relation, direction: string) {
         if (['0', '1', '2', '3', '4', '5'].includes(mediator.id)) {
@@ -59,7 +59,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
         const endTime = startTime + duration;
 
         if (mediator.id === '0') {
-            var timer = setInterval(() => {
+            this.timer = setInterval(() => {
                 this.inAnimation = true;
 
                 var now = new Date().getTime();
@@ -75,14 +75,14 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
                 this.timeStr = this.getSovereignSignTimeStr(time);
 
                 if (currentStep === 0) {
-                    clearInterval(timer);
+                    clearInterval(this.timer);
                     this.inAnimation = false;
                     this.setSpaceTime(mediator, 0, 0);
                 }
                 this.cdRef.detectChanges();
             }, stepTime);
         } else {
-            var timer = setInterval(() => {
+            this.timer = setInterval(() => {
                 this.inAnimation = true;
 
                 var now = new Date().getTime();
@@ -98,7 +98,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
                 this.timeStr = this.getSovereignSignTimeStr(time);
 
                 if (currentStep === steps) {
-                    clearInterval(timer);
+                    clearInterval(this.timer);
                     this.inAnimation = false;
                 }
                 this.cdRef.detectChanges();
@@ -122,7 +122,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
         const startTime = new Date().getTime();
         const endTime = startTime + duration;
 
-        var timer = setInterval(() => {
+        this.timer = setInterval(() => {
             this.inAnimation = true;
 
             var now = new Date().getTime();
@@ -134,7 +134,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
             this.timeStr = this.getExaminingGazeTimeStr(time);
 
             if (currentStep === steps) {
-                clearInterval(timer);
+                clearInterval(this.timer);
                 this.inAnimation = false;
                 this.setSpaceTime(mediator, space, time);
             }
@@ -157,7 +157,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
 
         const startTime = new Date().getTime();
 
-        var timer = setInterval(() => {
+        this.timer = setInterval(() => {
             this.inAnimation = true;
 
             var now = new Date().getTime();
@@ -167,7 +167,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
             this.timeStr = this.getGovernedTransmissionTimeStr((timeDiffernce / steps) * currentStep);
 
             if (currentStep === steps) {
-                clearInterval(timer);
+                clearInterval(this.timer);
                 this.inAnimation = false;
             }
             this.cdRef.detectChanges();
@@ -294,6 +294,11 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
       } else {
         return minutes + ' min ' + suffix;
       }
+    }
+
+    public stopAnimation() {
+        clearInterval(this.timer);
+        this.inAnimation = false;
     }
 
     ngOnDestroy() {

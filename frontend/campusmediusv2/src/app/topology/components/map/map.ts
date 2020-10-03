@@ -39,6 +39,7 @@ export class MapComponent implements OnInit {
     private animationRoute: Feature<LineString>;
     private animationCounter = 0;
     private animationLastPoint: Feature<Point>;
+    private timer: number;
 
     private currentMediationId: string;
 
@@ -63,36 +64,17 @@ export class MapComponent implements OnInit {
 
         const duration = 15000 * distance / 8.2; // normalize to longest distance
 
-        // this.map.easeTo({
-        //     zoom: 16.5,
-        //     pitch: 75,
-        //     bearing: bearing,
-        //     duration: 500,
-        //     easing: (t) => t
-        // });
         this.map.easeTo({
             center: target.coordinates,
             duration: duration,
             easing: (t) => t
         });
-        //this.map.once('moveend', () => {
-
-            // this.map.once('moveend', () => {
-            //     this.map.easeTo({
-            //         zoom: target.zoom,
-            //         pitch: target.pitch,
-            //         bearing: target.bearing,
-            //         duration: 500,
-            //         easing: (t) => t
-            //     });
-            // });
-        //});
 
     }
 
 
     navigateToGod() {
-        setTimeout(() => {
+        this.timer = setTimeout(() => {
             this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
         }, 1000);
 
@@ -168,7 +150,7 @@ export class MapComponent implements OnInit {
                     curve: 1
                 });
 
-                setTimeout(() => {
+                this.timer = setTimeout(() => {
                     this.map.setLayoutProperty('eckebrecht', 'visibility', 'none');
                 }, 2500);
 
@@ -205,5 +187,10 @@ export class MapComponent implements OnInit {
             bearing: mediator.bearing
         });
 
+    }
+
+    public stopAnimation() {
+      clearTimeout(this.timer);
+      this.map.stop();
     }
 }
