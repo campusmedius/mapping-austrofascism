@@ -132,15 +132,15 @@ function_build_frontend(){
 function deploy_development(){
   nixops deploy -d cm-development
   IP=`nixops info -d cm-development --plain | awk -F '\t' '{print $6}'`
-  info "Development version runs at: https://$IP"
-  info "Backend runs at: https://$IP/api/admin"
+  info "Development version runs at: http://$IP"
+  info "Backend runs at: http://$IP/api/admin"
 }
 
 function deploy_staging(){
   nixops deploy -d cm-staging
   IP=`nixops info -d cm-staging --plain | awk -F '\t' '{print $6}'`
-  info "Staging version runs at: https://$IP"
-  info "Backend runs at: https://$IP/api/admin"
+  info "Staging version runs at: http://$IP"
+  info "Backend runs at: http://$IP/api/admin"
 }
 
 function deploy_production(){
