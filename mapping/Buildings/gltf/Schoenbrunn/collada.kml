@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Written by impexp-kml-collada-plugin, version "4.2.0" -->
+<!-- Chair of Geoinformatics, Technical University of Munich -->
+<kml xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gx="http://www.google.com/kml/ext/2.2">
+  <Document>
+    <name>city_collada</name>
+    <open>false</open>
+    <Placemark id="COLLADA_schoenbrunn2">
+      <name>schoenbrunn2</name>
+      <Model>
+        <altitudeMode>absolute</altitudeMode>
+        <Location>
+          <longitude>16.3188222</longitude>
+          <latitude>48.1844442</latitude>
+          <altitude>28.3604269</altitude>
+        </Location>
+        <Orientation>
+          <heading>359.9849869</heading>
+        </Orientation>
+        <Link>
+          <href>114077/schoenbrunn2.dae</href>
+        </Link>
+      </Model>
+    </Placemark>
+    <Placemark id="COLLADA_schoenbrunn2">
+      <name>schoenbrunn2</name>
+      <Model>
+        <altitudeMode>absolute</altitudeMode>
+        <Location>
+          <longitude>16.3188222</longitude>
+          <latitude>48.1844442</latitude>
+          <altitude>31.0</altitude>
+        </Location>
+        <Orientation>
+          <heading>359.9848162</heading>
+        </Orientation>
+        <Link>
+          <href>115150/schoenbrunn2.dae</href>
+        </Link>
+      </Model>
+    </Placemark>
+  </Document>
+</kml>

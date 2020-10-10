@@ -1,1 +1,0 @@
-http://data.wien.gv.at/daten/geo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ogdwien:FMZKBKMOGD&outputFormat=shape-zip&SRS=EPSG:31256&BBOX=3200,340400,3400,340550

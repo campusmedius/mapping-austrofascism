@@ -31,7 +31,9 @@
                             "src/assets/map/mapbox-gl.css"
                         ],
                         "scripts": [
-                            "src/assets/map/mapbox-gl.js"
+                            "src/assets/map/mapbox-gl.js",
+                            "src/assets/map/three.min.js",
+                            "src/assets/map/GLTFLoader.js"
                         ],
                         "es5BrowserSupport": true
                     },

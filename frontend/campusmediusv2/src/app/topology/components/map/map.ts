@@ -41,6 +41,13 @@ export class MapComponent implements OnInit {
     private animationLastPoint: Feature<Point>;
     private timer: number;
 
+    private buildingsOnMap = false;
+    private layerSchoenbrunn;
+    private layerJohannesgasse;
+    private layerFichtegasse;
+    private layerKarlmarxhof;
+    private layerVorwaertshaus;
+
     private currentMediationId: string;
 
     constructor(
@@ -69,7 +76,6 @@ export class MapComponent implements OnInit {
             duration: duration,
             easing: (t) => t
         });
-
     }
 
 
@@ -98,7 +104,7 @@ export class MapComponent implements OnInit {
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
             maxPitch: 89,
-            style: './assets/map/styles/governed-transmissions.json',
+            style: './assets/map/styles/topology.json',
             center: [16.311658322849894, 48.1850403758292], // starting position
             pitch: 55,
             bearing: -21.6,
@@ -114,26 +120,58 @@ export class MapComponent implements OnInit {
             this.map.resize();
         });
 
+        this.layerSchoenbrunn = this.createBuildingLayer('schoenbrunn', './assets/map/buildings/schoenbrunn.glb', [16.3188412, 48.1844412, -1.8]);
+        this.layerJohannesgasse = this.createBuildingLayer('johannesgasse', './assets/map/buildings/johannesgasse.glb', [16.3723716, 48.2047589, 0]);
+        this.layerFichtegasse = this.createBuildingLayer('fichtegasse', './assets/map/buildings/fichtegasse.glb', [16.3772644, 48.2028985, -0.5]);
+        this.layerKarlmarxhof = this.createBuildingLayer('karlmarxhof', './assets/map/buildings/karlmarxhof.glb', [16.3625843, 48.2452702, -1.4]);
+        this.layerVorwaertshaus = this.createBuildingLayer('vorwaertshaus', './assets/map/buildings/vorwaertshaus.glb', [16.3547281, 48.1920838, 0]);
+    }
+
+    private addBulidings() {
+      if (!this.buildingsOnMap) {
+        this.map.addLayer(this.layerSchoenbrunn);
+        this.map.addLayer(this.layerJohannesgasse);
+        this.map.addLayer(this.layerFichtegasse);
+        this.map.addLayer(this.layerKarlmarxhof);
+        this.map.addLayer(this.layerVorwaertshaus);
+        this.buildingsOnMap = true;
+      }
+    }
+
+    private removeBuildings() {
+      if (this.buildingsOnMap) {
+          this.map.removeLayer('schoenbrunn');
+          this.map.removeLayer('johannesgasse');
+          this.map.removeLayer('fichtegasse');
+          this.map.removeLayer('karlmarxhof');
+          this.map.removeLayer('vorwaertshaus');
+          this.buildingsOnMap = false;
+      }
     }
 
     public setPerspective(mediation: Mediation) {
-        if (!mediation && this.currentMediationId !== null) {
-            this.map.setStyle('./assets/map/styles/governed-transmissions.json');
-            this.map.jumpTo({
-                center: [16.311658322849894, 48.1850403758292],
-                pitch: 55,
-                bearing: -21.6,
-                zoom: 16.6
-            });
-            this.currentMediationId = null;
-        } else if (mediation.id === '1' && this.currentMediationId !== '1') {
-            this.map.setStyle('./assets/map/styles/sovereign-signs.json');
+        if (mediation.id === '1' && this.currentMediationId !== '1') {
+            //this.map.setStyle('./assets/map/styles/topology.json');
+            this.removeBuildings();
             this.currentMediationId = '1';
         } else if (mediation.id === '2' && this.currentMediationId !== '2') {
-            this.map.setStyle('./assets/map/styles/examining-gazes.json');
+            //this.map.setStyle('./assets/map/styles/topology.json');
+            if (this.map.isStyleLoaded()) {
+                this.map.setLayoutProperty('eckebrecht', 'visibility', 'none');
+            }
+            this.removeBuildings();
             this.currentMediationId = '2';
         } else if (mediation.id === '3' && this.currentMediationId !== '3') {
-            this.map.setStyle('./assets/map/styles/governed-transmissions.json');
+            //this.map.setStyle('./assets/map/styles/topology.json');
+            if (this.map.isStyleLoaded()) {
+                this.map.setLayoutProperty('eckebrecht', 'visibility', 'none');
+                this.addBulidings();
+            } else {
+              this.map.on('style.load', () => {
+                  this.addBulidings();
+                  this.map.setLayoutProperty('eckebrecht', 'visibility', 'none');
+              });
+            }
             this.currentMediationId = '3';
         }
     }
@@ -193,4 +231,104 @@ export class MapComponent implements OnInit {
       clearTimeout(this.timer);
       this.map.stop();
     }
+
+    private createBuildingLayer(id: String, path: String, coord: [Number, Number, Number]) {
+        // parameters to ensure the model is georeferenced correctly on the map
+       var modelOrigin = [coord[0], coord[1]];
+       var modelAltitude = coord[2];
+       var modelRotate = [0, 0, 0];
+       var modelAsMercatorCoordinate = mapboxgl.MercatorCoordinate.fromLngLat(
+           modelOrigin,
+           modelAltitude
+       );
+       // transformation parameters to position, rotate and scale the 3D model onto the map
+       var modelTransform = {
+           translateX: modelAsMercatorCoordinate.x,
+           translateY: modelAsMercatorCoordinate.y,
+           translateZ: modelAsMercatorCoordinate.z,
+           rotateX: modelRotate[0],
+           rotateY: modelRotate[1],
+           rotateZ: modelRotate[2],
+           /* Since our 3D model is in real world meters, a scale transform needs to be
+            * applied since the CustomLayerInterface expects units in MercatorCoordinates.
+            */
+           scale: modelAsMercatorCoordinate.meterInMercatorCoordinateUnits()
+       };
+       var THREE = (<any>window).THREE;
+       // configuration of the custom layer for a 3D model per the CustomLayerInterface
+       var customLayer = {
+           id: id,
+           type: 'custom',
+           renderingMode: '3d',
+           onAdd: function (map, gl) {
+               this.camera = new THREE.Camera();
+               this.scene = new THREE.Scene();
+               this.scene.environment = null;
+
+               var light = new THREE.AmbientLight( 0xb18691, 2 );
+               this.scene.add( light );
+               var light = new THREE.DirectionalLight( 0xb18691, 0.8 );
+               light.position.set( 100, -75, -50 );
+               this.scene.add( light )
+               var light = new THREE.DirectionalLight( 0xb18691, 0.8 );
+               light.position.set( -100, 75, -50 );
+               this.scene.add( light );
+
+               // use the three.js GLTF loader to add the 3D model to the three.js scene
+               var loader = new THREE.GLTFLoader();
+               loader.load(
+                   path,
+                   function (gltf) {
+                       this.scene.add(gltf.scene);
+                   }.bind(this)
+               );
+               this.map = map;
+               // use the Mapbox GL JS map canvas for three.js
+               this.renderer = new THREE.WebGLRenderer({
+                   canvas: map.getCanvas(),
+                   context: gl,
+                   antialias: true
+               });
+               this.renderer.autoClear = false;
+           },
+           render: function (gl, matrix) {
+               var rotationX = new THREE.Matrix4().makeRotationAxis(
+                   new THREE.Vector3(1, 0, 0),
+                   modelTransform.rotateX
+               );
+               var rotationY = new THREE.Matrix4().makeRotationAxis(
+                   new THREE.Vector3(0, 1, 0),
+                   modelTransform.rotateY
+               );
+               var rotationZ = new THREE.Matrix4().makeRotationAxis(
+                   new THREE.Vector3(0, 0, 1),
+                   modelTransform.rotateZ
+               );
+               var m = new THREE.Matrix4().fromArray(matrix);
+               var l = new THREE.Matrix4()
+                   .makeTranslation(
+                       modelTransform.translateX,
+                       modelTransform.translateY,
+                       modelTransform.translateZ
+                   )
+                   .scale(
+                       new THREE.Vector3(
+                           modelTransform.scale,
+                           -modelTransform.scale,
+                           modelTransform.scale
+                       )
+                   )
+                   .multiply(rotationX)
+                   .multiply(rotationY)
+                   .multiply(rotationZ);
+
+               this.camera.projectionMatrix = m.multiply(l);
+               this.renderer.state.reset();
+               this.renderer.render(this.scene, this.camera);
+               this.map.triggerRepaint();
+           }
+       };
+       return customLayer
+    }
+
 }

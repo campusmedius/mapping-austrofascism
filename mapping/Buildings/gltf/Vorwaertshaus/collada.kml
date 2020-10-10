@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Written by impexp-kml-collada-plugin, version "4.2.0" -->
+<!-- Chair of Geoinformatics, Technical University of Munich -->
+<kml xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:gx="http://www.google.com/kml/ext/2.2">
+  <Document>
+    <name>city_collada</name>
+    <open>false</open>
+    <Placemark id="COLLADA_vorw">
+      <name>vorw</name>
+      <Model>
+        <altitudeMode>absolute</altitudeMode>
+        <Location>
+          <longitude>16.3547281</longitude>
+          <latitude>48.1920838</latitude>
+          <altitude>18.2</altitude>
+        </Location>
+        <Orientation>
+          <heading>0.0123153</heading>
+        </Orientation>
+        <Link>
+          <href>115145/vorw.dae</href>
+        </Link>
+      </Model>
+    </Placemark>
+  </Document>
+</kml>

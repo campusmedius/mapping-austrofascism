@@ -32,4 +32,5 @@ mapping/**/*.shp
 mapping/**/*.dbf
 mapping/**/*.prj
 mapping/**/*.shx
+mapping/Buildings/input-data
 .#*
