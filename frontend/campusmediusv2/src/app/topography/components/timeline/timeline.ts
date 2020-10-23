@@ -99,7 +99,7 @@ export class TimelineComponent implements OnChanges, OnDestroy, AfterViewInit {
     private initialized = false;
 
     @HostBinding('@panel')
-    public opened = false;
+    public opened = true;
 
     constructor(private translate: TranslateService) { }
 

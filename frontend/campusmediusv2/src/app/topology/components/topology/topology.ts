@@ -125,7 +125,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
                 this.information = this.selectedMediator.information;
             } else {
-              this.page = data.pages.find(p => p.titleEn === 'Overview');
+              this.page = data.pages.find(p => p.titleEn === 'Topology');
             }
 
             if (this.map) {
@@ -197,7 +197,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public readMore() {
-      this.router.navigate(['/topology/mediations/1/mediators/1'], { queryParamsHandling: 'merge' });
+      this.router.navigate(['/topology/mediations/1/mediators/0'], { queryParamsHandling: 'merge' });
     }
 
     public showCite() {

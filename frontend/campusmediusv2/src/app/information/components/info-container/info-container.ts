@@ -15,6 +15,7 @@ export class InfoContainerComponent implements OnInit {
   @Input() content: string;
   @Input() media: InformationMedia;
   @Input() state: string = 'short';
+  @Input() readMoreText: string = 'START';
 
   @Output() moreClick = new EventEmitter();
   @Output() citeClick = new EventEmitter();

@@ -192,9 +192,6 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
             if (mediator.id === '6') {
                 this.spaceStr = this.translate.currentLang === 'de' ? 'Anfang' : 'Start';
                 this.timeStr = this.translate.currentLang === 'de' ? 'Ende' : 'End';
-            } else if (mediator.id === '10') {
-                this.spaceStr = this.translate.currentLang === 'de' ? 'Ende' : 'End';
-                this.timeStr = this.translate.currentLang === 'de' ? 'Anfang' : 'Start';
             } else {
                 this.spaceStr = this.getExaminingGazeSpaceStr(mediator.distanceFromStart);
                 this.timeStr = this.getExaminingGazeTimeStr(mediator.timeToEnd);

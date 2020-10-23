@@ -1,6 +1,6 @@
 {
     "header": {
-        "topography": "Topographie",
+        "topography": "Topografie",
         "topology": "Topologie",
         "mediality": "Medialität",
         "about": "Überblick",
@@ -11,6 +11,7 @@
         "next": "nächstes Ereignis",
         "previous": "vorheriges Ereignis",
         "read-more": "Weiterlesen",
+        "start": "Start",
         "metadata": "Metadaten"
     },
     "timeline": {

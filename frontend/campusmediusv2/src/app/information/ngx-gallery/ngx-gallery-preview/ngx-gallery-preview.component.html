@@ -45,6 +45,6 @@
     <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index"
                          (bulletChange)="showAtIndex($event)"></ngx-gallery-bullets>
   </div>
-  <div class="ngx-gallery-preview-text" *ngIf="showDescription && description" [innerHTML]="description"
-       (click)="$event.stopPropagation()"></div>
+  <div class="ngx-gallery-preview-text" *ngIf="showDescription && description"><div class="ngx-gallery-preview-text-content" [innerHTML]="description"
+    (click)="$event.stopPropagation()"></div> </div>
 </div>

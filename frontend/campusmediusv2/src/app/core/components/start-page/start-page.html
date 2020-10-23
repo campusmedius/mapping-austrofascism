@@ -5,6 +5,7 @@
      [lang]="translate.currentLang"
      [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
      [abstract]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn"
+     [readMoreText]="translate.currentLang === 'de' ? 'WEITERLESEN' : 'READ MORE'"
      (moreClick)="readMore()">
     </cm-info-container>
   </div>
