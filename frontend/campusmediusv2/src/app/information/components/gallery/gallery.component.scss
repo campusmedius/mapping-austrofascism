@@ -1,7 +1,8 @@
 @import './../../../../scss/_variables.scss';
 
 :host {
-    height: 210px;
+    height: 220px;
+    padding-top: 10px;
     display: block;
     background: $text-block-background-color;
     margin-left: -100%;

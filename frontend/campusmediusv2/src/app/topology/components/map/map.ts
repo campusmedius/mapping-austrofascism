@@ -209,13 +209,15 @@ export class MapComponent implements OnInit {
 
     public showMediator(mediation: Mediation, mediator: Mediator) {
         if (mediator.id === '0') {
-            if (this.map.isStyleLoaded()) {
-                this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
-            } else {
-                this.map.on('load', () => {
+            setTimeout(() => {
+                if (this.map.isStyleLoaded()) {
                     this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
-                });
-            }
+                } else {
+                    this.map.on('load', () => {
+                        this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
+                    });
+                }
+             }, 0);
         }
 
         this.map.jumpTo({

@@ -10,12 +10,14 @@ export class InfoContainerComponent implements OnInit {
 
   @Input() title: string;
   @Input() subTitle: string;
+  @Input() hideSubTitle = false;
   @Input() abstract: string;
   @Input() lang: string;
   @Input() content: string;
   @Input() media: InformationMedia;
   @Input() state: string = 'short';
   @Input() readMoreText: string = 'START';
+  @Input() hideReadMoreText = false;
 
   @Output() moreClick = new EventEmitter();
   @Output() citeClick = new EventEmitter();

@@ -12,27 +12,14 @@
     top: 0px;
     z-index: 20;
     a {
-        color: $inactive-font-color;
+        color: #fff;
         text-decoration: none !important;
     }
-    ::ng-deep {
-        .mat-menu-panel {
-            width: 7rem;
-            background: $map-overlay-background-color;
-            margin-top: 13px;
-            @media screen and (max-width: $break-mobile) {
-                margin-top: 2px;
-            }
-            margin-left: -10px;
-            border-radius: 0px !important;
-            .mat-menu-item {
-                font-size: $small-font-size;
-            }
-        }
-    }
 }
+
+
 .nav-sub {
-    margin-left: 10px;
+    margin-left: 16px;
     @media screen and (max-width: $break-mobile) {
         margin-left: 5px;
     }
@@ -64,8 +51,8 @@
         border: solid 1px $header-color;
         margin-right: 5px;
         &.active, &:hover {
-            color: $inactive-font-color;
-            border: solid 1px $inactive-font-color;
+            color: #fff;
+            border: solid 1px #fff;
         }
         &:hover {
             cursor: pointer;
@@ -75,7 +62,6 @@
 
 .logo {
     cursor: pointer;
-    color: $map-overlay-active-color;
     height: 2.1rem;
     @media screen and (max-width: $break-mobile) {
         height: 1.9rem;

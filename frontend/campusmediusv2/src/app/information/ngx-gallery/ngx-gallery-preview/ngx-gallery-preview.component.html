@@ -20,7 +20,8 @@
   </div>
 </div>
 <div class="ngx-spinner-wrapper ngx-gallery-center" [class.ngx-gallery-active]="showSpinner">
-  <i class="ngx-gallery-icon ngx-gallery-spinner {{spinnerIcon}}" aria-hidden="true"></i>
+  <!-- <i class="ngx-gallery-icon ngx-gallery-spinner {{spinnerIcon}}" aria-hidden="true"></i> -->
+  <img src="./assets/icons/cm-loading.svg" />
 </div>
 <div class="ngx-gallery-preview-wrapper" (click)="closeOnClick && close()" (mouseup)="mouseUpHandler($event)"
      (mousemove)="mouseMoveHandler($event)" (touchend)="mouseUpHandler($event)" (touchmove)="mouseMoveHandler($event)">
@@ -45,6 +46,6 @@
     <ngx-gallery-bullets *ngIf="bullets" [count]="images.length" [active]="index"
                          (bulletChange)="showAtIndex($event)"></ngx-gallery-bullets>
   </div>
-  <div class="ngx-gallery-preview-text" *ngIf="showDescription && description"><div class="ngx-gallery-preview-text-content" [innerHTML]="description"
-    (click)="$event.stopPropagation()"></div> </div>
+  <div class="ngx-gallery-preview-text" *ngIf="showDescription && description"><div class="ngx-gallery-preview-text-content"
+    (click)="$event.stopPropagation()"><cm-caption [content]="description" [lang]="'de'"></cm-caption></div> </div>
 </div>

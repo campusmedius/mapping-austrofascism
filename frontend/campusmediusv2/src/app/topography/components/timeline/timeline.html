@@ -25,7 +25,7 @@
             </div>
         </div>
         <div #handleright class="handle handle-right" [style.right.%]="100 - rightHandleX" [ngClass]="{'move': moveRightHandle}">
-            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight">
+            <div class="indicatorline" [style.height.px]="indicatorLineHeight" [style.top.px]="-indicatorLineHeight + 3">
                 <div class="indicatorlabel">{{rightHandleLabel}}</div>
             </div>
         </div>

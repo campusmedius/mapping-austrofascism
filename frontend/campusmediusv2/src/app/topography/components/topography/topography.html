@@ -30,6 +30,7 @@
              [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn"
              [media]="information.media"
              (citeClick)="showCite()"
+             [readMoreText]="translate.currentLang === 'de' ? 'WEITERLESEN' : 'READ MORE'"
              (moreClick)="toggleInformationPanel()">
             </cm-info-container>
 

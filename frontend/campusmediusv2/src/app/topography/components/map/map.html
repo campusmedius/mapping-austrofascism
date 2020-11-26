@@ -1,7 +1,7 @@
 <div class="map-control">
-    <button mat-flat-button color="accent" class="zoom cm-plus" [ngClass]="{'deactivated':isMaxZoom}" (click)="zoomIn()"></button>
-    <button mat-flat-button color="accent" class="zoom cm-minus" [ngClass]="{'deactivated':isMinZoom}" (click)="zoomOut()"></button>
-    <button mat-flat-button color="accent" class="vie-map-toggle cm-layers" [ngClass]="{'vie-map-not-visible':!viennaMapVisible,'vie-map-visible':viennaMapVisible}" (click)="toogleViennaMap()"></button>
+    <button mat-flat-button color="warn" class="zoom cm-plus" [ngClass]="{'deactivated':isMaxZoom}" (click)="zoomIn()"></button>
+    <button mat-flat-button color="warn" class="zoom cm-minus" [ngClass]="{'deactivated':isMinZoom}" (click)="zoomOut()"></button>
+    <button mat-flat-button color="warn" class="vie-map-toggle cm-layers" [ngClass]="{'vie-map-not-visible':!viennaMapVisible,'vie-map-visible':viennaMapVisible}" (click)="toogleViennaMap()"></button>
 </div>
 <div #map></div>
 <ng-content></ng-content>

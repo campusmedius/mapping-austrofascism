@@ -14,11 +14,14 @@
          [lang]="translate.currentLang"
          [title]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"
          [subTitle]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe : selectedMediator.medium.titleEn"
+         [hideSubTitle]="selectedMediator.id === '0'"
          [state]="sidepanelState"
          [abstract]="translate.currentLang === 'de' ? selectedMediator.abstractDe : selectedMediator.abstractEn"
          [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn"
          [media]="information.media"
          (citeClick)="showCite()"
+         [readMoreText]="translate.currentLang === 'de' ? 'WEITERLESEN' : 'READ MORE'"
+         [hideReadMoreText]="selectedMediator.id === '0'"
          (moreClick)="toggleInformationPanel()">
         </cm-info-container>
         <ng-template #startPage>

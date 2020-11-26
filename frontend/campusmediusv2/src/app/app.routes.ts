@@ -25,7 +25,7 @@ export const routes: Routes = [
         }
     },
     {
-        path: 'about',
+        path: 'overview',
         component: AboutPageComponent,
         resolve: {
             pages: PagesResolver

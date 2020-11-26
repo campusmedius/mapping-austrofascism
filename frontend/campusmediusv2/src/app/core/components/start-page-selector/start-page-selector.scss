@@ -41,14 +41,13 @@
   background-image: url("../../../../assets/topology.jpg");
   background-position: center center;
   background-size: cover;
-  background-color: $map-overlay-background-color;
 }
 
 .label {
   font-family: $title-bold-font;
   font-size: $h-secondary-font-size;
   color: #fff;
-  background: $map-overlay-background-color;
+  background: $clickable-color;
   width: 240px;
   text-align: center;
   height: 60px;
@@ -56,5 +55,4 @@
   position: relative;
   bottom: calc(50% + 30px);
   left: calc(50% - 120px);
-  opacity: 0.7;
 }

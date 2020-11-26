@@ -111,6 +111,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (this.selectedMediator) {
                 if (this.selectedMediator.id === '0') {
+                    this.sidepanelState = 'short';
                     if (this.previousMediator) {
                         this.timer = setTimeout(() => {
                             this.atGod = true;
@@ -125,7 +126,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
                 this.information = this.selectedMediator.information;
             } else {
-              this.page = data.pages.find(p => p.titleEn === 'Topology');
+                this.sidepanelState = 'short';
+                this.page = data.pages.find(p => p.titleEn === 'Topology');
             }
 
             if (this.map) {
