@@ -1,0 +1,14 @@
+@import '../../../../scss/variables.scss';
+
+cm-start-page-selector {
+  height: calc(100vh - 3.3rem);
+  position: fixed;
+  top: 3.3rem;
+  width: 20%;
+}
+
+.info-container {
+    color: $primary-font-color;
+    height: 100%;
+    padding-top: 50px;
+}

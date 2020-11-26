@@ -31,5 +31,5 @@ export interface Mediator {
     pitch: number;
     zoom: number;
     distanceFromStart?: number
-    timeToEnd?: number;
+    timeAfterEnd?: number;
 }

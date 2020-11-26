@@ -6,6 +6,7 @@ import { AppComponent } from './components/app/app';
 import { StartPageComponent } from './components/start-page/start-page';
 import { StartPageSelectorComponent } from './components/start-page-selector/start-page-selector';
 import { TeamPageComponent } from './components/team-page/team-page';
+import { BookPageComponent } from './components/book-page/book-page';
 import { AboutPageComponent } from './components/about-page/about-page';
 import { NotFoundPageComponent } from './components/not-found-page';
 import { SharedModule } from '@app/shared/shared.module';
@@ -22,6 +23,7 @@ export const COMPONENTS = [
     StartPageComponent,
     StartPageSelectorComponent,
     TeamPageComponent,
+    BookPageComponent,
     AboutPageComponent
 ];
 

@@ -3,8 +3,8 @@
 .marker {
     font-size: 0.9rem;
     .icon {
-        fill: $main-color;
-        color: $main-color;
+        fill: $headline-color;
+        color: $headline-color;
         position: absolute;
         background-size: 100% 100%;
         width: 90px;
@@ -67,5 +67,29 @@
     .right {
         top: 77px;
         right: 12px;
+    }
+    .rel-to-11 {
+        top: 12px;
+        left: 76px;
+    }
+    .rel-to-12 {
+        top: 55px;
+        left: 18px;
+        transform: rotate(-72deg);
+    }
+    .rel-to-13 {
+        top: 55px;
+        right: 18px;
+        transform: rotate(72deg);
+    }
+    .rel-to-14 {
+        bottom: 25px;
+        left: 42px;
+        transform: rotate(-144deg);
+    }
+    .rel-to-15 {
+        bottom: 25px;
+        right: 42px;
+        transform: rotate(144deg);
     }
 }

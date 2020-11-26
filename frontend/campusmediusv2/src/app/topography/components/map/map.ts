@@ -692,6 +692,8 @@ export class MapComponent implements OnInit {
             zoom = this.map.getZoom();
         }
 
+        this.map.setZoom(zoom);
+
         const mapCenterPixel = this.map.project(this.map.getCenter());
         const visibleMapCenterPixel = this.getVisibleMapCenterPixel();
         const coordPixel = this.map.project(coordinate);

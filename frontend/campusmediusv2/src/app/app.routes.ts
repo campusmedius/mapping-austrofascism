@@ -6,6 +6,7 @@ import { StartPageComponent } from './core/components/start-page/start-page';
 import { AboutPageComponent } from './core/components/about-page/about-page';
 import { TeamPageComponent } from './core/components/team-page/team-page';
 import { PagesResolver } from '@app/information/guards/page';
+import { BookPageComponent } from './core/components/book-page/book-page';
 
 
 export function loadTopography() {
@@ -34,6 +35,13 @@ export const routes: Routes = [
     {
         path: 'team',
         component: TeamPageComponent,
+        resolve: {
+            pages: PagesResolver
+        }
+    },
+    {
+        path: 'book',
+        component: BookPageComponent,
         resolve: {
             pages: PagesResolver
         }

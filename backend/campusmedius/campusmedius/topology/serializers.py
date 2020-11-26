@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 from taggit_serializer.serializers import TaggitSerializer
 from geopy.distance import geodesic
@@ -5,8 +7,6 @@ from geopy.distance import geodesic
 from .models import Mediator, Medium, Relation
 from .models import Mediation, Experience
 from .models import Space, Time, Value
-
-HOURS_UNTIL_YEAR_1000 = 8765820
 
 class TimeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -63,11 +63,13 @@ class RelationSerializer(serializers.ModelSerializer):
         diff = obj.target.time - obj.source.time
         hours = diff.total_seconds() / 3600
 
-        if obj.source.id == '0':
-            hours += HOURS_UNTIL_YEAR_1000
+        if obj.source.id == 0:
+            diff = obj.target.time.replace(tzinfo=None) - datetime.datetime(1933, 1, 1)
+            hours = (1933 * 365 * 24) + diff.total_seconds() / 3600 + 1
 			
-        if obj.target.id == '0':
-            hours -= HOURS_UNTIL_YEAR_1000
+        if obj.target.id == 0:
+            diff = obj.source.time.replace(tzinfo=None) - datetime.datetime(1933, 1, 1)
+            hours = -((1933 * 365 * 24) + diff.total_seconds() / 3600) + 1
 	
         return hours
 

@@ -71,7 +71,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
                 }
                 this.spaceStr = this.getSovereignSignSpaceStr(coordinates);
 
-                const time = Math.round((timeDifference / steps) * currentStep);
+                const time = (timeDifference / steps) * currentStep;
                 this.timeStr = this.getSovereignSignTimeStr(time);
 
                 if (currentStep === 0) {
@@ -94,7 +94,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
                 }
                 this.spaceStr = this.getSovereignSignSpaceStr(coordinates);
 
-                const time = Math.round((timeDifference / steps) * currentStep);
+                const time = (timeDifference / steps) * currentStep;
                 this.timeStr = this.getSovereignSignTimeStr(time);
 
                 if (currentStep === steps) {
@@ -116,8 +116,8 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
 
         const baseSpace = previousMediator.distanceFromStart;
         const spaceDifference = mediator.distanceFromStart - previousMediator.distanceFromStart;
-        const baseTime = previousMediator.timeToEnd;
-        const timeDiffernce = mediator.timeToEnd - previousMediator.timeToEnd;
+        const baseTime = previousMediator.timeAfterEnd;
+        const timeDiffernce = mediator.timeAfterEnd - previousMediator.timeAfterEnd;
 
         const startTime = new Date().getTime();
         const endTime = startTime + duration;
@@ -194,7 +194,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
                 this.timeStr = this.translate.currentLang === 'de' ? 'Ende' : 'End';
             } else {
                 this.spaceStr = this.getExaminingGazeSpaceStr(mediator.distanceFromStart);
-                this.timeStr = this.getExaminingGazeTimeStr(mediator.timeToEnd);
+                this.timeStr = this.getExaminingGazeTimeStr(mediator.timeAfterEnd);
             }
         } else {
             this.spaceStr = this.getGovernedTransmissionSpaceStr(space);
@@ -278,13 +278,18 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
     private getTimeStr(time, suffix) {
       let hours = Math.floor(time);
       const minutes = Math.round((time - hours) * 60);
-      if (hours > 48) {
+      if (hours > (365*24)) {
+        const years = Math.floor(hours / (365*24));
+        hours = hours - (years * (365*24));
+        let yearsStr = years.toString();
         const days = Math.floor(hours / 24);
         hours = hours - (days * 24);
-        let daysStr = days.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")
-        if (this.translate.currentLang === 'en') {
-          daysStr = days.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-        }
+        let daysStr = days.toString();
+        return yearsStr + ' a ' + daysStr + ' d ' + hours + ' h ' + minutes + ' min ' + suffix;
+      } else if (hours > 48) {
+        const days = Math.floor(hours / 24);
+        hours = hours - (days * 24);
+        let daysStr = days.toString();
         return daysStr + ' d ' + hours + ' h ' + minutes + ' min ' + suffix;
       } else if (hours > 0) {
         return hours + ' h ' + minutes + ' min ' + suffix;

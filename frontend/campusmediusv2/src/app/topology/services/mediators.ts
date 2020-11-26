@@ -87,11 +87,11 @@ export class MediatorService {
       };
       mediators[4].distanceFromStart = distanceFromStart;
 
-      let timeToEnd = 0;
-      for (let i = 4; i > 0; i--) {
-        mediators[i].timeToEnd = timeToEnd;
-        timeToEnd -= mediators[i].relationsFrom[0].timeDifference;
+      let timeAfterEnd = 0;
+      for (let i = 0; i < 4; i++) {
+        mediators[i].timeAfterEnd = timeAfterEnd;
+        timeAfterEnd -= mediators[i].relationsTo[0].timeDifference;
       };
-      mediators[0].timeToEnd = timeToEnd;
+      mediators[4].timeAfterEnd = timeAfterEnd;
     }
 }
