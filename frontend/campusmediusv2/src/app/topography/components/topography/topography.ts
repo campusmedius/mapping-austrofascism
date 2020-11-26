@@ -125,7 +125,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.information = this.selectedEvent.information;
                 setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 16));
             } else {
-                setTimeout(() => this.map.flyTo([16.4, 48.2], 12.14));
+                setTimeout(() => this.map.flyTo(<any>[16.4, 48.2], 12.14));
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topography');
             }
