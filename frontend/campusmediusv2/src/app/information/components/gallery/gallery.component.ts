@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ElementRef, HostBinding } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 
@@ -18,6 +18,12 @@ import 'hammerjs';
 export class GalleryComponent implements OnInit, OnDestroy {
     @Input() data: Gallery;
     @Input() lang: string;
+
+    @Input() id: string;
+    @HostBinding('attr.id')
+    get elementId() { 
+        return 'g:' + this.id; 
+    }
 
     @Output() closed = new EventEmitter();
     @Output() opened = new EventEmitter();

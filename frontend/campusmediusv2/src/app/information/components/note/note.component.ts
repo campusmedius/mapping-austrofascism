@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import {
     trigger,
     state,
@@ -26,6 +26,12 @@ import { Block } from '../../models/information';
 export class NoteComponent implements OnInit {
     @Input() content: string;
     @Input() lang: string;
+
+    @Input() id: string;
+    @HostBinding('attr.id')
+    get elementId() { 
+        return 'n:' + this.id; 
+    }
 
     public opened = false;
 

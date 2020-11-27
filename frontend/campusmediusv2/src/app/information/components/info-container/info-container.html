@@ -1,8 +1,8 @@
-<div class="info-body" fxFill>
+<div class="info-body" (scroll)="onScroll($event)" fxFill>
     <div class="info-content">
-
+        <div id="info-top"></div>
         <div class="info-heading">
-            <span *ngIf="!hideSubTitle" class="sub-heading" [innerHtml]="subTitle ? subTitle.toUpperCase() : ''"></span>
+            <span *ngIf="!hideSubTitle" class="sub-heading" [innerHtml]="subTitle ? subTitle : ''"></span>
             <div class="cite-button-wrapper">
                 <button *ngIf="state === 'full'" [title]="lang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button class="cite-button" (click)="citeClick.emit()">
                     <span class="cm-square-quote-alt"></span>

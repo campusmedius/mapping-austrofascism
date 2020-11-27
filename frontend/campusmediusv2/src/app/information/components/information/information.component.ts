@@ -1,7 +1,7 @@
 import {
-    Component, OnInit, AfterViewInit, OnDestroy, OnChanges, Input, ElementRef, ComponentFactory,
+    Component, OnInit, OnDestroy, OnChanges, Input, ElementRef, ComponentFactory,
     ComponentFactoryResolver, ViewChild, ViewContainerRef, ComponentRef, Injector, ApplicationRef,
-    Output, EventEmitter
+    Output, EventEmitter, HostListener
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { VideoComponent } from '../video/video.component';
     templateUrl: './information.component.html',
     styleUrls: ['./information.component.scss']
 })
-export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class InformationComponent implements OnInit, OnDestroy, OnChanges {
     @Input() content: string;
     @Input() lang: string;
     @Input() media: InformationMedia;
@@ -55,7 +55,6 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
     ) {
         this.noteFactory = this.componentFactoryResolver.resolveComponentFactory(NoteComponent);
         this.quoteFactory = this.componentFactoryResolver.resolveComponentFactory(QuoteComponent);
-
         this.linkInternFactory = this.componentFactoryResolver.resolveComponentFactory(LinkInternComponent);
         this.linkExternFactory = this.componentFactoryResolver.resolveComponentFactory(LinkExternComponent);
         this.linkInpageFactory = this.componentFactoryResolver.resolveComponentFactory(LinkInpageComponent);
@@ -73,23 +72,32 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
         this.insertDynamicComponents();
     }
 
-    ngAfterViewInit() {
-    }
-
     private insertDynamicComponents() {
         setTimeout(() => {
-            const elements = this.element.nativeElement.querySelectorAll('cm-note, cm-quote, cm-link-intern, cm-link-extern, cm-link-inpage, cm-gallery, cm-image, cm-video, cm-audio');
+            const elements = this.element.nativeElement.querySelectorAll(':scope > .wrapper > p, cm-note, cm-quote, cm-link-intern, cm-link-extern, cm-link-inpage, cm-gallery, cm-image, cm-video, cm-audio');
+            let paragraphId = 1;
+            let noteId = 1;
+            let quoteId = 1;
             elements.forEach((e) => {
                 let componentRef;
-                if (e.tagName === 'CM-NOTE') {
+                if (e.tagName === 'P') {
+                    e.id = 'p:' + paragraphId;
+                    e.setAttribute('spyTarget', 'p:' + paragraphId);
+                    paragraphId += 1;
+                    return
+                } else if (e.tagName === 'CM-NOTE') {
                     const content = e.innerHTML;
                     componentRef = this.noteFactory.create(this.injector, [], e);
+                    componentRef.instance.id = noteId;
+                    noteId += 1;
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
 
                 } else if (e.tagName === 'CM-QUOTE') {
                     const content = e.innerHTML;
                     componentRef = this.quoteFactory.create(this.injector, [], e);
+                    componentRef.instance.id = quoteId;
+                    quoteId += 1;
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
 
@@ -119,6 +127,7 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                 } else if (e.tagName === 'CM-GALLERY') {
                     const id = e.attributes.id.value;
                     componentRef = this.galleryFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.galleries[id];
                     componentRef.instance.lang = this.lang;
                     this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
@@ -130,6 +139,7 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                 } else if (e.tagName === 'CM-IMAGE') {
                     const id = e.attributes.id.value;
                     componentRef = this.imageFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.images[id];
                     componentRef.instance.lang = this.lang;
                     this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
@@ -141,11 +151,13 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                 } else if (e.tagName === 'CM-VIDEO') {
                     const id = e.attributes.id.value;
                     componentRef = this.videoFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.videos[id];
                     componentRef.instance.lang = this.lang;
                 } else if (e.tagName === 'CM-AUDIO') {
                     const id = e.attributes.id.value;
                     componentRef = this.audioFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.audios[id];
                     componentRef.instance.lang = this.lang;
                 }

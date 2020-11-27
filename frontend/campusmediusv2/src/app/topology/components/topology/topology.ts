@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -6,11 +6,14 @@ import { Mediator } from '@app/topology/models/mediator';
 import { Mediation } from '@app/topology/models/mediation';
 import { Information } from '@app/information/models/information';
 import { Page } from '@app/information/models/page';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
 import { InfoBoxComponent } from '../info-box/info-box';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { AppComponent } from '@app/core';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -67,8 +70,14 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public information: Information;
     public page: Page;
 
-    public lang: string;
-    currentLangSubscription: Subscription;
+    dataSubscription: Subscription;
+    queryParamsSubscription: Subscription;
+    mediaSubscription: Subscription;
+
+    public showTitleHeader = false;
+    public showTitleHeaderMobile = false;
+    private galleryIsOpen = false;
+    private scrollTopBeforeGalleryOpen = 0;
 
     public sidepanelWidth: string;
     public mediationsHeight = '220px';
@@ -76,27 +85,58 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public atGod = false;
 
-    private timer: number;
+    private timer;
 
     sidepanelState = 'short'; // full, short
     mediationState = 'open'; // open, closed
     isMobile = false;
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
-    @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;      ;
+    @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;
 
     constructor(
       private translate: TranslateService,
+      private elementRef: ElementRef,
       private route: ActivatedRoute,
+      private mediaObserver: MediaObserver,
       private dialog: MatDialog,
-      private router: Router
-    ) { }
+      private router: Router,
+      private app: AppComponent,
+      private scrollToService: ScrollToService,
+    ) { 
+        this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
+            if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+                this.isMobile = true;
+            } else {
+                this.isMobile = false;
+            }
+        });
+    }
 
     ngOnInit() {
+        if ((<any>window).isSafari) {
+            this.elementRef.nativeElement.style.webkitTransform = 'translate3d(0,0,0)';
+        }
+
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
 
+        this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
+            if (queryParams['info']) {
+                this.sidepanelState = queryParams['info'];
+                this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                if (this.isMobile && this.sidepanelState === 'full') {
+                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                }
+            }
+            if (this.sidepanelState === 'short') {
+                this.app.removeHeader = false;
+                this.app.showHeader = true;
+                this.showTitleHeaderMobile = false;
+            }
+            this.adjustTimelineForEdge();
+        });
 
-        this.route.data.subscribe(data => {
+        this.dataSubscription = this.route.data.subscribe(data => {
             this.resetAnimations();
 
             this.mediations = data.mediations;
@@ -112,6 +152,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.selectedMediator) {
                 if (this.selectedMediator.id === '0') {
                     this.sidepanelState = 'short';
+                    this.router.navigate( [ ], { queryParams: { 'info': 'short' }, queryParamsHandling: 'merge', replaceUrl: true } );
                     if (this.previousMediator) {
                         this.timer = setTimeout(() => {
                             this.atGod = true;
@@ -125,6 +166,20 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 this.information = this.selectedMediator.information;
+
+                let target = (<any>this.route.fragment).getValue();
+                let offset = -100;
+                if (!target || target === 'p:1') {
+                    target = '#info-top';
+                    offset = 0;
+                }
+                setTimeout(() => {
+                this.scrollToService.scrollTo({
+                    target: target,
+                    offset: offset,
+                    duration: 0
+                })}, 100);
+
             } else {
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topology');
@@ -138,8 +193,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.previousMediation = this.selectedMediation;
         });
 
-        this.currentLangSubscription = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-            this.lang = event.lang;
+        this.router.navigate(['.'], {
+            relativeTo: this.route,
+            queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+            queryParamsHandling: 'merge',
+            replaceUrl: true
         });
     }
 
@@ -155,6 +213,28 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
       if(this.map) {
         this.map.stopAnimation();
       }
+    }
+
+    private adjustTimelineForEdge() {
+        if ((<any>document).isEdge) {
+            setTimeout(() => {
+                const element = (<any>document.getElementsByTagName('cm-mediations')[0]);
+                if (!element) {
+                    return;
+                }
+                if (this.sidepanelState === 'full') {
+                    if (element.style.width !== '25%') {
+                        setTimeout(() => {
+                            element.style.width = '25%';
+                        }, 300);
+                    }
+                } else {
+                    if (element.style.width !== '') {
+                        element.style.width = '';
+                    }
+                }
+            });
+        }
     }
 
     adjustMap() {
@@ -196,6 +276,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
         }
+        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
     }
 
     public readMore() {
@@ -211,7 +292,15 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         });
     }
 
+    public sectionChange(section: string) {
+        if (this.sidepanelState === 'full') {
+            this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
+        }
+    }
+
     ngOnDestroy() {
-        this.currentLangSubscription.unsubscribe();
+        this.dataSubscription.unsubscribe();
+        this.queryParamsSubscription.unsubscribe();
+        this.mediaSubscription.unsubscribe();
     }
 }

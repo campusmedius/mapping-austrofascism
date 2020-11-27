@@ -1,13 +1,13 @@
 import {
-    Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewChild, ElementRef, HostListener, ChangeDetectorRef
+    Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener, ChangeDetectorRef, AfterViewInit
 } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { trigger, transition, animate, style, query, state } from '@angular/animations';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
+import { trigger, transition, animate, style, state } from '@angular/animations';
+import { MatDialog } from '@angular/material';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { Observable ,  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { AppComponent } from '@app/core/components/app/app';
 import { MapComponent } from '../../components/map/map';
@@ -21,7 +21,7 @@ import { Event } from '../../models/event';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 const SIDEPANEL_WIDTH = {
     full: '75%',
@@ -50,7 +50,7 @@ const SIDEPANEL_WIDTH = {
         ])
     ]
 })
-export class TopographyComponent implements OnInit, OnDestroy {
+export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     public events: Event[];
     public selectedEvent: Event;
     public nextEvent: Event;
@@ -59,10 +59,11 @@ export class TopographyComponent implements OnInit, OnDestroy {
     public page: Page;
 
     dataSubscription: Subscription;
+    queryParamsSubscription: Subscription;
+    mediaSubscription: Subscription;
 
     filteredIdsSubscription: Subscription;
     selectedEventsSubscription: Subscription;
-    mediaSubscription: Subscription;
     isMobile: boolean;
     filteredIds: string[] = [];
     timeFilterStart: Moment = moment('1933-05-13T13:00Z');
@@ -71,7 +72,6 @@ export class TopographyComponent implements OnInit, OnDestroy {
     sidepanelWidth: string;
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
-    @ViewChild('infoheading', {static: false}) infoheading: ElementRef;
     @ViewChild('fullinfo', {static: false}) fullinfo: ElementRef;
 
     public showTitleHeader = false;
@@ -84,7 +84,6 @@ export class TopographyComponent implements OnInit, OnDestroy {
     public mobileOverlayAboutHeight = '300px';
     public mobileOverlayDefaultHeight = '200px';
 
-    private isPage = false;
     public mobileAbstractDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>';
     public mobileAbstractEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>';
 
@@ -99,7 +98,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
         private app: AppComponent,
         private cd: ChangeDetectorRef
     ) {
-        this.mediaSubscription = mediaObserver.media$.subscribe((change: MediaChange) => {
+        this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
                 this.isMobile = true;
             } else {
@@ -115,6 +114,25 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
 
+        this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
+            if (queryParams['info']) {
+                this.sidepanelState = queryParams['info'];
+                this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                if (this.isMobile && this.sidepanelState === 'full') {
+                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                }
+                if (this.selectedEvent) {
+                    setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
+                }
+            }
+            if (this.sidepanelState === 'short') {
+                this.app.removeHeader = false;
+                this.app.showHeader = true;
+                this.showTitleHeaderMobile = false;
+            }
+            this.adjustTimelineForEdge();
+        });
+
         this.dataSubscription = this.route.data.subscribe(data => {
             this.events = data.events;
             this.generateTimeFilterIds();
@@ -123,7 +141,21 @@ export class TopographyComponent implements OnInit, OnDestroy {
                 this.previousEvent = this.selectedEvent.previousEvent;
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
-                setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 16));
+                setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 15));
+
+                let target = (<any>this.route.fragment).getValue();
+                let offset = -100;
+                if (!target || target === 'p:1') {
+                    target = '#info-top';
+                    offset = 0;
+                }
+                setTimeout(() => {
+                this.scrollToService.scrollTo({
+                    target: target,
+                    offset: offset,
+                    duration: 0
+                })}, 100);
+
             } else {
                 setTimeout(() => this.map.flyTo(<any>[16.4, 48.2], 12.14));
                 this.sidepanelState = 'short';
@@ -132,6 +164,16 @@ export class TopographyComponent implements OnInit, OnDestroy {
             this.cd.detectChanges();
         });
 
+        this.router.navigate(['.'], {
+            relativeTo: this.route,
+            queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+            queryParamsHandling: 'merge',
+            replaceUrl: true
+        });
+
+    }
+
+    ngAfterViewInit() {
     }
 
     private adjustTimelineForEdge() {
@@ -158,7 +200,7 @@ export class TopographyComponent implements OnInit, OnDestroy {
 
     public scrollup() {
         this.scrollToService.scrollTo({
-            target: this.infoheading,
+            target: '#info-top',
             offset: -150
         });
     }
@@ -209,9 +251,9 @@ export class TopographyComponent implements OnInit, OnDestroy {
         } else {
             this.sidepanelState = 'full';
             this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
-            this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         }
+        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
     }
 
     public readMore() {
@@ -242,6 +284,12 @@ export class TopographyComponent implements OnInit, OnDestroy {
             this.showTitleHeader = false;
         } else {
             this.showTitleHeader = true;
+        }
+    }
+
+    public sectionChange(section: string) {
+        if (this.sidepanelState === 'full') {
+            this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
         }
     }
 
@@ -287,6 +335,10 @@ export class TopographyComponent implements OnInit, OnDestroy {
         this.app.removeHeader = true;
     }
 
-    ngOnDestroy() { }
+    ngOnDestroy() { 
+        this.dataSubscription.unsubscribe();
+        this.queryParamsSubscription.unsubscribe();
+        this.mediaSubscription.unsubscribe();
+    }
 
 }

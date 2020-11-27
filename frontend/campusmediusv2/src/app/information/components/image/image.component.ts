@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter
+    Component, OnInit, Input, ViewChild, OnDestroy, Output, EventEmitter, HostBinding
 } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import {
@@ -35,6 +35,12 @@ import { Image } from '../../models/information';
 export class ImageComponent implements OnInit, OnDestroy {
     @Input() data: Image;
     @Input() lang: string;
+
+    @Input() id: string;
+    @HostBinding('attr.id')
+    get elementId() { 
+        return 'i:' + this.id; 
+    }
 
     @Output() closed = new EventEmitter();
     @Output() opened = new EventEmitter();

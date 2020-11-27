@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import {
     trigger,
     state,
@@ -25,6 +25,12 @@ import { Audio } from '../../models/information';
 export class AudioComponent implements OnInit {
     @Input() data: Audio;
     @Input() lang: string;
+
+    @Input() id: string;
+    @HostBinding('attr.id')
+    get elementId() { 
+        return 'a:' + this.id; 
+    }
 
     public opened = false;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostBinding } from '@angular/core';
 import {
     trigger,
     state,
@@ -27,6 +27,12 @@ import * as Hls from 'hls.js';
 export class VideoComponent implements OnInit {
     @Input() data: Video;
     @Input() lang: string;
+
+    @Input() id: string;
+    @HostBinding('attr.id')
+    get elementId() { 
+        return 'v:' + this.id; 
+    }
 
     @ViewChild('video', {static: false}) videoElement: ElementRef;
 

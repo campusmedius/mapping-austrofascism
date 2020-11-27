@@ -13,7 +13,7 @@
         <cm-info-container *ngIf="selectedMediator; else startPage"
          [lang]="translate.currentLang"
          [title]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"
-         [subTitle]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe : selectedMediator.medium.titleEn"
+         [subTitle]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe.toUpperCase() : selectedMediator.medium.titleEn.toUpperCase()"
          [hideSubTitle]="selectedMediator.id === '0'"
          [state]="sidepanelState"
          [abstract]="translate.currentLang === 'de' ? selectedMediator.abstractDe : selectedMediator.abstractEn"
@@ -22,7 +22,8 @@
          (citeClick)="showCite()"
          [readMoreText]="translate.currentLang === 'de' ? 'WEITERLESEN' : 'READ MORE'"
          [hideReadMoreText]="selectedMediator.id === '0'"
-         (moreClick)="toggleInformationPanel()">
+         (moreClick)="toggleInformationPanel()"
+         (sectionChange)="sectionChange($event)">
         </cm-info-container>
         <ng-template #startPage>
             <cm-info-container

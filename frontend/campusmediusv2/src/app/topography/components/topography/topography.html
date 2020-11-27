@@ -31,7 +31,8 @@
              [media]="information.media"
              (citeClick)="showCite()"
              [readMoreText]="translate.currentLang === 'de' ? 'WEITERLESEN' : 'READ MORE'"
-             (moreClick)="toggleInformationPanel()">
+             (moreClick)="toggleInformationPanel()"
+             (sectionChange)="sectionChange($event)">
             </cm-info-container>
 
         </div>

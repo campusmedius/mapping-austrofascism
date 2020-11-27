@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges } from '@angular/core';
 import { InformationMedia } from '../../models/information';
 
 @Component({
@@ -6,7 +6,7 @@ import { InformationMedia } from '../../models/information';
   templateUrl: './info-container.html',
   styleUrls: ['./info-container.scss']
 })
-export class InfoContainerComponent implements OnInit {
+export class InfoContainerComponent implements OnInit, OnChanges {
 
   @Input() title: string;
   @Input() subTitle: string;
@@ -21,10 +21,42 @@ export class InfoContainerComponent implements OnInit {
 
   @Output() moreClick = new EventEmitter();
   @Output() citeClick = new EventEmitter();
+  @Output() sectionChange = new EventEmitter<string>();
 
-  constructor() { }
+  private spiedElements;
+  private parentElement;
+  private currentSection: string;
+
+  constructor(
+    private element: ElementRef,
+  ) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    setTimeout(() => {
+      this.parentElement = this.element.nativeElement.children[0];
+      this.spiedElements = this.element.nativeElement.querySelectorAll('.info-content > div > cm-information > div > p');
+      this.onScroll();
+      this.sectionChange.emit(this.currentSection);
+    }, 50);
+  }
+
+  public onScroll() {
+      let currentSection: string;
+      const scrollTop = this.parentElement.scrollTop;
+      const parentOffset = this.parentElement.offsetTop;
+      for (let i = 0; i < this.spiedElements.length; i++) {
+          const element = this.spiedElements[i];
+          if ((element.offsetTop - parentOffset) <= (scrollTop + 200)) {
+              currentSection = element.id;
+          }
+      }
+      if (currentSection !== this.currentSection) {
+          this.currentSection = currentSection;
+          this.sectionChange.emit(this.currentSection);
+      }
   }
 
 }
