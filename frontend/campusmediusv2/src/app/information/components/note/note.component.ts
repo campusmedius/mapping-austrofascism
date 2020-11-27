@@ -16,10 +16,15 @@ import { Block } from '../../models/information';
     styleUrls: ['./note.component.scss'],
     animations: [
         trigger('container', [
-            state('1', style({ height: '*' })),
-            state('0', style({ height: '0px' })),
-            transition('0 => 1', animate('300ms ease-in')),
-            transition('1 => 0', animate('300ms ease-in'))
+            state('true', style({ 'height': '*', display: '*' })),
+            state('false', style({ 'height': '0px', display: 'none' })),
+            transition('false => true', [
+                style({ 'display': 'block' }),
+                animate('300ms ease-in')
+            ]),
+            transition('true => false', [
+                animate('300ms ease-in')
+            ])
         ])
     ]
 })
@@ -38,6 +43,10 @@ export class NoteComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
+    }
+
+    public openInline() {
+        this.opened = true;
     }
 
 }

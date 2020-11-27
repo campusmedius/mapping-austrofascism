@@ -5,7 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { MatDialog } from '@angular/material';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { Subscription } from 'rxjs';
 
@@ -22,6 +21,7 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 
 import { TranslateService } from '@ngx-translate/core';
+import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 
 const SIDEPANEL_WIDTH = {
     full: '75%',
@@ -73,6 +73,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
     @ViewChild('fullinfo', {static: false}) fullinfo: ElementRef;
+    @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
 
     public showTitleHeader = false;
     public showTitleHeaderMobile = false;
@@ -93,7 +94,6 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         private router: Router,
         private dialog: MatDialog,
         private mediaObserver: MediaObserver,
-        private scrollToService: ScrollToService,
         private elementRef: ElementRef,
         private app: AppComponent,
         private cd: ChangeDetectorRef
@@ -142,20 +142,6 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
                 setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 15));
-
-                let target = (<any>this.route.fragment).getValue();
-                let offset = -100;
-                if (!target || target === 'p:1') {
-                    target = '#info-top';
-                    offset = 0;
-                }
-                setTimeout(() => {
-                this.scrollToService.scrollTo({
-                    target: target,
-                    offset: offset,
-                    duration: 0
-                })}, 100);
-
             } else {
                 setTimeout(() => this.map.flyTo(<any>[16.4, 48.2], 12.14));
                 this.sidepanelState = 'short';
@@ -163,17 +149,25 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             }
             this.cd.detectChanges();
         });
-
-        this.router.navigate(['.'], {
-            relativeTo: this.route,
-            queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-            queryParamsHandling: 'merge',
-            replaceUrl: true
-        });
-
     }
 
     ngAfterViewInit() {
+        this.route.data.subscribe(data => {
+            if (this.sidepanelState === 'full') {
+                let ref = (<any>this.route.fragment).getValue();
+                ref = ref ? ref : 'top';
+                this.infoContainer.scrollToReference(ref);
+            }
+        });
+
+        setTimeout(() => {
+            this.router.navigate(['.'], {
+                relativeTo: this.route,
+                queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                queryParamsHandling: 'merge',
+                replaceUrl: true
+            });
+        }, 0);
     }
 
     private adjustTimelineForEdge() {
@@ -199,10 +193,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public scrollup() {
-        this.scrollToService.scrollTo({
-            target: '#info-top',
-            offset: -150
-        });
+        this.infoContainer.scrollToReference('top');
     }
 
     public showCite() {

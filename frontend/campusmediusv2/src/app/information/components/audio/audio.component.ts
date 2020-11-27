@@ -18,7 +18,13 @@ import { Audio } from '../../models/information';
         trigger('container', [
             state('true', style({ height: '*', display: '*' })),
             state('false', style({ height: '0px', display: 'none' })),
-            transition('false <=> true', animate('300ms ease-in'))
+            transition('false => true', [
+                style({ 'display': 'block' }),
+                animate('300ms ease-in')
+            ]),
+            transition('true => false', [
+                animate('300ms ease-in')
+            ])
         ])
     ]
 })
@@ -40,5 +46,9 @@ export class AudioComponent implements OnInit {
 
     public onRightClick(e) {
         e.preventDefault();
+    }
+
+    public openInline() {
+        this.opened = true;
     }
 }

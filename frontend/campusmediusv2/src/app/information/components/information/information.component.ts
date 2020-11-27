@@ -176,6 +176,16 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
+    public openComponentByRef(ref: string) {
+        if (ref.startsWith('i:') || ref.startsWith('v:') || ref.startsWith('a:') || ref.startsWith('n:')) {
+            this.componentRefs.forEach(c => {
+                if ((<any>c).instance.elementId === ref) {
+                    c.instance.openInline();
+                }
+            })
+        }
+    }
+
     ngOnDestroy() {
         this.destroyAllDynamicComponents();
     }

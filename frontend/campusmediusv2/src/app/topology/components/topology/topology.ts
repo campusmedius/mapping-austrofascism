@@ -11,9 +11,9 @@ import { MapComponent } from '../map/map';
 import { InfoBoxComponent } from '../info-box/info-box';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { AppComponent } from '@app/core';
+import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -88,11 +88,13 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     private timer;
 
     sidepanelState = 'short'; // full, short
+    sidepanelStateForLinksInGodSelector = 'short'
     mediationState = 'open'; // open, closed
     isMobile = false;
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
     @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;
+    @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
 
     constructor(
       private translate: TranslateService,
@@ -102,7 +104,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
       private dialog: MatDialog,
       private router: Router,
       private app: AppComponent,
-      private scrollToService: ScrollToService,
     ) { 
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -151,8 +152,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (this.selectedMediator) {
                 if (this.selectedMediator.id === '0') {
+                    this.sidepanelStateForLinksInGodSelector = this.sidepanelState;
                     this.sidepanelState = 'short';
-                    this.router.navigate( [ ], { queryParams: { 'info': 'short' }, queryParamsHandling: 'merge', replaceUrl: true } );
+                    this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge', replaceUrl: true });
                     if (this.previousMediator) {
                         this.timer = setTimeout(() => {
                             this.atGod = true;
@@ -166,20 +168,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 this.information = this.selectedMediator.information;
-
-                let target = (<any>this.route.fragment).getValue();
-                let offset = -100;
-                if (!target || target === 'p:1') {
-                    target = '#info-top';
-                    offset = 0;
-                }
-                setTimeout(() => {
-                this.scrollToService.scrollTo({
-                    target: target,
-                    offset: offset,
-                    duration: 0
-                })}, 100);
-
             } else {
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topology');
@@ -193,15 +181,26 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.previousMediation = this.selectedMediation;
         });
 
-        this.router.navigate(['.'], {
-            relativeTo: this.route,
-            queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-            queryParamsHandling: 'merge',
-            replaceUrl: true
-        });
+
     }
 
     ngAfterViewInit() {
+        this.route.data.subscribe(data => {
+            if (this.sidepanelState === 'full') {
+                let ref = (<any>this.route.fragment).getValue();
+                ref = ref ? ref : 'top';
+                this.infoContainer.scrollToReference(ref);
+            }
+        });
+
+        setTimeout(() => {
+            this.router.navigate(['.'], {
+                relativeTo: this.route,
+                queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                queryParamsHandling: 'merge',
+                replaceUrl: true
+            });
+        }, 0);
         this.adjustMap();
     }
 

@@ -8,7 +8,7 @@
     </cm-map-mediator>
 </cm-map>
 
-<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedMediator && !atGod" (controlClick)="toggleInformationPanel()" >
+<cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedMediator && selectedMediator.id !== '0'" (controlClick)="toggleInformationPanel()" >
     <div class="info-container">
         <cm-info-container *ngIf="selectedMediator; else startPage"
          [lang]="translate.currentLang"
@@ -63,6 +63,7 @@
 
 <cm-god-selector
     *ngIf="atGod"
+    [sidepanelStateForLinks]="sidepanelStateForLinksInGodSelector"
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
     [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
     [mediators]="mediators.slice(1,16)"></cm-god-selector>

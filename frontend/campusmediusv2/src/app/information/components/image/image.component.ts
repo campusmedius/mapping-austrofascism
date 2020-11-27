@@ -28,7 +28,13 @@ import { Image } from '../../models/information';
         trigger('container', [
             state('true', style({ height: '*', display: '*' })),
             state('false', style({ height: '0px', display: 'none' })),
-            transition('false <=> true', animate('300ms ease-in'))
+            transition('false => true', [
+                style({ 'display': 'block' }),
+                animate('300ms ease-in')
+            ]),
+            transition('true => false', [
+                animate('300ms ease-in')
+            ])
         ])
     ]
 })
@@ -92,6 +98,10 @@ export class ImageComponent implements OnInit, OnDestroy {
         }
       ];
 
+    }
+
+    public openInline() {
+        this.isOpen = true;
     }
 
     public showImage() {
