@@ -2,19 +2,20 @@
 
 @font-face {
   font-family: 'cm-icons';
-  src:  url('./assets/fonts/cm-icons.eot?jasso2');
-  src:  url('./assets/fonts/cm-icons.eot?jasso2#iefix') format('embedded-opentype'),
-    url('./assets/fonts/cm-icons.ttf?jasso2') format('truetype'),
-    url('./assets/fonts/cm-icons.woff?jasso2') format('woff'),
-    url('./assets/fonts/cm-icons.svg?jasso2#cm-icons') format('svg');
+  src:  url('./assets/fonts/cm-icons.eot?4wcf6s');
+  src:  url('./assets/fonts/cm-icons.eot?4wcf6s#iefix') format('embedded-opentype'),
+    url('./assets/fonts/cm-icons.ttf?4wcf6s') format('truetype'),
+    url('./assets/fonts/cm-icons.woff?4wcf6s') format('woff'),
+    url('./assets/fonts/cm-icons.svg?4wcf6s#cm-icons') format('svg');
   font-weight: normal;
   font-style: normal;
+  font-display: block;
 }
 
 [class^="cm-"], [class*=" cm-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'cm-icons' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -26,6 +27,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-search:before {
+  content: "\e923";
+}
 .cm-square-quote-alt:before {
   content: "\e91b";
 }
@@ -149,27 +153,10 @@
 .cm-square-zoom:before {
   content: "\e922";
 }
-.cm-topology-circle-examininggaze:before {
-  content: "\e923";
-}
-.cm-topology-circle-governedtransmission:before {
-  content: "\e924";
-}
-.cm-topology-circle-sovereignsign:before {
-  content: "\e925";
-}
-.cm-topology-examininggaze:before {
-  content: "\e926";
-}
-.cm-topology-governedtransmission:before {
-  content: "\e927";
-}
-.cm-topology-sovereignsign:before {
-  content: "\e928";
-}
 .cm-zoom:before {
   content: "\e929";
 }
+
 
 
 .cm-topology-icon {

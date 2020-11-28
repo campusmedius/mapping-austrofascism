@@ -142,7 +142,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.previousEvent = this.selectedEvent.previousEvent;
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
-                setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 15));
+                setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 14));
             } else {
                 setTimeout(() => this.map.flyTo(<any>[16.4, 48.2], 12.14));
                 this.sidepanelState = 'short';

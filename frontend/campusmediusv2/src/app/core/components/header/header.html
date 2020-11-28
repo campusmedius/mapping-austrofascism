@@ -2,6 +2,9 @@
     <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
         <mat-icon class="cm-menu"></mat-icon>
     </button>
+    <button mat-icon-button color="primary">
+        <mat-icon class="cm-search"></mat-icon>
+    </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" >
         <button mat-menu-item routerLink="/overview" routerLinkActive="active">{{'header.about' | translate}}</button>
         <button mat-menu-item routerLink="/topography" routerLinkActive="active">{{'header.topography' | translate}}</button>

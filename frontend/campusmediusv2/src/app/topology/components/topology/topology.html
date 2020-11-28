@@ -15,7 +15,7 @@
         </button>
         <h1 [innerHtml]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"></h1>
     </div>
-    <div class="mediation-info">
+    <div class="mediation-info" *ngIf="selectedMediation">
         <span class="demand">{{translate.currentLang === 'de' ? selectedMediation.demandDe : selectedMediation.demandEn}}:&nbsp;</span>
         <span class="response">{{translate.currentLang === 'de' ? selectedMediation.responseDe : selectedMediation.responseEn}}</span>
     </div>
