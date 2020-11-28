@@ -269,13 +269,10 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public toggleInformationPanel() {
         if (this.sidepanelState === 'full') {
-            this.sidepanelState = 'short';
-            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+            this.router.navigate([], { queryParams: { info: 'short' }, queryParamsHandling: 'merge' });
         } else {
-            this.sidepanelState = 'full';
-            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+            this.router.navigate([], { queryParams: { info: 'full' }, queryParamsHandling: 'merge' });
         }
-        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
     }
 
     public readMore() {

@@ -10,9 +10,9 @@
     width: 100%;
     white-space: nowrap;
     ::ng-deep {
-        font-family: $title-regular-font;
+        font-family: $title-semibold-font;
         i, em {
-            font-family: $title-italics-font;
+            font-family: $title-semibold-italic-font;
             font-style: normal;
         }
         .text:hover, .text:hover {
@@ -36,7 +36,7 @@
     height: 32px;
     cursor: pointer;
     text-align: right;
-    color: $primary-font-color;
+    color: $text-light-color;
     overflow: hidden;
     .arrow {
         line-height: 32px;
@@ -58,7 +58,7 @@
     cursor: pointer;
     height: 32px;
     text-align: left;
-    color: $primary-font-color;
+    color: $text-light-color;
     overflow: hidden;
     .arrow {
         line-height: 32px;

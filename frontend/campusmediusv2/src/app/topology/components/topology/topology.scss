@@ -58,7 +58,7 @@ cm-start-selector {
 .mediation-info {
     font-family: $title-regular-font;
     font-size: $small2-font-size;
-    color:$text-color;
+    color: $text-light-color;
     position: absolute;
     right: 10px;
     height: $header-height;
@@ -72,4 +72,12 @@ cm-start-selector {
         font-family: $title-semibold-font;
         width: 230px;
     }
+}
+
+.map-attrib {
+    padding: 0 5px;
+    background-color: hsla(0,0%,100%,.5);
+    position: relative;
+    font-family: $caption-regular-font;
+    font-size: $small2-font-size;
 }

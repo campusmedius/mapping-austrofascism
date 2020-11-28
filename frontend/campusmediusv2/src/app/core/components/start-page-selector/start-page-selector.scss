@@ -6,6 +6,8 @@
   cursor: pointer;
   &:hover .label {
     background: $accent-color;
+  }
+  .label {
     opacity: 0.9;
   }
   overflow: hidden;

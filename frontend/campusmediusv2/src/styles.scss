@@ -115,7 +115,7 @@ button.mat-icon-button
     .mat-menu-item {
         font-size: $small-font-size;   
         height: 56px;
-        padding: 0 20px;;
+        padding: 0 24px;;
     }
     min-width: 240px !important;
 }
@@ -358,3 +358,10 @@ $back-to-top-size: 26px;
         top: -5px;
     }
 }
+
+.btn-read-more {
+    &:hover {
+      background: #a67481;
+      opacity: 0.9;
+    }
+  }

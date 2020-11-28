@@ -267,20 +267,29 @@ export class MapComponent implements OnInit {
                this.scene = new THREE.Scene();
                this.scene.environment = null;
 
-               var light = new THREE.AmbientLight( 0xb18691, 2 );
-               this.scene.add( light );
-               var light = new THREE.DirectionalLight( 0xb18691, 0.8 );
-               light.position.set( 100, -75, -50 );
-               this.scene.add( light )
-               var light = new THREE.DirectionalLight( 0xb18691, 0.8 );
-               light.position.set( -100, 75, -50 );
-               this.scene.add( light );
+
+                var light = new THREE.AmbientLight( 0xffffff, 0.6 );
+                this.scene.add( light );
+
+                // create two three.js lights to illuminate the model
+                var directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+                directionalLight.position.set(0, -70, 100).normalize();
+                this.scene.add(directionalLight);
+                
+                var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.6);
+                directionalLight2.position.set(0, 70, 100).normalize();
+                this.scene.add(directionalLight2);
 
                // use the three.js GLTF loader to add the 3D model to the three.js scene
                var loader = new THREE.GLTFLoader();
                loader.load(
                    path,
                    function (gltf) {
+                    var newMaterial = new THREE.MeshPhongMaterial({color: 0xa67481, emissive: 0x281a1e});
+                    gltf.scene.traverse((o) => {
+                      if (o.isMesh) o.material = newMaterial;
+                    });
+
                        this.scene.add(gltf.scene);
                    }.bind(this)
                );

@@ -237,15 +237,12 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public toggleInformationPanel() {
         if (this.sidepanelState === 'full') {
-            this.sidepanelState = 'short';
-            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+            this.router.navigate([], { queryParams: { info: 'short' }, queryParamsHandling: 'merge' });
             setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
         } else {
-            this.sidepanelState = 'full';
-            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
             setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
+            this.router.navigate([], { queryParams: { info: 'full' }, queryParamsHandling: 'merge' });
         }
-        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
     }
 
     public readMore() {
