@@ -1,14 +1,1 @@
-<cm-start-page-selector></cm-start-page-selector>
-<cm-sidepanel width="80%">
-  <div *ngIf="page" class="info-container">
-    <cm-info-container
-     [lang]="translate.currentLang"
-     [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
-     [state]="'full'"
-     [content]="translate.currentLang === 'de' ? page.information.contentDe : page.information.contentEn"
-     [media]="page.information.media"
-     (citeClick)="showCite()"
-     (sectionChange)="sectionChange($event)">
-    </cm-info-container>
-  </div>
-</cm-sidepanel>
+<cm-page [pageTitleEn]="'Team'"></cm-page>

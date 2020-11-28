@@ -4,23 +4,19 @@
 </cm-map>
 
 <cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedEvent" (controlClick)="toggleInformationPanel()" >
+    <div *ngIf="sidepanelState === 'full'" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
+        <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
+            <span class="cm-square-quote-alt"></span>
+        </button>
+        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
+    </div>
+    <cm-info-event-nav [isMobile]="false" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+    <div class="up-header" [@titleHeader]="showTitleHeader">
+        <button mat-icon-button class="back-to-top" (click)="scrollUp()">
+            <span class="cm-back-to-top"></span>
+        </button>
+    </div>
     <div class="info-container">
-        <div *ngIf="selectedEvent; else startPage" class="topography-info" fxLayout="column" fxLayoutAlign="none end">
-            <div *ngIf="sidepanelState === 'full'" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
-                <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
-                    <span class="cm-square-quote-alt"></span>
-                </button>
-                <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
-            </div>
-            <cm-info-event-nav [isMobile]="false" *ngIf="!isPage; else upbutton" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
-            <ng-template #upbutton>
-                <div *ngIf="sidepanelState === 'full'" class="up-header" [@titleHeader]="showTitleHeader">
-                    <button mat-icon-button class="back-to-top" (click)="scrollup()">
-                        <span class="cm-back-to-top"></span>
-                    </button>
-                </div>
-            </ng-template>
-
             <cm-info-container
              [lang]="translate.currentLang"
              [title]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"
@@ -32,7 +28,8 @@
              (citeClick)="showCite()"
              [readMoreText]="translate.currentLang === 'de' ? 'WEITERLESEN' : 'READ MORE'"
              (moreClick)="toggleInformationPanel()"
-             (sectionChange)="sectionChange($event)">
+             (sectionChange)="sectionChange($event)"
+             (showTitleHeader)="showTitleHeader = $event">
             </cm-info-container>
 
         </div>
@@ -46,7 +43,6 @@
              (moreClick)="readMore()">
             </cm-info-container>
         </ng-template>
-    </div>
 </cm-sidepanel>
 
 

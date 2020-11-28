@@ -54,3 +54,22 @@ cm-start-selector {
   background-size: cover;
   background-color: $map-overlay-background-color;
 }
+
+.mediation-info {
+    font-family: $title-regular-font;
+    font-size: $small2-font-size;
+    color:$text-color;
+    position: absolute;
+    right: 10px;
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    .demand {
+        width: 230px;
+        text-align: right;
+    }
+    .response {
+        font-family: $title-semibold-font;
+        width: 230px;
+    }
+}

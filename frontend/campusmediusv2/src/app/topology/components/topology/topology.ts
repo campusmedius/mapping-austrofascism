@@ -51,9 +51,9 @@ const SIDEPANEL_WIDTH = {
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('titleHeader', [
-            state('0', style({ opacity: 0 })),
-            state('1', style({ opacity: 1 })),
-            transition('0 <=> 1', animate('300ms ease-in'))
+            state('false', style({ opacity: 0 })),
+            state('true', style({ opacity: 1 })),
+            transition('false <=> true', animate('300ms ease-in'))
         ])
     ]
 })
@@ -289,6 +289,10 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             data: { event: this.selectedMediator },
             autoFocus: false
         });
+    }
+
+    public scrollUp() {
+        this.infoContainer.scrollToReference('top', 650);
     }
 
     public sectionChange(section: string) {

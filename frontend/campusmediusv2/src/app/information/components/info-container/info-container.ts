@@ -24,12 +24,14 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   @Output() moreClick = new EventEmitter();
   @Output() citeClick = new EventEmitter();
   @Output() sectionChange = new EventEmitter<string>();
+  @Output() showTitleHeader = new EventEmitter<boolean>();
 
   @ViewChild(InformationComponent, {static: false}) information: InformationComponent;
 
   private spiedElements;
   private parentElement;
   private currentSection: string;
+  private currentShowTitleHeader = false;
 
   constructor(
     private element: ElementRef,
@@ -62,9 +64,18 @@ export class InfoContainerComponent implements OnInit, OnChanges {
           this.currentSection = currentSection;
           this.sectionChange.emit(this.currentSection);
       }
+
+      let currentShowTitleHeader = false;
+      if (this.parentElement.scrollTop > 110) {
+          currentShowTitleHeader = true;
+      }
+      if (currentShowTitleHeader !== this.currentShowTitleHeader) {
+        this.currentShowTitleHeader = currentShowTitleHeader;
+        this.showTitleHeader.emit(this.currentShowTitleHeader);
+      }
   }
 
-  public scrollToReference(ref: string) {
+  public scrollToReference(ref: string, duration=0, offset=-100) {
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
     }
@@ -72,8 +83,8 @@ export class InfoContainerComponent implements OnInit, OnChanges {
       this.information.openComponentByRef(ref);
       this.scrollToService.scrollTo({
           target: ref,
-          offset: -100,
-          duration: 0
+          offset: offset,
+          duration: duration
       });
     }, 0);
   }

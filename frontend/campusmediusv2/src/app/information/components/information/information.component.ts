@@ -82,7 +82,6 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                 let componentRef;
                 if (e.tagName === 'P') {
                     e.id = 'p:' + paragraphId;
-                    e.setAttribute('spyTarget', 'p:' + paragraphId);
                     paragraphId += 1;
                     return
                 } else if (e.tagName === 'CM-NOTE') {

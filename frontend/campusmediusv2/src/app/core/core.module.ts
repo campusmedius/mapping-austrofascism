@@ -13,6 +13,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { InformationModule } from '@app/information/information.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { PageComponent } from './components/page/page';
 
 
 export const COMPONENTS = [
@@ -24,7 +25,8 @@ export const COMPONENTS = [
     StartPageSelectorComponent,
     TeamPageComponent,
     BookPageComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    PageComponent
 ];
 
 @NgModule({

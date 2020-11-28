@@ -24,9 +24,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 
 const SIDEPANEL_WIDTH = {
-    full: '75%',
+    full: '70%',
     short: '470px',
 };
+
 
 @Component({
     selector: 'cm-topography',
@@ -44,9 +45,9 @@ const SIDEPANEL_WIDTH = {
             transition('* <=> *', animate('300ms ease-in'))
         ]),
         trigger('titleHeader', [
-            state('0', style({ opacity: 0 })),
-            state('1', style({ opacity: 1 })),
-            transition('0 <=> 1', animate('300ms ease-in'))
+            state('false', style({ opacity: 0 })),
+            state('true', style({ opacity: 1 })),
+            transition('false <=> true', animate('300ms ease-in'))
         ])
     ]
 })
@@ -192,8 +193,8 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    public scrollup() {
-        this.infoContainer.scrollToReference('top');
+    public scrollUp() {
+        this.infoContainer.scrollToReference('top', 650);
     }
 
     public showCite() {
@@ -267,14 +268,6 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             } else {
                 this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
             }
-        }
-    }
-
-    private onScroll() {
-        if (this.fullinfo.nativeElement.scrollTop < 110) {
-            this.showTitleHeader = false;
-        } else {
-            this.showTitleHeader = true;
         }
     }
 

@@ -16,6 +16,12 @@
 .info-container {
     color: $primary-font-color;
     height: 100%;
+    padding-top: $header-height;
+}
+
+cm-info-event-nav {
+    position: absolute;
+    right: 0px;
 }
 
 .short-info-container {
@@ -131,91 +137,6 @@ cm-map {
     }
 }
 
-.topography-info {
-    height: 100%;
-    padding-bottom: $event-nav-height;
-    @media screen and (max-width: $break-mobile) {
-        padding-bottom: $event-nav-height-mobile;
-    }
-}
-
-
-.cite-button {
-    width: $base-font-size;
-    min-width: $base-font-size;
-    height: $base-font-size;
-    line-height: $base-font-size;
-    min-height: $base-font-size;
-    vertical-align: top;
-    font-size: $base-font-size;
-    padding: 0 0;
-    margin: 0px;
-    color: $accent-color;
-    position: absolute;
-    left: -40px;
-    top: 4px;
-    border-radius: 0px;
-}
-
-
-.cite-button-wrapper {
-    position: relative;
-    width: 0px;
-    height: 0px;
-    top: 1px;
-    @media screen and (max-width: $break-mobile) {
-        top: -1px;
-    }
-}
-
-.up-header {
-    height: $header-height;
-    position: absolute;
-    right: 25px;
-}
-
-.title-header {
-    height: $header-height;
-    h1 {
-        font-size: 0.9rem;
-        margin: 0px;
-        margin-left: 10px;
-    }
-    .cite-button {
-        left: 0px;
-        top: -2px;
-        position: relative;
-    }
-    position: absolute;
-    left: 25px;
-}
-
-.title-header-mobile {
-    height: $header-height-mobile;
-    margin-left: -15px;
-    margin-right: -15px;
-    padding: 0px 15px;
-    position: fixed;
-    top: 0px;
-    z-index: 99;
-    background-color: white;
-    width: 100%;
-    h1 {
-        font-size: 0.9rem;
-        margin: 0px;
-        margin-left: 10px;
-    }
-    .cite-button {
-        left: 0px;
-        top: -2px;
-        position: relative;
-    }
-    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-}
-
-
 .mobile-short-info {
     position: fixed;
     width: 100%;
@@ -255,50 +176,5 @@ cm-map {
     }
 }
 
-.info-heading-mobile-ispage {
-    margin-top: 15px;
-}
 
-$back-to-top-size-mobile: 26px;
 
-.back-to-top-mobile {
-    position: absolute;
-    right: 15px;
-    top: 7px;
-    width: $back-to-top-size-mobile;
-    min-width: $back-to-top-size-mobile;
-    height: $back-to-top-size-mobile;
-    line-height: $back-to-top-size-mobile;
-    min-height: $back-to-top-size-mobile;
-    vertical-align: top;
-    font-size: $back-to-top-size-mobile;
-    padding: 0 0;
-    margin: 0px;
-    color: $accent-color;
-    border-radius: 0px;
-    .cm-back-to-top {
-        background: #ffffff;
-        border-radius: 16px;
-    }
-}
-
-$back-to-top-size: 26px;
-
-.back-to-top {
-    top: 17px;
-    width: $back-to-top-size;
-    min-width: $back-to-top-size;
-    height: $back-to-top-size;
-    line-height: $back-to-top-size;
-    min-height: $back-to-top-size;
-    vertical-align: top;
-    font-size: $back-to-top-size;
-    padding: 0 0;
-    margin: 0px;
-    color: $accent-color;
-    border-radius: 0px;
-    .cm-back-to-top {
-        background: #ffffff;
-        border-radius: 16px;
-    }
-}
