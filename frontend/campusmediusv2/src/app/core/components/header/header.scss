@@ -35,10 +35,14 @@
     }
 }
 
+.lang-selector {
+    margin-left: 22px;
+}
+
 .nav-lang {
     text-align: right;
     font-size: $small-font-size;
-    margin-right: 10px;
+    margin-right: 12px;
     @media screen and (max-width: $break-mobile) {
         margin-right: 5px;
     }
@@ -69,4 +73,8 @@
     &:focus {
         outline: 0;
     }
+}
+
+.search-button {
+    margin-left: 2px;
 }

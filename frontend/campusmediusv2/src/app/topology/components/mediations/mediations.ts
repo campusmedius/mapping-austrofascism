@@ -38,7 +38,9 @@ const CLOSED_HEIGHT = '40px';
 export class MediationsComponent implements OnInit, AfterViewInit {
     @Input() mediations: Mediation[];
     @Input() selectedMediation: Mediation;
+    @Input() focusedInMediation: Mediation;
     @Input() selectedMediator: Mediator;
+    @Input() focusedMediator: Mediator;
     @Input() sidepanelState: string;
 
     @Output() height = new EventEmitter<string>();

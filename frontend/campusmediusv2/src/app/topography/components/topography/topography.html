@@ -10,14 +10,14 @@
         </button>
         <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
     </div>
-    <cm-info-event-nav *ngIf="selectedEvent" [isMobile]="false" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
-    <div class="up-header" [@titleHeader]="showTitleHeader">
+    <cm-info-event-nav *ngIf="selectedEvent" [@infoEventNav]="sidepanelState" [isMobile]="false" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
+    <div class="up-header" *ngIf="sidepanelState === 'full'" [@titleHeader]="showTitleHeader">
         <button mat-icon-button class="back-to-top" (click)="scrollUp()">
             <span class="cm-back-to-top"></span>
         </button>
     </div>
-    <div class="info-container">
-            <cm-info-container *ngIf="selectedEvent; else startPage"
+    <div class="info-container" *ngIf="selectedEvent; else startPage">
+            <cm-info-container
              [lang]="translate.currentLang"
              [title]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"
              [subTitle]="selectedEvent | infoTimestamp:translate.currentLang"
@@ -31,18 +31,16 @@
              (sectionChange)="sectionChange($event)"
              (showTitleHeader)="showTitleHeader = $event">
             </cm-info-container>
-
+    </div>
+    <ng-template #startPage>
+        <div class="start-container">
+            <div class="info-content">
+              <h1 class="start-info-heading">{{ translate.currentLang === 'de' ? page.titleDe : page.titleEn }}</h1>
+              <cm-information [content]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn" [lang]="translate.currentLang"></cm-information>
+              <button mat-flat-button class="btn-read-more" color="warn" routerLink="/topography/events/1" queryParamsHandling="merge" routerLinkActive="active">START</button>
+            </div>
         </div>
-        <ng-template #startPage>
-            <cm-info-container
-              class="short-info-container"
-             [lang]="translate.currentLang"
-             [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
-             [abstract]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn"
-             [readMoreText]="'START'"
-             (moreClick)="readMore()">
-            </cm-info-container>
-        </ng-template>
+    </ng-template>
 </cm-sidepanel>
 
 

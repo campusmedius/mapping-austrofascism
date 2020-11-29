@@ -2,7 +2,7 @@
     <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
         <mat-icon class="cm-menu"></mat-icon>
     </button>
-    <button mat-icon-button color="primary">
+    <button mat-icon-button color="primary" class="search-button">
         <mat-icon class="cm-search"></mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" >
@@ -18,7 +18,7 @@
 <div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
     <img routerLink="/" [queryParams]="{info:'short'}" queryParamsHandling="merge" class="logo" src="./assets/logo.svg">
 </div>
-<div fxFlex fxLayout="row" fxLayoutAlign="end">
+<div fxFlex fxLayout="row" fxLayoutAlign="end" class="lang-selector">
     <span class="nav-lang">
         <a (click)="changeLanguage('en')" [ngClass]="{'active': lang === 'en'}">EN</a>
         <a (click)="changeLanguage('de')" [ngClass]="{'active': lang === 'de'}">DE</a>

@@ -1,10 +1,10 @@
 <div class="blur"></div>
 <div class="start-container">
     <div class="mediation"
-         [ngClass]="{'not-selected': selectedMediationId === '2' || selectedMediationId === '3'}"
          (mouseenter) ="selectMediation('1')"
          (mouseleave)="selectMediation(null)">
         <div *ngFor="let mediator of mediators.slice(0,5)"
+            [@med1Blur]="selectedMediationId"
              (mouseenter)="selectMediator(mediator)"
              (mouseleave)="selectMediator(null)"
              class="mediator">
@@ -21,6 +21,7 @@
          (mouseenter)="selectMediation('2')"
          (mouseleave)="selectMediation(null)">
         <div *ngFor="let mediator of mediators.slice(5,10)"
+            [@med2Blur]="selectedMediationId"
              (mouseenter)="selectMediator(mediator)"
              (mouseleave)="selectMediator(null)"
              class="mediator">
@@ -37,6 +38,7 @@
          (mouseenter)="selectMediation('3')"
          (mouseleave)="selectMediation(null)">
         <div *ngFor="let mediator of mediators.slice(10,15)"
+            [@med3Blur]="selectedMediationId"
              (mouseenter)="selectMediator(mediator)"
              (mouseleave)="selectMediator(null)"
              class="mediator">

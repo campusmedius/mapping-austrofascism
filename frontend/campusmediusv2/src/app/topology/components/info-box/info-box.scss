@@ -11,6 +11,9 @@
     line-height: 1rem;
     bottom: 0px;
     min-width: 290px;
+    &.at-god {
+      min-width: 120px;
+    }
 }
 
 .label {

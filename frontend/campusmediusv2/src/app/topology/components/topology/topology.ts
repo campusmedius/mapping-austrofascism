@@ -275,10 +275,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    public readMore() {
-      this.router.navigate(['/topology/mediations/1/mediators/0'], { queryParamsHandling: 'merge' });
-    }
-
     public showCite() {
         const dialogRef = this.dialog.open(CiteDialogComponent, {
             width: '800px',

@@ -37,6 +37,12 @@
         "away": "m away"
     },
     "map": {
-        "webgl": "The map cannot be displayed. Your web browser does not support WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">For more information, please follow this link.</a>"
+        "webgl": "The map cannot be displayed. Your web browser does not support WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">For more information, please follow this link.</a>",
+        "attrib": {
+            "freytag": "City plan of Vienna (1933 © Freytag & Berndt)",
+            "osm": "Digital map of Vienna (2020 © OpenStreetMap contributors)",
+            "world": "World map by Philipp Eckebrecht (17th c. © ÖNB)",
+            "buildings": "Buildings (© City of Wien – data.wien.gv.at)"
+        }
     }
 }

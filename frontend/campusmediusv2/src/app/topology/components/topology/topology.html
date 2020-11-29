@@ -7,11 +7,7 @@
     <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
     </cm-map-mediator>
 </cm-map>
-<div class="map-attrib">
-    <a href="https://www.freytagberndt.com" target="_blank">© Freytag &amp; Berndt</a>
-    <a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a>
-    <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>
-</div>
+
 
 <cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedMediator && selectedMediator.id !== '0'" (controlClick)="toggleInformationPanel()" >
     <div *ngIf="sidepanelState === 'full'" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
@@ -24,14 +20,13 @@
         <span class="demand">{{translate.currentLang === 'de' ? selectedMediation.demandDe : selectedMediation.demandEn}}:&nbsp;</span>
         <span class="response">{{translate.currentLang === 'de' ? selectedMediation.responseDe : selectedMediation.responseEn}}</span>
     </div>
-    <div class="up-header" [@titleHeader]="showTitleHeader">
+    <div class="up-header" *ngIf="sidepanelState === 'full'" [@titleHeader]="showTitleHeader">
         <button mat-icon-button class="back-to-top" (click)="scrollUp()">
             <span class="cm-back-to-top"></span>
         </button>
     </div>
-    <div class="info-container">
-
-        <cm-info-container *ngIf="selectedMediator; else startPage"
+    <div class="info-container" *ngIf="selectedMediator && selectedMediator.id !== '0'; else startPage">
+        <cm-info-container 
          [lang]="translate.currentLang"
          [title]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"
          [subTitle]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe.toUpperCase() : selectedMediator.medium.titleEn.toUpperCase()"
@@ -47,29 +42,45 @@
          (sectionChange)="sectionChange($event)"
          (showTitleHeader)="showTitleHeader = $event">
         </cm-info-container>
-        <ng-template #startPage>
-            <cm-info-container
-             [lang]="translate.currentLang"
-             [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
-             [abstract]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn"
-             [readMoreText]="'START'"
-             (moreClick)="readMore()">
-            </cm-info-container>
-        </ng-template>
     </div>
+
+    <ng-template #startPage>
+        <div class="start-container" *ngIf="!selectedMediator; else godInfo">
+            <div class="info-content">
+              <h1 class="start-info-heading">{{ translate.currentLang === 'de' ? page.titleDe : page.titleEn }}</h1>
+              <cm-information [content]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn" [lang]="translate.currentLang"></cm-information>
+              <button mat-flat-button class="btn-read-more" color="warn" routerLink="/topology/mediations/1/mediators/0" queryParamsHandling="merge" routerLinkActive="active">START</button>
+            </div>
+        </div>
+        <ng-template #godInfo>
+            <div class="start-container">
+                <div class="info-content god-info-content">
+                  <h1 class="start-info-heading">{{ translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn }}</h1>
+                  <cm-information [content]="translate.currentLang === 'de' ? selectedMediator.abstractDe : selectedMediator.abstractEn" [lang]="translate.currentLang"></cm-information>
+                 </div>
+            </div>
+        </ng-template>
+    </ng-template>
+
 </cm-sidepanel>
 
-<cm-info-box *ngIf="selectedMediator" [@infoBox]="mediationState"></cm-info-box>
+<cm-info-box *ngIf="selectedMediator" [ngClass]="{'at-god': atGod}" [@infoBox]="mediationState"></cm-info-box>
 
 <cm-mediations
     [@mediationsPanel]="sidepanelState"
     [mediations]="mediations"
     [selectedMediation]="selectedMediation || focusedMediation"
-    [selectedMediator]="selectedMediator || focusedMediator"
+    [selectedMediator]="selectedMediator || focusedMediation"
+    [focusedMediator]="focusedMediator"
+    [focusedInMediation]="focusedMediation"
     [sidepanelState]="sidepanelState"
     (height)="mediationsHeight = $event"
     (state)="mediationState = $event"
     (focusedMediation)="focusedMediation = $event"></cm-mediations>
+
+
+<div class="start-selector-background" *ngIf="!selectedMediator">
+</div>
 
 <cm-start-selector
     *ngIf="!selectedMediator"

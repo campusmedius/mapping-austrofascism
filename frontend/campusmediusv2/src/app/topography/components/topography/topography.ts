@@ -39,6 +39,11 @@ const SIDEPANEL_WIDTH = {
             state('short', style({ width: SIDEPANEL_WIDTH.short })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),
+        trigger('infoEventNav', [
+            state('full', style({ right: '50px' })),
+            state('short', style({ right: '0px' })),
+            transition('* <=> *', animate('300ms ease-in'))
+        ]),
         trigger('timeline', [
             state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ')' })),
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
@@ -144,7 +149,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.information = this.selectedEvent.information;
                 setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 14));
             } else {
-                setTimeout(() => this.map.flyTo(<any>[16.4, 48.2], 12.14));
+                setTimeout(() => this.map.flyTo(<any>[16.372472, 48.208417], 12.14));
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topography');
             }
@@ -243,10 +248,6 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
             this.router.navigate([], { queryParams: { info: 'full' }, queryParamsHandling: 'merge' });
         }
-    }
-
-    public readMore() {
-      this.router.navigate(['/topography/events/1'], { queryParamsHandling: 'merge' });
     }
 
     public mobileShowMore() {

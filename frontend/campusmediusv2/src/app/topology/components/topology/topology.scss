@@ -19,6 +19,34 @@
     padding-top: $header-height;
 }
 
+.start-container {
+    .info-content {
+        padding-bottom: 0px;
+    }
+    color: $primary-font-color;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.start-info-heading {
+    margin-bottom: 50px;
+    font-family: $title-bold-font;
+    font-size: $h-primary-font-size;
+}
+
+.info-content {
+    padding-bottom: 120px;
+    width: 70%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+}
+
+.god-info-content {
+    margin-top: 10px;
+}
 
 .row, .col {
     height: 100%;
@@ -48,11 +76,16 @@ cm-map {
     color: #fff;
 }
 
-cm-start-selector {
-  background-image: url("../../../../assets/topology.jpg");
-  background-position: center center;
-  background-size: cover;
-  background-color: $map-overlay-background-color;
+.start-selector-background {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 470px;
+    background-image: url("../../../../assets/topology.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-color: $map-overlay-background-color;
 }
 
 .mediation-info {
@@ -60,7 +93,7 @@ cm-start-selector {
     font-size: $small2-font-size;
     color: $text-light-color;
     position: absolute;
-    right: 10px;
+    right: 20px;
     height: $header-height;
     display: flex;
     align-items: center;
@@ -74,10 +107,6 @@ cm-start-selector {
     }
 }
 
-.map-attrib {
-    padding: 0 5px;
-    background-color: hsla(0,0%,100%,.5);
-    position: relative;
-    font-family: $caption-regular-font;
-    font-size: $small2-font-size;
+cm-info-box {
+    z-index: 10;
 }

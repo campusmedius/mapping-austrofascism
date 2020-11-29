@@ -285,7 +285,7 @@ export class MapComponent implements OnInit {
                loader.load(
                    path,
                    function (gltf) {
-                    var newMaterial = new THREE.MeshPhongMaterial({color: 0xa67481, emissive: 0x281a1e});
+                    var newMaterial = new THREE.MeshPhongMaterial({color: 0x6d4651, emissive: 0x281a1e});
                     gltf.scene.traverse((o) => {
                       if (o.isMesh) o.material = newMaterial;
                     });

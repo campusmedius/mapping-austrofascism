@@ -64,11 +64,6 @@ cm-map {
     overflow-x: hidden;
     overflow-y: scroll;
     padding-top: 55px;
-    .btn-read-more {
-        width: 100%;
-        margin-top: 20px;
-        margin-bottom: 0px;
-    }
     width: 100%;
     box-sizing: border-box;
 }
@@ -79,6 +74,17 @@ cm-map {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -10px;
+}
+
+.start-container {
+    .info-content {
+        padding-bottom: 0px;
+    }
+    color: $primary-font-color;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .info-body-mobile {
@@ -121,6 +127,12 @@ cm-map {
         font-family: $title-bold-font;
         font-size: $h-primary-font-size;
     }
+}
+
+.start-info-heading {
+    margin-bottom: 50px;
+    font-family: $title-bold-font;
+    font-size: $h-primary-font-size;
 }
 
 .topography-start {

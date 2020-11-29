@@ -121,8 +121,39 @@ button.mat-icon-button
 }
 
 
+.map-attrib {
+    padding: 0 10px;
+    background-color: hsla(0,0%,100%,.5);
+    position: absolute;
+    line-height: 24px;
+    height: 24px;
+    overflow: hidden;
+    top: -24px;
+    right: 0px;
+    font-size: $extra-small-font-size;
+    font-family: $caption-regular-font;
+    color: $clickable-color;
+    &:hover { 
+        background: #fff;
+        color: $clickable-color;
+        a {
+            color: $clickable-color;
+        }
+    }
+    a {
+        color: $clickable-color;
+    }
+    a:hover {
+        color: $text-color;
+    }
+}
+
 // ngx-gallery
 
+.ngx-gallery-preview-img {
+    max-width: 95% !important;
+    max-height: 95% !important;
+}
 
 .ngx-gallery-preview-text {
     color: $primary-font-color !important;
@@ -139,6 +170,10 @@ button.mat-icon-button
 .ngx-gallery-preview-text-content {
     max-width: 1000px;
     margin: auto;
+    cm-information .wrapper p {
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+    }
 }
 
 ngx-gallery-thumbnails .ngx-gallery-arrow-left {
@@ -230,7 +265,13 @@ ngx-gallery-thumbnail {
     }
 }
 
-
+.btn-read-more {
+    width: 100%;
+    margin-top: 20px !important;
+    margin-bottom: 0px !important;
+    padding: 6px 16px !important;
+    border-radius: 0px !important;
+  }
 
 .cite-button {
     width: $base-font-size;
@@ -263,7 +304,7 @@ ngx-gallery-thumbnail {
 .up-header {
     height: $header-height;
     position: absolute;
-    right: 25px;
+    right: 28px;
 }
 
 .title-header {
