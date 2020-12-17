@@ -20,13 +20,10 @@
 }
 
 .map-control {
-    position: absolute;
+    position: fixed;
     z-index: 5;
-    top: 20px;
-    @media screen and (max-width: $break-mobile) {
-        top: 60px;
-    }
-    left: 20px;
+    top: calc(#{$header-height} + 20px);
+    left: 24px;
     button {
         display: block;
         min-width: 20px;

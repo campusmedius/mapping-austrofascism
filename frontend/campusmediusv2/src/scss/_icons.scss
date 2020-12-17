@@ -27,6 +27,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-image:before {
+  content: "\e924";
+}
+.cm-page:before {
+  content: "\e925";
+}
+.cm-square-page:before {
+  content: "\e926";
+}
 .cm-search:before {
   content: "\e923";
 }

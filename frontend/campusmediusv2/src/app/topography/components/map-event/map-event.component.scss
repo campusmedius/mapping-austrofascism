@@ -1,12 +1,14 @@
 @import '../../../../scss/variables.scss';
 
+
 .marker {
     width: 32px;
     height: 50px;
     cursor: pointer;
     .icon {
+        color: $clickable-color;
+        opacity: 0.8;
         position: absolute;
-        background-image: url('../../../../assets/icons/event-unselected.png');
         background-size: 100% 100%;
         width: 32px;
         height: 50px;
@@ -20,10 +22,10 @@
         z-index: 100;
     }
     &.selected .icon {
-        background-image: url('../../../../assets/icons/event-selected.png') !important;
+        color: $accent-color !important;
     }
     &.active .icon {
-        background-image: url('../../../../assets/icons/event-active.png');
+        color: #ffffff;
     }
     .highlight {
         position: absolute;

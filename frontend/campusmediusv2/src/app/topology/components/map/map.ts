@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, NgZone, HostBinding } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, NgZone, HostBinding, HostListener } from '@angular/core';
+import {
+    trigger,
+    state,
+    style,
+    animate,
+    transition
+  } from '@angular/animations';
 import { Router } from '@angular/router';
 
 import { Map, LngLat, Point as MapboxPoint, PointLike } from 'mapbox-gl';
@@ -16,21 +23,40 @@ const MIN_ZOOM = 0;
 @Component({
     selector: 'cm-map',
     templateUrl: './map.html',
-    styleUrls: ['./map.scss']
+    styleUrls: ['./map.scss'],
+    animations: [
+        trigger('mapattribOpen', [
+            state('true', style({ 'width': '*', display: '*' })),
+            state('false', style({ 'width': '0px', display: 'none' })),
+            transition('false => true', [
+                style({ 'display': 'block' }),
+                animate('300ms ease-in')
+            ]),
+            transition('true => false', [
+                animate('300ms ease-in')
+            ])
+        ]),
+      ]
 })
 export class MapComponent implements OnInit {
     @ViewChild('map', { static: true }) mapElement: ElementRef;
+    @ViewChild('mapattrib', {static: true}) mapAttrib: ElementRef;
 
     @Input() overlayLeftSize = '0px';
     @Input() overlayRightSize = '0px';
     @Input() overlayTopSize = '0px';
     @Input() overlayBottomSize = '0px';
 
+    @Input() selectedMediation: Mediation;
+    @Input() selectedMediator: Mediator;
+
     public viennaMapVisible = true;
     public map: Map;
 
     public isMaxZoom = false;
     public isMinZoom = false;
+
+    public mapAttribIsOpen = false;
 
     public noWebGL = false;
 
@@ -49,6 +75,13 @@ export class MapComponent implements OnInit {
     private layerVorwaertshaus;
 
     private currentMediationId: string;
+
+    @HostListener('document:click', ['$event'])
+    clickout(event) {
+      if(!this.mapAttrib.nativeElement.contains(event.target)) {
+        this.mapAttribIsOpen = false;
+      }
+    }
 
     constructor(
         private router: Router,

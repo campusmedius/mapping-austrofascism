@@ -1,4 +1,6 @@
 <cm-map *ngIf="selectedMediator"
+    [selectedMediation]="selectedMediation"
+    [selectedMediator]="selectedMediator"
     [@mapTopOffset]="mediationState"
     [@mapLeftOffset]="sidepanelState"
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
@@ -70,14 +72,11 @@
     [@mediationsPanel]="sidepanelState"
     [mediations]="mediations"
     [selectedMediation]="selectedMediation || focusedMediation"
-    [selectedMediator]="selectedMediator || focusedMediation"
-    [focusedMediator]="focusedMediator"
-    [focusedInMediation]="focusedMediation"
+    [selectedMediator]="selectedMediator || focusedMediator"
     [sidepanelState]="sidepanelState"
     (height)="mediationsHeight = $event"
     (state)="mediationState = $event"
     (focusedMediation)="focusedMediation = $event"></cm-mediations>
-
 
 <div class="start-selector-background" *ngIf="!selectedMediator">
 </div>

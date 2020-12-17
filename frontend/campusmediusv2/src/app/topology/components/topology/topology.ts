@@ -59,6 +59,7 @@ const SIDEPANEL_WIDTH = {
 })
 export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public mediations: Mediation[];
+    public isStartPage = true;
     public selectedMediation: Mediation;
     public focusedMediation: Mediation;
     public previousMediation: Mediation;
@@ -151,6 +152,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             if (this.selectedMediator) {
+                this.isStartPage = false;
                 if (this.selectedMediator.id === '0') {
                     this.sidepanelStateForLinksInGodSelector = this.sidepanelState;
                     this.sidepanelState = 'short';
@@ -169,6 +171,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
                 this.information = this.selectedMediator.information;
             } else {
+                this.isStartPage = true;
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topology');
             }

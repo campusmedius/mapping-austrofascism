@@ -27,6 +27,9 @@
         height: 30px;
         line-height: 30px;
         opacity: 0.9;
+        &:hover {
+            background: #a67481;
+          }
     }
     .zoom {
         font-size: 16px;
@@ -46,6 +49,9 @@
     .vie-map-toggle {
         margin-top: 15px;
         font-size: 22px;
+    }
+    .map-attrib {
+        margin-top: 15px;
     }
 }
 

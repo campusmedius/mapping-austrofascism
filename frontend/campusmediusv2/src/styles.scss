@@ -122,29 +122,42 @@ button.mat-icon-button
 
 
 .map-attrib {
-    padding: 0 10px;
-    background-color: hsla(0,0%,100%,.5);
-    position: absolute;
-    line-height: 24px;
-    height: 24px;
-    overflow: hidden;
-    top: -24px;
-    right: 0px;
-    font-size: $extra-small-font-size;
-    font-family: $caption-regular-font;
-    color: $clickable-color;
-    &:hover { 
-        background: #fff;
+    background-color: white;
+    border-radius: 3px;
+    .map-attrib-inner {
+        font-size: $extra-small-font-size;
+        font-family: $caption-regular-font;
         color: $clickable-color;
+        line-height: 24px;
+        margin-left: 32px;
+        padding: 4px;
         a {
-            color: $clickable-color;
+            height: 24px;
+            overflow: hidden;
+            display: block;
+            color: $text-color;
+        }
+        a:hover {
+            color: $accent-color;
         }
     }
-    a {
-        color: $clickable-color;
+    &::before{
+        content: '';
+        cursor: pointer;
+        position: absolute;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill='%238c8c8c' fill-rule='evenodd' d='M4,10a6,6 0 1,0 12,0a6,6 0 1,0 -12,0 M9,7a1,1 0 1,0 2,0a1,1 0 1,0 -2,0 M9,10a1,1 0 1,1 2,0l0,3a1,1 0 1,1 -2,0'/%3E %3C/svg%3E"); 
+        width: 32px;
+        height: 32px;
+        box-sizing: border-box;
+        border-radius: 32px;
+        background-color: hsla(0,0%,100%,.5);
     }
-    a:hover {
-        color: $text-color;
+    &:hover::before {
+        background-color: #fff;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill='%23a67481' fill-rule='evenodd' d='M4,10a6,6 0 1,0 12,0a6,6 0 1,0 -12,0 M9,7a1,1 0 1,0 2,0a1,1 0 1,0 -2,0 M9,10a1,1 0 1,1 2,0l0,3a1,1 0 1,1 -2,0'/%3E %3C/svg%3E"); 
+    }
+    &.isOpen::before {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill='%23a67481' fill-rule='evenodd' d='M4,10a6,6 0 1,0 12,0a6,6 0 1,0 -12,0 M9,7a1,1 0 1,0 2,0a1,1 0 1,0 -2,0 M9,10a1,1 0 1,1 2,0l0,3a1,1 0 1,1 -2,0'/%3E %3C/svg%3E"); 
     }
 }
 
