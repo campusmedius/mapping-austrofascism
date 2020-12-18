@@ -11,4 +11,5 @@ django-softhyphen==1.1.0
 django-taggit==1.2.0
 django-taggit-autosuggest==0.3.8
 django-taggit-serializer==0.1.7
-geopy
+geopy==2.0.0
+beautifulsoup4==4.9.3

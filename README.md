@@ -115,8 +115,6 @@ The production version is running at Uni Wien.
 ./manage.sh deploy production
 ```
 
-
-
 ## Packages
 
 ### Update Backend Packages
@@ -133,3 +131,4 @@ Edit `backend/campusmedius/nix/requirements.txt` and run:
 pypi2nix -V python37 -r requirements.txt
 ```
 
+For use in staging and production environment copy the generated nix files to `nix/overlays/pkgs/cm-backend`
