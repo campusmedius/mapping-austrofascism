@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+
 
 declare var safari;
 
@@ -29,8 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     constructor(
         private translate: TranslateService,
-        private route: ActivatedRoute,
-        private router: Router
+        private route: ActivatedRoute
     ) {
         (<any>document).isIE = /*@cc_on!@*/false || !!(<any>document).documentMode;
         (<any>document).isEdge = !(<any>document).isIE && !!(<any>window).StyleMedia;

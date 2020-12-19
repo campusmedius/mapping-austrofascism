@@ -44,5 +44,9 @@
             "world": "World map by Philipp Eckebrecht (17th c. © ÖNB)",
             "buildings": "Buildings (2020 © City of Vienna)"
         }
+    },
+    "search": {
+        "resultHeading": "Search results",
+        "empty": "Insert a search query."
     }
 }

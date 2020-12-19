@@ -1,0 +1,25 @@
+<button mat-button class="close cm-close" (click)="close()"></button>
+
+<div class="container">
+    <form class="search-form">
+        <mat-form-field class="example-full-width">
+        <input #searchElement matInput (keyup)="search($event.target.value)" autocomplete="off">
+        <mat-icon class="cm-search" matSuffix></mat-icon>
+        </mat-form-field>
+    </form>
+
+    <div class="results-container">
+        <h1>{{'search.resultHeading' | translate}}</h1>
+
+        <div class="results-wrapper" *ngIf="searchResults; else emptyResult">
+            <cm-search-result 
+                *ngFor="let result of searchResults"
+                [result]="result"
+                (locationSelected)="openLocation($event)">
+            </cm-search-result>
+        </div>
+        <ng-template #emptyResult>
+            <div class="empty-result">{{'search.empty' | translate}}</div>
+        </ng-template>
+    </div>
+</div>

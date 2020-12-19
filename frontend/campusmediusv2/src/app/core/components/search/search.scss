@@ -1,0 +1,63 @@
+@import '../../../../scss/_variables.scss';
+
+:host {
+    color: $primary-font-color;
+    font-family: $caption-regular-font;
+    ::ng-deep em, ::ng-deep i {
+	      font-family: $caption-italics-font;
+        font-style: normal;
+    }
+}
+
+.close {
+    float: right;
+    display: block;
+    min-width: 20px;
+    margin-bottom: 2px;
+    width: 30px;
+    padding: 0px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+.container {
+    padding: 0px 25px;
+    height: 100%;
+}
+.results-container {
+    padding: 10px 10px;
+    height: calc(100% - 70px);
+}
+
+.search-form {
+    margin-top: -3px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.cm-search {
+    color: $text-light-color;
+    top: 5px;
+    position: relative;
+    right: 8px;
+}
+
+input {
+    color: $text-light-color;
+    padding-left: 15px;
+}
+
+.results-wrapper {
+    overflow-y: auto;
+    height: calc(100% - 55px)
+}
+
+.empty-result {
+    color: $text-light-color;
+    font-size: $small-font-size;
+    margin-top: -20px;
+}

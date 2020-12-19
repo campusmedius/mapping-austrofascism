@@ -39,10 +39,14 @@
     "map": {
         "webgl": "Die Karte kann nicht dargestellt werden. Ihr Webbrowser unterstützt kein WebGL. <a href=\"https://get.webgl.org/\" target=\"_blank\">Bitte folgen Sie diesem Link für nähere Informationen.</a>",
         "attrib": {
-            "freytag": "Gesamtplan von Wien (1933 © Freytag & Berndt)",
+            "freytag": "Stadtplan von Wien (1933 © Freytag & Berndt)",
             "osm": "Digitale Karte von Wien (2020 © OpenStreetMap contributors)",
             "world": "Weltkarte von Philipp Eckebrecht (17. Jh. © ÖNB)",
-            "buildings": "Gebäude (© Stadt Wien – data.wien.gv.at)"
+            "buildings": "Gebäude (2020 © Stadt Wien)"
         }
+    },
+    "search": {
+        "resultHeading": "Suchergebnisse",
+        "empty": "Bitte einen Suchbegriff eingeben."
     }
 }

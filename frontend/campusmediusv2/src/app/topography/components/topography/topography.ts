@@ -76,7 +76,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     timeFilterEnd: Moment = moment('1933-05-14T13:00Z');
     sidepanelState = 'short'; // full, short
     sidepanelWidth: string;
-
+    
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
     @ViewChild('fullinfo', {static: false}) fullinfo: ElementRef;
     @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
@@ -85,6 +85,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     public showTitleHeaderMobile = false;
     private galleryIsOpen = false;
     private scrollTopBeforeGalleryOpen = 0;
+    private skipFragmentUpdate = false;
 
     public timelineHeight = '40px';
     public mobileOverlayHeight = '200px';
@@ -158,11 +159,12 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.route.data.subscribe(data => {
-            if (this.sidepanelState === 'full') {
-                let ref = (<any>this.route.fragment).getValue();
-                ref = ref ? ref : 'top';
-                this.infoContainer.scrollToReference(ref);
+        this.route.fragment.subscribe(fragment => {
+            if (!this.skipFragmentUpdate) {
+                fragment = fragment ? fragment : 'top';
+                this.infoContainer.scrollToReference(fragment);
+            } else {
+                this.skipFragmentUpdate = false;
             }
         });
 
@@ -271,6 +273,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public sectionChange(section: string) {
         if (this.sidepanelState === 'full') {
+            this.skipFragmentUpdate = true;
             this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
         }
     }

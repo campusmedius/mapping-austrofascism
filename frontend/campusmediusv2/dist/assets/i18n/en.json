@@ -20,11 +20,11 @@
     },
     "mediations": {
         "header": "mediations",
-        "sovereignSignsDemand": "How to use reason:",
+        "sovereignSignsDemand": "How to Use Reason:",
         "sovereignSignsResponse": "Sovereign Signs",
-        "examiningGazesDemand": "How to capture life:",
+        "examiningGazesDemand": "How to Capture Life:",
         "examiningGazesResponse": "Examining Gazes",
-        "governedTransmissionsDemand": "How to raise voice:",
+        "governedTransmissionsDemand": "How to Speak Up:",
         "governedTransmissionsResponse": "Governed Transmissions"
     },
     "infobox": {
@@ -42,7 +42,11 @@
             "freytag": "City plan of Vienna (1933 © Freytag & Berndt)",
             "osm": "Digital map of Vienna (2020 © OpenStreetMap contributors)",
             "world": "World map by Philipp Eckebrecht (17th c. © ÖNB)",
-            "buildings": "Buildings (© City of Wien – data.wien.gv.at)"
+            "buildings": "Buildings (2020 © City of Vienna)"
         }
+    },
+    "search": {
+        "resultHeading": "Search results",
+        "empty": "Insert a search query."
     }
 }

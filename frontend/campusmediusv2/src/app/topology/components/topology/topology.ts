@@ -79,6 +79,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public showTitleHeaderMobile = false;
     private galleryIsOpen = false;
     private scrollTopBeforeGalleryOpen = 0;
+    private skipFragmentUpdate = false;
 
     public sidepanelWidth: string;
     public mediationsHeight = '220px';
@@ -188,11 +189,12 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        this.route.data.subscribe(data => {
-            if (this.sidepanelState === 'full') {
-                let ref = (<any>this.route.fragment).getValue();
-                ref = ref ? ref : 'top';
-                this.infoContainer.scrollToReference(ref);
+        this.route.fragment.subscribe(fragment => {
+            if (!this.skipFragmentUpdate) {
+                fragment = fragment ? fragment : 'top';
+                this.infoContainer.scrollToReference(fragment);
+            } else {
+                this.skipFragmentUpdate = false;
             }
         });
 
@@ -293,6 +295,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public sectionChange(section: string) {
         if (this.sidepanelState === 'full') {
+            this.skipFragmentUpdate = true;
             this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
         }
     }

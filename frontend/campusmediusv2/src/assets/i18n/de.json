@@ -44,5 +44,9 @@
             "world": "Weltkarte von Philipp Eckebrecht (17. Jh. © ÖNB)",
             "buildings": "Gebäude (2020 © Stadt Wien)"
         }
+    },
+    "search": {
+        "resultHeading": "Suchergebnisse",
+        "empty": "Bitte einen Suchbegriff eingeben."
     }
 }

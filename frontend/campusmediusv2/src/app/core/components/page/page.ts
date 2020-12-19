@@ -27,6 +27,7 @@ export class PageComponent implements OnInit, AfterViewInit {
 
     public page: Page;
     public showTitleHeader = false;
+    private skipFragmentUpdate = false;
 
     constructor(
         private translate: TranslateService,
@@ -44,10 +45,14 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.route.data.subscribe(data => {
-            let ref = (<any>this.route.fragment).getValue();
-            ref = ref ? ref : 'top';
-            this.infoContainer.scrollToReference(ref);
+        this.route.fragment.subscribe(fragment => {
+            if (!this.skipFragmentUpdate) {
+                fragment = fragment ? fragment : 'top';
+                this.infoContainer.scrollToReference(fragment);
+            } else {
+                this.skipFragmentUpdate = false;
+            }
+
         });
 
         setTimeout(() => {
@@ -74,6 +79,7 @@ export class PageComponent implements OnInit, AfterViewInit {
     }
 
     public sectionChange(section: string) {
+        this.skipFragmentUpdate = true;
         this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
     }
 

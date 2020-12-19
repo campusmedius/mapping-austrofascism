@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { SearchComponent } from '../search/search';
+import { MatDialog } from '@angular/material';
 
 
 @Component({
@@ -13,7 +15,8 @@ export class HeaderComponent implements OnInit {
     @Input() lang: string;
 
     constructor(
-        private router: Router
+        private router: Router,
+        private dialog: MatDialog,
     ) { }
 
     ngOnInit() {
@@ -21,5 +24,13 @@ export class HeaderComponent implements OnInit {
 
     public changeLanguage(lang: string) {
         this.router.navigate([], { queryParams: { 'lang': lang }, queryParamsHandling: 'merge' });
+    }
+
+    showSearch() {
+        const dialogRef = this.dialog.open(SearchComponent, {
+            width: '800px',
+            height: '90vh',
+            autoFocus: false
+        });
     }
 }

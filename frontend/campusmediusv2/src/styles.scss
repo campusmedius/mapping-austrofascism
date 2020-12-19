@@ -87,6 +87,28 @@ a:active {
     color: $accent-color;
 }
 
+.highlight {
+    color: $accent-color;
+    text-decoration: underline $accent-color; 
+}
+.result-row:hover .highlight {
+    color: #fff !important;
+    text-decoration: underline #fff !important; 
+}
+
+.mat-form-field-flex {
+    background: $background-light-color;
+}
+.mat-form-field-infix {
+    border-top: none;
+}
+.mat-form-field-underline {
+    display: none;
+}
+.mat-dialog-container {
+    border-radius: 0px !important;
+}
+
 // fix button focus on dialog close
 button.mat-icon-button
 {

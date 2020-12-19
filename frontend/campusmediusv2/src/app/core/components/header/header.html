@@ -2,7 +2,7 @@
     <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
         <mat-icon class="cm-menu"></mat-icon>
     </button>
-    <button mat-icon-button color="primary" class="search-button">
+    <button mat-icon-button color="primary" class="search-button" (click)="showSearch()">
         <mat-icon class="cm-search"></mat-icon>
     </button>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" >
