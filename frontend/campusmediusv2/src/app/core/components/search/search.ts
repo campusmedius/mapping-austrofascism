@@ -45,19 +45,19 @@ export class SearchComponent implements OnInit {
     },0);  
     
 
-        this.http.get("/assets/search/index_en.json").subscribe((data) => {
+        this.http.get("/v2/assets/search/index_en.json").subscribe((data) => {
           this.searchIndexEn = Index.load(data)
         });
-        this.http.get("/assets/search/index_de.json").subscribe((data) => {
+        this.http.get("/v2/assets/search/index_de.json").subscribe((data) => {
           this.searchIndexDe = Index.load(data)
         });
-        this.http.get("/assets/search/documents_en.json").subscribe((data: SearchDocument[]) => {
+        this.http.get("/v2/assets/search/documents_en.json").subscribe((data: SearchDocument[]) => {
           this.searchDocumentsEn = data;
           this.searchDocumentsEn.forEach((d) => {
             this.searchDocumentsDictEn[d.location] = d;
           });
         });
-        this.http.get("/assets/search/documents_de.json").subscribe((data: SearchDocument[]) => {
+        this.http.get("/v2/assets/search/documents_de.json").subscribe((data: SearchDocument[]) => {
           this.searchDocumentsDe = data;
           this.searchDocumentsDe.forEach((d) => {
             this.searchDocumentsDictDe[d.location] = d;
