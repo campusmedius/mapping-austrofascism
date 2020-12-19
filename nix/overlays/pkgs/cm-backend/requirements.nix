@@ -77,10 +77,10 @@ let
 
   generated = self: {
     "beautifulsoup4" = python.mkDerivation {
-      name = "beautifulsoup4-4.9.1";
+      name = "beautifulsoup4-4.9.3";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/c6/62/8a2bef01214eeaa5a4489eca7104e152968729512ee33cb5fbbc37a896b7/beautifulsoup4-4.9.1.tar.gz";
-        sha256 = "73cc4d115b96f79c7d77c1c7f7a0a8d4c57860d1041df407dd1aae7f07a77fd7";
+        url = "https://files.pythonhosted.org/packages/6b/c3/d31704ae558dcca862e4ee8e8388f357af6c9d9acb0cad4ba0fbbd350d9a/beautifulsoup4-4.9.3.tar.gz";
+        sha256 = "84729e322ad1d5b4d25f805bfa05b902dd96450f43842c4e99067d5e1369eb25";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -391,10 +391,10 @@ let
     };
 
     "pytz" = python.mkDerivation {
-      name = "pytz-2020.1";
+      name = "pytz-2020.4";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/f4/f6/94fee50f4d54f58637d4b9987a1b862aeb6cd969e73623e02c5c00755577/pytz-2020.1.tar.gz";
-        sha256 = "c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048";
+        url = "https://files.pythonhosted.org/packages/09/07/448a8887c7195450604dfc0305d80d74324c36ee18ed997664051d4bffe3/pytz-2020.4.tar.gz";
+        sha256 = "3e6b7dd2d1e0a59084bcee14a17af60c5c562cdc16d828e8eba2e683d3a7e268";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -425,10 +425,10 @@ let
     };
 
     "soupsieve" = python.mkDerivation {
-      name = "soupsieve-2.0.1";
+      name = "soupsieve-2.1";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/3e/db/5ba900920642414333bdc3cb397075381d63eafc7e75c2373bbc560a9fa1/soupsieve-2.0.1.tar.gz";
-        sha256 = "a59dc181727e95d25f781f0eb4fd1825ff45590ec8ff49eadfd7f1a537cc0232";
+        url = "https://files.pythonhosted.org/packages/58/5d/445e21e92345848305eecf473338e9ec7ed8905b99ea78415042060127fc/soupsieve-2.1.tar.gz";
+        sha256 = "6dc52924dc0bc710a5d16794e6b3480b2c7c08b07729505feab2b2c16661ff6e";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
