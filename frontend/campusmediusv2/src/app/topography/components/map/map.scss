@@ -28,8 +28,8 @@
         line-height: 30px;
         opacity: 0.9;
         &:hover {
-            background: #a67481;
-          }
+            background: $accent-color;
+        }
     }
     .zoom {
         font-size: 16px;

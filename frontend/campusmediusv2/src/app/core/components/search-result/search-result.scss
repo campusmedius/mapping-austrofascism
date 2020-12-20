@@ -7,15 +7,17 @@
     margin-left: -60px;
 }
 
+
 h2 {
     margin-top: 0px;
     margin-bottom: 0px;
+    font-size: 1rem;
 }
 
 .text {
     font-family: $text-regular-font;
-    font-size: $small-font-size;
-    line-height: $small-line-height;
+    font-size: $small2-font-size;
+    line-height: 1.25rem;
 }
 
 .result-row {
@@ -24,6 +26,7 @@ h2 {
     padding-bottom: 5px;
     &:hover {
         background-color: $accent-color;
+        opacity: 0.8;
         color: #fff;
         cursor: pointer;
         h2 {
@@ -43,5 +46,5 @@ hr {
 }
 
 :host:first-child hr {
-    margin-block-start: 0rem;
+    display: none;
 }

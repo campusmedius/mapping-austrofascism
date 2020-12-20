@@ -1,19 +1,4 @@
-<div class="map-control">
-    <div #mapattrib class="map-attrib" (click)="mapAttribIsOpen = true" [ngClass]="{'isOpen':mapAttribIsOpen}">
-        <div class="map-attrib-inner" [@mapattribOpen]="mapAttribIsOpen">
-            <a *ngIf="selectedMediator.id !== '0'; else worldAttrib" href="https://www.freytagberndt.com" target="_blank">{{'map.attrib.freytag' | translate }}</a>
-            <span *ngIf="selectedMediation.id === '3'">
-                <a href="https://data.wien.gv.at" target="_blank">{{'map.attrib.buildings' | translate }}</a>
-            </span>
-            <ng-template #worldAttrib>
-                <a href="http://data.onb.ac.at/rec/AC04728187" target="_blank">{{'map.attrib.world' | translate }}</a>
-            </ng-template>
-        </div>
-    </div>
-</div>
 <div #map></div>
 <ng-content></ng-content>
 <div *ngIf="noWebGL" [innerHtml]="'map.webgl' | translate" class="nowebgl">
 </div>
-
-

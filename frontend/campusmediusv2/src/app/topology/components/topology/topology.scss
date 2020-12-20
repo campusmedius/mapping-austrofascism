@@ -110,3 +110,24 @@ cm-map {
 cm-info-box {
     z-index: 10;
 }
+
+
+.map-control {
+    position: fixed;
+    z-index: 5;
+    top: calc(#{$header-height} + 20px);
+    left: 24px;
+    button {
+        display: block;
+        min-width: 20px;
+        margin-bottom: 2px;
+        width: 30px;
+        padding: 0px;
+        height: 30px;
+        line-height: 30px;
+        opacity: 0.9;
+        &:hover {
+            background: $accent-color;
+        }
+    }
+}

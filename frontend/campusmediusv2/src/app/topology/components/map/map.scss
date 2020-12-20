@@ -19,41 +19,6 @@
     }
 }
 
-.map-control {
-    position: fixed;
-    z-index: 5;
-    top: calc(#{$header-height} + 20px);
-    left: 24px;
-    button {
-        display: block;
-        min-width: 20px;
-        margin-bottom: 2px;
-        width: 30px;
-        padding: 0px;
-        height: 30px;
-        line-height: 30px;
-    }
-    .zoom {
-        font-size: 16px;
-    }
-    .deactivated {
-        opacity: 0.6;
-        cursor: default;
-    }
-    .mat-button-wraper {
-        line-height: 30px;
-    }
-    .vie-map-not-visible {
-        color: #666666;
-        background-color: white;
-        border: solid #666666 1px;
-    }
-    .vie-map-toggle {
-        margin-top: 15px;
-        font-size: 22px;
-    }
-}
-
 .nowebgl {
     width: 400px;
     padding-top: 20px;

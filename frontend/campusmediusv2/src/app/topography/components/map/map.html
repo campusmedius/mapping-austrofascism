@@ -2,7 +2,8 @@
     <button mat-flat-button color="warn" class="zoom cm-plus" [ngClass]="{'deactivated':isMaxZoom}" (click)="zoomIn()"></button>
     <button mat-flat-button color="warn" class="zoom cm-minus" [ngClass]="{'deactivated':isMinZoom}" (click)="zoomOut()"></button>
     <button mat-flat-button color="warn" class="vie-map-toggle cm-layers" [ngClass]="{'vie-map-not-visible':!viennaMapVisible,'vie-map-visible':viennaMapVisible}" (click)="toogleViennaMap()"></button>
-    <div #mapattrib class="map-attrib" (click)="mapAttribIsOpen = true" [ngClass]="{'isOpen':mapAttribIsOpen}">
+    <div #mapattrib class="map-attrib" [ngClass]="{'isOpen':mapAttribIsOpen}">
+        <button mat-mini-fab color="primary" (click)="mapAttribIsOpen = !mapAttribIsOpen">©</button>
         <div class="map-attrib-inner" [@mapattribOpen]="mapAttribIsOpen">
             <a href="https://www.openstreetmap.org/copyright" target="_blank">{{'map.attrib.osm' | translate }}</a>
             <a href="https://www.freytagberndt.com" target="_blank">{{'map.attrib.freytag' | translate }}</a>

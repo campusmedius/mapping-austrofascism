@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef, HostListener } from '@angular/core';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -54,6 +54,17 @@ const SIDEPANEL_WIDTH = {
             state('false', style({ opacity: 0 })),
             state('true', style({ opacity: 1 })),
             transition('false <=> true', animate('300ms ease-in'))
+        ]),
+        trigger('mapattribOpen', [
+            state('true', style({ 'width': '*', display: '*' })),
+            state('false', style({ 'width': '0px', display: 'none' })),
+            transition('false => true', [
+                style({ 'display': 'block' }),
+                animate('300ms ease-in')
+            ]),
+            transition('true => false', [
+                animate('300ms ease-in')
+            ])
         ])
     ]
 })
@@ -93,10 +104,19 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     sidepanelStateForLinksInGodSelector = 'short'
     mediationState = 'open'; // open, closed
     isMobile = false;
+    public mapAttribIsOpen = false;
 
     @ViewChild(MapComponent, {static: false}) map: MapComponent;
     @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;
     @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
+    @ViewChild('mapattrib', {static: true}) mapAttrib: ElementRef;
+
+    @HostListener('document:click', ['$event'])
+    clickout(event) {
+      if(!this.mapAttrib.nativeElement.contains(event.target)) {
+        this.mapAttribIsOpen = false;
+      }
+    }
 
     constructor(
       private translate: TranslateService,
@@ -192,7 +212,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         this.route.fragment.subscribe(fragment => {
             if (!this.skipFragmentUpdate) {
                 fragment = fragment ? fragment : 'top';
-                this.infoContainer.scrollToReference(fragment);
+                if (this.infoContainer) {
+                    this.infoContainer.scrollToReference(fragment);
+                }
             } else {
                 this.skipFragmentUpdate = false;
             }
@@ -271,6 +293,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.infoBox.setSpaceTime(this.selectedMediator, 0, 0);
         }
     }
+
 
     public toggleInformationPanel() {
         if (this.sidepanelState === 'full') {

@@ -161,8 +161,10 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit() {
         this.route.fragment.subscribe(fragment => {
             if (!this.skipFragmentUpdate) {
-                fragment = fragment ? fragment : 'top';
-                this.infoContainer.scrollToReference(fragment);
+                fragment = fragment ? fragment : 'top';           
+                if (this.infoContainer) {
+                    this.infoContainer.scrollToReference(fragment);
+                }
             } else {
                 this.skipFragmentUpdate = false;
             }
