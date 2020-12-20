@@ -4845,7 +4845,7 @@ button.mat-icon-button.cdk-program-focused .mat-button-focus-overlay {
 }
 .map-attrib .mat-mini-fab .mat-button-wrapper {
   line-height: 1.3rem;
-  margin-top: -4px;
+  margin-top: -5px;
   font-size: 1.3rem;
 }
 .map-attrib .map-attrib-inner {
