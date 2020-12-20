@@ -47,6 +47,6 @@
     },
     "search": {
         "resultHeading": "Search results",
-        "empty": "Insert a search query."
+        "placeholder": "Search"
     }
 }
