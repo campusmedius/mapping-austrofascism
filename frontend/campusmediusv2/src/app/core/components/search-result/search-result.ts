@@ -10,8 +10,12 @@ import { SearchResult } from '@app/core/models/search';
 })
 export class SearchResultComponent implements OnInit {
   @Input() result: SearchResult;
+  @Input() lang: string;
 
   @Output() locationSelected = new EventEmitter<string>();
+
+  public showAllTextDocuments = false;
+  public showAllMediaDocuments = false;
 
   constructor(
   ) { }

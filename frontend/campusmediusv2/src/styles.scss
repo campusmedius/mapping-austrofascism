@@ -109,6 +109,13 @@ a:active {
     border-radius: 0px !important;
 }
 
+.mat-form-field-label {
+    color: $clickable-color !important;
+    font-family: Source Serif Pro Regular !important;
+    padding-left: 15px;
+    font-size: 1rem !important;
+}
+
 // fix button focus on dialog close
 button.mat-icon-button
 {

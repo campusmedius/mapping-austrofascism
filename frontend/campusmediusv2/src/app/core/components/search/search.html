@@ -1,8 +1,8 @@
 
 <div class="container">
     <form class="search-form">
-        <mat-form-field class="example-full-width">
-        <input #searchElement matInput (keyup)="search($event.target.value)" autocomplete="off">
+        <mat-form-field class="example-full-width" floatLabel="never">
+        <input #searchElement matInput (keyup)="search($event.target.value)" autocomplete="off" placeholder="{{'search.placeholder' | translate}}">
         <mat-icon class="cm-search" matSuffix></mat-icon>
         </mat-form-field>
     </form>
@@ -12,6 +12,7 @@
             <cm-search-result 
                 *ngFor="let result of searchResults"
                 [result]="result"
+                [lang]="translate.currentLang"
                 (locationSelected)="openLocation($event)">
             </cm-search-result>
         </div>

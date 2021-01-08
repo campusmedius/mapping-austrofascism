@@ -3,8 +3,6 @@
 .cm-icon {
     color: $accent-color;
     font-size: $h-secondary-font-size;
-    float: left;
-    margin-left: -60px;
 }
 
 
@@ -20,13 +18,42 @@ h2 {
     line-height: 1.25rem;
 }
 
+.icon-col {
+    width: 80px;
+    height: $h-secondary-font-size;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.heading {
+    height: $h-secondary-font-size;
+}
+
+.text-col {
+    flex-grow: 1;
+}
+
+.more {
+    font-family: $caption-semibold-font;
+    font-size: $small2-font-size;
+    line-height: 1.25rem;
+    color: $headline-color;
+    &.active {
+        background-color: $accent-color;
+        opacity: 0.9;
+        color: #fff;
+    }
+}
+
+
 .result-row {
-    padding-left: 80px;    
+    display: flex;
+    align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
     &:hover {
         background-color: $accent-color;
-        opacity: 0.8;
+        opacity: 0.9;
         color: #fff;
         cursor: pointer;
         h2 {

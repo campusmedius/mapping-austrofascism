@@ -2,16 +2,49 @@
 
 <div class="content">
     <div class="heading result-row" (click)="openLocation(result.location)">
-        <span class="cm-icon cm-page"></span>
-        <h2>{{result.title}}</h2>
+        <div class="icon-col">
+            <span class="cm-icon cm-page"></span>
+        </div>
+        <div class="text-col">
+            <h2>{{result.title}}</h2>
+        </div>
     </div>
-    <div *ngFor="let doc of result.textDocuments" class="text result-row" (click)="openLocation(doc.location)">
-        <div [innerHtml]="doc.text | searchresulttext: result.term"></div>
+
+    <div *ngFor="let doc of result.textDocuments | slice:0:2; let i=index" class="text result-row" (click)="openLocation(doc.location)">
+        <div class="icon-col"></div>
+        <div class="text-col" [innerHtml]="doc.text | searchresulttext: result.term"></div>
     </div>
-    <div *ngFor="let doc of result.mediaDocuments" class="text result-row" (click)="openLocation(doc.location)">
-        <span *ngIf="doc.type == 'image'" class="cm-icon cm-image"></span>
-        <span *ngIf="doc.type == 'video'" class="cm-icon cm-film"></span>
-        <span *ngIf="doc.type == 'audio'" class="cm-icon cm-audio"></span>
-        <div [innerHtml]="doc.text | searchresulttext: result.term"></div>
+    <div *ngIf="result.textDocuments.length > 2" class="result-row more" [ngClass]="{'active': showAllTextDocuments}" (click)="showAllTextDocuments = !showAllTextDocuments">
+        <div class="icon-col"></div>
+        <div class="text-col">{{ lang === 'en' ? ('Show ' + (result.textDocuments.length - 2) + ' more') : ('Zeige ' + (result.textDocuments.length - 2) + ' mehr') }}</div>
     </div>
+    <ng-container *ngIf="showAllTextDocuments">
+        <div *ngFor="let doc of result.textDocuments | slice:2; let i=index" class="text result-row" (click)="openLocation(doc.location)">
+            <div class="icon-col"></div>
+            <div class="text-col" [innerHtml]="doc.text | searchresulttext: result.term"></div>
+        </div>
+    </ng-container>
+
+    <div *ngFor="let doc of result.mediaDocuments | slice:0:2; let i=index" class="text result-row" (click)="openLocation(doc.location)">
+        <div class="icon-col">
+            <span *ngIf="doc.type == 'image'" class="cm-icon cm-image"></span>
+            <span *ngIf="doc.type == 'video'" class="cm-icon cm-film"></span>
+            <span *ngIf="doc.type == 'audio'" class="cm-icon cm-audio"></span>
+        </div>
+        <div class="text-col" [innerHtml]="doc.text | searchresulttext: result.term"></div>
+    </div>
+    <div *ngIf="result.mediaDocuments.length > 2" class="result-row more" [ngClass]="{'active': showAllMediaDocuments}" (click)="showAllMediaDocuments = !showAllMediaDocuments">
+        <div class="icon-col"></div>
+        <div class="text-col">{{ lang === 'en' ? ('Show ' + (result.mediaDocuments.length - 2) + ' more') : ('Zeige ' + (result.mediaDocuments.length - 2) + ' mehr') }}</div>
+    </div>
+    <ng-container *ngIf="showAllMediaDocuments">
+        <div *ngFor="let doc of result.mediaDocuments | slice:2; let i=index" class="text result-row" (click)="openLocation(doc.location)">
+            <div class="icon-col">
+                <span *ngIf="doc.type == 'image'" class="cm-icon cm-image"></span>
+                <span *ngIf="doc.type == 'video'" class="cm-icon cm-film"></span>
+                <span *ngIf="doc.type == 'audio'" class="cm-icon cm-audio"></span>
+            </div>
+            <div class="text-col" [innerHtml]="doc.text | searchresulttext: result.term"></div>
+        </div>
+    </ng-container>
 </div>

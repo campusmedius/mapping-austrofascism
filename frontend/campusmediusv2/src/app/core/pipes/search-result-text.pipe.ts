@@ -20,16 +20,12 @@ export class SearchResultTextPipe implements PipeTransform {
           }
         });
     
-        const start = firstPosition - 100;
-        const end = firstPosition + 200;
+        const start = firstPosition - 60;
+        const end = firstPosition + 120;
         let shortText = text.substring(start, end);
     
         terms.forEach((t) => {
-            let matches = shortText.match(new RegExp(t, 'ig'));
-            matches = [...new Set(matches)]; // remove duplicates
-            matches.forEach((m) => {
-                shortText = shortText.replace(m, '<span class="highlight">' + m + '</span>');
-            });
+            shortText = shortText.replace(new RegExp('(' + t + ')', 'ig'), '<span class="highlight">$1</span>');
         });
 
         if (start > 0) {
