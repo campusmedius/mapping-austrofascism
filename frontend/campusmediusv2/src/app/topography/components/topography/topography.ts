@@ -161,23 +161,25 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     ngAfterViewInit() {
         this.route.fragment.subscribe(fragment => {
             if (!this.skipFragmentUpdate) {
-                fragment = fragment ? fragment : 'top';           
-                if (this.infoContainer) {
-                    this.infoContainer.scrollToReference(fragment);
-                }
+                setTimeout(() => {
+                    fragment = fragment ? fragment : 'top';
+                    if (this.infoContainer) {
+                        this.infoContainer.scrollToReference(fragment);
+                    }
+
+                    // set lang in url if not set
+                    this.router.navigate(['.'], {
+                        relativeTo: this.route,
+                        queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                        queryParamsHandling: 'merge',
+                        replaceUrl: true,
+                        preserveFragment: true
+                    });
+                }, 0);
             } else {
                 this.skipFragmentUpdate = false;
             }
         });
-
-        setTimeout(() => {
-            this.router.navigate(['.'], {
-                relativeTo: this.route,
-                queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-                queryParamsHandling: 'merge',
-                replaceUrl: true
-            });
-        }, 0);
     }
 
     private adjustTimelineForEdge() {

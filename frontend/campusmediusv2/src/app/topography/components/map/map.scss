@@ -45,6 +45,9 @@
         color: #666666;
         background-color: white;
         border: solid #666666 1px;
+        &:hover {
+            color: #fff;
+        }
     }
     .vie-map-toggle {
         margin-top: 15px;

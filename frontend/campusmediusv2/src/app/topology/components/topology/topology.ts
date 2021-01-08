@@ -214,31 +214,32 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 fragment = fragment ? fragment : 'top';
                 if (this.infoContainer) {
                     this.infoContainer.scrollToReference(fragment);
-                }
+                }            
+                
+                // set lang in url if not set
+                this.router.navigate(['.'], {
+                    relativeTo: this.route,
+                    queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                    queryParamsHandling: 'merge',
+                    replaceUrl: true,
+                    preserveFragment: true
+                });
             } else {
                 this.skipFragmentUpdate = false;
             }
         });
 
-        setTimeout(() => {
-            this.router.navigate(['.'], {
-                relativeTo: this.route,
-                queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-                queryParamsHandling: 'merge',
-                replaceUrl: true
-            });
-        }, 0);
         this.adjustMap();
     }
 
     resetAnimations() {
-      clearTimeout(this.timer);
-      if(this.infoBox) {
-        this.infoBox.stopAnimation();
-      }
-      if(this.map) {
-        this.map.stopAnimation();
-      }
+        clearTimeout(this.timer);
+        if(this.infoBox) {
+            this.infoBox.stopAnimation();
+        }
+        if(this.map) {
+            this.map.stopAnimation();
+        }
     }
 
     private adjustTimelineForEdge() {
