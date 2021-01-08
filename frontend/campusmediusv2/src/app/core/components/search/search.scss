@@ -27,8 +27,9 @@
     height: 100%;
 }
 .results-container {
-    padding: 10px 10px;
-    height: calc(100% - 70px);
+    margin-top: 24px;    
+    max-height: calc(90vh - 115px);
+    overflow: auto;
 }
 
 h1 {

@@ -7,7 +7,7 @@
         </mat-form-field>
     </form>
 
-    <div class="results-container">
+    <div *ngIf="searchResults && searchResults.length" class="results-container">
         <div class="results-wrapper" *ngIf="searchResults">
             <cm-search-result 
                 *ngFor="let result of searchResults"

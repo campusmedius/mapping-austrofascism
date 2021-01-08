@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     showSearch() {
         const dialogRef = this.dialog.open(SearchComponent, {
             width: '800px',
-            height: '90vh',
+            maxHeight: '90vh',
             autoFocus: false
         });
     }
