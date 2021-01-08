@@ -47,6 +47,14 @@ To initialize a development environment use the follwoing command.
 
 The command starts the frontend and backend server, the editor for frontend and backend and opens the browser windows for frontend and backend.
 
+### Generate Search Assets
+
+For search we use [lunr.js](https://lunrjs.com/). The search documents are fetched from backend endpoints. Download the search documents and generate the search index with the following script:
+
+```sh
+./generate-search-assets.sh
+```
+
 ### Manage script
 
 The `manage.sh` script uses [argbash](https://github.com/matejak/argbash) for argument parsing, the parsing script is located in the tools directory. Build with:

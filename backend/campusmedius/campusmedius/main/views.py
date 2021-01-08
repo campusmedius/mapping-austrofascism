@@ -90,16 +90,23 @@ def get_pages_search_documents(lang):
 
     pages_all = Page.objects.all()
     for page in pages_all:
+        if page.title_en == "Overview":
+            path = '/overview'
+        elif page.title_en == "Team":
+            path = '/team'
+        elif page.title_en == "Book Edition":
+            path = '/book'
+
+        title = re.sub('<[^<]+?>', '', getattr(page, "title_" + lang))
+
+        documents.append({
+            "type": "title",
+            "title": title,
+            "location": f"{path}?lang={lang}&info=full#p:0",
+            "text": title
+        })
+
         if page.information:
-            if page.title_en == "Overview":
-                path = '/overview'
-            elif page.title_en == "Team":
-                path = '/team'
-            elif page.title_en == "Book Edition":
-                path = '/book'
-
-            title = re.sub('<[^<]+?>', '', getattr(page, "title_" + lang))
-
             soup = BeautifulSoup(getattr(page.information, "content_" + lang), 'html.parser')
 
             # generate media and notes documents
@@ -135,10 +142,25 @@ def get_events_search_documents(lang):
 
     events_all = Event.objects.all()
     for event in events_all:
-        if event.information:
-            path = f"/topography/events/{event.id}"
-            title = re.sub('<[^<]+?>', '', getattr(event, "title_" + lang))
+        path = f"/topography/events/{event.id}"
+        title = re.sub('<[^<]+?>', '', getattr(event, "title_" + lang))
 
+        documents.append({
+            "type": "title",
+            "title": title,
+            "location": f"{path}?lang={lang}&info=full#p:0",
+            "text": title
+        })
+
+        keywords = [getattr(tag, "title_" + lang) for tag in event.keywords.all()]
+        documents.append({
+            "type": "keywords",
+            "title": title,
+            "location": f"{path}?lang={lang}&info=full",
+            "text": ' '.join(keywords)
+        })
+
+        if event.information:
             soup = BeautifulSoup(getattr(event.information, "content_" + lang), 'html.parser')
 
             # generate media and notes documents
@@ -174,17 +196,32 @@ def get_mediators_search_documents(lang):
 
     mediators_all = Mediator.objects.all()
     for mediator in mediators_all:
+        if mediator.id in [0, 1, 2, 3, 4, 5]:
+            mediationId = "1"
+        elif mediator.id in [6, 7, 8, 9, 10]:
+            mediationId = "2"
+        elif mediator.id in [11, 12, 13, 14, 15]:
+            mediationId = "3"
+
+        path = f"/topology/mediations/{mediationId}/mediators/{mediator.id}"
+        title = re.sub('<[^<]+?>', '', getattr(mediator, "title_" + lang))
+
+        documents.append({
+            "type": "title",
+            "title": title,
+            "location": f"{path}?lang={lang}&info=full#p:0",
+            "text": title
+        })
+
+        keywords = [getattr(tag, "title_" + lang) for tag in mediator.keywords.all()]
+        documents.append({
+            "type": "keywords",
+            "title": title,
+            "location": f"{path}?lang={lang}&info=full",
+            "text": ' '.join(keywords)
+        })
+
         if mediator.information:
-            if mediator.id in [0, 1, 2, 3, 4, 5]:
-                mediationId = "1"
-            elif mediator.id in [6, 7, 8, 9, 10]:
-                mediationId = "2"
-            elif mediator.id in [11, 12, 13, 14, 15]:
-                mediationId = "3"
-
-            path = f"/topology/mediations/{mediationId}/mediators/{mediator.id}"
-            title = re.sub('<[^<]+?>', '', getattr(mediator, "title_" + lang))
-
             soup = BeautifulSoup(getattr(mediator.information, "content_" + lang), 'html.parser')
             
             # generate media and notes documents
