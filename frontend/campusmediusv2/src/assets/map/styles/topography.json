@@ -27,11 +27,6 @@
         },
     "layers": [
         {
-            "id": "osm",
-            "type": "raster",
-            "source": "osm"
-        },
-        {
             "id": "vienna1933",
             "type": "raster",
             "source": "vienna1933"

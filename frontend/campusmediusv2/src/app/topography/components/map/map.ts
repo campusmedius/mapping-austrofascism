@@ -106,57 +106,6 @@ export class MapComponent implements OnInit {
             }
         });
 
-        // TODO: move to topography module
-        this.map.on('load', () => {
-            this.map.addLayer({
-                'id': 'vienna-map-1933',
-                'type': 'raster',
-                'source': {
-                    'type': 'raster',
-                    'tiles': [
-                        `${this.MAP_TILES_URL}/{z}/{x}/{y}.png`
-                    ],
-                    'tileSize': 256,
-                    'scheme': 'tms'
-                }
-            });
-            // this.map.addLayer({
-            //     'id': 'paths',
-            //     'type': 'line',
-            //     'source': {
-            //         'type': 'geojson',
-            //         'data': <any>this.paths
-            //     },
-            //     'layout': {
-            //         'line-join': 'round',
-            //         'line-cap': 'round'
-            //     },
-            //     'paint': {
-            //         'line-color': '#4d4d4d',
-            //         'line-width': 8,
-            //     }
-            // });
-
-            // // When a click event occurs on a feature in the paths layer
-            // this.map.on('click', 'paths', (e) => {
-            //     this.router.navigate(['/topography', 'events', e.features[0].properties.event],
-            //         { queryParamsHandling: 'preserve' });
-            // });
-
-            // // Change the cursor to a pointer when the mouse is over the paths layer.
-            // this.map.on('mouseenter', 'paths', () => {
-            //     this.map.getCanvas().style.cursor = 'pointer';
-            // });
-
-            // // Change it back to a pointer when it leaves.
-            // this.map.on('mouseleave', 'paths', () => {
-            //     this.map.getCanvas().style.cursor = '';
-            //     this.map.setPaintProperty('paths', 'line-color', '#4d4d4d');
-            //     this.map.setPaintProperty('paths', 'line-opacity', 1);
-            // });
-
-        });
-
     }
 
     private getOverlaySize(size: string, fullSize: number) {
@@ -229,9 +178,9 @@ export class MapComponent implements OnInit {
     public toogleViennaMap() {
         this.viennaMapVisible = !this.viennaMapVisible;
         if (this.viennaMapVisible) {
-            this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'visible');
+            this.map.setLayoutProperty('vienna1933', 'visibility', 'visible');
         } else {
-            this.map.setLayoutProperty('vienna-map-1933', 'visibility', 'none');
+            this.map.setLayoutProperty('vienna1933', 'visibility', 'none');
         }
     }
 
