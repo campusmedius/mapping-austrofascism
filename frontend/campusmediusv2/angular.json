@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-            "aot": true,
+                        "aot": true,
                         "outputPath": "dist/campusmedius",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -55,8 +55,7 @@
                             "src/assets/map/mapbox-gl.js",
                             "src/assets/map/three.min.js",
                             "src/assets/map/GLTFLoader.js"
-                        ],
-                        "es5BrowserSupport": true
+                        ]
                     },
                     "configurations": {
                         "production": {
