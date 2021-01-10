@@ -1,5 +1,15 @@
 *.pyc
 .directory
+backend/osm-tiles/bigmap*
+backend/osm-tiles/9
+backend/osm-tiles/10
+backend/osm-tiles/11
+backend/osm-tiles/12
+backend/osm-tiles/13
+backend/osm-tiles/14
+backend/osm-tiles/15
+backend/osm-tiles/16
+backend/osm-tiles/tiles.tar.gz
 backend/tiles/1
 backend/tiles/2
 backend/tiles/3

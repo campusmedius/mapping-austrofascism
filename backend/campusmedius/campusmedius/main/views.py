@@ -92,7 +92,7 @@ def get_pages_search_documents(lang):
     for page in pages_all:
         if page.title_en == "Overview":
             path = '/overview'
-        elif page.title_en == "Team":
+        elif page.title_en == "Project Team":
             path = '/team'
         elif page.title_en == "Book Edition":
             path = '/book'
