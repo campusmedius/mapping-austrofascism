@@ -3,7 +3,7 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Page } from '@app/information/models/page';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
@@ -30,7 +30,7 @@ export class PageComponent implements OnInit, AfterViewInit {
     private skipFragmentUpdate = false;
 
     constructor(
-        private translate: TranslateService,
+        public translate: TranslateService,
         private route: ActivatedRoute,
         private dialog: MatDialog,
         private router: Router,

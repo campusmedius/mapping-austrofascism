@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { SearchResult, SearchDocument } from '@app/core/models/search';
 import { HttpClient } from '@angular/common/http';
 

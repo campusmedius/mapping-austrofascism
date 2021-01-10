@@ -26,7 +26,7 @@ import {
 })
 export class StartPageSelectorComponent implements OnInit {
 
-  private active: string;
+  public active: string;
 
   constructor() { }
 

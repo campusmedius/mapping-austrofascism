@@ -9,7 +9,7 @@ import { Page } from '@app/information/models/page';
 import { TranslateService } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
 import { InfoBoxComponent } from '../info-box/info-box';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { AppComponent } from '@app/core';

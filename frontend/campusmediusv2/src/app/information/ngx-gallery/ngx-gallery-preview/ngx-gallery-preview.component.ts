@@ -84,7 +84,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
 
   @ViewChild('previewImage') previewImage: any;
 
-  private isOpen = false;
+  public isOpen = false;
   private timer;
   private initialX = 0;
   private initialY = 0;

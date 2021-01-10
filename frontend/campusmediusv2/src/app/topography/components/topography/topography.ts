@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { trigger, transition, animate, style, state } from '@angular/animations';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 
 import { Subscription } from 'rxjs';
