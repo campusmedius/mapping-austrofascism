@@ -136,9 +136,7 @@ export class SearchComponent implements OnInit {
 
   public openLocation(location: string) {
     this.close();
-    this.router.navigateByUrl(location, {
-      queryParamsHandling: 'merge'
-  });
+    this.router.navigateByUrl(location, /* Removed unsupported properties by Angular migration: queryParamsHandling. */ {});
   }
 
   close() {

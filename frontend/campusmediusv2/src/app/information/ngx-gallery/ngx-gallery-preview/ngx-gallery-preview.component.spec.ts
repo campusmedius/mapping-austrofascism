@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgxGalleryPreviewComponent } from './ngx-gallery-preview.component';
 import {NgxGalleryArrowsComponent} from '../ngx-gallery-arrows/ngx-gallery-arrows.component';
@@ -13,7 +13,7 @@ describe('NgxGalleryPrevewComponent', () => {
   let component: NgxGalleryPreviewComponent;
   let fixture: ComponentFixture<NgxGalleryPreviewComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NgxGalleryPreviewComponent, NgxGalleryArrowsComponent, NgxGalleryActionComponent, NgxGalleryBulletsComponent],
       imports: [],

@@ -57,9 +57,10 @@ export class CustomHammerConfig extends HammerGestureConfig {
         }),
 
         RouterModule.forRoot(routes, {
-            useHash: false,
-            anchorScrolling: 'enabled'
-        })
+    useHash: false,
+    anchorScrolling: 'enabled',
+    relativeLinkResolution: 'legacy'
+})
     ],
     providers: [
         {

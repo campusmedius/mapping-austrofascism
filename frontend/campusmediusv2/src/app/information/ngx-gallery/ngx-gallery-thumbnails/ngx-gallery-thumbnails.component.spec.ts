@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgxGalleryThumbnailsComponent } from './ngx-gallery-thumbnails.component';
 import {NgxGalleryActionComponent} from '../ngx-gallery-action/ngx-gallery-action.component';
@@ -10,7 +10,7 @@ describe('NgxGalleryThumbnailsComponent', () => {
   let component: NgxGalleryThumbnailsComponent;
   let fixture: ComponentFixture<NgxGalleryThumbnailsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NgxGalleryThumbnailsComponent, NgxGalleryActionComponent, NgxGalleryArrowsComponent ],
       imports: [],

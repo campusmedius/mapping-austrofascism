@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GodSelectorComponent } from './god-selector';
 
@@ -6,7 +6,7 @@ describe('GodSelectorComponent', () => {
   let component: GodSelectorComponent;
   let fixture: ComponentFixture<GodSelectorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GodSelectorComponent ]
     })

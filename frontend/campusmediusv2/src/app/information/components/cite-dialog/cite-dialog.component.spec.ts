@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CiteDialogComponent } from './cite-dialog.component';
 
@@ -6,7 +6,7 @@ describe('CiteDialogComponent', () => {
   let component: CiteDialogComponent;
   let fixture: ComponentFixture<CiteDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CiteDialogComponent ]
     })
