@@ -124,11 +124,11 @@ export class SearchComponent implements OnInit {
         continue
       } else if (doc.type === 'keywords') {
         continue
-      } else if (doc.type === 'page' || doc.type == 'mediator', doc.type == 'event') {
+      } else if (doc.type === 'page' || doc.type == 'mediator' || doc.type == 'event') {
         searchResultsPerTitle[doc.title].textDocuments.push(doc);
       } else if (doc.type === 'note') {
         searchResultsPerTitle[doc.title].textDocuments.push(doc);
-      } else {
+      } else if (doc.type === 'image' || doc.type == 'video' || doc.type == 'audio') {
         searchResultsPerTitle[doc.title].mediaDocuments.push(doc);
       }
     };

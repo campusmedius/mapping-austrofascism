@@ -82,7 +82,7 @@ export class MapComponent implements OnInit {
             attributionControl: false,
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
-            style: 'https://campusmedius.net/assets/style.json',
+            style: './assets/map/styles/topography.json',
             center: [16.372472, 48.208417], // starting position
             zoom: 12.14 // starting zoom
         });

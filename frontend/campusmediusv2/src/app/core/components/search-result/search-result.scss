@@ -49,6 +49,9 @@ h2 {
 .result-row {
     display: flex;
     align-items: center;
+    &.text {
+        align-items: initial;
+    }
     padding-top: 5px;
     padding-bottom: 5px;
     &:hover {

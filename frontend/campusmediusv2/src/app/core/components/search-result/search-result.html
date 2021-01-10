@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="result.textDocuments.length > 2" class="result-row more" [ngClass]="{'active': showAllTextDocuments}" (click)="showAllTextDocuments = !showAllTextDocuments">
         <div class="icon-col"></div>
-        <div class="text-col">{{ lang === 'en' ? ('Show ' + (result.textDocuments.length - 2) + ' more') : ('Zeige ' + (result.textDocuments.length - 2) + ' mehr') }}</div>
+        <div class="text-col">{{ lang === 'en' ? ((result.textDocuments.length - 2) + (' more on this page')) : ((result.textDocuments.length - 2) + (' mehr auf dieser Seite')) }}</div>
     </div>
     <ng-container *ngIf="showAllTextDocuments">
         <div *ngFor="let doc of result.textDocuments | slice:2; let i=index" class="text result-row" (click)="openLocation(doc.location)">
@@ -35,7 +35,7 @@
     </div>
     <div *ngIf="result.mediaDocuments.length > 2" class="result-row more" [ngClass]="{'active': showAllMediaDocuments}" (click)="showAllMediaDocuments = !showAllMediaDocuments">
         <div class="icon-col"></div>
-        <div class="text-col">{{ lang === 'en' ? ('Show ' + (result.mediaDocuments.length - 2) + ' more') : ('Zeige ' + (result.mediaDocuments.length - 2) + ' mehr') }}</div>
+        <div class="text-col">{{ lang === 'en' ? ((result.mediaDocuments.length - 2) + (' more on this page')) : ((result.mediaDocuments.length - 2) + (' mehr auf dieser Seite')) }}</div>
     </div>
     <ng-container *ngIf="showAllMediaDocuments">
         <div *ngFor="let doc of result.mediaDocuments | slice:2; let i=index" class="text result-row" (click)="openLocation(doc.location)">
