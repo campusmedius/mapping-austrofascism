@@ -47,9 +47,6 @@ export const COMPONENTS = [
     exports: [
         ...COMPONENTS,
         SharedModule
-    ],
-    entryComponents: [
-        SearchComponent
     ]
 })
 export class CoreModule {

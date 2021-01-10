@@ -79,18 +79,6 @@ export const COMPONENTS = [
         InformationService,
         PageService,
         PagesResolver
-    ],
-    entryComponents: [
-        NoteComponent,
-        QuoteComponent,
-        GalleryComponent,
-        ImageComponent,
-        VideoComponent,
-        AudioComponent,
-        LinkInternComponent,
-        LinkExternComponent,
-        LinkInpageComponent,
-        CiteDialogComponent
     ]
 })
 export class InformationModule { }

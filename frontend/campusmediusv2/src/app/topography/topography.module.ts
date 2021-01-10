@@ -38,8 +38,6 @@ import { EventsResolver, EventResolver } from './guards/event';
         InfoEventNavComponent,
         InfoTimestampPipe,
     ],
-    entryComponents: [
-    ],
     providers: [
         EventService,
         EventsResolver,

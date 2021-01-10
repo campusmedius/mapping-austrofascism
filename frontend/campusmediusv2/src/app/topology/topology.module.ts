@@ -34,8 +34,6 @@ import { InfoBoxComponent } from './components/info-box/info-box';
         GodSelectorComponent,
         InfoBoxComponent,
     ],
-    entryComponents: [
-    ],
     providers: [
         MediatorService,
         MediatorsResolver,
