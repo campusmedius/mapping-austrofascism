@@ -65,9 +65,9 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
 
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
-    @ViewChild('baseline', {static: false}) baselineElement: ElementRef;
-    @ViewChild('handleright', {static: false}) handleRightElement: ElementRef;
-    @ViewChild('handleleft', {static: false}) handleLeftElement: ElementRef;
+    @ViewChild('baseline') baselineElement: ElementRef;
+    @ViewChild('handleright') handleRightElement: ElementRef;
+    @ViewChild('handleleft') handleLeftElement: ElementRef;
 
     @Output() startFilterChanged = new EventEmitter<Moment>();
     @Output() endFilterChanged = new EventEmitter<Moment>();

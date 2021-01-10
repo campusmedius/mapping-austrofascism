@@ -77,9 +77,9 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     sidepanelState = 'short'; // full, short
     sidepanelWidth: string;
     
-    @ViewChild(MapComponent, {static: false}) map: MapComponent;
-    @ViewChild('fullinfo', {static: false}) fullinfo: ElementRef;
-    @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
+    @ViewChild(MapComponent) map: MapComponent;
+    @ViewChild('fullinfo') fullinfo: ElementRef;
+    @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
 
     public showTitleHeader = false;
     public showTitleHeaderMobile = false;

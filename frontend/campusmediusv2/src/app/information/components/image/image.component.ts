@@ -51,7 +51,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     @Output() closed = new EventEmitter();
     @Output() opened = new EventEmitter();
 
-    @ViewChild('gallery', {static: false}) gallery: NgxGalleryComponent;
+    @ViewChild('gallery') gallery: NgxGalleryComponent;
 
     public galleryOptions: NgxGalleryOptions[];
     public galleryImages: NgxGalleryImage[];

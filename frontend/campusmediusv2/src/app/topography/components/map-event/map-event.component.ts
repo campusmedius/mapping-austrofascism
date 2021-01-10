@@ -18,7 +18,7 @@ export class MapEventComponent implements OnInit, AfterViewInit {
     @Input() active: boolean;
     @Input() selected: boolean;
 
-    @ViewChild('marker', {static: false}) markerElement: ElementRef;
+    @ViewChild('marker') markerElement: ElementRef;
 
     public marker: Marker;
 

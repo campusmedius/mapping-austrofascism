@@ -40,7 +40,7 @@ export class VideoComponent implements OnInit {
         return 'v:' + this.id; 
     }
 
-    @ViewChild('video', {static: false}) videoElement: ElementRef;
+    @ViewChild('video') videoElement: ElementRef;
 
     public opened = false;
     private hls: Hls;

@@ -15,7 +15,7 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
     @Input() lang: string;
     @Input() selected: boolean;
 
-    @ViewChild('marker', {static: false}) markerElement: ElementRef;
+    @ViewChild('marker') markerElement: ElementRef;
 
     public marker: Marker;
 

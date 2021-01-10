@@ -18,7 +18,7 @@ const SEARCH_ASSETS_PATH = environment.searchAssetsPath;
   styleUrls: ['./search.scss']
 })
 export class SearchComponent implements OnInit {
-  @ViewChild('searchElement', {static: false}) searchElement: ElementRef;
+  @ViewChild('searchElement') searchElement: ElementRef;
 
   public searchResults: SearchResult[];
   private searchDocumentsEn: SearchDocument[];

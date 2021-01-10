@@ -23,7 +23,7 @@ import { InfoContainerComponent } from '@app/information/components/info-contain
 export class PageComponent implements OnInit, AfterViewInit {
     @Input() pageTitleEn: string;
 
-    @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
+    @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
 
     public page: Page;
     public showTitleHeader = false;

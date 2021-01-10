@@ -106,9 +106,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     isMobile = false;
     public mapAttribIsOpen = false;
 
-    @ViewChild(MapComponent, {static: false}) map: MapComponent;
-    @ViewChild(InfoBoxComponent, {static: false}) infoBox: InfoBoxComponent;
-    @ViewChild(InfoContainerComponent, {static: false}) infoContainer: InfoContainerComponent;
+    @ViewChild(MapComponent) map: MapComponent;
+    @ViewChild(InfoBoxComponent) infoBox: InfoBoxComponent;
+    @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
     @ViewChild('mapattrib', {static: true}) mapAttrib: ElementRef;
 
     @HostListener('document:click', ['$event'])

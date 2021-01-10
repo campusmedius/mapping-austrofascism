@@ -53,10 +53,10 @@ export const COMPONENTS = [
     ]
 })
 export class CoreModule {
-    static forRoot() {
-        return {
-            ngModule: CoreModule,
-            providers: [],
-        };
-    }
+    static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
+        ngModule: CoreModule,
+        providers: [],
+    };
+}
 }

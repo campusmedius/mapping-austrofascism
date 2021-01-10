@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule, RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
@@ -20,6 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+@Injectable()
 export class CustomRouteReuseStrategy extends RouteReuseStrategy {
     public shouldDetach(route: ActivatedRouteSnapshot): boolean { return false; }
     public store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void { }
@@ -30,6 +31,7 @@ export class CustomRouteReuseStrategy extends RouteReuseStrategy {
     }
 }
 
+@Injectable()
 export class CustomHammerConfig extends HammerGestureConfig {
     overrides = <any>{
         'pinch': { enable: false },

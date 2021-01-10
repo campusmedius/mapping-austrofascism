@@ -26,7 +26,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   @Output() sectionChange = new EventEmitter<string>();
   @Output() showTitleHeader = new EventEmitter<boolean>();
 
-  @ViewChild(InformationComponent, {static: false}) information: InformationComponent;
+  @ViewChild(InformationComponent) information: InformationComponent;
 
   private spiedElements;
   private parentElement;
