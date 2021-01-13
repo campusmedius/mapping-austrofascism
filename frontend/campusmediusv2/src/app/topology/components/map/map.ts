@@ -105,7 +105,8 @@ export class MapComponent implements OnInit {
             center: [16.311658322849894, 48.1850403758292], // starting position
             pitch: 55,
             bearing: -21.6,
-            zoom: 16.6 // starting zoom
+            zoom: 16.6, // starting zoom
+            interactive: false
         });
 
         (<any>window).map = this.map;

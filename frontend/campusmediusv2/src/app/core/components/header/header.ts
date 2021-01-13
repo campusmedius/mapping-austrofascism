@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+
     }
 
     public changeLanguage(lang: string) {

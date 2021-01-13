@@ -13,7 +13,7 @@ import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { Map, LngLat, Point } from 'mapbox-gl';
 
 const MAX_ZOOM = 15;
-const MIN_ZOOM = 9;
+const MIN_ZOOM = 10;
 
 @Component({
     selector: 'cm-map',
@@ -77,15 +77,21 @@ export class MapComponent implements OnInit {
             return;
         }
 
-        this.map = new mapboxgl.Map({
+        (<any>window).map = this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
             attributionControl: false,
             maxZoom: MAX_ZOOM,
             minZoom: MIN_ZOOM,
             style: './assets/map/styles/topography.json',
             center: [16.372472, 48.208417], // starting position
-            zoom: 12.14 // starting zoom
+            zoom: 12.14, // starting zoom
+            maxBounds: [ 16.092438268381983, 48.039937085835646, 16.908715046308544, 48.33566214894444],
+            boxZoom: false,
+            dragRotate: false,
+            keyboard: false,
+            touchPitch: false
         });
+        this.map.touchZoomRotate.disableRotation();
 
         this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
 

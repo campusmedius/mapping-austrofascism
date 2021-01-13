@@ -37,6 +37,9 @@
     .deactivated {
         opacity: 0.6;
         cursor: default;
+        &:hover {
+            background: $clickable-color;
+        }
     }
     .mat-button-wraper {
         line-height: 30px;

@@ -46,7 +46,6 @@ export class PageComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.route.fragment.subscribe(fragment => {
-            console.log(this.skipFragmentUpdate);
             if (!this.skipFragmentUpdate) {
                 setTimeout(() => {
                     fragment = fragment ? fragment : 'top';

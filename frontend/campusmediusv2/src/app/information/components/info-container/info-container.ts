@@ -32,6 +32,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   private parentElement;
   private currentSection: string;
   private currentShowTitleHeader = false;
+  private skipSectionChange = false;
 
   constructor(
     private element: ElementRef,
@@ -51,31 +52,35 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   }
 
   public onScroll() {
-      let currentSection: string;
-      const scrollTop = this.parentElement.scrollTop;
-      const parentOffset = this.parentElement.offsetTop;
-      for (let i = 0; i < this.spiedElements.length; i++) {
-          const element = this.spiedElements[i];
-          if ((element.offsetTop - parentOffset) <= (scrollTop + 200)) {
-              currentSection = element.id;
+      if (!this.skipSectionChange) {
+          let currentSection: string;
+          const scrollTop = this.parentElement.scrollTop;
+          const parentOffset = this.parentElement.offsetTop;
+          for (let i = 0; i < this.spiedElements.length; i++) {
+              const element = this.spiedElements[i];
+              if ((element.offsetTop - parentOffset) <= (scrollTop + 200)) {
+                  currentSection = element.id;
+              }
           }
-      }
-      if (currentSection !== this.currentSection) {
-          this.currentSection = currentSection;
-          this.sectionChange.emit(this.currentSection);
-      }
+          if (currentSection !== this.currentSection) {
+              this.currentSection = currentSection;
+              this.sectionChange.emit(this.currentSection);
+          }
 
-      let currentShowTitleHeader = false;
-      if (this.parentElement.scrollTop > 110) {
-          currentShowTitleHeader = true;
-      }
-      if (currentShowTitleHeader !== this.currentShowTitleHeader) {
-        this.currentShowTitleHeader = currentShowTitleHeader;
-        this.showTitleHeader.emit(this.currentShowTitleHeader);
+          let currentShowTitleHeader = false;
+          if (this.parentElement.scrollTop > 110) {
+              currentShowTitleHeader = true;
+          }
+          if (currentShowTitleHeader !== this.currentShowTitleHeader) {
+            this.currentShowTitleHeader = currentShowTitleHeader;
+            this.showTitleHeader.emit(this.currentShowTitleHeader);
+          }
       }
   }
 
   public scrollToReference(ref: string, duration=0, offset=-100) {
+    this.skipSectionChange = true;
+
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
     }
@@ -86,6 +91,9 @@ export class InfoContainerComponent implements OnInit, OnChanges {
           offset: offset,
           duration: duration
       });
+      setTimeout(() => {
+        this.skipSectionChange = false;
+      }, 200);
     }, 0);
   }
 

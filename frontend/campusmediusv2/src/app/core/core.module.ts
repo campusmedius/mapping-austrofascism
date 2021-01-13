@@ -17,6 +17,7 @@ import { PageComponent } from './components/page/page';
 import { SearchComponent } from './components/search/search';
 import { SearchResultComponent } from './components/search-result/search-result';
 import { SearchResultTextPipe } from './pipes/search-result-text.pipe';
+import { SearchService } from './services/search';
 
 
 export const COMPONENTS = [
@@ -43,6 +44,9 @@ export const COMPONENTS = [
         SharedModule,
         RouterModule,
         TranslateModule.forChild()
+    ],
+    providers: [
+        SearchService
     ],
     exports: [
         ...COMPONENTS,

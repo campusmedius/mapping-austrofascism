@@ -12,7 +12,7 @@
                     "tileSize": 256,
                     "scheme": "xyz",
                     "minzoom": 9,
-                    "maxzoom": 16
+                    "maxzoom": 15
         },
         "vienna1933": {
                 "type": "raster",
@@ -26,6 +26,11 @@
             }
         },
     "layers": [
+        {
+            "id": "osm",
+            "type": "raster",
+            "source": "osm"
+        },
         {
             "id": "vienna1933",
             "type": "raster",
