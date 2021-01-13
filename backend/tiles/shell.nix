@@ -5,7 +5,7 @@ mkShell {
     python3Packages.virtualenv # run virtualenv .
     python3Packages.pyqt5 # avoid installing via pip
     python3Packages.pyusb # fixes the pyusb 'No backend available' when installed directly via pip
-    python38Packages.gdal
+    python3Packages.gdal
   ];
   shellHook = ''
     # fixes libstdc++ issues and libgl.so issues

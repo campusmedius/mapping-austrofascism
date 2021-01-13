@@ -12,7 +12,7 @@
                     "tileSize": 256,
                     "scheme": "xyz",
                     "minzoom": 9,
-                    "maxzoom": 15
+                    "maxzoom": 16
         },
         "vienna1933": {
                 "type": "raster",

@@ -28,7 +28,7 @@ gdal_translate -of GTiff -gcp 18409.7 18224.4 1.82313e+06 6.14068e+06 -gcp 17773
 gdalwarp -r lanczos -tps -co COMPRESS=LZW -dstalpha -t_srs EPSG:3857 "/tmp/Stadtplan_Wien_1933_highres_srgb.tif" "/home/akrim/projects/campusmedius/mapping/Freytag & berndt 1933/Stadtplan_Wien_1933_highres_srgb_modified.tif"
 ```
 
-### Create map tiles
+### Historic vienna 1933 map tiles
 
 Map tiles are created in `backend/tiles`. To create the tiles run:
 
@@ -54,6 +54,16 @@ To deploy the tiles we create a tar.
 tar -zcf tiles.tar.gz ./empty.png ./9 ./10 ./11 ./12 ./13 ./14 ./15 ./16 ./17
 ```
 
+### OSM map tiles
+
+For the OSM Basemap we download the tiles for vienna. Do the following steps to genereate the tiles.tar.gz:
+
+```sh
+cd backend/osm-tiles
+./download-tiles.png
+./optimize-png.sh
+./tar-tiles.sh
+```
 
 
 ## Eckebrecht Kepler 1658

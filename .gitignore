@@ -1,6 +1,5 @@
 *.pyc
 .directory
-backend/osm-tiles/bigmap*
 backend/osm-tiles/9
 backend/osm-tiles/10
 backend/osm-tiles/11
