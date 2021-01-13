@@ -64,10 +64,19 @@ The Eckebrecht Kepler map is directly used as image, see `campusmedius/frontend/
 
 ## Buildings
 
-The polygons for the 3D buildings are downloaded from https://www.data.gv.at/katalog/dataset/76c2e577-268f-4a93-bccd-7d5b43b14efd. For example:
+The polygons for the 3D buildings are downloaded from https://www.wien.gv.at/stadtentwicklung/stadtvermessung/geodaten/bkm/ with the [Geodaten Viewer](https://www.wien.gv.at/ma41datenviewer/public/start.aspx).
 
-```http
-http://data.wien.gv.at/daten/geo/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=ogdwien:FMZKBKMOGD&outputFormat=shape-zip&SRS=EPSG:31256&BBOX=1600,339130,1850,339400
-```
+The Downloadformat is citygml. For the rendering in the campusmedius application specific buildings are extracted for the 5 mediators of the mediation governed transmissions. A list of the coresponding buildings ids is in `Buildings/objects.txt`. To use the buildings in mapboxgljs the following steps are requiered:
 
-The shapefiles are read with QGIS, edited and stored as geojson. The geojson is used in the buildings layer, see`campusmedius/frontend/campusmedius/src/assets/map/styles/governed-transmissions.json`
+- Load all citygml data into [3dcitydb](https://www.3dcitydb.org/3dcitydb/)
+- Export citygml for specific bounding box
+- Convert citygml to cityjson with [citygml-tools](https://github.com/citygml4j/citygml-tools)
+- Import cityjson into [Blender](https://github.com/cityjson/Up3date)
+- Remove all unwanted buildings
+- Export as cityjson
+- Convert cityjson to citygml with citygml-tools
+- Edit citygml xml file with text editor to have only one building
+- Import single building citygml file into 3dcitydb
+- Export as collada file (dae)
+- Convert from collad to glb [online](https://www.creators3d.com/online-viewer)
+- Use longitude, latitude and heading from collada kml file to load glb file with three.js in [mapboxgljs](https://docs.mapbox.com/mapbox-gl-js/example/add-3d-model/)

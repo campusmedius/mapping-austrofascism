@@ -139,6 +139,16 @@
                     etag off;
                 '';
             };
+            locations."/osm-tiles/" = {
+                alias = "${pkgs.cm-osm-tiles}/share/campusmedius/osm-tiles/";
+                extraConfig = ''
+                    try_files $uri /tiles/empty.png;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
+                    expires 24h;
+                    etag off;
+                '';
+            };
             locations."/v2/"= {
                 alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/";
                 extraConfig = ''
