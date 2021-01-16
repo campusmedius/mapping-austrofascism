@@ -1,5 +1,5 @@
-<cm-start-page-selector></cm-start-page-selector>
-<cm-sidepanel width="470px">
+<cm-start-page-selector *ngIf="!isMobile"></cm-start-page-selector>
+<cm-sidepanel *ngIf="!isMobile" width="470px">
   <div *ngIf="page" class="info-container">
     <div class="info-content">
       <cm-information [content]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn" [lang]="translate.currentLang"></cm-information>
@@ -9,3 +9,15 @@
     </div>
   </div>
 </cm-sidepanel>
+
+<div *ngIf="isMobile" class="mobile-short-info">
+  <cm-start-page-selector></cm-start-page-selector>
+  <div *ngIf="page" class="info">
+      <div class="mobile-abstract">
+          <div [innerHTML]="translate.currentLang === 'de' ? page.mobileAbstractDe : page.mobileAbstractEn"></div>
+      </div>
+      <div class="intro">
+          <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
+      </div>
+  </div>
+</div>

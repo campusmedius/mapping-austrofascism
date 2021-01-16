@@ -13,11 +13,14 @@
 .map-control {
     position: absolute;
     z-index: 5;
-    top: 20px;
+    top: 24px;
     @media screen and (max-width: $break-mobile) {
-        top: 60px;
+        top: 55px;
     }
     left: 24px;
+    @media screen and (max-width: $break-mobile) {  
+        left: 15px;
+    }
     button {
         display: block;
         min-width: 20px;

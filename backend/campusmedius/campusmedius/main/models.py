@@ -33,8 +33,8 @@ class Page(models.Model):
     title_en = models.TextField()
     abstract_de = HTMLField(null=True, blank=True)
     abstract_en = HTMLField(null=True, blank=True)
-    content_de = HTMLField(null=True, blank=True)
-    content_en = HTMLField(null=True, blank=True)
+    mobile_abstract_de = HTMLField(null=True, blank=True)
+    mobile_abstract_en = HTMLField(null=True, blank=True)
     information = models.ForeignKey(
         Information, null=True, blank=True, on_delete=models.CASCADE)
 
@@ -50,9 +50,9 @@ class Page(models.Model):
         return truncatechars(self.abstract_en, 100)
 
     @property
-    def short_content_de(self):
-        return truncatechars(self.content_de, 100)
+    def short_mobile_abstract_de(self):
+        return truncatechars(self.mobile_abstract_de, 100)
 
     @property
-    def short_content_en(self):
-        return truncatechars(self.content_en, 100)
+    def short_mobile_abstract_en(self):
+        return truncatechars(self.mobile_abstract_en, 100)

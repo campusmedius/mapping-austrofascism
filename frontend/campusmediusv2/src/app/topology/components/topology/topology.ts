@@ -14,6 +14,7 @@ import { CiteDialogComponent } from '@app/information/components/cite-dialog/cit
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { AppComponent } from '@app/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
+import { InfoBoxMobileComponent } from '../info-box-mobile/info-box-mobile';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -94,7 +95,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public sidepanelWidth: string;
     public mediationsHeight = '220px';
-    public mobileOverlayHeight = '200px';
+    public mobileOverlayHeight = '170px';
 
     public atGod = false;
 
@@ -108,6 +109,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild(MapComponent) map: MapComponent;
     @ViewChild(InfoBoxComponent) infoBox: InfoBoxComponent;
+    @ViewChild(InfoBoxMobileComponent) infoBoxMobile: InfoBoxMobileComponent;
     @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
     @ViewChild('mapattrib', {static: true}) mapAttrib: ElementRef;
 
@@ -234,8 +236,13 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     resetAnimations() {
         clearTimeout(this.timer);
-        if(this.infoBox) {
-            this.infoBox.stopAnimation();
+        
+        let infoBox: any = this.infoBox;
+        if (this.isMobile) {
+            infoBox = this.infoBoxMobile;
+        }
+        if(infoBox) {
+            infoBox.stopAnimation();
         }
         if(this.map) {
             this.map.stopAnimation();
@@ -269,6 +276,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
+        let infoBox: any = this.infoBox;
+        if (this.isMobile) {
+            infoBox = this.infoBoxMobile;
+        }
+
         this.map.setPerspective(this.selectedMediation);
 
         if (this.previousMediator && this.previousMediator !== this.selectedMediator) {
@@ -276,7 +288,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.previousMediator.relationsTo.forEach(r => {
                 if (r.targetId === this.selectedMediator.id) {
                     foundRelation = true;
-                    this.infoBox.navigateToMediator(this.selectedMediator, r, 'forward');
+                    infoBox.navigateToMediator(this.selectedMediator, r, 'forward');
                     this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
                 }
             });
@@ -284,14 +296,14 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 // check for backward relation in examining gaze
                 this.selectedMediator.relationsTo.forEach(r => {
                     if (r.sourceId === this.selectedMediator.id) {
-                        this.infoBox.navigateToMediator(this.selectedMediator, r, 'backward');
+                        infoBox.navigateToMediator(this.selectedMediator, r, 'backward');
                         this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
                     }
                 });
             }
         } else {
             this.map.showMediator(this.selectedMediation, this.selectedMediator);
-            this.infoBox.setSpaceTime(this.selectedMediator, 0, 0);
+            infoBox.setSpaceTime(this.selectedMediator, 0, 0);
         }
     }
 

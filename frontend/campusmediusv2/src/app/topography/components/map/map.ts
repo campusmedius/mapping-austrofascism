@@ -185,7 +185,9 @@ export class MapComponent implements OnInit {
         this.viennaMapVisible = !this.viennaMapVisible;
         if (this.viennaMapVisible) {
             this.map.setLayoutProperty('vienna1933', 'visibility', 'visible');
+            this.map.setLayoutProperty('osm', 'visibility', 'none');
         } else {
+            this.map.setLayoutProperty('osm', 'visibility', 'visible');
             this.map.setLayoutProperty('vienna1933', 'visibility', 'none');
         }
     }

@@ -1,5 +1,6 @@
 <cm-start-page-selector></cm-start-page-selector>
-<cm-sidepanel width="80%">
+
+<cm-sidepanel *ngIf="!isMobile" width="80%">
   <div class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
       <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
           <span class="cm-square-quote-alt"></span>
@@ -24,3 +25,15 @@
     </cm-info-container>
   </div>
 </cm-sidepanel>
+
+<div *ngIf="isMobile" class="mobile-short-info">
+  <cm-start-page-selector></cm-start-page-selector>
+  <div *ngIf="page" class="info">
+      <div class="mobile-abstract">
+          <div [innerHTML]="translate.currentLang === 'de' ? overviewPage.mobileAbstractDe : overviewPage.mobileAbstractEn"></div>
+      </div>
+      <div class="intro">
+          <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
+      </div>
+  </div>
+</div>

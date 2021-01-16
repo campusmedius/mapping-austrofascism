@@ -2,11 +2,10 @@
     "header": {
         "topography": "Topography",
         "topology": "Topology",
-        "mediality": "Mediality",
         "about": "Overview",
         "book": "Book Edition",
-        "contact": "Contact",
-        "team": "Project Team"
+        "team": "Project Team",
+        "search": "Search"
     },
     "info": {
         "next": "next event",

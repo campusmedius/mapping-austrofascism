@@ -1,5 +1,5 @@
 <div fxFlex fxLayout ="row" fxLayoutAlign=" center" class="nav-sub">
-    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
+    <button mat-icon-button color="primary" class="menu-button" [matMenuTriggerFor]="menu">
         <mat-icon class="cm-menu"></mat-icon>
     </button>
     <button mat-icon-button color="primary" class="search-button" (click)="showSearch()">
@@ -11,8 +11,7 @@
         <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button>
         <button mat-menu-item routerLink="/team" routerLinkActive="active">{{'header.team' | translate}}</button>
         <button mat-menu-item routerLink="/book" routerLinkActive="active">{{'header.book' | translate}}</button>
-        <!-- <button mat-menu-item routerLink="/mediality" routerLinkActive="active">{{'header.mediality' | translate}}</button> -->
-        <!-- <button mat-menu-item routerLink="/contact" routerLinkActive="active">{{'header.contact' | translate}}</button> -->
+        <button mat-menu-item (click)="showSearch()"><mat-icon class="cm-search search-icon-menu"></mat-icon>{{'header.search' | translate}}</button>
     </mat-menu>
 </div>
 <div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">

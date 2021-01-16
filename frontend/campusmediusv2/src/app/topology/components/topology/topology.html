@@ -13,14 +13,17 @@
     </div>
 </div>
 
-<cm-map *ngIf="selectedMediator"
+<cm-map *ngIf="!isMobile && selectedMediator"
     [selectedMediation]="selectedMediation"
     [selectedMediator]="selectedMediator"
     [@mapTopOffset]="mediationState"
-    [@mapLeftOffset]="sidepanelState"
-    [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
-    [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
-    [overlayTopSize]="isMobile ? mediationsHeight : '0px'" >
+    [@mapLeftOffset]="sidepanelState" >
+    <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
+    </cm-map-mediator>
+</cm-map>
+<cm-map *ngIf="isMobile && selectedMediator"
+    [selectedMediation]="selectedMediation"
+    [selectedMediator]="selectedMediator" >
     <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
     </cm-map-mediator>
 </cm-map>
@@ -81,9 +84,11 @@
 
 </cm-sidepanel>
 
-<cm-info-box *ngIf="selectedMediator" [ngClass]="{'at-god': atGod}" [@infoBox]="mediationState"></cm-info-box>
+<cm-info-box *ngIf="!isMobile && selectedMediator" [ngClass]="{'at-god': atGod}" [@infoBox]="mediationState"></cm-info-box>
 
-<cm-mediations
+
+<div *ngIf="!isMobile; else mobileMeditations">
+    <cm-mediations
     [@mediationsPanel]="sidepanelState"
     [mediations]="mediations"
     [selectedMediation]="selectedMediation || focusedMediation"
@@ -91,22 +96,36 @@
     [sidepanelState]="sidepanelState"
     (height)="mediationsHeight = $event"
     (state)="mediationState = $event"
-    (focusedMediation)="focusedMediation = $event"></cm-mediations>
+    (focusedMediation)="focusedMediation = $event">
+    </cm-mediations>
+</div>
+<ng-template #mobileMeditations>
+    <cm-mediations-mobile
+    [@mediationsPanel]="sidepanelState"
+    [mediations]="mediations"
+    [selectedMediation]="selectedMediation || focusedMediation"
+    [selectedMediator]="selectedMediator || focusedMediator"
+    [sidepanelState]="sidepanelState"
+    (height)="mediationsHeight = $event"
+    (state)="mediationState = $event"
+    (focusedMediation)="focusedMediation = $event">
+    </cm-mediations-mobile>
+</ng-template>
+
 
 <div class="start-selector-background" *ngIf="!selectedMediator">
 </div>
 
 <cm-start-selector
-    *ngIf="!selectedMediator"
-    [mediators]="mediators.slice(1,16)"
-    [mediations]="mediations"
-    [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
-    [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
-    [lang]="translate.currentLang"
-    [selectedMediationId]="focusedMediation ? focusedMediation.id : null"
-    (focusedMediation)="focusedMediation = $event"
-    (focusedMediator)="focusedMediator = $event"></cm-start-selector>
-
+*ngIf="!isMobile && !selectedMediator"
+[mediators]="mediators.slice(1,16)"
+[mediations]="mediations"
+[overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
+[overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
+[lang]="translate.currentLang"
+[selectedMediationId]="focusedMediation ? focusedMediation.id : null"
+(focusedMediation)="focusedMediation = $event"
+(focusedMediator)="focusedMediator = $event"></cm-start-selector>
 
 <cm-god-selector
     *ngIf="atGod"
@@ -114,3 +133,37 @@
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
     [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
     [mediators]="mediators.slice(1,16)"></cm-god-selector>
+
+
+<div *ngIf="isMobile" class="mobile-short-info-container">
+    <cm-start-selector
+    *ngIf="!selectedMediator"
+    [mediators]="mediators.slice(1,16)"
+    [mediations]="mediations"
+    [overlayBottomSize]="'0px'"
+    [overlayRightSize]="'0px'"
+    [lang]="translate.currentLang"
+    [selectedMediationId]="focusedMediation ? focusedMediation.id : null"
+    (focusedMediation)="focusedMediation = $event"
+    (focusedMediator)="focusedMediator = $event"></cm-start-selector>
+    <cm-info-box-mobile *ngIf="selectedMediator" [ngClass]="{'at-god': atGod}"></cm-info-box-mobile>
+    <div *ngIf="isMobile" class="mobile-short-info">
+        <div class="mediation-info" *ngIf="selectedMediation">
+            <span class="demand">{{translate.currentLang === 'de' ? selectedMediation.demandDe : selectedMediation.demandEn}}:&nbsp;</span>
+            <span class="response">{{translate.currentLang === 'de' ? selectedMediation.responseDe : selectedMediation.responseEn}}</span>
+        </div>
+        <div class="info">
+            <div *ngIf="selectedMediator" class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
+                <span class="medium-info">{{ translate.currentLang === 'de' ? selectedMediator.medium.titleDe.toUpperCase() : selectedMediator.medium.titleEn.toUpperCase() }}</span>
+                <h1 [innerHtml]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"></h1>
+            </div>
+            <div *ngIf="!selectedMediator" class="mobile-abstract">
+                <div [innerHTML]="translate.currentLang === 'de' ? page.mobileAbstractDe : page.mobileAbstractEn"></div>
+            </div>
+            <div class="intro">
+                <button *ngIf="!selectedMediator" mat-flat-button routerLink="/topology/mediations/1/mediators/0" queryParamsHandling="merge" routerLinkActive="active" class="btn-read-more" color="warn">{{'info.start' | translate | uppercase}}</button>
+                <button *ngIf="selectedMediator" mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
+            </div>
+        </div>
+    </div>
+</div>

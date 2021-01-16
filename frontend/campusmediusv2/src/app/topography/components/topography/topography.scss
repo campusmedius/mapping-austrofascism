@@ -121,7 +121,7 @@ cm-map {
         font-size: $small-font-size;
         font-family: $title-semibold-font;
     }
-    h2 {
+    h1 {
         margin: 0px;
         margin-bottom: 40px;
         font-family: $title-bold-font;
@@ -138,7 +138,7 @@ cm-map {
 .topography-start {
     padding: 0px 50px;
     height: 100%;
-    h2 {
+    h1 {
         margin: 0px;
         margin-bottom: 10px;
         font-family: $title-bold-font;
@@ -153,7 +153,6 @@ cm-map {
     box-sizing: border-box;
     overflow: hidden;
     bottom: 0px;
-    padding-top: 5px;
     z-index: 10;
     box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
     -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
@@ -162,18 +161,36 @@ cm-map {
         width: 100%;
     }
     .info-heading {
-        margin-bottom: 15px;
+        margin-bottom: 0px;
+        h1 {
+            margin-bottom: 15px;
+        }
     }
     .info {
         margin-bottom: 15px;
-        margin-top: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .event-nav-wrapper {
         width: 100%;
         text-align: center;
     }
+    .btn-read-more {
+        margin-top: 0px !important;
+    }
+    p {
+        margin-block-end: 15px;
+        margin-block-start: 15px;
+    }
+    cm-info-event-nav {
+        position: initial;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-family: $title-regular-font;
+        color: $text-color;
+        height: initial;
+    }
+    
 }
 
 .mobile-info {

@@ -32,12 +32,18 @@
 
 .selector-topography {
   background-image: url("../../../../assets/topography.jpg");
+  @media screen and (max-width: $break-mobile) {  
+    background-image: url("../../../../assets/topography-mobile.jpg");
+  }
   background-position: center center;
   background-size: cover;
 }
 
 .selector-topology {
   background-image: url("../../../../assets/topology.jpg");
+  @media screen and (max-width: $break-mobile) {  
+    background-image: url("../../../../assets/topology-mobile.jpg");
+  }
   background-position: center center;
   background-size: cover;
 }
@@ -47,11 +53,19 @@
   font-size: $h-secondary-font-size;
   color: #fff;
   background: $clickable-color;
-  width: 240px;
   text-align: center;
+  width: 240px;
   height: 60px;
   line-height: 55px;
   position: relative;
   bottom: calc(50% + 30px);
   left: calc(50% - 120px);
+  @media screen and (max-width: $break-mobile) {  
+    font-size: $base-font-size;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    bottom: calc(50% + 25px);
+    left: calc(50% - 100px);
+  }
 }

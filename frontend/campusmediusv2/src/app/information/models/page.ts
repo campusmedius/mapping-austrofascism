@@ -6,6 +6,8 @@ export interface Page {
     titleEn: string;
     abstractDe: string;
     abstractEn: string;
+    mobileAbstractDe: string;
+    mobileAbstractEn: string;
     information: Information;
     informationId: string;
 }

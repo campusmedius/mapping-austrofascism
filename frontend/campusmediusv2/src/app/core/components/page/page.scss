@@ -5,10 +5,54 @@ cm-start-page-selector {
   position: fixed;
   top: 3.3rem;
   width: 20%;
+  @media screen and (max-width: $break-mobile) {
+    width: 100%;
+    top: $header-height-mobile;
+    position: initial;
+    top: initial;
+    flex: 1;
+    display: block;
+    height: initial;
+    z-index: 10;
+  }
 }
 
 .info-container {
     color: $primary-font-color;
     height: 100%;
     margin-top: $header-height;
+}
+
+
+.mobile-short-info {
+  height: calc(100vh - #{$header-height-mobile});
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  background: white;
+  box-sizing: border-box;
+  overflow: hidden;
+  bottom: 0px;
+  .info{
+    box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    z-index: 11;
+  }
+  .btn-read-more {
+      width: 100%;
+  }
+  .info {
+      margin-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+  .btn-read-more {
+    margin-top: 0px !important;
+  }
+  p {
+    margin-block-end: 15px;
+    margin-block-start: 15px;
+  }
 }

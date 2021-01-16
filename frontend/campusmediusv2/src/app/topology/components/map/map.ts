@@ -82,7 +82,7 @@ export class MapComponent implements OnInit {
         }, 1000);
 
         this.map.flyTo({
-            zoom: 1.3,
+            zoom: 1,
             duration: 5000,
             center: [0, 0],
             curve: 1

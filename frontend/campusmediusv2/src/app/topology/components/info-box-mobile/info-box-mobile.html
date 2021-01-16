@@ -1,0 +1,21 @@
+<div *ngIf="mediator" class="container">
+    <button mat-mini-fab color="primary" (click)="isOpen = !isOpen">ⓛ</button>
+    <div fxLayout="column" class="meta-info-container" [@infoBoxOpen]="isOpen">
+        <div fxLayout="row">
+            <div class="label">{{'infobox.place' | translate }}</div>
+            <div class="content" [innerHtml]="translate.currentLang === 'de' ? mediator.placeDe : mediator.placeEn"></div>
+        </div>
+        <div fxLayout="row">
+            <div class="label">{{'infobox.moment' | translate }}</div>
+            <div class="content" [innerHtml]="translate.currentLang === 'de' ? mediator.momentDe : mediator.momentEn"></div>
+        </div>
+        <div fxLayout="row">
+            <div class="label">{{'infobox.space' | translate }}</div>
+            <div class="content">{{ spaceStr }}</div>
+        </div>
+        <div fxLayout="row">
+            <div class="label">{{'infobox.time' | translate }}</div>
+            <div class="content">{{ timeStr }}</div>
+        </div>
+    </div>
+</div>

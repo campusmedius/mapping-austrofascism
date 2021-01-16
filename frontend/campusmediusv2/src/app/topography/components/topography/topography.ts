@@ -114,6 +114,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
+    
     ngOnInit() {
         if ((<any>window).isSafari) {
             this.elementRef.nativeElement.style.webkitTransform = 'translate3d(0,0,0)';
@@ -150,7 +151,11 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.information = this.selectedEvent.information;
                 setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 14));
             } else {
-                setTimeout(() => this.map.flyTo(<any>[16.372472, 48.208417], 12.14));
+                if (this.isMobile) {
+                    setTimeout(() => this.map.flyTo(<any>[16.372472, 48.208417], 11));
+                } else {
+                    setTimeout(() => this.map.flyTo(<any>[16.372472, 48.208417], 12.14));
+                }
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topography');
             }

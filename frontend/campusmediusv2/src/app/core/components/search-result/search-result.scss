@@ -23,6 +23,9 @@ h2 {
     height: $h-secondary-font-size;
     flex-shrink: 0;
     text-align: center;
+    @media screen and (max-width: $break-mobile) {
+        width: 40px;
+    }
 }
 
 .heading {

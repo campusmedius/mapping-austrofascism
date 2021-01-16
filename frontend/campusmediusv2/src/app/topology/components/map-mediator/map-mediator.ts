@@ -36,7 +36,7 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.marker = new Marker(this.markerElement.nativeElement, { offset: [0, -25] })
+        this.marker = new Marker(this.markerElement.nativeElement, { offset: [0, 0] })
             .setLngLat([this.mediator.coordinates.lng, this.mediator.coordinates.lat])
             .addTo(this.mapCmp.map);
     }

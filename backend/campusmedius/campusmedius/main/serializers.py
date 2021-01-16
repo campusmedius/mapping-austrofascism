@@ -16,8 +16,8 @@ class PageSerializer(serializers.ModelSerializer):
             'title_en',
             'abstract_de',
             'abstract_en',
-            'content_de',
-            'content_en',
+            'mobile_abstract_de',
+            'mobile_abstract_en',
             'information_id',
             'information'
         )

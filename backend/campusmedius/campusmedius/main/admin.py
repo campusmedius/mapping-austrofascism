@@ -13,8 +13,8 @@ app_models = apps.get_app_config('main').get_models()
 
 class PageAdmin(admin.ModelAdmin):
     list_display = ('id', 'title_de', 'title_en', 'short_abstract_de',
-                    'short_abstract_en', 'short_content_de',
-                    'short_content_en', 'information')
+                    'short_abstract_en', 'short_mobile_abstract_de',
+                    'short_mobile_abstract_en', 'information')
 
     class Media:
         css = {'all': ('admin/css/admin.css', )}

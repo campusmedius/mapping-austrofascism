@@ -19,9 +19,9 @@
 
 
 .nav-sub {
-    margin-left: 16px;
+    margin-left: 18px;
     @media screen and (max-width: $break-mobile) {
-        margin-left: 5px;
+        margin-left: 6px;
     }
     button {
         color: $active-font-color;
@@ -77,4 +77,11 @@
 
 .search-button {
     margin-left: 2px;
+    @media screen and (max-width: $break-mobile) {
+        display: none;
+    }
+}
+.search-icon-menu {
+    font-size: 24px;
+    margin-right: 10px !important;
 }

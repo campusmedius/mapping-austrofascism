@@ -2,6 +2,7 @@
 
 :host {
     display: inline-block;
+    color: $text-light-color;
     font-size: $small2-font-size;
     @media screen and (max-width: $break-mobile) {
         font-size: $small2-font-size;
@@ -36,7 +37,6 @@
     height: 32px;
     cursor: pointer;
     text-align: right;
-    color: $text-light-color;
     overflow: hidden;
     .arrow {
         line-height: 32px;
@@ -58,7 +58,6 @@
     cursor: pointer;
     height: 32px;
     text-align: left;
-    color: $text-light-color;
     overflow: hidden;
     .arrow {
         line-height: 32px;

@@ -62,8 +62,10 @@ cm-map {
     position: fixed;
     @media screen and (max-width: $break-mobile) {
         display: block;
-        height: calc(100vh - #{$header-height-mobile});
-        top: $header-height-mobile;
+        width: 100%;
+        height: calc(100vh - #{$header-height-mobile} - 220px + 60px);
+        top: calc(#{$header-height-mobile} + 50px - 30px);
+        left: 0px;
     }
 }
 
@@ -86,6 +88,10 @@ cm-map {
     background-position: center center;
     background-size: cover;
     background-color: $map-overlay-background-color;
+    @media screen and (max-width: $break-mobile) {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 .mediation-info {
@@ -97,13 +103,20 @@ cm-map {
     height: $header-height;
     display: flex;
     align-items: center;
-    .demand {
-        width: 230px;
-        text-align: right;
-    }
     .response {
         font-family: $title-semibold-font;
-        width: 230px;
+    }
+    @media screen and (max-width: $break-mobile) {
+        justify-content: center;
+    }
+    @media screen and (min-width: $break-mobile) {
+        .demand {
+            width: 230px;
+            text-align: right;
+        }
+        .response {
+            width: 230px;
+        }
     }
 }
 
@@ -115,8 +128,12 @@ cm-info-box {
 .map-control {
     position: fixed;
     z-index: 5;
-    top: calc(#{$header-height} + 20px);
+    top: calc(#{$header-height} + 24px);
     left: 24px;
+    @media screen and (max-width: $break-mobile) {
+        top: calc(#{$header-height-mobile} + 55px);
+        left: 14px;
+    }
     button {
         display: block;
         min-width: 20px;
@@ -129,5 +146,90 @@ cm-info-box {
         &:hover {
             background: $accent-color;
         }
+    }
+}
+
+.info-heading {
+    margin-bottom: 50px;
+    .medium-info {
+        color: $secondary-font-color;
+        font-size: $small-font-size;
+        font-family: $title-semibold-font;
+    }
+    h1 {
+        margin: 0px;
+        margin-bottom: 40px;
+        font-family: $title-bold-font;
+        font-size: $h-primary-font-size;
+    }
+}
+
+.mobile-short-info-container{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    height: calc(100vh - 85px);
+    width: 100%;
+    margin-top: 85px;
+    z-index: 10;
+    flex: 1;
+    overflow-y: auto;
+    cm-info-box-mobile {
+        margin-left: 15px;
+        margin-bottom: 15px;
+        display: block;
+    }
+    cm-start-selector {
+        flex: 1;
+    }
+}
+
+.mobile-short-info {
+    z-index: 11;
+    background: white;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    .btn-read-more {
+        width: 100%;
+    }
+    .info-heading {
+        margin-bottom: 0px;
+        h1 {
+            margin-bottom: 15px;
+        }
+    }
+    .info {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .event-nav-wrapper {
+        width: 100%;
+        text-align: center;
+    }
+    .btn-read-more {
+        margin-top: 0px !important;
+    }
+    p {
+        margin-block-end: 15px;
+        margin-block-start: 15px;
+    }
+    .mediation-info {
+        position: initial;
+        font-family: $title-regular-font;
+        color: $text-color;
+        height: initial;
+        line-height: $small2-font-size;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    cm-info-box-mobile {
+        position: relative;
+        left: 15px;
+        bottom: 65px;
+        z-index: 1000000;
     }
 }

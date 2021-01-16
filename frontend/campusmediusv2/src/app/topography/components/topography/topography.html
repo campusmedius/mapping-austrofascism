@@ -52,25 +52,26 @@
 </ng-template>
 
 
-<div #mobileshortinfo *ngIf="isMobile" class="mobile-short-info">
-    <div *ngIf="!isPage" class="event-nav-wrapper">
+<div *ngIf="isMobile" class="mobile-short-info">
+    <div *ngIf="selectedEvent" class="event-nav-wrapper">
         <cm-info-event-nav [isMobile]="true" [nextEvent]="nextEvent" [previousEvent]="previousEvent" (eventSelected)="eventSelected($event)"></cm-info-event-nav>
     </div>
     <div class="info">
-        <div *ngIf="!isPage" class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
+        <div *ngIf="selectedEvent" class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
             <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
             <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
         </div>
-        <div *ngIf="isPage" class="mobile-abstract">
-            <div [innerHTML]="translate.currentLang === 'de' ? mobileAbstractDe : mobileAbstractEn" [lang]="translate.currentLang"></div>
+        <div *ngIf="!selectedEvent" class="mobile-abstract">
+            <div [innerHTML]="translate.currentLang === 'de' ? page.mobileAbstractDe : page.mobileAbstractEn"></div>
         </div>
         <div class="intro">
-            <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
+            <button *ngIf="!selectedEvent" mat-flat-button routerLink="/topography/events/1" queryParamsHandling="merge" routerLinkActive="active" class="btn-read-more" color="warn">{{'info.start' | translate | uppercase}}</button>
+            <button *ngIf="selectedEvent" mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'info.read-more' | translate | uppercase}}</button>
         </div>
     </div>
 </div>
 
-<div *ngIf="isMobile && sidepanelState === 'full'" class="mobile-info">
+<!-- <div *ngIf="isMobile && sidepanelState === 'full'" class="mobile-info">
     <div class="placeholder-scroll">
     </div>
     <div class="mobile-full-info">
@@ -101,4 +102,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

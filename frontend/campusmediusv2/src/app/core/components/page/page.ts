@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
+import { Subscription } from 'rxjs';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 
 @Component({
   selector: 'cm-page',
@@ -23,9 +25,13 @@ import { InfoContainerComponent } from '@app/information/components/info-contain
 export class PageComponent implements OnInit, AfterViewInit {
     @Input() pageTitleEn: string;
 
+    mediaSubscription: Subscription;
+
     @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
 
     public page: Page;
+    public overviewPage: Page;
+    isMobile: boolean;
     public showTitleHeader = false;
     private skipFragmentUpdate = false;
 
@@ -34,13 +40,23 @@ export class PageComponent implements OnInit, AfterViewInit {
         private route: ActivatedRoute,
         private dialog: MatDialog,
         private router: Router,
+        private mediaObserver: MediaObserver,
         private scrollToService: ScrollToService,
-    ) { }
+    ) { 
+        this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
+          if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
+              this.isMobile = true;
+          } else {
+              this.isMobile = false;
+          }
+      });
+    }
 
 
     ngOnInit() {
         this.route.data.subscribe(data => {
             this.page = data.pages.find(p => p.titleEn === this.pageTitleEn);
+            this.overviewPage = data.pages.find(p => p.titleEn === 'Overview');
         });
     }
 
@@ -49,7 +65,9 @@ export class PageComponent implements OnInit, AfterViewInit {
             if (!this.skipFragmentUpdate) {
                 setTimeout(() => {
                     fragment = fragment ? fragment : 'top';
-                    this.infoContainer.scrollToReference(fragment);
+                    if (this.infoContainer) {
+                        this.infoContainer.scrollToReference(fragment);
+                    }
 
                     // set lang in url if not set
                     this.router.navigate(['.'], {
@@ -85,4 +103,6 @@ export class PageComponent implements OnInit, AfterViewInit {
         this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
     }
 
+    mobileShowMore() {
+    }
 }

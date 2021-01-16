@@ -2,6 +2,12 @@
 
 :host {
     position: absolute;
+    @media screen and (max-width: $break-mobile) {
+        position: initial;
+        overflow-y: auto;
+        justify-content: initial;
+        align-items: initial;
+    }
     top: $header-height;
     left: 0px;
     display: flex;
@@ -16,6 +22,9 @@
     width: 100%;
     height: 100%;
     backdrop-filter: blur(5px);
+    @media screen and (max-width: $break-mobile) {
+        backdrop-filter: blur(2px);
+    }
     z-index: 1;
 }
 
@@ -25,12 +34,32 @@
     max-width: 800px;
     max-height: 600px;
     z-index: 2;
+    @media screen and (max-width: $break-mobile) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: initial;
+        margin: auto;
+    }
+    
 }
 
 .mediator {
     display: inline-block;
     width: 20%;
     text-align: center;
+    @media screen and (max-width: $break-mobile) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: initial;
+        br {
+            display: none;
+        }
+        .cm-topology-icon{
+            margin: 0px 15px;
+        }
+    }
     &:focus {
         outline: 0;
     }
@@ -39,15 +68,41 @@
         cursor: pointer;
         width: 90px;
         height: 90px;
+        @media screen and (max-width: $break-mobile) {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
         display: inline-block;
     }
 }
 
-.mediation {
+.mediation-container {
     height: 33%;
     display: flex;
     align-items: center;
+    @media screen and (max-width: $break-mobile) {
+        height: 130px;
+        display: flex;
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+}
+
+.mediation {
+    width: 100%;
     cursor: pointer;
+    @media screen and (max-width: $break-mobile) {
+        height: 110px;
+        padding: 10px 15px;
+        margin: auto;
+    }
 }
 
 .mediator-label {
@@ -61,4 +116,7 @@
     background-color: #ffffff;
     padding: 0px 12px;
     border-radius: 4px;
+    @media screen and (max-width: $break-mobile) {
+        line-height: 1.7;
+    }
 }
