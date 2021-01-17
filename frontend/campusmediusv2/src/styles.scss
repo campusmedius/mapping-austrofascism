@@ -406,56 +406,9 @@ ngx-gallery-thumbnail {
     left: 25px;
 }
 
-.title-header-mobile {
-    height: $header-height-mobile;
-    margin-left: -15px;
-    margin-right: -15px;
-    padding: 0px 15px;
-    position: fixed;
-    top: 0px;
-    z-index: 99;
-    background-color: white;
-    width: 100%;
-    h1 {
-        font-size: 0.9rem;
-        margin: 0px;
-        margin-left: 10px;
-    }
-    .cite-button {
-        left: 0px;
-        top: -2px;
-        position: relative;
-    }
-    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-}
 
 .info-heading-mobile-ispage {
     margin-top: 15px;
-}
-
-$back-to-top-size-mobile: 26px;
-
-.back-to-top-mobile {
-    position: absolute;
-    right: 15px;
-    top: 7px;
-    width: $back-to-top-size-mobile;
-    min-width: $back-to-top-size-mobile;
-    height: $back-to-top-size-mobile;
-    line-height: $back-to-top-size-mobile;
-    min-height: $back-to-top-size-mobile;
-    vertical-align: top;
-    font-size: $back-to-top-size-mobile;
-    padding: 0 0;
-    margin: 0px;
-    color: $accent-color;
-    border-radius: 0px;
-    .cm-back-to-top {
-        background: #ffffff;
-        border-radius: 16px;
-    }
 }
 
 $back-to-top-size: 26px;

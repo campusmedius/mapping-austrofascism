@@ -15,6 +15,7 @@ import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { AppComponent } from '@app/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { InfoBoxMobileComponent } from '../info-box-mobile/info-box-mobile';
+import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -111,6 +112,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(InfoBoxComponent) infoBox: InfoBoxComponent;
     @ViewChild(InfoBoxMobileComponent) infoBoxMobile: InfoBoxMobileComponent;
     @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
+    @ViewChild(InfoContainerMobileComponent) infoContainerMobile: InfoContainerMobileComponent;
     @ViewChild('mapattrib', {static: true}) mapAttrib: ElementRef;
 
     @HostListener('document:click', ['$event'])
@@ -214,9 +216,10 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         this.route.fragment.subscribe(fragment => {
             if (!this.skipFragmentUpdate) {
                 fragment = fragment ? fragment : 'top';
-                if (this.infoContainer) {
-                    this.infoContainer.scrollToReference(fragment);
-                }            
+                let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
+                if (infoContainer) {
+                    infoContainer.scrollToReference(fragment);
+                }        
                 
                 // set lang in url if not set
                 this.router.navigate(['.'], {
@@ -334,6 +337,68 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.skipFragmentUpdate = true;
             this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
         }
+    }
+
+
+    public mobileShowMore() {
+        this.sidepanelState = 'full';
+        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
+    }
+
+    public mobileShowShort() {
+        if (this.sidepanelState !== 'short') {
+            this.sidepanelState = 'short';
+            this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
+        }
+    }
+
+    @HostListener('scroll')
+    private onMobileScroll() {
+        if (this.galleryIsOpen) {
+            return;
+        }
+
+        const scrollTop = this.elementRef.nativeElement.scrollTop;
+        const clientHeight = this.elementRef.nativeElement.clientHeight;
+
+        if (scrollTop < 170) {
+            this.mobileShowShort();
+        }
+        if (scrollTop < (clientHeight + 150)) {
+            if (this.showTitleHeaderMobile) {
+                this.app.removeHeader = false;
+                setTimeout(() => {
+                    this.showTitleHeaderMobile = false;
+                    this.app.showHeader = true;
+                });
+            }
+        } else {
+            if (!this.showTitleHeaderMobile) {
+                this.showTitleHeaderMobile = true;
+                this.app.showHeader = false;
+                setTimeout(() => {
+                    this.app.removeHeader = true;
+                }, 300);
+            }
+        }
+
+        if(this.infoContainerMobile) {
+            this.infoContainerMobile.checkCurrentSection((scrollTop-clientHeight));
+        }
+    }
+
+    public galleryClosed() {
+        this.galleryIsOpen = false;
+        if (!this.showTitleHeaderMobile) {
+            this.app.removeHeader = false;
+        }
+        this.elementRef.nativeElement.scrollTop = this.scrollTopBeforeGalleryOpen;
+    }
+
+    public galleryOpened() {
+        this.scrollTopBeforeGalleryOpen = this.elementRef.nativeElement.scrollTop;
+        this.galleryIsOpen = true;
+        this.app.removeHeader = true;
     }
 
     ngOnDestroy() {

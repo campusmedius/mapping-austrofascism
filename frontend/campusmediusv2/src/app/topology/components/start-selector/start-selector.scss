@@ -97,11 +97,14 @@
 
 .mediation {
     width: 100%;
+    align-items: center;
+    display: flex;
     cursor: pointer;
     @media screen and (max-width: $break-mobile) {
         height: 110px;
         padding: 10px 15px;
         margin: auto;
+        width: 450px;
     }
 }
 

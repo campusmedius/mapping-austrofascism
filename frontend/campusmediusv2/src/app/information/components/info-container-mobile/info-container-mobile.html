@@ -1,0 +1,27 @@
+<div class="info-body" fxFill>
+    <div class="placeholder-scroll"></div>
+    <div id="info-top" class="info-content">
+        <div class="info-heading">
+            <span *ngIf="!hideSubTitle" class="sub-heading" [innerHtml]="subTitle ? subTitle : ''"></span>
+            <div class="cite-button-wrapper">
+                <button [title]="lang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button class="cite-button" (click)="citeClick.emit()">
+                    <span class="cm-square-quote-alt"></span>
+                </button>
+            </div>
+            <h1 [innerHtml]="title"></h1>
+        </div>
+        <div *ngIf="content">
+            <cm-information [content]="content" [lang]="lang" [media]="media"></cm-information>
+        </div>
+        <div class="bottom-white"></div>
+    </div>
+</div>
+<div class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showHeader">
+    <button mat-icon-button class="cite-button" (click)="citeClick.emit()">
+        <span class="cm-square-quote-alt"></span>
+    </button>
+    <h1 [innerHtml]="title"></h1>
+    <button mat-icon-button class="back-to-top-mobile" (click)="showShort.emit()">
+        <span class="cm-back-to-top"></span>
+    </button>
+</div>

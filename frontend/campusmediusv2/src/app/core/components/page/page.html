@@ -37,3 +37,14 @@
       </div>
   </div>
 </div>
+
+<cm-info-container-mobile
+*ngIf="isMobile" class="mobile-info"
+[lang]="translate.currentLang"
+[title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
+[content]="translate.currentLang === 'de' ? page.information.contentDe : page.information.contentEn"
+[media]="page.information.media"
+[showHeader]="false"
+(citeClick)="showCite()"
+(sectionChange)="sectionChange($event)">
+</cm-info-container-mobile>

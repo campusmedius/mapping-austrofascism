@@ -1,0 +1,112 @@
+@import '../../../../scss/variables.scss';
+
+.info-body {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+}
+
+.placeholder-scroll {
+    height: 100vh;
+    width: 100%;
+}
+
+
+.info-content {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0px 15px;
+    position: relative;
+    z-index: 12;
+    min-height: 100vh;
+    background: #ffffff;
+    box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 -3px 5px rgba(57, 63, 72, 0.3);
+}
+
+.info-heading {
+    margin-bottom: 50px;
+    margin-top: 50px;
+    .sub-heading {
+        color: $secondary-font-color;
+        font-size: $small-font-size;
+        font-family: $title-semibold-font;
+    }
+    h1 {
+        margin: 0px;
+        margin-bottom: 40px;
+        margin-left: 30px;
+        font-family: $title-bold-font;
+        font-size: $h-primary-font-size;
+    }
+    .cite-button {
+        left: 0px;
+    }
+    button {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
+    .cite-button-wrapper {
+        top: -4px;
+    }
+}
+
+.bottom-white {
+    width: 100%;
+    height: 120px;
+    background: #ffffff;
+}
+
+.title-header {
+    height: $header-height-mobile;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 19;
+    background-color: white;
+    padding: 0px 15px;
+    width: 100%;
+    h1 {
+        font-size: 0.9rem;
+        margin: 0px;
+        margin-left: 10px;
+    }
+    .cite-button {
+        left: 0px;
+        top: -2px;
+        position: relative;
+    }
+    .mat-icon-button {
+        width: 20px;
+    }
+    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+}
+
+$back-to-top-size-mobile: 26px;
+
+.back-to-top-mobile {
+    position: absolute;
+    right: 15px;
+    width: $back-to-top-size-mobile;
+    min-width: $back-to-top-size-mobile;
+    height: $back-to-top-size-mobile;
+    line-height: $back-to-top-size-mobile;
+    min-height: $back-to-top-size-mobile;
+    vertical-align: top;
+    font-size: $back-to-top-size-mobile;
+    padding: 0 0;
+    margin: 0px;
+    color: $accent-color;
+    border-radius: 0px;
+    .cm-back-to-top {
+        background: #ffffff;
+        border-radius: 16px;
+    }
+}

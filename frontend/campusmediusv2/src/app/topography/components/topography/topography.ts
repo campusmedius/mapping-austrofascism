@@ -22,6 +22,7 @@ import * as moment from 'moment';
 
 import { TranslateService } from '@ngx-translate/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
+import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -80,6 +81,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild(MapComponent) map: MapComponent;
     @ViewChild('fullinfo') fullinfo: ElementRef;
     @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
+    @ViewChild(InfoContainerMobileComponent) infoContainerMobile: InfoContainerMobileComponent;
 
     public showTitleHeader = false;
     public showTitleHeaderMobile = false;
@@ -168,8 +170,9 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             if (!this.skipFragmentUpdate) {
                 setTimeout(() => {
                     fragment = fragment ? fragment : 'top';
-                    if (this.infoContainer) {
-                        this.infoContainer.scrollToReference(fragment);
+                    let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
+                    if (infoContainer) {
+                        infoContainer.scrollToReference(fragment);
                     }
 
                     // set lang in url if not set
@@ -264,19 +267,12 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     public mobileShowMore() {
         this.sidepanelState = 'full';
         this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
-        setTimeout(() => {
-            this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight;
-        });
     }
 
     public mobileShowShort() {
         if (this.sidepanelState !== 'short') {
             this.sidepanelState = 'short';
-            if (this.selectedEvent.id === 'team') {
-                this.router.navigate(['/about'], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
-            } else {
-                this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
-            }
+            this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
         }
     }
 
@@ -293,10 +289,13 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             return;
         }
 
-        if (this.elementRef.nativeElement.scrollTop < 170) {
+        const scrollTop = this.elementRef.nativeElement.scrollTop;
+        const clientHeight = this.elementRef.nativeElement.clientHeight;
+
+        if (scrollTop < 170) {
             this.mobileShowShort();
         }
-        if (this.elementRef.nativeElement.scrollTop < (this.map.mapElement.nativeElement.clientHeight + 150)) {
+        if (scrollTop < (clientHeight + 150)) {
             if (this.showTitleHeaderMobile) {
                 this.app.removeHeader = false;
                 setTimeout(() => {
@@ -312,6 +311,10 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     this.app.removeHeader = true;
                 }, 300);
             }
+        }
+
+        if(this.infoContainerMobile) {
+            this.infoContainerMobile.checkCurrentSection((scrollTop-clientHeight));
         }
     }
 

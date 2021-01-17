@@ -34,9 +34,11 @@ import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image/ngx-ga
 import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails/ngx-gallery-thumbnails.component';
 import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview/ngx-gallery-preview.component';
 import { NgxGalleryComponent } from './ngx-gallery/ngx-gallery.component';
+import { InfoContainerMobileComponent } from './components/info-container-mobile/info-container-mobile';
 
 export const COMPONENTS = [
     InfoContainerComponent,
+    InfoContainerMobileComponent,
     InformationComponent,
     ImageComponent,
     AudioComponent,

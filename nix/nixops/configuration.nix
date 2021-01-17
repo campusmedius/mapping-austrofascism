@@ -171,6 +171,7 @@
                     expires 10m;
                     etag off;
                 '';
+                priority = 1001;
             };
         };
         appendHttpConfig = ''

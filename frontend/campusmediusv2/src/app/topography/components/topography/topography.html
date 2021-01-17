@@ -71,35 +71,15 @@
     </div>
 </div>
 
-<!-- <div *ngIf="isMobile && sidepanelState === 'full'" class="mobile-info">
-    <div class="placeholder-scroll">
-    </div>
-    <div class="mobile-full-info">
-        <div class="info-body-mobile">
-            <div class="title-header-mobile" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeaderMobile">
-                <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
-                    <span class="cm-square-quote-alt"></span>
-                </button>
-                <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
-                <button mat-icon-button class="back-to-top-mobile" (click)="mobileShowShort()">
-                    <span class="cm-back-to-top"></span>
-                </button>
-            </div>
-            <div #infoheading class="info-heading">
-                <span *ngIf="!isPage" class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
-                <div class="cite-button-wrapper">
-                    <button *ngIf="sidepanelState === 'full'" mat-icon-button class="cite-button" (click)="showCite()">
-                        <span class="cm-square-quote-alt"></span>
-                    </button>
-                </div>
-                <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
-            </div>
-            <div class="info-container-mobile" *ngIf="information$ | async as information">
-                <cm-information [content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn" [lang]="translate.currentLang" [media]="information.media" (galleryOpened)="galleryOpened()" (galleryClosed)="galleryClosed()"></cm-information>
-                <div class="padding-bottom">
-                    <br><br><br>---
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+<cm-info-container-mobile
+*ngIf="isMobile && sidepanelState === 'full'" class="mobile-info"
+[lang]="translate.currentLang"
+[title]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"
+[subTitle]="selectedEvent | infoTimestamp:translate.currentLang"
+[content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn"
+[media]="information.media"
+[showHeader]="showTitleHeaderMobile"
+(citeClick)="showCite()"
+(sectionChange)="sectionChange($event)"
+(showShort)="mobileShowShort()">
+</cm-info-container-mobile>

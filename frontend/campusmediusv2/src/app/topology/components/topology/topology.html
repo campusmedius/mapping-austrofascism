@@ -135,7 +135,7 @@
     [mediators]="mediators.slice(1,16)"></cm-god-selector>
 
 
-<div *ngIf="isMobile" class="mobile-short-info-container">
+<div *ngIf="isMobile" class="mobile-short-info-container" [ngClass]="{'at-start': !selectedMediator}">
     <cm-start-selector
     *ngIf="!selectedMediator"
     [mediators]="mediators.slice(1,16)"
@@ -167,3 +167,17 @@
         </div>
     </div>
 </div>
+
+<cm-info-container-mobile
+*ngIf="isMobile && sidepanelState === 'full'" class="mobile-info"
+[lang]="translate.currentLang"
+[title]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"
+[subTitle]="translate.currentLang === 'de' ? selectedMediator.medium.titleDe.toUpperCase() : selectedMediator.medium.titleEn.toUpperCase()"
+[hideSubTitle]="selectedMediator.id === '0'"
+[content]="translate.currentLang === 'de' ? information.contentDe : information.contentEn"
+[media]="information.media"
+[showHeader]="showTitleHeaderMobile"
+(citeClick)="showCite()"
+(sectionChange)="sectionChange($event)"
+(showShort)="mobileShowShort()">
+</cm-info-container-mobile>

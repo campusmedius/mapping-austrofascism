@@ -64,7 +64,7 @@ cm-map {
         display: block;
         width: 100%;
         height: calc(100vh - #{$header-height-mobile} - 220px + 60px);
-        top: calc(#{$header-height-mobile} + 50px - 30px);
+        top: $header-height-mobile;
         left: 0px;
     }
 }
@@ -124,6 +124,10 @@ cm-info-box {
     z-index: 10;
 }
 
+cm-mediations-mobile {
+    z-index: 11;
+}
+
 
 .map-control {
     position: fixed;
@@ -168,11 +172,14 @@ cm-info-box {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
-    height: calc(100vh - 85px);
     width: 100%;
+    &.at-start {
+        height: calc(100% - #{$header-height-mobile});
+    }
     margin-top: 85px;
     z-index: 10;
-    flex: 1;
+    position: fixed;
+    bottom: 0px;
     overflow-y: auto;
     cm-info-box-mobile {
         margin-left: 15px;
@@ -181,6 +188,7 @@ cm-info-box {
     }
     cm-start-selector {
         flex: 1;
+        padding-top: 40px;
     }
 }
 
@@ -232,4 +240,10 @@ cm-info-box {
         bottom: 65px;
         z-index: 1000000;
     }
+}
+
+
+.mobile-info {
+    z-index: 15;
+    width: 100%;
 }
