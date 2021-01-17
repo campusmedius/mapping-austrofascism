@@ -229,10 +229,11 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
     private getExaminingGazeSpaceStr(space) {
       this.space = space;
 
+
       if (this.translate.currentLang === 'de') {
-        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") + ' m vom Anfang';
+        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + ' m vom Anfang';
       } else {
-        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' m from the start';
+        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' m from the start';
       }
     }
 
@@ -269,9 +270,9 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
       }
 
       if (this.translate.currentLang === 'de') {
-        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") + ' m entfernt';
+        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + ' m entfernt';
       } else {
-        return Math.round(space).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + ' m away';
+        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' m away';
       }
     }
 
