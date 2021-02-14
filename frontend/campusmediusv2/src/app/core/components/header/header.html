@@ -11,10 +11,10 @@
         <button mat-menu-item routerLink="/topology" routerLinkActive="active">{{'header.topology' | translate}}</button>
         <button mat-menu-item routerLink="/team" routerLinkActive="active">{{'header.team' | translate}}</button>
         <button mat-menu-item routerLink="/book" routerLinkActive="active">{{'header.book' | translate}}</button>
-        <button mat-menu-item (click)="showSearch()"><mat-icon class="cm-search search-icon-menu"></mat-icon>{{'header.search' | translate}}</button>
+        <button mat-menu-item (click)="showSearch()" class="search-menu"><mat-icon class="cm-search search-icon-menu"></mat-icon>{{'header.search' | translate}}</button>
     </mat-menu>
 </div>
-<div fxFlex="grow" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-md="start center">
+<div class="logo-container" fxFlex="grow" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.lt-md="center center">
     <img routerLink="/" [queryParams]="{info:'short'}" queryParamsHandling="merge" class="logo" src="./assets/logo.svg">
 </div>
 <div fxFlex fxLayout="row" fxLayoutAlign="end" class="lang-selector">

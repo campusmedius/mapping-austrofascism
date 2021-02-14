@@ -37,6 +37,9 @@
 
 .lang-selector {
     margin-left: 22px;
+    @media screen and (max-width: 340px) {
+        margin-left: 0px;
+    }
 }
 
 .nav-lang {
@@ -77,11 +80,26 @@
 
 .search-button {
     margin-left: 2px;
-    @media screen and (max-width: $break-mobile) {
+    @media screen and (max-width: 340px) {
         display: none;
     }
+    @media screen and (max-width: $break-mobile) {
+        margin-left: -8px;
+    }    
 }
 .search-icon-menu {
     font-size: 24px;
     margin-right: 10px !important;
+}
+
+@media screen and (min-width: 340px) {
+    .search-menu {
+        display: none;
+    }
+}
+
+.logo-container {
+    @media screen and (max-width: 340px) {
+        justify-content: start !important;
+    }
 }
