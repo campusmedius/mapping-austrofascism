@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, NgZone, HostListener, PLATFORM_ID, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {
     trigger,
@@ -11,6 +11,7 @@ import { environment } from '../../../../environments/environment';
 
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { Map, LngLat, Point } from 'mapbox-gl';
+import { isPlatformBrowser } from '@angular/common';
 
 const MAX_ZOOM = 15;
 const MIN_ZOOM = 10;
@@ -62,12 +63,17 @@ export class MapComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private zone: NgZone
+        private zone: NgZone,
+        @Inject(PLATFORM_ID) private platformId: any,
     ) {
         // check webgl
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl || !(gl instanceof WebGLRenderingContext)) {
+        if (isPlatformBrowser(this.platformId)) {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl || !(gl instanceof WebGLRenderingContext)) {
+                this.noWebGL = true;
+            }
+        } else {
             this.noWebGL = true;
         }
     }
@@ -77,7 +83,7 @@ export class MapComponent implements OnInit {
             return;
         }
 
-        (<any>window).map = this.map = new mapboxgl.Map({
+        this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
             attributionControl: false,
             maxZoom: MAX_ZOOM,

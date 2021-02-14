@@ -4,6 +4,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import { NgModule, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {TransferHttpCacheModule} from '@nguniversal/common';
 import { RouterModule, RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
 
 import { CoreModule } from './core/core.module';
@@ -32,19 +33,20 @@ export class CustomRouteReuseStrategy extends RouteReuseStrategy {
 }
 
 @Injectable()
-export class CustomHammerConfig extends HammerGestureConfig {
-    overrides = <any>{
-        'pinch': { enable: false },
-        'rotate': { enable: false }
-    };
+export class CustomHammerConfig extends HammerGestureConfig  {
+  overrides = {
+    pinch: { enable: false },
+    rotate: { enable: false }
+  } as any;
 }
 
 @NgModule({
      imports: [
         CommonModule,
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         HttpClientModule,
+        TransferHttpCacheModule,
 
         CoreModule.forRoot(),
 
@@ -72,4 +74,4 @@ export class CustomHammerConfig extends HammerGestureConfig {
     bootstrap: [AppComponent],
     declarations: []
 })
- export class AppModule { }
+ export class AppBrowserModule { }

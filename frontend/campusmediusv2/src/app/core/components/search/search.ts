@@ -39,7 +39,6 @@ export class SearchComponent implements OnInit {
      }
 
   ngOnInit() {
-    (<any>window).ref = this.dialogRef;
     setTimeout(()=>{
       this.searchElement.nativeElement.focus();
     },0);  

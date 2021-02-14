@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener, ChangeDetectorRef, AfterViewInit
+    Component, OnInit, OnDestroy, ViewChild, ElementRef, HostListener, ChangeDetectorRef, AfterViewInit, PLATFORM_ID, Inject
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { trigger, transition, animate, style, state } from '@angular/animations';
@@ -23,6 +23,7 @@ import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
+import { isPlatformBrowser } from '@angular/common';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -105,7 +106,8 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         private mediaObserver: MediaObserver,
         private elementRef: ElementRef,
         private app: AppComponent,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        @Inject(PLATFORM_ID) private platformId: any,
     ) {
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -118,7 +120,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
 
     
     ngOnInit() {
-        if ((<any>window).isSafari) {
+        if (typeof window !== 'undefined' && (<any>window).isSafari) {
             this.elementRef.nativeElement.style.webkitTransform = 'translate3d(0,0,0)';
         }
 
@@ -191,7 +193,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private adjustTimelineForEdge() {
-        if ((<any>document).isEdge) {
+        if (isPlatformBrowser(this.platformId) && (<any>document).isEdge) {
             setTimeout(() => {
                 const element = (<any>document.getElementsByTagName('cm-timeline')[0]);
                 if (!element) {

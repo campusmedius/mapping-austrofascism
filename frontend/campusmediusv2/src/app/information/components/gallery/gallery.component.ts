@@ -8,7 +8,6 @@ import { NgxGalleryImage } from '../../ngx-gallery/ngx-gallery-image';
 
 import { Gallery, Image, Audio, Video } from '../../models/information';
 
-import 'hammerjs';
 
 @Component({
     selector: 'cm-gallery',
@@ -104,7 +103,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
-            if (!this.isMobile && (<any>window).isSafari) {
+            if (!this.isMobile && typeof window !== 'undefined' && (<any>window).isSafari) {
                 elements[0].style.zIndex = 99;
             }
         }
@@ -119,7 +118,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         const elements = <any>document.getElementsByTagName('cm-topography');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
-            if (!this.isMobile && (<any>window).isSafari) {
+            if (!this.isMobile && typeof window !== 'undefined' && (<any>window).isSafari) {
                 elements[0].style.zIndex = '';
             }
         }

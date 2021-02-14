@@ -34,7 +34,7 @@ export class InfoBoxMobileComponent implements OnInit, OnDestroy {
     public timeStr: string;
     private time = 0;
     private inAnimation = false;
-    private timer: number;
+    private timer: ReturnType<typeof setTimeout>;
     currentLangSubscription: Subscription;
     isOpen = false;
 

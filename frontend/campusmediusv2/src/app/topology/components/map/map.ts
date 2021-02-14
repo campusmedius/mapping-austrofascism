@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, NgZone, PLATFORM_ID, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Map } from 'mapbox-gl';
 import * as turf from '@turf/turf';
 import { Mediation } from '@app/topology/models/mediation';
 import { Mediator } from '@app/topology/models/mediator';
+import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
 declare var mapboxgl: any;
 
@@ -35,7 +36,7 @@ export class MapComponent implements OnInit {
 
     public noWebGL = false;
 
-    private timer: number;
+    private timer: ReturnType<typeof setTimeout>;
 
     private buildingsOnMap = false;
     private layerSchoenbrunn;
@@ -49,12 +50,17 @@ export class MapComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private zone: NgZone
+        private zone: NgZone,
+        @Inject(PLATFORM_ID) private platformId: any,
     ) {
-        // check webgl
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (!gl || !(gl instanceof WebGLRenderingContext)) {
+
+        if (isPlatformBrowser(this.platformId)) {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl || !(gl instanceof WebGLRenderingContext)) {
+                this.noWebGL = true;
+            }
+        } else {
             this.noWebGL = true;
         }
     }
@@ -108,8 +114,6 @@ export class MapComponent implements OnInit {
             zoom: 16.6, // starting zoom
             interactive: false
         });
-
-        (<any>window).map = this.map;
 
         this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
 
@@ -233,6 +237,10 @@ export class MapComponent implements OnInit {
     }
 
     private createBuildingLayer(id: String, path: String, coord: [Number, Number, Number]) {
+        if (isPlatformServer(this.platformId)) {
+            return
+        }
+
         // parameters to ensure the model is georeferenced correctly on the map
        var modelOrigin = [coord[0], coord[1]];
        var modelAltitude = coord[2];

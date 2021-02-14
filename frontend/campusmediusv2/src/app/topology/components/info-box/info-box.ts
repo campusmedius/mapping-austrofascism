@@ -20,7 +20,7 @@ export class InfoBoxComponent implements OnInit, OnDestroy {
     public timeStr: string;
     private time = 0;
     private inAnimation = false;
-    private timer: number;
+    private timer: ReturnType<typeof setTimeout>;
     currentLangSubscription: Subscription;
 
     constructor(private translate: TranslateService, private cdRef: ChangeDetectorRef) { }

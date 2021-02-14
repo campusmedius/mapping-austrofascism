@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { trigger, transition, animate, style, query, state } from '@angular/animations';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 
 declare var safari;
@@ -31,18 +32,22 @@ export class AppComponent implements OnInit, OnDestroy {
 
     constructor(
         private translate: TranslateService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        @Inject(DOCUMENT) private _doc: Document,
+        @Inject(PLATFORM_ID) private platformId: any
     ) {
-        (<any>document).isIE = /*@cc_on!@*/false || !!(<any>document).documentMode;
-        (<any>document).isEdge = !(<any>document).isIE && !!(<any>window).StyleMedia;
-        (<any>document).isSafari = /constructor/i.test((<any>window).HTMLElement) || (function(p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+        if (isPlatformBrowser(this.platformId)) {
+            (<any>document).isIE = /*@cc_on!@*/false || !!(<any>document).documentMode;
+            (<any>document).isEdge = !(<any>document).isIE && !!(<any>window).StyleMedia;
+            (<any>document).isSafari = /constructor/i.test((<any>window).HTMLElement) || (function(p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+        }
 
         this.translate.addLangs(['en', 'de']);
         translate.setDefaultLang('de');
 
         let setLangTo = null;
 
-        const queryLang = this.getParameterByName('lang', window.location.href.toLowerCase());
+        const queryLang = this.getParameterByName('lang', this._doc.location.href.toLowerCase());
         if (queryLang && queryLang.match(/en|de/)) {
             setLangTo = queryLang;
         }
@@ -75,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private getParameterByName(name, url) {
         if (!url) {
-            url = window.location.href;
+            url = this._doc.location.href;
         }
         name = name.replace(/[\[\]]/g, '\\$&');
         const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');

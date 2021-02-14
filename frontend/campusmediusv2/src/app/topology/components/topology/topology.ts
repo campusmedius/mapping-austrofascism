@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef, HostListener, PLATFORM_ID, Inject } from '@angular/core';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { AppComponent } from '@app/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { InfoBoxMobileComponent } from '../info-box-mobile/info-box-mobile';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
+import { isPlatformBrowser } from '@angular/common';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -130,6 +131,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
       private dialog: MatDialog,
       private router: Router,
       private app: AppComponent,
+      @Inject(PLATFORM_ID) private platformId: any,
     ) { 
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
             if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -141,7 +143,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        if ((<any>window).isSafari) {
+        if (typeof window !== 'undefined' && (<any>window).isSafari) {
             this.elementRef.nativeElement.style.webkitTransform = 'translate3d(0,0,0)';
         }
 
@@ -253,7 +255,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private adjustTimelineForEdge() {
-        if ((<any>document).isEdge) {
+        if (isPlatformBrowser(this.platformId) && (<any>document).isEdge) {
             setTimeout(() => {
                 const element = (<any>document.getElementsByTagName('cm-mediations')[0]);
                 if (!element) {
