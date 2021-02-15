@@ -154,7 +154,8 @@
                         "browserTarget": "campusmedius:build:production",
                         "serverTarget": "campusmedius:server:production",
                         "routes": [
-                            "/"
+                            "/",
+                            "/topography/events/2"
                         ]
                     },
                     "configurations": {

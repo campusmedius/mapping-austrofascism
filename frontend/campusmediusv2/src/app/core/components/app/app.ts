@@ -47,12 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
         let setLangTo = null;
 
-        const queryLang = this.getParameterByName('lang', this._doc.location.href.toLowerCase());
+        const queryLang = this.getParameterByName('lang', this._doc.location.href.toLowerCase()) || '';
         if (queryLang && queryLang.match(/en|de/)) {
             setLangTo = queryLang;
         }
 
-        if (!setLangTo) {
+        if (isPlatformBrowser(this.platformId) && !setLangTo) {
             if (this.translate.getBrowserLang().match(/en|de/)) {
                 setLangTo = this.translate.getBrowserLang();
             }

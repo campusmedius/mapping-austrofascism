@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule, Injectable } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Injectable, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import {TransferHttpCacheModule} from '@nguniversal/common';
 import { RouterModule, RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
@@ -14,12 +14,14 @@ import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateFsLoader } from './translateFsLoader';
+import { TranslateBrowserLoader } from './translateBrowserLoader';
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+export function translateLoaderFactory(httpClient: HttpClient, transferState: TransferState, platform: any) {
+    return isPlatformBrowser(platform)
+      ? new TranslateBrowserLoader(transferState, httpClient)
+      : new TranslateFsLoader(transferState);
+  }
 
 @Injectable()
 export class CustomRouteReuseStrategy extends RouteReuseStrategy {
@@ -47,22 +49,23 @@ export class CustomHammerConfig extends HammerGestureConfig  {
         BrowserAnimationsModule,
         HttpClientModule,
         TransferHttpCacheModule,
+        BrowserTransferStateModule,
 
         CoreModule.forRoot(),
 
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
+                useFactory: translateLoaderFactory,
+                deps: [HttpClient, TransferState, PLATFORM_ID]
             }
         }),
 
         RouterModule.forRoot(routes, {
-    useHash: false,
-    anchorScrolling: 'enabled',
-    relativeLinkResolution: 'legacy'
-})
+            useHash: false,
+            anchorScrolling: 'enabled',
+            relativeLinkResolution: 'legacy'
+        })
     ],
     providers: [
         {

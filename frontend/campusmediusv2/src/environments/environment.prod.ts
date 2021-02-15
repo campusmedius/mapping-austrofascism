@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: '/api/v2',
+    apiUrl: 'http://localhost:8000',
     searchAssetsPath: '/v2/assets/search',
     mapTilesUrl: '/tiles' // set in style files
 };
