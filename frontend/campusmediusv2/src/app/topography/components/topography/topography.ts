@@ -24,6 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
 import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -107,6 +108,8 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         private elementRef: ElementRef,
         private app: AppComponent,
         private cd: ChangeDetectorRef,
+        private meta: Meta,
+        public title: Title,
         @Inject(PLATFORM_ID) private platformId: any,
     ) {
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
@@ -127,6 +130,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
 
         this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
+            
             if (queryParams['info']) {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
@@ -142,6 +146,8 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.app.showHeader = true;
                 this.showTitleHeaderMobile = false;
             }
+
+            setTimeout(() => this.updateSiteMetaAndTitle());
             this.adjustTimelineForEdge();
         });
 
@@ -163,6 +169,8 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.sidepanelState = 'short';
                 this.page = data.pages.find(p => p.titleEn === 'Topography');
             }
+            
+            this.updateSiteMetaAndTitle();
             this.cd.detectChanges();
         });
     }
@@ -190,6 +198,54 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.skipFragmentUpdate = false;
             }
         });
+    }
+
+    private updateSiteMetaAndTitle() {
+        let title;
+        if (this.selectedEvent) {
+            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedEvent.titleDe : this.selectedEvent.titleEn);
+        } else {
+            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+        }
+        
+        this.title.setTitle(title);
+        // { name: 'date', content: '2019-10-31', scheme: 'YYYY-MM-DD' },
+        // this.meta.addTag({name: 'keywords', content: 'Angular Project, Create Angular Project'});
+
+//         <meta name="keywords" content="Stichwort 1, Stichwort 2, Stichwort 3"/>
+//         <meta name="author" content="Autorenname" />
+
+// <meta name="copyright" content="Copyright-Inhaber" />
+//         description
+//         lang alternative
+//         Open graph meta tags and Twitter cards
+//         <meta property="og:type" content="article" />
+
+// <meta property="og:title" content="TITLE OF YOUR POST OR PAGE" />
+
+// <meta property="og:description" content="DESCRIPTION OF PAGE CONTENT" />
+
+// <meta property="og:image" content="LINK TO THE IMAGE FILE" />
+
+// <meta property="og:url" content="PERMALINK" />
+
+// <meta property="og:site_name" content="SITE NAME" />
+
+// Twitter cards work in a similar way to Open Graph, except for Twitter.
+
+// Twitter will use these tags to enhance the display of your page when shared on their platform.
+
+// Here is a sample of How Twitter card look like in standard HTML:
+
+// <meta name="twitter:title" content="TITLE OF POST OR PAGE">
+
+// <meta name="twitter:description" content="DESCRIPTION OF PAGE CONTENT">
+
+// <meta name="twitter:image" content="LINK TO IMAGE">
+
+// <meta name="twitter:site" content="@USERNAME">
+
+// <meta name="twitter:creator" content="@USERNAME">
     }
 
     private adjustTimelineForEdge() {

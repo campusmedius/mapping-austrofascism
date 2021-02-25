@@ -42,7 +42,9 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.marker.remove();
+        if(this.marker) {
+            this.marker.remove();
+        }
     }
 
 }

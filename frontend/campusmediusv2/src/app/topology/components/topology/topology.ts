@@ -17,6 +17,7 @@ import { InfoContainerComponent } from '@app/information/components/info-contain
 import { InfoBoxMobileComponent } from '../info-box-mobile/info-box-mobile';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
 import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -131,6 +132,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
       private dialog: MatDialog,
       private router: Router,
       private app: AppComponent,
+      private meta: Meta,
+      public title: Title,
       @Inject(PLATFORM_ID) private platformId: any,
     ) { 
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
@@ -162,6 +165,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.app.showHeader = true;
                 this.showTitleHeaderMobile = false;
             }
+
+            setTimeout(() => this.updateSiteMetaAndTitle());
             this.adjustTimelineForEdge();
         });
 
@@ -209,6 +214,8 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
             this.previousMediator = this.selectedMediator;
             this.previousMediation = this.selectedMediation;
+
+            this.updateSiteMetaAndTitle();
         });
 
 
@@ -237,6 +244,17 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         });
 
         this.adjustMap();
+    }
+
+    private updateSiteMetaAndTitle() {
+        let title;
+        if (this.selectedMediator) {
+            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedMediator.titleDe : this.selectedMediator.titleEn);
+        } else {
+            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+        }
+        
+        this.title.setTitle(title);
     }
 
     resetAnimations() {

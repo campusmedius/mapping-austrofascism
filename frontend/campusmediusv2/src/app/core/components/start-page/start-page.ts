@@ -4,6 +4,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Page } from '@app/information/models/page';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'cm-start-page',
@@ -20,7 +21,9 @@ export class StartPageComponent implements OnInit {
         private translate: TranslateService,
         private route: ActivatedRoute,
         private mediaObserver: MediaObserver,
-        private router: Router
+        private router: Router,
+        private meta: Meta,
+        public title: Title
     ) { 
       this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
         if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -35,7 +38,12 @@ export class StartPageComponent implements OnInit {
     ngOnInit() {
           this.route.data.subscribe(data => {
               this.page = data.pages.find(p => p.titleEn === 'Overview');
+              this.updateSiteMetaAndTitle();
           });
+    }
+
+    private updateSiteMetaAndTitle() {
+      this.title.setTitle('Campusmedius');
     }
 
     readMore() {

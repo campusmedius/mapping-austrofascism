@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, HostListener, ElementRef, OnDestroy } from '@angular/core';
 import { trigger, transition, animate, style, state } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
 import { AppComponent } from '../app/app';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'cm-page',
@@ -24,10 +25,12 @@ import { AppComponent } from '../app/app';
     ])
   ]
 })
-export class PageComponent implements OnInit, AfterViewInit {
+export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() pageTitleEn: string;
 
     mediaSubscription: Subscription;
+    queryParamsSubscription: Subscription;
+    dataSubscription: Subscription;
 
     @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
     @ViewChild(InfoContainerMobileComponent) infoContainerMobile: InfoContainerMobileComponent;
@@ -50,6 +53,8 @@ export class PageComponent implements OnInit, AfterViewInit {
         private app: AppComponent,
         private mediaObserver: MediaObserver,
         private scrollToService: ScrollToService,
+        private meta: Meta,
+        public title: Title
     ) { 
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
           if (change.mqAlias === 'xs' || change.mqAlias === 'sm') {
@@ -62,10 +67,19 @@ export class PageComponent implements OnInit, AfterViewInit {
 
 
     ngOnInit() {
-        this.route.data.subscribe(data => {
+        this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
+            setTimeout(() => this.updateSiteMetaAndTitle());
+        });
+        this.dataSubscription = this.route.data.subscribe(data => {
             this.page = data.pages.find(p => p.titleEn === this.pageTitleEn);
             this.overviewPage = data.pages.find(p => p.titleEn === 'Overview');
+            this.updateSiteMetaAndTitle();
         });
+    }
+
+    private updateSiteMetaAndTitle() {
+        let title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+        this.title.setTitle(title);
     }
 
     ngAfterViewInit() {
@@ -160,5 +174,11 @@ export class PageComponent implements OnInit, AfterViewInit {
         this.scrollTopBeforeGalleryOpen = this.elementRef.nativeElement.scrollTop;
         this.galleryIsOpen = true;
         this.app.removeHeader = true;
+    }
+
+    ngOnDestroy() { 
+        this.dataSubscription.unsubscribe();
+        this.queryParamsSubscription.unsubscribe();
+        this.mediaSubscription.unsubscribe();
     }
 }
