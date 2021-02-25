@@ -3,6 +3,7 @@ from django.utils import timezone
 from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
 from taggit.models import TagBase, GenericTaggedItemBase
+from taggit_autosuggest.managers import TaggableManager
 
 from information.models import Information
 
@@ -38,6 +39,7 @@ class Page(models.Model):
     abstract_en = HTMLField(null=True, blank=True)
     mobile_abstract_de = HTMLField(null=True, blank=True)
     mobile_abstract_en = HTMLField(null=True, blank=True)
+    keywords = TaggableManager(blank=True, through=CampusmediusTaggedItemBase, verbose_name="keywords")
     information = models.ForeignKey(
         Information, null=True, blank=True, on_delete=models.CASCADE)
 

@@ -9,14 +9,14 @@ import { Page } from '@app/information/models/page';
 import { TranslateService } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
 import { InfoBoxComponent } from '../info-box/info-box';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { AppComponent } from '@app/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { InfoBoxMobileComponent } from '../info-box-mobile/info-box-mobile';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 
 const SIDEPANEL_WIDTH = {
@@ -134,6 +134,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
       private app: AppComponent,
       private meta: Meta,
       public title: Title,
+      @Inject(DOCUMENT) private document: Document,
       @Inject(PLATFORM_ID) private platformId: any,
     ) { 
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
@@ -248,13 +249,45 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private updateSiteMetaAndTitle() {
         let title;
+        let keywords;
+        let description;
+        let canonicalUrl = "https://campusmedius.net/topology";
+        let alternateUrl;
         if (this.selectedMediator) {
             title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedMediator.titleDe : this.selectedMediator.titleEn);
+            keywords = (this.translate.currentLang === 'de' ? this.selectedMediator.keywordsDe : this.selectedMediator.keywordsEn);
+            description = (this.translate.currentLang === 'de' ? this.selectedMediator.abstractDe : this.selectedMediator.abstractEn);
+            canonicalUrl += "/mediations/" + this.selectedMediation.id  + "/mediators/" + this.selectedMediator.id;
+            alternateUrl = canonicalUrl + '?info=full' + '&lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
+            canonicalUrl += '?info=full' + '&lang=' + this.translate.currentLang;
+
         } else {
             title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+            keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
+            description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
+            alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
+            canonicalUrl += '?lang=' + this.translate.currentLang;
         }
         
         this.title.setTitle(title);
+        this.document.documentElement.lang = this.translate.currentLang; 
+        this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
+        this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
+
+        let canonicalLink: HTMLLinkElement = this.document.querySelector('link[rel=canonical]');
+        canonicalLink.setAttribute('href', canonicalUrl);
+
+        let alternateLink: HTMLLinkElement = this.document.querySelector('link[rel=alternate]');
+        alternateLink.setAttribute('href', alternateUrl);
+        alternateLink.setAttribute('hreflang', this.translate.currentLang);
+
+        this.meta.updateTag({name: 'og:title', content: title});
+        this.meta.updateTag({name: 'og:description', content: description});
+        this.meta.updateTag({name: 'og:type', content: 'website'});
+        this.meta.updateTag({name: 'og:url', content: canonicalUrl});
+        this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
+        this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
+        this.meta.updateTag({name: 'twitter:card', content: "summary"});
     }
 
     resetAnimations() {

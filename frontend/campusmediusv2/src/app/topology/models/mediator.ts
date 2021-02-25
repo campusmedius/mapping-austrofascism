@@ -22,8 +22,8 @@ export interface Mediator {
     informationId: string;
     coordinates: LngLat;
     time: Moment;
-    keywordsDe: string;
-    keywordsEn: string;
+    keywordsDe: string[];
+    keywordsEn: string[];
     relationsTo: Relation[];
     relationsFrom: Relation[];
     mediationId: string;

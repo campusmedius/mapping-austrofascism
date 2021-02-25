@@ -10,7 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   imports: [
     AppBrowserModule,
     ServerModule,
-    ServerTransferStateModule,
+    // ServerTransferStateModule, // events can not be seralized properly
     FlexLayoutServerModule
   ],
   bootstrap: [AppComponent],

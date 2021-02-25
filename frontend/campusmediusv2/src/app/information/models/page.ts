@@ -8,6 +8,8 @@ export interface Page {
     abstractEn: string;
     mobileAbstractDe: string;
     mobileAbstractEn: string;
+    keywordsDe: string[];
+    keywordsEn: string[];
     information: Information;
     informationId: string;
 }

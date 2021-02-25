@@ -15,6 +15,8 @@ export interface Event {
     information: Information;
     informationId: string;
     coordinates: LngLat;
+    keywordsDe: string[];
+    keywordsEn: string[];
     nextEvent: Event;
     previousEvent: Event;
     nextEventId: string;

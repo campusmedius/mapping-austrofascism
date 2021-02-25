@@ -23,7 +23,7 @@ import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { InfoContainerMobileComponent } from '@app/information/components/info-container-mobile/info-container-mobile';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 
 const SIDEPANEL_WIDTH = {
@@ -110,6 +110,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         private cd: ChangeDetectorRef,
         private meta: Meta,
         public title: Title,
+        @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
     ) {
         this.mediaSubscription = this.mediaObserver.media$.subscribe((change: MediaChange) => {
@@ -202,50 +203,45 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
 
     private updateSiteMetaAndTitle() {
         let title;
+        let keywords;
+        let description;
+        let canonicalUrl = "https://campusmedius.net/topography";
+        let alternateUrl;
         if (this.selectedEvent) {
             title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedEvent.titleDe : this.selectedEvent.titleEn);
+            keywords = (this.translate.currentLang === 'de' ? this.selectedEvent.keywordsDe : this.selectedEvent.keywordsEn);
+            description = (this.translate.currentLang === 'de' ? this.selectedEvent.abstractDe : this.selectedEvent.abstractEn);
+            canonicalUrl += "/events/" + this.selectedEvent.id;
+            alternateUrl = canonicalUrl + '?info=full' + '&lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
+            canonicalUrl += '?info=full' + '&lang=' + this.translate.currentLang;
+
         } else {
             title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+            keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
+            description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
+            alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
+            canonicalUrl += '?lang=' + this.translate.currentLang;
         }
         
         this.title.setTitle(title);
-        // { name: 'date', content: '2019-10-31', scheme: 'YYYY-MM-DD' },
-        // this.meta.addTag({name: 'keywords', content: 'Angular Project, Create Angular Project'});
+        this.document.documentElement.lang = this.translate.currentLang; 
+        this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
+        this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
 
-//         <meta name="keywords" content="Stichwort 1, Stichwort 2, Stichwort 3"/>
-//         <meta name="author" content="Autorenname" />
+        let canonicalLink: HTMLLinkElement = this.document.querySelector('link[rel=canonical]');
+        canonicalLink.setAttribute('href', canonicalUrl);
 
-// <meta name="copyright" content="Copyright-Inhaber" />
-//         description
-//         lang alternative
-//         Open graph meta tags and Twitter cards
-//         <meta property="og:type" content="article" />
+        let alternateLink: HTMLLinkElement = this.document.querySelector('link[rel=alternate]');
+        alternateLink.setAttribute('href', alternateUrl);
+        alternateLink.setAttribute('hreflang', this.translate.currentLang);
 
-// <meta property="og:title" content="TITLE OF YOUR POST OR PAGE" />
-
-// <meta property="og:description" content="DESCRIPTION OF PAGE CONTENT" />
-
-// <meta property="og:image" content="LINK TO THE IMAGE FILE" />
-
-// <meta property="og:url" content="PERMALINK" />
-
-// <meta property="og:site_name" content="SITE NAME" />
-
-// Twitter cards work in a similar way to Open Graph, except for Twitter.
-
-// Twitter will use these tags to enhance the display of your page when shared on their platform.
-
-// Here is a sample of How Twitter card look like in standard HTML:
-
-// <meta name="twitter:title" content="TITLE OF POST OR PAGE">
-
-// <meta name="twitter:description" content="DESCRIPTION OF PAGE CONTENT">
-
-// <meta name="twitter:image" content="LINK TO IMAGE">
-
-// <meta name="twitter:site" content="@USERNAME">
-
-// <meta name="twitter:creator" content="@USERNAME">
+        this.meta.updateTag({name: 'og:title', content: title});
+        this.meta.updateTag({name: 'og:description', content: description});
+        this.meta.updateTag({name: 'og:type', content: 'website'});
+        this.meta.updateTag({name: 'og:url', content: canonicalUrl});
+        this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
+        this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
+        this.meta.updateTag({name: 'twitter:card', content: "summary"});
     }
 
     private adjustTimelineForEdge() {
