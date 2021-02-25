@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from tinymce.models import HTMLField
 from django.template.defaultfilters import truncatechars
 from taggit.models import TagBase, GenericTaggedItemBase
@@ -29,6 +30,8 @@ class CampusmediusTaggedItemBase(GenericTaggedItemBase):
 
 
 class Page(models.Model):
+    created = models.DateTimeField(null=True, blank=True)
+    updated = models.DateTimeField(null=True, blank=True)
     title_de = models.TextField()
     title_en = models.TextField()
     abstract_de = HTMLField(null=True, blank=True)
@@ -40,6 +43,13 @@ class Page(models.Model):
 
     def __str__(self):
         return ('{} - {}').format(self.id, self.title_de)
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.updated = timezone.now()
+        return super(Page, self).save(*args, **kwargs)
 
     @property
     def short_abstract_de(self):
@@ -56,3 +66,11 @@ class Page(models.Model):
     @property
     def short_mobile_abstract_en(self):
         return truncatechars(self.mobile_abstract_en, 100)
+
+    def get_absolute_url(self):
+        slug = self.title_en.lower()
+        if slug == 'book edition':
+            slug = 'book'
+        if slug == 'project team':
+            slug = 'team'
+        return '/' + slug

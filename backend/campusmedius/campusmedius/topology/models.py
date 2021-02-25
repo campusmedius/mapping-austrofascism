@@ -82,6 +82,15 @@ class Mediator(models.Model):
         self.updated = timezone.now()
         return super(Mediator, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        mediationId = '1'
+        if self.id > 5 and self.id < 11:
+            mediationId = '2'
+        if self.id > 10:
+            mediationId = '3'
+
+        return '/mediations/' + mediationId + '/mediators/' + str(self.id) + '&info=full'
+
 
 class Relation(models.Model):
     source = models.ForeignKey(Mediator, related_name='sources', on_delete=models.CASCADE)

@@ -17,7 +17,28 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
 
+from main.models import Page
+from topography.models import Event
+from topology.models import Mediator
+
+# Sitemap
+sitemaps = {
+    'pages': GenericSitemap({
+        'queryset': Page.objects.all(),
+        'date_field': 'updated',
+    }, priority=1),
+    'events': GenericSitemap({
+        'queryset': Event.objects.all(),
+        'date_field': 'updated',
+    }, priority=0.5),
+    'mediators': GenericSitemap({
+        'queryset': Mediator.objects.all(),
+        'date_field': 'updated',
+    }, priority=0.5),
+}
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +48,6 @@ urlpatterns = [
     url(r'^topology/', include('topology.urls')),
     url(r'^topography/', include('topography.urls')),
     url(r'^information/', include('information.urls')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps, 'template_name': 'cm_sitemap.html'},
+    name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

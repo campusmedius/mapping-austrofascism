@@ -48,3 +48,6 @@ class Event(models.Model):
             self.created = timezone.now()
         self.updated = timezone.now()
         return super(Event, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return '/events/' + str(self.id) + '&info=full'
