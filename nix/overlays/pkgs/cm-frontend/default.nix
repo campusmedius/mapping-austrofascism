@@ -6,7 +6,7 @@ in
   
   stdenv.mkDerivation {
   name = "cm-frontend-${version.version}";
-  
+
   src = fetchgit {
       url = https://github.com/campusmedius/campusmedius.git;
       rev = version.rev;
@@ -16,7 +16,7 @@ in
   installPhase = ''
     mkdir -p $out/share/campusmedius/viewer
     cd frontend/campusmediusv2
-    cp -R ./dist/* $out/share/campusmedius/viewer/
+    cp -R ./dist $out/share/campusmedius/viewer/dist
   '';
 
   meta = {

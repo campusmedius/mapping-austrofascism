@@ -4,6 +4,7 @@
     [
         ../nixos/modules/services/backend.nix
         ../nixos/modules/services/backend-v2.nix
+        ../nixos/modules/services/frontend.nix
     ];
     
     nixpkgs.overlays =
@@ -33,6 +34,7 @@
     # campusmedius backend
     services.campusmedius.backend.enable = true;
     services.campusmedius.backendv2.enable = true;
+    services.campusmedius.frontend.enable = true;
     
     # Enable the OpenSSH daemon.
     services.openssh.enable = true;
@@ -61,14 +63,17 @@
         virtualHosts."campusmedius.net" = {
             locations."/api/v2" = {
                 extraConfig = ''
-                    uwsgi_pass unix:///var/run/campusmedius/backendv2/uwsgi.sock;
-
-                    uwsgi_cache my_cache;
-                    uwsgi_cache_bypass 0;
-                    uwsgi_cache_use_stale error timeout updating http_500;
-                    uwsgi_cache_valid 200 10m;
-                    uwsgi_cache_key $scheme$host$request_uri;
-                    uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
+                    proxy_pass http://127.0.0.1:8000;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header Host $host;
+                    proxy_http_version 1.1;
+                    proxy_set_header X-NginX-Proxy true;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_cache_bypass $http_upgrade;
+                    proxy_redirect off;
+                    proxy_set_header X-Forwarded-Proto $scheme;
                     
                     expires 10m;
                     
@@ -149,17 +154,56 @@
                     etag off;
                 '';
             };
-            locations."/v2/"= {
-                alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/";
+            locations."/v2/" = {
+                alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/dist/campusmedius/browser/";
                 extraConfig = ''
-                    index /v2/index.html;
-                    try_files $uri $uri$args $uri$args/ $uri/ /v2/index.html;
+                    try_files $uri $uri/ @ssr;
+                    expires 10m;
+                    etag off;
+
                     auth_basic campusmedius;
                     auth_basic_user_file /run/keys/basicAuth;
-                    expires -1;
-                    add_header Pragma "no-cache";
-                    add_header Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0";
-                    etag off;
+                '';
+            };
+            locations."@ssr"= {
+                extraConfig = ''
+                    rewrite  ^/v2/(.*) /$1 break;
+                    proxy_pass http://127.0.0.1:4000;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header Host $host;
+                    proxy_http_version 1.1;
+                    proxy_set_header X-NginX-Proxy true;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_cache_bypass $http_upgrade;
+                    proxy_redirect off;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+
+                    expires 10m;
+
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
+                '';
+            };
+            locations."/sitemap.xml"= {
+                extraConfig = ''
+                    proxy_pass http://127.0.0.1:8000;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header Host $host;
+                    proxy_http_version 1.1;
+                    proxy_set_header X-NginX-Proxy true;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_cache_bypass $http_upgrade;
+                    proxy_redirect off;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                    
+                    expires 10m;
+                    
+                    auth_basic campusmedius;
+                    auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/" = {

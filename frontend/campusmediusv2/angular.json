@@ -48,12 +48,13 @@
                             ],
                             "optimization": true,
                             "outputHashing": "all",
-                            "sourceMap": false,
+                            "sourceMap": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
+                            "baseHref": "/v2/",
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -128,7 +129,7 @@
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
+                                    "with": "src/environments/environment.ssr.prod.ts"
                                 }
                             ],
                             "sourceMap": false,
@@ -156,7 +157,8 @@
                         "serverTarget": "campusmedius:server:production",
                         "routes": [
                             "/",
-                            "/topography/events/2"
+                            "/?lang=de",
+                            "/?lang=en"
                         ]
                     },
                     "configurations": {
