@@ -253,6 +253,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         let description;
         let canonicalUrl = "https://campusmedius.net/topology";
         let alternateUrl;
+        let medium;
         if (this.selectedMediator) {
             title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedMediator.titleDe : this.selectedMediator.titleEn);
             keywords = (this.translate.currentLang === 'de' ? this.selectedMediator.keywordsDe : this.selectedMediator.keywordsEn);
@@ -260,7 +261,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             canonicalUrl += "/mediations/" + this.selectedMediation.id  + "/mediators/" + this.selectedMediator.id;
             alternateUrl = canonicalUrl + '?info=full' + '&lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
             canonicalUrl += '?info=full' + '&lang=' + this.translate.currentLang;
-
+            medium = this.translate.currentLang === 'de' ? this.selectedMediator.medium.titleDe : this.selectedMediator.medium.titleEn;
         } else {
             title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
             keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
@@ -288,6 +289,33 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
         this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
+
+        let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
+        if(this.selectedMediator) {
+            jsonLdScript.text = JSON.stringify({
+                "@context": "https://schema.org/",
+                "@type": "Article",
+                "name":title,
+                "headline":title,
+                "abstract": description,
+                "image": "https://campusmedius.net/assets/screenshot.jpg",
+                "datePublished": this.selectedMediator.created.toISOString(),
+                "dateModified": this.selectedMediator.updated.toISOString(),
+                "keywords": keywords.join(','),
+                "url": canonicalUrl,
+                "author": {
+                    "@context": "https://schema.org/",
+                    "@type": "Person",
+                    "name": "Simon Ganahl"
+                },
+                "about": {
+                    "@type": "Thing",
+                    "name": medium
+                  }
+            }, null, 2);
+        } else {
+            jsonLdScript.text = "";
+        }
     }
 
     resetAnimations() {

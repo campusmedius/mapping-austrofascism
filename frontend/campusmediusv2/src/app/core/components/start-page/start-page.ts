@@ -75,6 +75,9 @@ export class StartPageComponent implements OnInit {
         this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
         this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
+
+        let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
+        jsonLdScript.text = "";
     }
 
     readMore() {

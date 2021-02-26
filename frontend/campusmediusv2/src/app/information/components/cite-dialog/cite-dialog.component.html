@@ -51,9 +51,9 @@
             Based on international peer-review processes, the production of this website has been sponsored by the Austrian Science Fund (<cm-link-extern href="https://fwf.ac.at/en" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), the Austrian Academy of Sciences (<cm-link-extern href="https://www.oeaw.ac.at/en/austrian-academy-of-sciences" text="ÖAW"></cm-link-extern>: APART 11810), the City of Vienna (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), the <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Department of German Studies"></cm-link-extern> at the University of Vienna, and the digital repository <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
         </div>
     </div>
-    <div fxLayout="row" fxLayout.lt-md="column">
+    <div *ngIf="data.type !== 'page'" fxLayout="row" fxLayout.lt-md="column">
         <div class="label">RDF data</div>
-        <div class="content">Download metadata in JSON-LD format</div>
+        <div class="content"><a (click)="downloadJsonLd()">Download metadata in JSON-LD format</a></div>
     </div>
 </div>
 
@@ -108,8 +108,8 @@
             Die Produktion dieser Website wurde auf der Basis von internationalen Begutachtungen (peer reviews) gefördert von der Österreichischen Akademie der Wissenschaften (<cm-link-extern href="https://www.oeaw.ac.at/" text="ÖAW"></cm-link-extern>: APART 11810), dem österreichischen Wissenschaftsfonds (<cm-link-extern href="https://fwf.ac.at/" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), der Stadt Wien (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), dem <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Institut für Germanistik"></cm-link-extern> der Universität Wien sowie dem digitalen Repositorium <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
         </div>
     </div>
-    <div fxLayout="row" fxLayout.lt-md="column">
+    <div *ngIf="data.type !== 'page'" fxLayout="row" fxLayout.lt-md="column">
         <div class="label">RDF-Daten</div>
-        <div class="content">Metadaten im Format JSON-LD herunterladen</div>
+        <div class="content"><a (click)="downloadJsonLd()">Metadaten im Format JSON-LD herunterladen</a></div>
     </div>
 </div>

@@ -242,6 +242,43 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
         this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
+
+        let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
+        if(this.selectedEvent) {
+            jsonLdScript.text = JSON.stringify({
+                "@context": "https://schema.org/",
+                "@type": "Article",
+                "name":title,
+                "headline":title,
+                "abstract": description,
+                "image": "https://campusmedius.net/assets/screenshot.jpg",
+                "datePublished": this.selectedEvent.created.toISOString(),
+                "dateModified": this.selectedEvent.updated.toISOString(),
+                "keywords": keywords.join(','),
+                "url": canonicalUrl,
+                "author": {
+                    "@context": "https://schema.org/",
+                    "@type": "Person",
+                    "name": "Simon Ganahl"
+                },
+                "about": {
+                    "@type": "Event",
+                    "startDate": this.selectedEvent.start.toISOString(),
+                    "endDate": this.selectedEvent.end.toISOString(),
+                    "location": {
+                        "@context": "https://schema.org",
+                        "@type": "Place",
+                        "geo": {
+                            "@type": "GeoCoordinates",
+                            "latitude": this.selectedEvent.coordinates.lat,
+                            "longitude": this.selectedEvent.coordinates.lng
+                        }
+                    }
+                }
+            }, null, 2);
+        } else {
+            jsonLdScript.text = "";
+        }
     }
 
     private adjustTimelineForEdge() {

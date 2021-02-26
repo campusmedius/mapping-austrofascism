@@ -5,7 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-
+import * as moment from 'moment';
 
 declare var safari;
 
@@ -41,6 +41,16 @@ export class AppComponent implements OnInit, OnDestroy {
             (<any>document).isEdge = !(<any>document).isIE && !!(<any>window).StyleMedia;
             (<any>document).isSafari = /constructor/i.test((<any>window).HTMLElement) || (function(p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
         }
+
+        moment.updateLocale('en', {
+            meridiem: function(hour, minute, isLowerCase) {
+              if (hour < 12) {
+                return 'a.m.';
+              } else {
+                return 'p.m.';
+              }
+            }
+          });
 
         this.translate.addLangs(['en', 'de']);
         translate.setDefaultLang('de');

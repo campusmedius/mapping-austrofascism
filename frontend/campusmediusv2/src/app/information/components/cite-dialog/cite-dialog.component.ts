@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'cm-cite-dialog',
@@ -27,6 +28,7 @@ export class CiteDialogComponent implements OnInit {
         public translate: TranslateService,
         private dialogRef: MatDialogRef<CiteDialogComponent>,
         private clipboard: Clipboard,
+        @Inject(DOCUMENT) private document: Document,
         @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     ngOnInit() {
@@ -48,8 +50,8 @@ export class CiteDialogComponent implements OnInit {
             this.url = 'https://campusmedius.net';
         }
 
-        this.titleEn = this.data.data.titleEn.replaceAll('"', '');
-        this.titleDe = this.data.data.titleDe.replaceAll('"', '');
+        this.titleEn = this.data.data.titleEn.replaceAll(/"/g, '');
+        this.titleDe = this.data.data.titleDe.replaceAll(/"/g, '');
 
         this.publishedDe = this.data.data.created.format('D. MMMM YYYY');
         this.publishedEn = this.data.data.created.format('MMMM D, YYYY');
@@ -82,6 +84,7 @@ export class CiteDialogComponent implements OnInit {
     public copyUrl() {
         this.clipboard.copy(this.url);
     }
+
     public copyCitation() {
         let citation;
         if (this.translate.currentLang === 'en') {
@@ -90,5 +93,23 @@ export class CiteDialogComponent implements OnInit {
             citation = 'Simon Ganahl u.a.: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Campus Medius, 2014–2021, URL: ' + this.url;
         }
         this.clipboard.copy(citation);
+    }
+
+    public downloadJsonLd() {
+        let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
+        let exportName = 'campusmedius-';
+        if (this.translate.currentLang === 'en') {
+            exportName += this.titleEn.toLowerCase().replace(/ /g, "-");
+        } else {
+            exportName += this.titleDe.toLowerCase().replace(/ /g, "-");
+        }
+        
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonLdScript.text);
+        var downloadAnchorNode = this.document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", exportName + ".jsonld");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
     }
 }
