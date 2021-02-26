@@ -41,7 +41,6 @@
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -10px;
 }
 
 .god-info-content {
@@ -120,8 +119,10 @@ cm-map {
     }
 }
 
-cm-info-box {
-    z-index: 10;
+.cm-info-box-desktop {
+    position: absolute;
+    left: 24px;
+    bottom: 240px;
 }
 
 cm-mediations-mobile {

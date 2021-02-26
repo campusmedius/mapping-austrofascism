@@ -27,6 +27,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-info .path1:before {
+  content: "\e927";
+  color: rgb(255, 255, 255);
+}
+.cm-info .path2:before {
+  content: "\e928";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.cm-expand:before {
+  content: "\e92f";
+}
 .cm-image:before {
   content: "\e924";
 }

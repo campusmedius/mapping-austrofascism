@@ -1,7 +1,7 @@
 <div #mapattrib class="map-control">
     <div *ngIf="!isStartPage" class="map-attrib" [ngClass]="{'isOpen':mapAttribIsOpen}">
         <button mat-mini-fab color="primary" (click)="mapAttribIsOpen = !mapAttribIsOpen">©</button>
-        <div class="map-attrib-inner" [@mapattribOpen]="mapAttribIsOpen">
+        <div *ngIf="isBrowser" class="map-attrib-inner" [@mapattribOpen]="mapAttribIsOpen">
             <a *ngIf="selectedMediator && selectedMediator.id !== '0'; else worldAttrib" href="https://www.freytagberndt.com" target="_blank">{{'map.attrib.freytag' | translate }}</a>
             <span *ngIf="selectedMediation && selectedMediation.id === '3'">
                 <a href="https://data.wien.gv.at" target="_blank">{{'map.attrib.buildings' | translate }}</a>
@@ -34,7 +34,7 @@
         <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
             <span class="cm-square-quote-alt"></span>
         </button>
-        <h1 [innerHtml]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"></h1>
+        <h2 [innerHtml]="translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn"></h2>
     </div>
     <div class="mediation-info" *ngIf="selectedMediation">
         <span class="demand">{{translate.currentLang === 'de' ? selectedMediation.demandDe : selectedMediation.demandEn}}:&nbsp;</span>
@@ -75,7 +75,7 @@
         <ng-template #godInfo>
             <div class="start-container">
                 <div class="info-content god-info-content">
-                  <h1 class="start-info-heading">{{ translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn }}</h1>
+                  <h2 class="start-info-heading">{{ translate.currentLang === 'de' ? selectedMediator.titleDe : selectedMediator.titleEn }}</h2>
                   <cm-information [content]="translate.currentLang === 'de' ? selectedMediator.abstractDe : selectedMediator.abstractEn" [lang]="translate.currentLang"></cm-information>
                  </div>
             </div>
@@ -84,8 +84,7 @@
 
 </cm-sidepanel>
 
-<cm-info-box *ngIf="!isMobile && selectedMediator" [ngClass]="{'at-god': atGod}" [@infoBox]="mediationState"></cm-info-box>
-
+<cm-info-box-mobile class="cm-info-box-desktop" [isOpen]="true" *ngIf="!isMobile && selectedMediator" [ngClass]="{'at-god': atGod}" [@infoBox]="mediationState"></cm-info-box-mobile>
 
 <div *ngIf="!isMobile; else mobileMeditations">
     <cm-mediations

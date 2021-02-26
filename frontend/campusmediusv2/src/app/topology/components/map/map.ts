@@ -35,6 +35,7 @@ export class MapComponent implements OnInit {
     public isMinZoom = false;
 
     public noWebGL = false;
+    public isServer = true;
 
     private timer: ReturnType<typeof setTimeout>;
 
@@ -60,8 +61,9 @@ export class MapComponent implements OnInit {
             if (!gl || !(gl instanceof WebGLRenderingContext)) {
                 this.noWebGL = true;
             }
+            this.isServer = false;
         } else {
-            this.noWebGL = true;
+            this.isServer = true;
         }
     }
 
@@ -97,7 +99,7 @@ export class MapComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.noWebGL) {
+        if (this.noWebGL || this.isServer) {
             return;
         }
 
@@ -152,6 +154,10 @@ export class MapComponent implements OnInit {
     }
 
     public setPerspective(mediation: Mediation) {
+        if (!this.map) {
+            return
+        }
+
         if (mediation.id === '1' && this.currentMediationId !== '1') {
             //this.map.setStyle('./assets/map/styles/topology.json');
             this.removeBuildings();
@@ -179,6 +185,10 @@ export class MapComponent implements OnInit {
     }
 
     public doNavigation(mediation: Mediation, sourceMediator: Mediator, targetMediator: Mediator) {
+        if (!this.map) {
+            return
+        }
+
         if (mediation.id === '1') {
             if (targetMediator.id === '0') {
                 this.navigateToGod();
@@ -210,6 +220,10 @@ export class MapComponent implements OnInit {
     }
 
     public showMediator(mediation: Mediation, mediator: Mediator) {
+        if (!this.map) {
+            return
+        }
+
         if (mediator.id === '0') {
             setTimeout(() => {
                 if (this.map.isStyleLoaded()) {

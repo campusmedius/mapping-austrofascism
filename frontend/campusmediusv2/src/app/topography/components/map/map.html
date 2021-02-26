@@ -1,3 +1,4 @@
+<div *ngIf="isServer" class="map-spinner"><i class="fas fa-spinner"></i></div>
 <div class="map-control">
     <button mat-flat-button color="warn" class="zoom cm-plus" [ngClass]="{'deactivated':isMaxZoom}" (click)="zoomIn()"></button>
     <button mat-flat-button color="warn" class="zoom cm-minus" [ngClass]="{'deactivated':isMinZoom}" (click)="zoomOut()"></button>

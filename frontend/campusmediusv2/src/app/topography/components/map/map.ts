@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
 
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import { Map, LngLat, Point } from 'mapbox-gl';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 const MAX_ZOOM = 15;
 const MIN_ZOOM = 10;
@@ -60,6 +60,7 @@ export class MapComponent implements OnInit {
     }
 
     public noWebGL = false;
+    public isServer = true;
 
     constructor(
         private router: Router,
@@ -73,13 +74,14 @@ export class MapComponent implements OnInit {
             if (!gl || !(gl instanceof WebGLRenderingContext)) {
                 this.noWebGL = true;
             }
+            this.isServer = false;
         } else {
-            this.noWebGL = true;
+            this.isServer = true;
         }
     }
 
     ngOnInit() {
-        if (this.noWebGL) {
+        if (this.noWebGL || this.isServer) {
             return;
         }
 

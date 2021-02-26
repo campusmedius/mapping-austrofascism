@@ -5,7 +5,7 @@
       <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
           <span class="cm-square-quote-alt"></span>
       </button>
-      <h1 [innerHtml]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"></h1>
+      <h2 [innerHtml]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"></h2>
   </div>
   <div class="up-header" [@titleHeader]="showTitleHeader">
       <button mat-icon-button class="back-to-top" (click)="scrollUp()">

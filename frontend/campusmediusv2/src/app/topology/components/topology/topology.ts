@@ -108,11 +108,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     sidepanelStateForLinksInGodSelector = 'short'
     mediationState = 'open'; // open, closed
     isMobile = false;
+    isBrowser = false;
     public mapAttribIsOpen = false;
 
     @ViewChild(MapComponent) map: MapComponent;
-    @ViewChild(InfoBoxComponent) infoBox: InfoBoxComponent;
-    @ViewChild(InfoBoxMobileComponent) infoBoxMobile: InfoBoxMobileComponent;
+    @ViewChild(InfoBoxMobileComponent) infoBox: InfoBoxMobileComponent;
     @ViewChild(InfoContainerComponent) infoContainer: InfoContainerComponent;
     @ViewChild(InfoContainerMobileComponent) infoContainerMobile: InfoContainerMobileComponent;
     @ViewChild('mapattrib', {static: true}) mapAttrib: ElementRef;
@@ -144,6 +144,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.isMobile = false;
             }
         });
+        if (isPlatformBrowser(this.platformId)) {
+            this.isBrowser = true;
+        }
     }
 
     ngOnInit() {
@@ -322,9 +325,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         clearTimeout(this.timer);
         
         let infoBox: any = this.infoBox;
-        if (this.isMobile) {
-            infoBox = this.infoBoxMobile;
-        }
         if(infoBox) {
             infoBox.stopAnimation();
         }
@@ -361,9 +361,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         }
 
         let infoBox: any = this.infoBox;
-        if (this.isMobile) {
-            infoBox = this.infoBoxMobile;
-        }
 
         this.map.setPerspective(this.selectedMediation);
 

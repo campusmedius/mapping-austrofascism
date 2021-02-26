@@ -21,3 +21,16 @@
         padding-right: 20px;
     }
 }
+
+.map-spinner {
+    position: fixed;
+    background: transparent url("../../../../assets/icons/cm-loading.svg");
+    z-index: 1000;
+    height: 64px;
+    width: 64px;
+    top: 90px;
+    left: 78px;
+}
+.map-spinner .fa-spinner::before {
+    content: none;
+}

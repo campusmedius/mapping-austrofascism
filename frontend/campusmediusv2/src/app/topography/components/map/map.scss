@@ -10,6 +10,19 @@
     display: none;
 }
 
+.map-spinner {
+    position: absolute;
+    background: transparent url("../../../../assets/icons/cm-loading.svg");
+    z-index: 1000;
+    height: 64px;
+    width: 64px;
+    top: 24px;
+    left: 78px;
+}
+.map-spinner .fa-spinner::before {
+    content: none;
+}
+
 .map-control {
     position: absolute;
     z-index: 5;
