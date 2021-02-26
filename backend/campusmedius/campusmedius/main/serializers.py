@@ -14,6 +14,8 @@ class PageSerializer(serializers.ModelSerializer):
         model = Page
         fields = (
             'id',
+            'created',
+            'updated',
             'title_de',
             'title_en',
             'abstract_de',

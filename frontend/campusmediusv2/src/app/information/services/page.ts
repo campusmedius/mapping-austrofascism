@@ -5,6 +5,8 @@ import { Page } from '../models/page';
 import { environment } from '../../../environments/environment';
 import { map, shareReplay } from 'rxjs/operators';
 
+import * as moment from 'moment';
+
 const CACHE_SIZE = 1;
 const API_URL = environment.apiUrl;
 
@@ -40,6 +42,8 @@ export class PageService {
                         page.id = page.id + '';
                         page.informationId = page.informationId + '';
                         page.information = null;
+                        page.created = moment(page.created);
+                        page.updated = moment(page.updated);
                     });
                     return data;
                 }));

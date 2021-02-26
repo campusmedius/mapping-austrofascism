@@ -26,9 +26,9 @@
     margin-bottom: 0.6em;
     line-height: $small-line-height;
     overflow: hidden;
-    &.url {
-        word-break: break-all;
-    }
+}
+.url {
+    word-break: break-all;
 }
 
 .meta-info-container {
@@ -49,11 +49,19 @@
     margin-right: -10px;
 }
 
+a {
+    color: $accent-color;
+    text-decoration: underline $accent-color;
+    cursor: pointer;
+}
+
 .copy {
-    height: $small-font-size;
-    line-height: $small-font-size;
-    background-color: #a7a7a7;
-    min-width: 60px;
-    font-size: 14px;
-    margin-left: 10px;
+    transition: all 1s ease-out;
+    border-radius: 3px;
+    padding: 0px 3px;
+    &:active {
+        transition: all 0s;
+        background-color: $accent-color;
+        color: #fff;
+    }
 }

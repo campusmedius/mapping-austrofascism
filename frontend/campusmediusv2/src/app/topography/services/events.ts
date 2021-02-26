@@ -48,6 +48,8 @@ export class EventService {
                         event.information = null;
                         event.start = moment(event.start);
                         event.end = moment(event.end);
+                        event.created = moment(event.created);
+                        event.updated = moment(event.updated);
                     });
                     return data;
                 }));

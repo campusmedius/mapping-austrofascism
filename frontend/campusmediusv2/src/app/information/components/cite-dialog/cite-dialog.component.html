@@ -2,12 +2,18 @@
 
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'en'">
     <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Citation</div>
+        <div class="content">Simon Ganahl et al.: &quot;{{ titleEn }}&quot;, last updated on {{ updatedEn }}, in:<br>
+            <i>Campus Medius</i>, 2014–2021, URL:<br>
+            <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(copy)</a></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Title</div>
-        <div class="content" [innerHtml]="titleEn"></div>
+        <div class="content">&quot;{{ titleEn }}&quot; in <i>Campus Medius</i></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">URL</div>
-        <div class="content url">{{url}}</div>
+        <div class="content url">{{url}} <a class="copy" (click)="copyUrl()">(copy)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Text</div>
@@ -22,31 +28,49 @@
         <div class="content"><cm-link-intern href="/team#kiesenhofer" [text]="'Susanne Kiesenhofer'" (click)="close()"></cm-link-intern></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Published</div>
+        <div class="content">{{ publishedEn }}</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Updated</div>
-        <div class="content">February 1, 2019</div>
+        <div class="content">{{ updatedEn }}</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Keywords</div>
+        <div class="content">{{ keywordsExpanded ? keywordsEn : keywordsShortEn }} <a *ngIf="keywordsShowExpanded" (click)="keywordsExpanded = !keywordsExpanded">({{ keywordsExpanded ? 'show less' : 'show all' }})</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Copyright</div>
         <div class="content">
-            Unless stated otherwise, this website's content is available open-access under Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en" [text]="'CC BY 4.0'"></cm-link-extern>. This license permits unrestricted use and distribution of the respective material, provided the creator(s) and the source are properly referenced, ideally in the form suggested above. For copyright details on the media objects cited in <i>Campus Medius</i>, please check the sources given in the captions.
+            Unless stated otherwise, this website's content is available open-access under Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en" [text]="'CC BY 4.0'"></cm-link-extern>. This license permits unrestricted use and distribution of the respective material, provided the creator(s), who retain copyright, and the source are properly credited, ideally in the form suggested above. However, this does not apply to the works (texts, images, audio, video) cited in <i>Campus Medius</i>: for their copyright details, the sources given in the notes and captions must be consulted in each case!
         </div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Sponsors</div>
         <div class="content">
-The production of this website has been sponsored by the Austrian Science Fund (<cm-link-extern href="https://fwf.ac.at/en" text="FWF"></cm-link-extern>: J3181-G20), the City of Vienna (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), the Austrian Academy of Sciences (<cm-link-extern href="https://www.oeaw.ac.at/en" text="ÖAW"></cm-link-extern>: APART 11810), the <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Department of German Studies"></cm-link-extern> at the University of Vienna, and the digital repository <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
+            Based on international peer-review processes, the production of this website has been sponsored by the Austrian Science Fund (<cm-link-extern href="https://fwf.ac.at/en" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), the Austrian Academy of Sciences (<cm-link-extern href="https://www.oeaw.ac.at/en/austrian-academy-of-sciences" text="ÖAW"></cm-link-extern>: APART 11810), the City of Vienna (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), the <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Department of German Studies"></cm-link-extern> at the University of Vienna, and the digital repository <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
         </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">RDF data</div>
+        <div class="content">Download metadata in JSON-LD format</div>
     </div>
 </div>
 
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'de'">
     <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Zitation</div>
+        <div class="content">Simon Ganahl u.a.: &quot;{{ titleDe }}&quot;, zuletzt aktualisiert am {{ updatedDe }}, in:<br>
+            <i>Campus Medius</i>, 2014–2021, URL:<br>
+            <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(kopieren)</a></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Titel</div>
-        <div class="content" [innerHtml]="titleDe"></div>
+        <div class="content">&quot;{{ titleDe }}&quot; in <i>Campus Medius</i></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">URL</div>
-        <div class="content url">{{url}}</div>
+        <div class="content url">{{url}} <a class="copy" (click)="copyUrl()">(kopieren)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Text</div>
@@ -61,19 +85,31 @@ The production of this website has been sponsored by the Austrian Science Fund (
         <div class="content"><cm-link-intern href="/team#kiesenhofer" [text]="'Susanne Kiesenhofer'" (click)="close()"></cm-link-intern></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Publiziert</div>
+        <div class="content">{{ publishedDe }}</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Aktualisiert</div>
-        <div class="content">1. Februar 2019</div>
+        <div class="content">{{ updatedDe }}</div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Schlagwörter</div>
+        <div class="content">{{ keywordsExpanded ? keywordsDe : keywordsShortDe }} <a *ngIf="keywordsShowExpanded" (click)="keywordsExpanded = !keywordsExpanded">({{ keywordsExpanded ? 'weniger anzeigen' : 'alle anzeigen' }})</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Urheberrecht</div>
         <div class="content">
-            Wenn nicht anders angegeben, sind die Inhalte dieser Website unter Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.de" [text]="'CC BY 4.0'"></cm-link-extern> frei verfügbar. Diese Lizenz gestattet uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass der/die Urheber/innen und die Quelle eindeutig genannt werden, idealerweise in der oben vorgeschlagenen Form. Für die Urheberrechte der Medienobjekte, die in <i>Campus Medius</i> zitiert werden, bitte die angeführten Quellen konsultieren.
+            Wenn nicht anders angegeben, sind die Inhalte dieser Website unter Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.de" [text]="'CC BY 4.0'"></cm-link-extern> frei verfügbar. Diese Lizenz gestattet die uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass die UrheberInnen, bei denen alle Rechte verbleiben, und die Quelle eindeutig genannt werden, idealerweise in der oben vorgeschlagenen Form. Das gilt allerdings nicht für die Werke (Texte, Bilder, Ton- und Filmaufnahmen), die in Campus Medius zitiert werden: Für deren Urheberrechte müssen in jedem Fall die angeführten Quellen konsultiert werden!
         </div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Sponsoren</div>
         <div class="content">
-            Die Produktion dieser Website wurde und wird gefördert von der Österreichischen Akademie der Wissenschaften (<cm-link-extern href="https://www.oeaw.ac.at/" text="ÖAW"></cm-link-extern>: APART 11810), dem österreichischen Wissenschaftsfonds (<cm-link-extern href="https://fwf.ac.at/" text="FWF"></cm-link-extern>: J3181-G20), der Stadt Wien (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), dem <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Institut für Germanistik"></cm-link-extern> der Universität Wien sowie dem digitalen Repositorium <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
+            Die Produktion dieser Website wurde auf der Basis von internationalen Begutachtungen (peer reviews) gefördert von der Österreichischen Akademie der Wissenschaften (<cm-link-extern href="https://www.oeaw.ac.at/" text="ÖAW"></cm-link-extern>: APART 11810), dem österreichischen Wissenschaftsfonds (<cm-link-extern href="https://fwf.ac.at/" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), der Stadt Wien (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), dem <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Institut für Germanistik"></cm-link-extern> der Universität Wien sowie dem digitalen Repositorium <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
         </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">RDF-Daten</div>
+        <div class="content">Metadaten im Format JSON-LD herunterladen</div>
     </div>
 </div>

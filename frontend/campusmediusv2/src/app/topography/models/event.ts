@@ -11,6 +11,8 @@ export interface Event {
     abstractEn: string;
     start: Moment;
     end: Moment;
+    created: Moment;
+    updated: Moment;
     timelineRow: number;
     information: Information;
     informationId: string;

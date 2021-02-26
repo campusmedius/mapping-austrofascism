@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { StripHtmlPipe } from './pipes/strip-html.pipe';
@@ -33,6 +34,7 @@ export const COMPONENTS = [
         MatInputModule,
         MatFormFieldModule,
         ScrollingModule,
+        ClipboardModule,
         TranslateModule.forChild()
     ],
     declarations: COMPONENTS,
@@ -47,6 +49,7 @@ export const COMPONENTS = [
         MatInputModule,
         MatFormFieldModule,
         ScrollingModule,
+        ClipboardModule,
         TranslateModule
     ],
     entryComponents: []
