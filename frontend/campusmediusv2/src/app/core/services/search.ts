@@ -52,6 +52,7 @@ export class SearchService {
         let results;
         let searchDocumentsDict;
         if (lang === 'de') {
+          enhancedTerm = enhancedTerm.replace(/ß/g, "*");
           results = this.searchIndexDe.search(enhancedTerm);
           searchDocumentsDict = this.searchDocumentsDictDe;
         } else {

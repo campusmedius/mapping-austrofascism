@@ -59,10 +59,10 @@
     <div class="info">
         <div *ngIf="selectedEvent" class="info-heading" [ngClass]="{'info-heading-mobile-ispage': isPage}">
             <span class="time-info">{{ selectedEvent | infoTimestamp:translate.currentLang }}</span>
-            <h2 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h2>
+            <h1 [innerHtml]="translate.currentLang === 'de' ? selectedEvent.titleDe : selectedEvent.titleEn"></h1>
         </div>
         <div *ngIf="!selectedEvent" class="mobile-abstract">
-            <div [innerHTML]="translate.currentLang === 'de' ? page.mobileAbstractDe : page.mobileAbstractEn"></div>
+            <h1 class="start-info-heading-mobile">{{ translate.currentLang === 'de' ? page.titleDe : page.titleEn }}</h1>
         </div>
         <div class="intro">
             <button *ngIf="!selectedEvent" mat-flat-button routerLink="/topography/events/1" queryParamsHandling="merge" routerLinkActive="active" class="btn-read-more" color="warn">{{'info.start' | translate | uppercase}}</button>
@@ -81,5 +81,7 @@
 [showHeader]="showTitleHeaderMobile"
 (citeClick)="showCite()"
 (sectionChange)="sectionChange($event)"
-(showShort)="mobileShowShort()">
+(showShort)="mobileShowShort()"
+(galleryClosed)="galleryClosed($event)"
+(galleryOpened)="galleryOpened($event)">
 </cm-info-container-mobile>

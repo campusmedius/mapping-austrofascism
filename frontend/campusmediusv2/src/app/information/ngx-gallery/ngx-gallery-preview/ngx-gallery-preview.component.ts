@@ -84,7 +84,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
 
   @ViewChild('previewImage') previewImage: any;
 
-  public isOpen = false;
+  public isOpen = true;
   private timer;
   private initialX = 0;
   private initialY = 0;
@@ -435,7 +435,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
     if (first || !this.animation) {
       this._show();
     } else {
-      setTimeout(() => this._show(), 600);
+      setTimeout(() => this._show(), 300);
     }
   }
 
@@ -462,10 +462,12 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
                     if (this.isLoaded(this.previewImage.nativeElement)) {
                         this.loading = false;
                         this.startAutoPlay();
+                        this.changeDetectorRef.markForCheck();
                     } else {
                         setTimeout(() => {
                             if (this.loading) {
                                 this.showSpinner = true;
+                                this.changeDetectorRef.markForCheck();
                             }
                         })
 
@@ -474,6 +476,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
                             this.showSpinner = false;
                             this.previewImage.nativeElement.onload = null;
                             this.startAutoPlay();
+                            this.changeDetectorRef.markForCheck();
                         }
                     }
                 })
@@ -502,14 +505,16 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
                         // videoElementSrc.nativeElement.src = this.images[this.index];
                     }
                     this.loading = false;
+                    this.changeDetectorRef.markForCheck();
                 });
             }
             if (this.types[this.index] === 'audio') {
                 setTimeout(() => {
                     this.loading = false;
+                    this.changeDetectorRef.markForCheck();
                 });
             }
-    //
+    
     // this.changeDetectorRef.markForCheck();
 
     // setTimeout(() => {
@@ -518,7 +523,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
     //     this.startAutoPlay();
     //     this.changeDetectorRef.markForCheck();
     //   } else if (this.type === 'video') {
-    //
+    
     //   }
     //   else {
     //     setTimeout(() => {
@@ -527,7 +532,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
     //         this.changeDetectorRef.markForCheck();
     //       }
     //     });
-    //
+    
     //     this.previewImage.nativeElement.onload = () => {
     //       this.loading = false;
     //       this.showSpinner = false;

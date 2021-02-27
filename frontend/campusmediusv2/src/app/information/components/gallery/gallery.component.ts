@@ -65,7 +65,10 @@ export class GalleryComponent implements OnInit, OnDestroy {
             'breakpoint': 959,
             'thumbnailsColumns': 2.2,
             'thumbnailsArrows': false,
-            'imageArrows': false
+            'imageArrows': false,
+            'imageSwipe': true,
+            'thumbnailsSwipe': true,
+            'previewSwipe': true,
         }];
 
         const galleryImages = [];

@@ -92,7 +92,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     private skipFragmentUpdate = false;
 
     public timelineHeight = '40px';
-    public mobileOverlayHeight = '200px';
+    public mobileOverlayHeight = '125px';
     public mobileOverlayAboutHeight = '300px';
     public mobileOverlayDefaultHeight = '200px';
 
@@ -136,7 +136,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                    setTimeout(() => this.elementRef.nativeElement.scrollTop = window.innerHeight - 45);
                 }
                 if (this.selectedEvent) {
                     setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
@@ -223,7 +223,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             canonicalUrl += '?lang=' + this.translate.currentLang;
         }
         
-        this.title.setTitle(title);
+        this.title.setTitle(title.replace(/<[^>]*>/g, ''));
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
@@ -414,11 +414,9 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.showTitleHeaderMobile) {
             this.app.removeHeader = false;
         }
-        this.elementRef.nativeElement.scrollTop = this.scrollTopBeforeGalleryOpen;
     }
 
     public galleryOpened() {
-        this.scrollTopBeforeGalleryOpen = this.elementRef.nativeElement.scrollTop;
         this.galleryIsOpen = true;
         this.app.removeHeader = true;
     }

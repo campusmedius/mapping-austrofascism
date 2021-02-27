@@ -239,6 +239,7 @@ cm-header {
 }
 
 .ngx-gallery-preview-text {
+    box-sizing: border-box;
     color: $primary-font-color !important;
     z-index: 999 !important;
     font-family: $caption-regular-font !important;
@@ -253,6 +254,8 @@ cm-header {
 .ngx-gallery-preview-text-content {
     max-width: 1000px;
     margin: auto;
+    max-height: 6rem;
+    overflow-y: auto;
     cm-information .wrapper p {
         margin-block-start: 0px;
         margin-block-end: 0px;

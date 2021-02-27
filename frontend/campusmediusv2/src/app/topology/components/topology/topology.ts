@@ -161,7 +161,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.elementRef.nativeElement.scrollTop = this.map.mapElement.nativeElement.clientHeight);
+                    setTimeout(() => this.elementRef.nativeElement.scrollTop = window.innerHeight - 45);
                 }
             }
             if (this.sidepanelState === 'short') {
@@ -208,7 +208,10 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.information = this.selectedMediator.information;
             } else {
                 this.isStartPage = true;
-                this.sidepanelState = 'short';
+                setTimeout(() => {
+                    this.sidepanelState = 'short';
+                    this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                });
                 this.page = data.pages.find(p => p.titleEn === 'Topology');
             }
 
@@ -273,7 +276,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             canonicalUrl += '?lang=' + this.translate.currentLang;
         }
         
-        this.title.setTitle(title);
+        this.title.setTitle(title.replace(/<[^>]*>/g, ''));
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
@@ -470,11 +473,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.showTitleHeaderMobile) {
             this.app.removeHeader = false;
         }
-        this.elementRef.nativeElement.scrollTop = this.scrollTopBeforeGalleryOpen;
     }
 
     public galleryOpened() {
-        this.scrollTopBeforeGalleryOpen = this.elementRef.nativeElement.scrollTop;
         this.galleryIsOpen = true;
         this.app.removeHeader = true;
     }

@@ -67,7 +67,7 @@ def get_media_and_note_search_documents(soup, title, path, lang):
         documents.append({
             "type": "audio",
             "title": title,
-            "location": f"{path}?lang={lang}&info=full#i:{audio_object.id}",
+            "location": f"{path}?lang={lang}&info=full#a:{audio_object.id}",
             "text": re.sub('<[^<]+?>', '', getattr(audio_object, "caption_" + lang)),
         })
 

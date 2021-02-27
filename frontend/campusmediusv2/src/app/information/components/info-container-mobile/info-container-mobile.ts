@@ -29,6 +29,8 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   @Output() citeClick = new EventEmitter();
   @Output() showShort = new EventEmitter();
   @Output() sectionChange = new EventEmitter();
+  @Output() galleryClosed = new EventEmitter();
+  @Output() galleryOpened = new EventEmitter();
 
   @ViewChild(InformationComponent) information: InformationComponent;
 
@@ -36,6 +38,7 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   private parentElement;
   private currentSection: string;
   private skipSectionChange = false;
+  public galleryIsOpen = false;
 
   constructor(
     private element: ElementRef,
@@ -85,6 +88,17 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
         this.skipSectionChange = false;
       }, 200);
     }, 0);
+  }
+
+  public triggerGalleryClosed($event) {
+    this.galleryIsOpen = false;
+    this.galleryClosed.emit($event);
+
+  }
+
+  public triggerGalleryOpened($event) {
+      this.galleryIsOpen = true;
+      this.galleryOpened.emit($event);
   }
 
 }

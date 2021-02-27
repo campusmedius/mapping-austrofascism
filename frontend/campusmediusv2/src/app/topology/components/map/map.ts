@@ -25,6 +25,8 @@ export class MapComponent implements OnInit {
     @Input() overlayTopSize = '0px';
     @Input() overlayBottomSize = '0px';
 
+    @Input() isMobile = false;
+
     @Input() selectedMediation: Mediation;
     @Input() selectedMediator: Mediator;
 
@@ -90,7 +92,7 @@ export class MapComponent implements OnInit {
         }, 1000);
 
         this.map.flyTo({
-            zoom: 1,
+            zoom: this.isMobile ? 1 : 2,
             duration: 5000,
             center: [0, 0],
             curve: 1
@@ -209,7 +211,7 @@ export class MapComponent implements OnInit {
             this.map.flyTo({
                 center: targetMediator.coordinates,
                 bearing: targetMediator.bearing,
-                pitch: targetMediator.pitch,
+                pitch: this.isMobile ? targetMediator.pitch : (targetMediator.pitch + 10),
                 zoom: targetMediator.zoom,
                 duration: 6000,
                 curve: 0.1
@@ -225,6 +227,7 @@ export class MapComponent implements OnInit {
         }
 
         if (mediator.id === '0') {
+            mediator.zoom = this.isMobile ? 1 : 2;
             setTimeout(() => {
                 if (this.map.isStyleLoaded()) {
                     this.map.setLayoutProperty('eckebrecht', 'visibility', 'visible');
@@ -239,7 +242,7 @@ export class MapComponent implements OnInit {
         this.map.jumpTo({
             center: mediator.coordinates,
             zoom: mediator.zoom,
-            pitch: mediator.pitch,
+            pitch: this.isMobile ? mediator.pitch : (mediator.pitch + 10),
             bearing: mediator.bearing
         });
 

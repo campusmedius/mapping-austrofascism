@@ -29,10 +29,7 @@
         {
             "id": "osm",
             "type": "raster",
-            "source": "osm",
-            "layout": {
-                "visibility": "none"
-            }
+            "source": "osm"
         },
         {
             "id": "vienna1933",

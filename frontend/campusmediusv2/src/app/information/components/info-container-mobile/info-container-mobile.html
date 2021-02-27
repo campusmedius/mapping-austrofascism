@@ -11,12 +11,14 @@
             <h1 [innerHtml]="title"></h1>
         </div>
         <div *ngIf="content">
-            <cm-information [content]="content" [lang]="lang" [media]="media"></cm-information>
+            <cm-information [content]="content" [lang]="lang" [media]="media"
+            (galleryClosed)="triggerGalleryClosed($event)"
+            (galleryOpened)="triggerGalleryOpened($event)"></cm-information>
         </div>
         <div class="bottom-white"></div>
     </div>
 </div>
-<div class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showHeader">
+<div  *ngIf="!galleryIsOpen" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showHeader">
     <button mat-icon-button class="cite-button" (click)="citeClick.emit()">
         <span class="cm-square-quote-alt"></span>
     </button>

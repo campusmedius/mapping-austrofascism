@@ -22,7 +22,6 @@ export class SearchComponent implements OnInit {
 
   public searchResults: SearchResult[];
 
-
   searchTermChanged: Subject<string> = new Subject<string>();
 
   constructor(
@@ -50,7 +49,7 @@ export class SearchComponent implements OnInit {
 
   public openLocation(location: string) {
     this.close();
-    this.router.navigateByUrl(location, /* Removed unsupported properties by Angular migration: queryParamsHandling. */ {});
+    this.router.navigateByUrl(location, {});
   }
 
   close() {
