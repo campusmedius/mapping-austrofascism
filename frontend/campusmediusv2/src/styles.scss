@@ -264,12 +264,17 @@ cm-header {
         float: left;
         background-color: $clickable-color;
         .mat-button-wrapper {
-            line-height: 1.3rem;
-            margin-top: -5px;
-            @media screen and (max-width: $break-mobile) {  
-                margin-top: -4px;
+            width: 30px !important;
+            height: 30px !important;
+            line-height: 30px !important;
+            margin: 0px !important;
+            padding: 0px !important;
+            .icon {
+                line-height: 29px;
+                height: 29px;
+                display: inline-block;
             }
-            font-size: 1.3rem;
+            font-size: 26px;
         }
     }
     .map-attrib-inner {
