@@ -80,12 +80,12 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private updateSiteMetaAndTitle() {
-        let title;
+        let name;
         let keywords;
         let description;
         let canonicalUrl = "https://campusmedius.net";
         let alternateUrl;
-        title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+        name = (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
         keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
         description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
 
@@ -100,6 +100,10 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
         canonicalUrl += '?lang=' + this.translate.currentLang;
         
+        name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
+        let title = 'Campusmedius - ' + name;
+        description = description.replace(/<[^>]*>/g, '');
+
         this.title.setTitle(title);
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
@@ -121,7 +125,42 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
 
         let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
-        jsonLdScript.text = "";
+        jsonLdScript.text = JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "ScholarlyArticle",
+            "name":title,
+            "headline":name,
+            "abstract": description,
+            "inLanguage": this.translate.currentLang,
+            "image": "https://campusmedius.net/assets/screenshot.jpg",
+            "datePublished": this.page.created.toISOString(),
+            "dateModified": this.page.updated.toISOString(),
+            "keywords": keywords.join(','),
+            "url": canonicalUrl,
+            "author": {
+                "@context": "https://schema.org/",
+                "@type": "Person",
+                "name": "Simon Ganahl"
+            },
+            "isPartOf": {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "url": "https://campusmedius.net",
+                "author": [{
+                    "@context": "https://schema.org/",
+                    "@type": "Person",
+                    "name": "Simon Ganahl"
+                },{
+                    "@context": "https://schema.org/",
+                    "@type": "Person",
+                    "name": "Susanne Kiesenhofer"
+                },{
+                    "@context": "https://schema.org/",
+                    "@type": "Person",
+                    "name": "Andreas Krimbacher"
+                }]
+            }
+        }, null, 2);
     }
 
     ngAfterViewInit() {

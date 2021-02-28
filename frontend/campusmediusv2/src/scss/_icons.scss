@@ -27,6 +27,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-square-expand:before {
+  content: "\e930";
+}
 .cm-info .path1:before {
   content: "\e927";
   color: rgb(255, 255, 255);

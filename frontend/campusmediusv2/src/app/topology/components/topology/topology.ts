@@ -8,7 +8,6 @@ import { Information } from '@app/information/models/information';
 import { Page } from '@app/information/models/page';
 import { TranslateService } from '@ngx-translate/core';
 import { MapComponent } from '../map/map';
-import { InfoBoxComponent } from '../info-box/info-box';
 import { MatDialog } from '@angular/material/dialog';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
@@ -161,7 +160,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.elementRef.nativeElement.scrollTop = window.innerHeight - 45);
+                    setTimeout(() => this.infoContainerMobile.scrollToReference('top'));
                 }
             }
             if (this.sidepanelState === 'short') {
@@ -254,14 +253,14 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private updateSiteMetaAndTitle() {
-        let title;
+        let name;
         let keywords;
         let description;
         let canonicalUrl = "https://campusmedius.net/topology";
         let alternateUrl;
         let medium;
         if (this.selectedMediator) {
-            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedMediator.titleDe : this.selectedMediator.titleEn);
+            name = (this.translate.currentLang === 'de' ? this.selectedMediator.titleDe : this.selectedMediator.titleEn);
             keywords = (this.translate.currentLang === 'de' ? this.selectedMediator.keywordsDe : this.selectedMediator.keywordsEn);
             description = (this.translate.currentLang === 'de' ? this.selectedMediator.abstractDe : this.selectedMediator.abstractEn);
             canonicalUrl += "/mediations/" + this.selectedMediation.id  + "/mediators/" + this.selectedMediator.id;
@@ -269,14 +268,17 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             canonicalUrl += '?info=full' + '&lang=' + this.translate.currentLang;
             medium = this.translate.currentLang === 'de' ? this.selectedMediator.medium.titleDe : this.selectedMediator.medium.titleEn;
         } else {
-            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+            name = (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
             keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
             description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
             alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
             canonicalUrl += '?lang=' + this.translate.currentLang;
         }
+        name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
+        let title = 'Campusmedius - ' + name;
+        description = description.replace(/<[^>]*>/g, '');
         
-        this.title.setTitle(title.replace(/<[^>]*>/g, ''));
+        this.title.setTitle(title);
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
@@ -300,10 +302,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         if(this.selectedMediator) {
             jsonLdScript.text = JSON.stringify({
                 "@context": "https://schema.org/",
-                "@type": "Article",
-                "name":title,
-                "headline":title,
+                "@type": "ScholarlyArticle",
+                "name": title,
+                "headline": name,
                 "abstract": description,
+                "inLanguage": this.translate.currentLang,
                 "image": "https://campusmedius.net/assets/screenshot.jpg",
                 "datePublished": this.selectedMediator.created.toISOString(),
                 "dateModified": this.selectedMediator.updated.toISOString(),
@@ -316,8 +319,26 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 },
                 "about": {
                     "@type": "Thing",
-                    "name": medium
-                  }
+                    "name": medium + ': ' + name
+                },
+                "isPartOf": {
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "url": "https://campusmedius.net",
+                    "author": [{
+                        "@context": "https://schema.org/",
+                        "@type": "Person",
+                        "name": "Simon Ganahl"
+                    },{
+                        "@context": "https://schema.org/",
+                        "@type": "Person",
+                        "name": "Susanne Kiesenhofer"
+                    },{
+                        "@context": "https://schema.org/",
+                        "@type": "Person",
+                        "name": "Andreas Krimbacher"
+                    }]
+                }
             }, null, 2);
         } else {
             jsonLdScript.text = "";

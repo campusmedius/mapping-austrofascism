@@ -1,6 +1,6 @@
 <div #mapattrib class="map-control">
     <div *ngIf="!isStartPage" class="map-attrib" [ngClass]="{'isOpen':mapAttribIsOpen}">
-        <button mat-mini-fab color="primary" (click)="mapAttribIsOpen = !mapAttribIsOpen">©</button>
+        <button mat-mini-fab color="primary" (click)="mapAttribIsOpen = !mapAttribIsOpen"><div class="icon">©</div></button>
         <div *ngIf="isBrowser" class="map-attrib-inner" [@mapattribOpen]="mapAttribIsOpen">
             <a *ngIf="selectedMediator && selectedMediator.id !== '0'; else worldAttrib" href="https://www.freytagberndt.com" target="_blank">{{'map.attrib.freytag' | translate }}</a>
             <span *ngIf="selectedMediation && selectedMediation.id === '3'">

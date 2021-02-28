@@ -26,7 +26,7 @@ html {
 html, body {
 	  font-family: $text-regular-font;
     i, em {
-	      font-family: $text-italics-font;
+	    font-family: $text-italics-font;
         font-style: normal;
     }
     color: $primary-font-color;
@@ -40,6 +40,56 @@ html, body {
 
 .mat-dialog-container {
   background: #fff;
+}
+
+h1 {
+    font-family: $title-bold-font;
+    font-size: $h-primary-font-size;
+    color: $h-primary-font-color;
+    margin-top: 0px;
+    i, em {
+        font-family: $title-bold-italic-font;
+        font-style: normal;
+    }
+    font-weight: 400;
+    line-height: 1.07em;
+
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+h2 {
+    font-family: $title-bold-font;
+    font-size: $h-secondary-font-size;
+    color: $h-primary-font-color;
+    i, em {
+        font-style: normal;
+        font-family: $title-bold-italic-font;
+        font-style: normal;
+    }
+    font-weight: 400;
+    line-height: 1.07em;
+
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+sup {
+    vertical-align: top;
+    top: -0.25em;
+    position: relative;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+ul, ol {
+    margin-bottom: 1em;
 }
 
 /**
@@ -184,16 +234,20 @@ cm-header {
 
 .map-attrib {
     border-radius: 3px;
+    .icon {
+        top: 1px;
+        position: relative;
+    }
     .map-attrib-inner {
-        padding: 5px;
+        padding: 5px 10px;
         font-size: $small2-font-size;
         font-family: $caption-regular-font;
         color: $text-color;
-        line-height: 24px;
+        line-height: 22px;
         margin-left: 37px;
         border-radius: 4px;
         a {
-            height: 24px;
+            height: 22px;
             overflow: hidden;
             display: block;
             color: $text-color;
@@ -313,27 +367,25 @@ cm-image ngx-gallery-arrows {
     background-color: #4d4d4d;
 }
 
-ngx-gallery-thumbnail {
-    .cm-square-zoom {
-        top: 1px;
-        right: 1px;
-        position: absolute;
-        font-size: 1.1em;
-        width: 18px;
-        height: 18px;
-        @media screen and (max-width: $break-mobile) {
-            font-size: 1.2em;
-        }
-        color: $accent-color;
-        background-color: #fff;
+.cm-square-expand {
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    font-size: 1em;
+    width: 18px;
+    height: 18px;
+    @media screen and (max-width: $break-mobile) {
+        font-size: 1em;
     }
+    color: $accent-color;
+    background-color: #fff;
+}
 
-    .cm-square-zoom:before {
-        display: inline-block;
-        left: -2px;
-        top: -2px;
-        position: relative;
-    }
+.cm-square-expand:before {
+    display: inline-block;
+    position: relative;
+    font-size: 20px;
+    right: 2px;
 }
 
 .ngx-gallery-icon-content {

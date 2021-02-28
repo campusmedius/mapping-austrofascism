@@ -3,8 +3,8 @@
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'en'">
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Citation</div>
-        <div class="content">Simon Ganahl et al.: &quot;{{ titleEn }}&quot;, last updated on {{ updatedEn }}, in:<br>
-            <i>Campus Medius</i>, 2014–2021, URL:<br>
+        <div class="content citation-content">Simon Ganahl et al.: &quot;{{ titleEn }}&quot;, last updated on {{ updatedEn }}, in:
+            <i>Campus Medius</i>, 2014–{{updatedYear}}, URL:
             <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(copy)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
@@ -51,8 +51,8 @@
             Based on international peer-review processes, the production of this website has been sponsored by the Austrian Science Fund (<cm-link-extern href="https://fwf.ac.at/en" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), the Austrian Academy of Sciences (<cm-link-extern href="https://www.oeaw.ac.at/en/austrian-academy-of-sciences" text="ÖAW"></cm-link-extern>: APART 11810), the City of Vienna (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), the <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Department of German Studies"></cm-link-extern> at the University of Vienna, and the digital repository <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
         </div>
     </div>
-    <div *ngIf="data.type !== 'page'" fxLayout="row" fxLayout.lt-md="column">
-        <div class="label">RDF data</div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">LOD</div>
         <div class="content"><a (click)="downloadJsonLd()">Download metadata in JSON-LD format</a></div>
     </div>
 </div>
@@ -60,8 +60,8 @@
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'de'">
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Zitation</div>
-        <div class="content">Simon Ganahl u.a.: &quot;{{ titleDe }}&quot;, zuletzt aktualisiert am {{ updatedDe }}, in:<br>
-            <i>Campus Medius</i>, 2014–2021, URL:<br>
+        <div class="content citation-content">Simon Ganahl u.a.: &quot;{{ titleDe }}&quot;, zuletzt aktualisiert am {{ updatedDe }}, in:
+            <i>Campus Medius</i>, 2014–{{updatedYear}}, URL:
             <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(kopieren)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
@@ -105,11 +105,11 @@
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Sponsoren</div>
         <div class="content">
-            Die Produktion dieser Website wurde auf der Basis von internationalen Begutachtungen (peer reviews) gefördert von der Österreichischen Akademie der Wissenschaften (<cm-link-extern href="https://www.oeaw.ac.at/" text="ÖAW"></cm-link-extern>: APART 11810), dem österreichischen Wissenschaftsfonds (<cm-link-extern href="https://fwf.ac.at/" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), der Stadt Wien (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), dem <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Institut für Germanistik"></cm-link-extern> der Universität Wien sowie dem digitalen Repositorium <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
+            Die Produktion dieser Website wurde auf der Basis von internationalen Begutachtungen (<i>peer reviews</i>) gefördert von der Österreichischen Akademie der Wissenschaften (<cm-link-extern href="https://www.oeaw.ac.at/" text="ÖAW"></cm-link-extern>: APART 11810), dem österreichischen Wissenschaftsfonds (<cm-link-extern href="https://fwf.ac.at/" text="FWF"></cm-link-extern>: J 3181-G20 &amp; PUD 17-G), der Stadt Wien (<cm-link-extern href="https://www.wien.gv.at/kultur/abteilung/" text="MA 7"></cm-link-extern>: 573323/14), dem <cm-link-extern href="https://www.univie.ac.at/germanistik/" text="Institut für Germanistik"></cm-link-extern> der Universität Wien sowie dem digitalen Repositorium <cm-link-extern href="https://phaidra.univie.ac.at/" text="Phaidra"></cm-link-extern>.
         </div>
     </div>
-    <div *ngIf="data.type !== 'page'" fxLayout="row" fxLayout.lt-md="column">
-        <div class="label">RDF-Daten</div>
+    <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">LOD</div>
         <div class="content"><a (click)="downloadJsonLd()">Metadaten im Format JSON-LD herunterladen</a></div>
     </div>
 </div>

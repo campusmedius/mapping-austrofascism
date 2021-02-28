@@ -1,5 +1,5 @@
 <div *ngIf="mediator" class="container">
-    <button mat-mini-fab color="primary" (click)="isOpen = !isOpen"><span class="cm-info"><span class="path1"></span><span class="path2"></span></span></button>
+    <button mat-mini-fab color="primary" class="info-button" (click)="isOpen = !isOpen" [ngClass]="{'info-box-open': isOpen}"><span class="cm-info"><span class="path1"></span><span class="path2"></span></span></button>
     <div fxLayout="column" class="meta-info-container" [@infoBoxOpen]="isOpen">
         <div fxLayout="row">
             <div class="label">{{'infobox.place' | translate }}</div>

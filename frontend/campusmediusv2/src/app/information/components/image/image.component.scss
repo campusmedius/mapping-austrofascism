@@ -36,27 +36,6 @@ img {
 
 .image {
    position: relative;
-    ::ng-deep {
-        .cm-square-zoom {
-            top: 1px;
-            right: 1px;
-            position: absolute;
-            font-size: 1.1em;
-            width: 18px;
-            height: 18px;
-            @media screen and (max-width: $break-mobile) {
-                font-size: 1.2em;
-            }
-            color: $accent-color;
-            background-color: #fff;
-        }
-
-        .cm-square-zoom:before {
-            display: inline-block;
-            position: relative;
-        }
-    }
-
 }
 
 .caption {

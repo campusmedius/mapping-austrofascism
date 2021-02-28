@@ -14,11 +14,11 @@
     .meta-info-container {
         background-color: $background-light-color;
         opacity: 0.9;
-        padding: 5px;
+        padding: 5px 10px;
         font-size: $small2-font-size;
         font-family: $caption-regular-font;
         color: $text-color;
-        line-height: 20px;
+        line-height: 22px;
         margin-left: 7px;
         border-radius: 4px;
         overflow: hidden;
@@ -53,13 +53,9 @@ button {
   &:hover {
       background: $accent-color;
   }
-  .cm-info {
-    top: -2.5px;
-    left: -0.5px;
-    @media screen and (max-width: $break-mobile) {  
-      top: -1px;
-    }
-  }
+}
+.info-box-open {
+  background: $accent-color;
 }
 
 .label {
@@ -77,5 +73,12 @@ button {
         font-family: $caption-italics-font !important;
         font-style: normal;
     }
+  }
+  .info-button .mat-button-wrapper {
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    margin: 0px !important;
+    padding: 0px !important;
   }
 }

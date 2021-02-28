@@ -17,7 +17,7 @@ import { NgxGalleryAction } from './ngx-gallery-action.model';
                 <div class="ngx-gallery-remaining-count-overlay" *ngIf="remainingCount && remainingCountValue && (i == (rows * columns) - 1)">
                     <span class="ngx-gallery-remaining-count">+{{remainingCountValue}}</span>
                 </div>
-                <span class="cm-square-zoom">
+                <span class="cm-square-expand">
                 </span>
             </a>
         </div>

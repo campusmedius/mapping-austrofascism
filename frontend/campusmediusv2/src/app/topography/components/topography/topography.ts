@@ -88,7 +88,6 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     public showTitleHeader = false;
     public showTitleHeaderMobile = false;
     private galleryIsOpen = false;
-    private scrollTopBeforeGalleryOpen = 0;
     private skipFragmentUpdate = false;
 
     public timelineHeight = '40px';
@@ -136,7 +135,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.sidepanelState = queryParams['info'];
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.elementRef.nativeElement.scrollTop = window.innerHeight - 45);
+                    setTimeout(() => this.infoContainerMobile.scrollToReference('top'));
                 }
                 if (this.selectedEvent) {
                     setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
@@ -202,13 +201,13 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private updateSiteMetaAndTitle() {
-        let title;
+        let name;
         let keywords;
         let description;
         let canonicalUrl = "https://campusmedius.net/topography";
         let alternateUrl;
         if (this.selectedEvent) {
-            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.selectedEvent.titleDe : this.selectedEvent.titleEn);
+            name = (this.translate.currentLang === 'de' ? this.selectedEvent.titleDe : this.selectedEvent.titleEn);
             keywords = (this.translate.currentLang === 'de' ? this.selectedEvent.keywordsDe : this.selectedEvent.keywordsEn);
             description = (this.translate.currentLang === 'de' ? this.selectedEvent.abstractDe : this.selectedEvent.abstractEn);
             canonicalUrl += "/events/" + this.selectedEvent.id;
@@ -216,14 +215,17 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             canonicalUrl += '?info=full' + '&lang=' + this.translate.currentLang;
 
         } else {
-            title = 'Campusmedius - ' + (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
+            name = (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
             keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
             description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
             alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
             canonicalUrl += '?lang=' + this.translate.currentLang;
-        }
+        }        
+        name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
+        let title = 'Campusmedius - ' + name;
+        description = description.replace(/<[^>]*>/g, '');
         
-        this.title.setTitle(title.replace(/<[^>]*>/g, ''));
+        this.title.setTitle(title);
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
@@ -247,10 +249,11 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         if(this.selectedEvent) {
             jsonLdScript.text = JSON.stringify({
                 "@context": "https://schema.org/",
-                "@type": "Article",
+                "@type": "ScholarlyArticle",
                 "name":title,
-                "headline":title,
+                "headline":name,
                 "abstract": description,
+                "inLanguage": this.translate.currentLang,
                 "image": "https://campusmedius.net/assets/screenshot.jpg",
                 "datePublished": this.selectedEvent.created.toISOString(),
                 "dateModified": this.selectedEvent.updated.toISOString(),
@@ -263,6 +266,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 },
                 "about": {
                     "@type": "Event",
+                    "name": name,
                     "startDate": this.selectedEvent.start.toISOString(),
                     "endDate": this.selectedEvent.end.toISOString(),
                     "location": {
@@ -274,6 +278,24 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                             "longitude": this.selectedEvent.coordinates.lng
                         }
                     }
+                },
+                "isPartOf": {
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "url": "https://campusmedius.net",
+                    "author": [{
+                        "@context": "https://schema.org/",
+                        "@type": "Person",
+                        "name": "Simon Ganahl"
+                    },{
+                        "@context": "https://schema.org/",
+                        "@type": "Person",
+                        "name": "Susanne Kiesenhofer"
+                    },{
+                        "@context": "https://schema.org/",
+                        "@type": "Person",
+                        "name": "Andreas Krimbacher"
+                    }]
                 }
             }, null, 2);
         } else {

@@ -152,7 +152,14 @@ cm-map {
         color: $text-color;
         height: initial;
     }
-    
+    h1 {
+        margin-block-start: 0px;
+        margin-block-end: 0px;
+        margin-bottom: 18px;
+    }
+    .mobile-abstract {
+        margin-top: 18px;
+    }
 }
 
 .mobile-info {

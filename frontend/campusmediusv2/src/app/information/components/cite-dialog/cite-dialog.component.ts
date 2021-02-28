@@ -16,6 +16,7 @@ export class CiteDialogComponent implements OnInit {
     public publishedEn: string;
     public updatedDe: string;
     public updatedEn: string;
+    public updatedYear: string;
     public keywordsEn: string;
     public keywordsDe: string;
     public keywordsShortEn: string;
@@ -33,9 +34,9 @@ export class CiteDialogComponent implements OnInit {
 
     ngOnInit() {
         if (this.data.type === 'event') {
-            this.url = 'https://campusmedius.net/topography/events/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
+            this.url = 'https://campusmedius.net/topography/events/' + this.data.data.id;
         } else if (this.data.type === 'mediator') {
-            this.url = 'https://campusmedius.net/topology/mediations/' + this.data.mediationId + '/mediators/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
+            this.url = 'https://campusmedius.net/topology/mediations/' + this.data.mediationId + '/mediators/' + this.data.data.id;
         } else if (this.data.type === 'page') {
             this.url = 'https://campusmedius.net';
             if(this.data.data.titleEn === 'Overview') {
@@ -45,30 +46,34 @@ export class CiteDialogComponent implements OnInit {
             } else if(this.data.data.titleEn === 'Book Edition') {
                 this.url += '/book';
             }
-            this.url += '?lang=' + this.translate.currentLang;
         } else {
             this.url = 'https://campusmedius.net';
         }
 
-        this.titleEn = this.data.data.titleEn.replaceAll(/"/g, '');
-        this.titleDe = this.data.data.titleDe.replaceAll(/"/g, '');
+        this.titleEn = this.data.data.titleEn.replace(/"/g, '');
+        this.titleDe = this.data.data.titleDe.replace(/"/g, '');
 
+        this.data.data.created.locale('de-at');
+        this.data.data.updated.locale('de-at');
         this.publishedDe = this.data.data.created.format('D. MMMM YYYY');
-        this.publishedEn = this.data.data.created.format('MMMM D, YYYY');
         this.updatedDe = this.data.data.updated.format('D. MMMM YYYY');
+        this.data.data.created.locale('en');
+        this.data.data.updated.locale('en');
+        this.publishedEn = this.data.data.created.format('MMMM D, YYYY');
         this.updatedEn = this.data.data.updated.format('MMMM D, YYYY');
+        this.updatedYear = this.data.data.updated.format('YYYY');
 
         this.keywordsEn = this.data.data.keywordsEn.join(', ');
         this.keywordsDe = this.data.data.keywordsDe.join(', ');
-        if (this.keywordsEn.length > 60) {
-            this.keywordsShortEn = this.keywordsEn.substr(0, 60) + ' ...';
+        if (this.data.data.keywordsEn.length > 5) {
+            this.keywordsShortEn = this.data.data.keywordsEn.slice(0,5).join(', ') + ', ...';
             this.keywordsShowExpanded = true;
         } else {
             this.keywordsShortEn = this.keywordsEn;
             this.keywordsShowExpanded = false;
         }
-        if (this.keywordsDe.length > 60) {
-            this.keywordsShortDe = this.keywordsDe.substr(0, 60) + ' ...';
+        if (this.data.data.keywordsEn.length > 5) {
+            this.keywordsShortDe = this.data.data.keywordsDe.slice(0,5).join(', ') + ', ...';
             this.keywordsShowExpanded = true;
         } else {
             this.keywordsShortDe = this.keywordsDe;
