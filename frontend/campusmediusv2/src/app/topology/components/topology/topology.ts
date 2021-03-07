@@ -282,7 +282,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             canonicalUrl += '?lang=' + this.translate.currentLang;
         }
         name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
-        let title = 'Campusmedius - ' + name;
+        let title = name + 'in Campus Medius';
         description = description.replace(/<[^>]*>/g, '');
         
         this.title.setTitle(name);

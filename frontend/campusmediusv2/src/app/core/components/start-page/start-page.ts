@@ -50,7 +50,7 @@ export class StartPageComponent implements OnInit {
         let description;
         let canonicalUrl = "https://campusmedius.net";
         let alternateUrl;
-        title = 'Campusmedius';
+        title = 'Campus Medius';
         keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
         description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
         alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');

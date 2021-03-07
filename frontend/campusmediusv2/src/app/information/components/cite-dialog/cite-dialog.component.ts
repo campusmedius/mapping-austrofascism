@@ -50,6 +50,9 @@ export class CiteDialogComponent implements OnInit {
             this.url = 'https://campusmedius.net';
         }
 
+        this.url = this.url.replace(/\//g, '/\u200B');
+        this.url = this.url.replace(/\./g, '.\u200B');
+
         this.titleEn = this.data.data.titleEn.replace(/"/g, '');
         this.titleDe = this.data.data.titleDe.replace(/"/g, '');
 
@@ -65,15 +68,15 @@ export class CiteDialogComponent implements OnInit {
 
         this.keywordsEn = this.data.data.keywordsEn.sort().join(', ');
         this.keywordsDe = this.data.data.keywordsDe.sort().join(', ');
-        if (this.data.data.keywordsEn.length > 5) {
-            this.keywordsShortEn = this.data.data.keywordsEn.sort().slice(0,5).join(', ') + ', ...';
+        if (this.data.data.keywordsEn.length > 3) {
+            this.keywordsShortEn = this.data.data.keywordsEn.sort().slice(0,3).join(', ') + ', \u2026';
             this.keywordsShowExpanded = true;
         } else {
             this.keywordsShortEn = this.keywordsEn;
             this.keywordsShowExpanded = false;
         }
-        if (this.data.data.keywordsEn.length > 5) {
-            this.keywordsShortDe = this.data.data.keywordsDe.sort().slice(0,5).join(', ') + ', ...';
+        if (this.data.data.keywordsDe.length > 3) {
+            this.keywordsShortDe = this.data.data.keywordsDe.sort().slice(0,3).join(', ') + ', \u2026';
             this.keywordsShowExpanded = true;
         } else {
             this.keywordsShortDe = this.keywordsDe;
