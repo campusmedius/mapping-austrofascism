@@ -380,6 +380,9 @@ cm-image ngx-gallery-arrows {
     }
     color: $accent-color;
     background-color: #fff;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .cm-square-expand:before {

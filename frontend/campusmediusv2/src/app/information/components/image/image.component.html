@@ -5,7 +5,7 @@
     <div class="animation-container" [@container]="isOpen">
         <div class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="image">
-                <span class="cm-square-expand"></span>
+                <span class="cm-square-expand" (click)="showImage()"></span>
                 <img *ngIf="isOpen" [src]="isMobile ? data.data.mobileFull : data.data.full" (click)="showImage()" (contextmenu)="onRightClick($event)" />
                 <ngx-gallery #gallery [options]="galleryOptions" [images]="galleryImages" (previewOpen)="previewOpened()" (previewClose)="previewClosed()"></ngx-gallery>
             </div>

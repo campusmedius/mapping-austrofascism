@@ -205,6 +205,22 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 this.information = this.selectedMediator.information;
+
+                setTimeout(() => {
+                    let fragment = this.route.snapshot.fragment;
+                    fragment = fragment ? fragment : 'top';
+                    let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
+                    infoContainer.scrollToReference(fragment);
+
+                    // set lang in url if not set
+                    this.router.navigate(['.'], {
+                        relativeTo: this.route,
+                        queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                        queryParamsHandling: 'merge',
+                        fragment: fragment,
+                        replaceUrl: true
+                    });
+                });
             } else {
                 this.isStartPage = true;
                 setTimeout(() => {
@@ -235,15 +251,6 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (infoContainer) {
                     infoContainer.scrollToReference(fragment);
                 }        
-                
-                // set lang in url if not set
-                this.router.navigate(['.'], {
-                    relativeTo: this.route,
-                    queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-                    queryParamsHandling: 'merge',
-                    replaceUrl: true,
-                    preserveFragment: true
-                });
             } else {
                 this.skipFragmentUpdate = false;
             }
@@ -278,7 +285,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         let title = 'Campusmedius - ' + name;
         description = description.replace(/<[^>]*>/g, '');
         
-        this.title.setTitle(title);
+        this.title.setTitle(name);
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});

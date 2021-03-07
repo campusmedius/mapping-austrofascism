@@ -56,7 +56,7 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   }
 
   public checkCurrentSection(scrollTop) {
-    if (!this.skipSectionChange && this.spiedElements) {
+    if (!(window as any).skipSectionChange && this.spiedElements) {
       let currentSection: string;
       for (let i = 0; i < this.spiedElements.length; i++) {
         const element = this.spiedElements[i];
@@ -72,7 +72,7 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   }
 
   public scrollToReference(ref: string, duration=0, offset=-45) {
-    this.skipSectionChange = true;
+    (window as any).skipSectionChange = true;
 
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
@@ -85,8 +85,8 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
           duration: duration
       });
       setTimeout(() => {
-        this.skipSectionChange = false;
-      }, 200);
+        (window as any).skipSectionChange = false;
+      }, duration);
     }, 0);
   }
 

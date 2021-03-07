@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Page } from '@app/information/models/page';
 import { MatDialog } from '@angular/material/dialog';
 import { CiteDialogComponent } from '@app/information/components/cite-dialog/cite-dialog.component';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { InfoContainerComponent } from '@app/information/components/info-container/info-container';
 import { Subscription } from 'rxjs';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
@@ -53,7 +52,6 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         private elementRef: ElementRef,
         private app: AppComponent,
         private mediaObserver: MediaObserver,
-        private scrollToService: ScrollToService,
         @Inject(DOCUMENT) private document: Document,
         private meta: Meta,
         public title: Title
@@ -75,6 +73,19 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSubscription = this.route.data.subscribe(data => {
             this.page = data.pages.find(p => p.titleEn === this.pageTitleEn);
             this.overviewPage = data.pages.find(p => p.titleEn === 'Overview');
+
+            let fragment = this.route.snapshot.fragment;
+            fragment = fragment ? fragment : 'top';
+            
+            // set lang in url if not set
+            this.router.navigate(['.'], {
+                relativeTo: this.route,
+                queryParams: { 'lang': this.translate.currentLang },
+                queryParamsHandling: 'merge',
+                replaceUrl: true,
+                fragment: fragment
+            });
+
             this.updateSiteMetaAndTitle();
         });
     }
@@ -104,7 +115,7 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         let title = 'Campusmedius - ' + name;
         description = description.replace(/<[^>]*>/g, '');
 
-        this.title.setTitle(title);
+        this.title.setTitle(name);
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
@@ -172,15 +183,6 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
                     if (infoContainer) {
                         infoContainer.scrollToReference(fragment);
                     }
-
-                    // set lang in url if not set
-                    this.router.navigate(['.'], {
-                        relativeTo: this.route,
-                        queryParams: { 'lang': this.translate.currentLang },
-                        queryParamsHandling: 'merge',
-                        replaceUrl: true,
-                        preserveFragment: true
-                    });
                 }, 0);
             } else {
                 this.skipFragmentUpdate = false;

@@ -63,17 +63,17 @@ export class CiteDialogComponent implements OnInit {
         this.updatedEn = this.data.data.updated.format('MMMM D, YYYY');
         this.updatedYear = this.data.data.updated.format('YYYY');
 
-        this.keywordsEn = this.data.data.keywordsEn.join(', ');
-        this.keywordsDe = this.data.data.keywordsDe.join(', ');
+        this.keywordsEn = this.data.data.keywordsEn.sort().join(', ');
+        this.keywordsDe = this.data.data.keywordsDe.sort().join(', ');
         if (this.data.data.keywordsEn.length > 5) {
-            this.keywordsShortEn = this.data.data.keywordsEn.slice(0,5).join(', ') + ', ...';
+            this.keywordsShortEn = this.data.data.keywordsEn.sort().slice(0,5).join(', ') + ', ...';
             this.keywordsShowExpanded = true;
         } else {
             this.keywordsShortEn = this.keywordsEn;
             this.keywordsShowExpanded = false;
         }
         if (this.data.data.keywordsEn.length > 5) {
-            this.keywordsShortDe = this.data.data.keywordsDe.slice(0,5).join(', ') + ', ...';
+            this.keywordsShortDe = this.data.data.keywordsDe.sort().slice(0,5).join(', ') + ', ...';
             this.keywordsShowExpanded = true;
         } else {
             this.keywordsShortDe = this.keywordsDe;

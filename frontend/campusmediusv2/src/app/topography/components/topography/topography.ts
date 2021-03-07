@@ -159,7 +159,22 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.previousEvent = this.selectedEvent.previousEvent;
                 this.nextEvent = this.selectedEvent.nextEvent;
                 this.information = this.selectedEvent.information;
-                setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates, 14));
+                setTimeout(() => {
+                    let fragment = this.route.snapshot.fragment;
+                    fragment = fragment ? fragment : 'top';
+                    let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
+                    infoContainer.scrollToReference(fragment);
+                    this.map.flyTo(this.selectedEvent.coordinates, 14);
+
+                    // set lang in url if not set
+                    this.router.navigate(['.'], {
+                        relativeTo: this.route,
+                        queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                        queryParamsHandling: 'merge',
+                        fragment: fragment,
+                        replaceUrl: true
+                    });
+                });
             } else {
                 if (this.isMobile) {
                     setTimeout(() => this.map.flyTo(<any>[16.372472, 48.208417], 11));
@@ -184,15 +199,6 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     if (infoContainer) {
                         infoContainer.scrollToReference(fragment);
                     }
-
-                    // set lang in url if not set
-                    this.router.navigate(['.'], {
-                        relativeTo: this.route,
-                        queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-                        queryParamsHandling: 'merge',
-                        replaceUrl: true,
-                        preserveFragment: true
-                    });
                 }, 0);
             } else {
                 this.skipFragmentUpdate = false;
@@ -225,7 +231,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         let title = 'Campusmedius - ' + name;
         description = description.replace(/<[^>]*>/g, '');
         
-        this.title.setTitle(title);
+        this.title.setTitle(name);
         this.document.documentElement.lang = this.translate.currentLang; 
         this.meta.updateTag({name: 'keywords', content: keywords.join(',')});
         this.meta.updateTag({name: 'description', content: description, lang: this.translate.currentLang});
@@ -361,10 +367,15 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public eventSelected(event: Event) {
+        (window as any).skipSectionChange = true;
         this.router.navigate(['/topography', 'events', event.id],
             {
-                queryParamsHandling: 'preserve'
+                queryParamsHandling: 'preserve',
+                fragment: 'p:1'
             });
+        setTimeout(() => {
+            (window as any).skipSectionChange = false;
+            }, 200);
     }
 
     public toggleInformationPanel() {

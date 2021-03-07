@@ -32,7 +32,6 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   private parentElement;
   private currentSection: string;
   private currentShowTitleHeader = false;
-  private skipSectionChange = false;
 
   constructor(
     private element: ElementRef,
@@ -47,12 +46,11 @@ export class InfoContainerComponent implements OnInit, OnChanges {
       this.parentElement = this.element.nativeElement.children[0];
       this.spiedElements = this.element.nativeElement.querySelectorAll('.info-content > div > cm-information > div > p');
       this.onScroll();
-      this.sectionChange.emit(this.currentSection);
     }, 50);
   }
 
   public onScroll() {
-      if (!this.skipSectionChange) {
+      if (!(window as any).skipSectionChange) {
           let currentSection: string;
           const scrollTop = this.parentElement.scrollTop;
           const parentOffset = this.parentElement.offsetTop;
@@ -67,20 +65,24 @@ export class InfoContainerComponent implements OnInit, OnChanges {
               this.sectionChange.emit(this.currentSection);
           }
 
-          let currentShowTitleHeader = false;
-          if (this.parentElement.scrollTop > 110) {
-              currentShowTitleHeader = true;
-          }
-          if (currentShowTitleHeader !== this.currentShowTitleHeader) {
-            this.currentShowTitleHeader = currentShowTitleHeader;
-            this.showTitleHeader.emit(this.currentShowTitleHeader);
-          }
+          this.emitTitleHeaderVisibility();
       }
   }
 
-  public scrollToReference(ref: string, duration=0, offset=-100) {
-    this.skipSectionChange = true;
+  public emitTitleHeaderVisibility() {
+    let currentShowTitleHeader = false;
+    if (this.parentElement.scrollTop > 110) {
+        currentShowTitleHeader = true;
+    }
+    if (currentShowTitleHeader !== this.currentShowTitleHeader) {
+      this.currentShowTitleHeader = currentShowTitleHeader;
+      this.showTitleHeader.emit(this.currentShowTitleHeader);
+    }
+  }
 
+  public scrollToReference(ref: string, duration=0, offset=-100) {
+    (window as any).skipSectionChange = true;
+    
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
     }
@@ -92,8 +94,9 @@ export class InfoContainerComponent implements OnInit, OnChanges {
           duration: duration
       });
       setTimeout(() => {
-        this.skipSectionChange = false;
-      }, 200);
+        this.emitTitleHeaderVisibility();
+        (window as any).skipSectionChange = false;
+      }, duration);
     }, 0);
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 
 @Component({
     selector: 'cm-link-inpage',
@@ -10,16 +9,13 @@ export class LinkInpageComponent implements OnInit {
     @Input() href: string;
     @Input() text = '';
 
-    constructor(private _scrollToService: ScrollToService) { }
+    public fragment = '';
+
+    constructor() { }
 
     ngOnInit() {
-    }
-
-    public scrollTo(anchor: string) {
-        this._scrollToService.scrollTo({
-            target: anchor,
-            offset: -60
-        });
+        const split = this.href.split('#');
+        this.fragment = split[1];
     }
 
 }

@@ -3,13 +3,13 @@
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'en'">
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Citation</div>
-        <div class="content citation-content">Simon Ganahl et al.: &quot;{{ titleEn }}&quot;, last updated on {{ updatedEn }}, in:
+        <div class="content citation-content">Simon Ganahl et al.: &quot;<span innerHtml="{{ titleEn }}"></span>&quot;, last updated on {{ updatedEn }}, in:
             <i>Campus Medius</i>, 2014–{{updatedYear}}, URL:
             <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(copy)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Title</div>
-        <div class="content">&quot;{{ titleEn }}&quot; in <i>Campus Medius</i></div>
+        <div class="content">&quot;<span innerHtml="{{ titleEn }}"></span>&quot; in <i>Campus Medius</i></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">URL</div>
@@ -60,13 +60,13 @@
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'de'">
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Zitation</div>
-        <div class="content citation-content">Simon Ganahl u.a.: &quot;{{ titleDe }}&quot;, zuletzt aktualisiert am {{ updatedDe }}, in:
+        <div class="content citation-content">Simon Ganahl u.a.: &quot;<span innerHtml="{{ titleDe }}"></span>&quot;, zuletzt aktualisiert am {{ updatedDe }}, in:
             <i>Campus Medius</i>, 2014–{{updatedYear}}, URL:
             <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(kopieren)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Titel</div>
-        <div class="content">&quot;{{ titleDe }}&quot; in <i>Campus Medius</i></div>
+        <div class="content">&quot;<span innerHtml="{{ titleDe }}"></span>&quot; in <i>Campus Medius</i></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">URL</div>
