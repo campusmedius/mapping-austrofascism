@@ -71,7 +71,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
 
   public emitTitleHeaderVisibility() {
     let currentShowTitleHeader = false;
-    if (this.parentElement.scrollTop > 110) {
+    if (this.parentElement && this.parentElement.scrollTop > 110) {
         currentShowTitleHeader = true;
     }
     if (currentShowTitleHeader !== this.currentShowTitleHeader) {

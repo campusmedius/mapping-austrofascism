@@ -111,7 +111,7 @@ class InformationForm(forms.ModelForm):
 
 class InformationAdmin(admin.ModelAdmin):
     form = InformationForm
-    fields = ('title_de', 'title_en', 'content_de', 'content_en',
+    fields = ('created','updated','title_de', 'title_en', 'content_de', 'content_en',
               'media_images', 'media_videos', 'media_audios',
               'media_galleries')
     list_display = ('id', 'title_de', 'title_en', 'short_content_de',

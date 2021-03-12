@@ -210,7 +210,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                     let fragment = this.route.snapshot.fragment;
                     fragment = fragment ? fragment : 'top';
                     let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
-                    infoContainer.scrollToReference(fragment);
+                    if(infoContainer) {
+                        infoContainer.scrollToReference(fragment);
+                    }
 
                     // set lang in url if not set
                     this.router.navigate(['.'], {

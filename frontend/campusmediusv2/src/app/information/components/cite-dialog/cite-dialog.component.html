@@ -3,7 +3,7 @@
 <div fxLayout="column" class="meta-info-container" *ngIf="translate.currentLang === 'en'">
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Citation</div>
-        <div class="content citation-content">Simon Ganahl: &quot;<span innerHtml="{{ titleEn }}"></span>&quot;, last modified on {{ updatedEn }}, in:
+        <div class="content citation-content">Simon Ganahl: &quot;<span innerHtml="{{ titleEn }}"></span>,&quot; last modified on {{ updatedEn }}, in:
             Simon Ganahl et al.: <i>Campus Medius</i>, 2014–{{updatedYear}}, URL:
             <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(copy)</a></div>
     </div>
@@ -18,6 +18,14 @@
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Text</div>
         <div class="content"><cm-link-intern href="/team#ganahl" [text]="'Simon Ganahl'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div *ngIf="data.type === 'event'" fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Translation</div>
+        <div class="content"><cm-link-intern href="/team#derbyshire" [text]="'Katy Derbyshire'" (click)="close()"></cm-link-intern></div>
+    </div>
+    <div *ngIf="data.type === 'mediator'" fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Translation</div>
+        <div class="content"><cm-link-intern href="/team#slater" [text]="'Maria Slater'" (click)="close()"></cm-link-intern></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Code</div>
@@ -42,7 +50,7 @@
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Copyright</div>
         <div class="content">
-            Unless stated otherwise, this website's content is available open-access under Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en" [text]="'CC BY 4.0'"></cm-link-extern>. This license permits unrestricted use and distribution of the respective material, provided the creator(s), who retain copyright, and the source are properly credited, ideally in the form suggested above. However, this does not apply to the works (texts, images, audio, video) cited in <i>Campus Medius</i>: for their copyright details the sources given in the notes and captions must be consulted in each case!
+            Unless stated otherwise, this website's content is available open access under Creative Commons <cm-link-extern href="https://creativecommons.org/licenses/by/4.0/deed.en" [text]="'CC BY 4.0'"></cm-link-extern>. This license permits unrestricted use and distribution of the respective material, provided that the creator(s), who retain copyright, and the source are properly credited, ideally in the form suggested above. However, this does not apply to the works (texts, images, audio, video) cited in <i>Campus Medius</i>: for their copyright details the sources given in the notes and captions must be consulted in each case!
         </div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">

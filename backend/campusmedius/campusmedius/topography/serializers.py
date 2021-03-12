@@ -5,6 +5,8 @@ from .models import Event
 
 
 class EventSerializer(serializers.ModelSerializer):
+    created = serializers.SerializerMethodField()
+    updated = serializers.SerializerMethodField()
     coordinates = serializers.SerializerMethodField()
     information_id = serializers.SerializerMethodField()
     information = serializers.HyperlinkedRelatedField(
@@ -40,3 +42,11 @@ class EventSerializer(serializers.ModelSerializer):
         internal[
             'location'] = data['coordinates']['lat'] + ',' + data['coordinates']['lng']
         return internal
+
+    def get_updated(self, obj):
+        if obj.information and obj.information.updated and obj.information.updated > obj.updated:
+            return obj.information.updated
+        return obj.updated
+
+    def get_created(self, obj):
+        return obj.created

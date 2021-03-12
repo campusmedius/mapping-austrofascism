@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import truncatechars
 from tinymce.models import HTMLField
+from django.utils import timezone
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -75,6 +76,8 @@ class Gallery(models.Model):
 
 
 class Information(models.Model):
+    updated = models.DateTimeField(null=True, blank=True)
+    created = models.DateTimeField(null=True, blank=True)
     title_de = models.TextField(null=True, blank=True)
     title_en = models.TextField(null=True, blank=True)
     content_de = HTMLField(null=True, blank=True)
@@ -95,3 +98,10 @@ class Information(models.Model):
     @property
     def short_content_en(self):
         return truncatechars(self.content_en, 100)
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.updated = timezone.now()
+        return super(Information, self).save(*args, **kwargs)

@@ -75,6 +75,8 @@ class RelationSerializer(serializers.ModelSerializer):
 
 
 class MediatorSerializer(serializers.ModelSerializer):
+    created = serializers.SerializerMethodField()
+    updated = serializers.SerializerMethodField()
     coordinates = serializers.SerializerMethodField()
     medium = MediumSerializer()
     keywords_de = serializers.SerializerMethodField()
@@ -110,6 +112,14 @@ class MediatorSerializer(serializers.ModelSerializer):
         internal[
             'location'] = data['coordinates']['lat'] + ',' + data['coordinates']['lng']
         return internal
+
+    def get_updated(self, obj):
+        if obj.information and obj.information.updated and obj.information.updated > obj.updated:
+            return obj.information.updated
+        return obj.updated
+
+    def get_created(self, obj):
+        return obj.created
 
 
 class MediationSerializer(serializers.ModelSerializer):

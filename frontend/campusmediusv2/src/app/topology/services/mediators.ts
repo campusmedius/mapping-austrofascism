@@ -58,7 +58,10 @@ export class MediatorService {
                             m.targetId += '';
                             m.target = null;
                         });
-                        mediator.informationId = '15';
+                        if (!mediator.informationId) {
+                            mediator.informationId = '15';
+                        }
+                        mediator.informationId = mediator.informationId + '';
                         mediator.information = null;
                         mediator.created = moment(mediator.created);
                         mediator.updated = moment(mediator.updated);

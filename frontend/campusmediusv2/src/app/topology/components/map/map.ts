@@ -116,7 +116,7 @@ export class MapComponent implements OnInit {
             pitch: 55,
             bearing: -21.6,
             zoom: 16.6, // starting zoom
-            interactive: false
+            // interactive: false TODO: activate before launch
         });
 
         this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');

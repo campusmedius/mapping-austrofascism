@@ -131,6 +131,7 @@
 <cm-god-selector
     *ngIf="atGod"
     [isMobile]="isMobile"
+    [lang]="translate.currentLang"
     [sidepanelStateForLinks]="sidepanelStateForLinksInGodSelector"
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
     [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
