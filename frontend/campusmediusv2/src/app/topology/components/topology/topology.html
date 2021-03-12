@@ -130,6 +130,7 @@
 
 <cm-god-selector
     *ngIf="atGod"
+    [isMobile]="isMobile"
     [sidepanelStateForLinks]="sidepanelStateForLinksInGodSelector"
     [overlayBottomSize]="!isMobile ? mediationsHeight : mobileOverlayHeight"
     [overlayRightSize]="!isMobile ? sidepanelWidth : '0px'"
@@ -137,16 +138,10 @@
 
 
 <div *ngIf="isMobile" class="mobile-short-info-container" [ngClass]="{'at-start': !selectedMediator}">
-    <cm-start-selector
+    <cm-start-selector-mobile
     *ngIf="!selectedMediator"
     [mediators]="mediators.slice(1,16)"
-    [mediations]="mediations"
-    [overlayBottomSize]="'0px'"
-    [overlayRightSize]="'0px'"
-    [lang]="translate.currentLang"
-    [selectedMediationId]="focusedMediation ? focusedMediation.id : null"
-    (focusedMediation)="focusedMediation = $event"
-    (focusedMediator)="focusedMediator = $event"></cm-start-selector>
+    [lang]="translate.currentLang"></cm-start-selector-mobile>
     <cm-info-box-mobile *ngIf="selectedMediator" [ngClass]="{'at-god': atGod}"></cm-info-box-mobile>
     <div *ngIf="isMobile" class="mobile-short-info">
         <div class="mediation-info" *ngIf="selectedMediation">

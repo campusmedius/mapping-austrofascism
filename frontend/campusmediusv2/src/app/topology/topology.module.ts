@@ -18,6 +18,8 @@ import { GodSelectorComponent } from './components/god-selector/god-selector';
 import { InfoBoxComponent } from './components/info-box/info-box';
 import { MediationsMobileComponent } from './components/mediations-mobile/mediations-mobile';
 import { InfoBoxMobileComponent } from './components/info-box-mobile/info-box-mobile';
+import { StartSelectorMobileComponent } from './components/start-selector-mobile/start-selector-mobile';
+import { MediatorSwitcherMobileComponent } from './components/mediator-switcher-mobile/mediator-switcher-mobile';
 
 @NgModule({
     imports: [
@@ -36,7 +38,9 @@ import { InfoBoxMobileComponent } from './components/info-box-mobile/info-box-mo
         StartSelectorComponent,
         GodSelectorComponent,
         InfoBoxComponent,
-        InfoBoxMobileComponent
+        InfoBoxMobileComponent,
+        StartSelectorMobileComponent,
+        MediatorSwitcherMobileComponent
     ],
     providers: [
         MediatorService,

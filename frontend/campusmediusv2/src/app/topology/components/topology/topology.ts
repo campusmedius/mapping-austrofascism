@@ -97,7 +97,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public sidepanelWidth: string;
     public mediationsHeight = '220px';
-    public mobileOverlayHeight = '170px';
+    public mobileOverlayHeight = '150px';
 
     public atGod = false;
 

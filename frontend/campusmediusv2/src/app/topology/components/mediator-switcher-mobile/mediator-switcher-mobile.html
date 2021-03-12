@@ -1,0 +1,20 @@
+<div class="gallery">
+    <div class="gallery-container">
+        <div *ngFor="let mediator of mediators"
+        class="gallery-item mediator"
+        [ngClass]="{'gallery-item-first': mediator === firstMediator,'gallery-item-last': mediator === lastMediator,'gallery-item-selected': mediator === selectedMediator,'gallery-item-next': mediator === nextMediator,'gallery-item-previous': mediator === previousMediator}">
+            <div (click)="navigate(mediator)">
+                <svg viewBox="0 0 150 150" class="icon cm-topology-icon"><use attr.xlink:href="./assets/icons/cm-icons-mediators.svg#mediator-{{ mediator.id }}"></use></svg><br>
+                <div *ngIf="mediator === selectedMediator" class="mediator-label">
+                    {{ (lang === 'de' ? mediator.medium.titleDe : mediator.medium.titleEn) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div (click)="previous()" class="previous-icon icon">
+        <i class="cm-chevron-left"></i>
+    </div>
+    <div (click)="next()" class="next-icon icon">
+        <i class="cm-chevron-right"></i>
+    </div>
+  </div>

@@ -10,6 +10,7 @@ export class GodSelectorComponent implements OnInit {
 
     @Input() mediators: Mediator[];
     @Input() lang: string;
+    @Input() isMobile: string;
     @Input() sidepanelStateForLinks: string;
 
     @HostBinding('style.right')

@@ -5,45 +5,14 @@
     top: $header-height;
     @media screen and (max-width: $break-mobile) {
         top: 85px;
-        overflow-y: scroll;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-        .god-container {
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-evenly;
-            height: 110px;
-            padding: 0px 15px;
-            margin: auto;
-        }
-        .mediator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: initial;
-            margin: 0px 15px;
-        }
-        br {
-            display: none;
-        }
     }
     left: 0px;
     display: flex;
-    @media screen and (min-width: $break-mobile) {
-        align-items: center;
-        justify-content: center;
-    }
+    justify-content: center;
+    align-items: center;
     .icon {
         width: 90px;
         height: 90px;
-        @media screen and (max-width: $break-mobile) {
-            width: 60px;
-            height: 60px;
-            flex-shrink: 0;
-        }
         cursor: pointer;
     }
     .mediator-label {
@@ -58,47 +27,58 @@
         padding: 0px 12px;
         border-radius: 4px;
         margin-top: 8px;
-        @media screen and (max-width: $break-mobile) {
-            line-height: 1.7;
-        }
     }
-    @media screen and (min-width: $break-mobile) {
-        .cm-mediator-leader {
-            position: absolute;
-            top: 0px;
-            left: 155px;
-            text-align: center;
+    .cm-mediator-leader {
+        position: absolute;
+        top: 0px;
+        left: 155px;
+        text-align: center;
+    }
+    .cm-mediator-editorial {
+        position: absolute;
+        top: 130px;
+        left: 0px;
+        text-align: center;
+    }
+    .cm-mediator-residence {
+        position: absolute;
+        top: 130px;
+        right: 0px;
+        text-align: center;
+    }
+    .cm-mediator-theater {
+        position: absolute;
+        bottom: 0px;
+        left: 70px;
+        text-align: center;
+    }
+    .cm-mediator-reframing {
+        position: absolute;
+        bottom: 0px;
+        right: 70px;
+        text-align: center;
+    }
+    .god-container {
+        width: 400px;
+        height: 400px;
+        text-align: center;
+        position: relative;
+        top: -25px;
+        @media screen and (max-width: $break-mobile) {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .cm-mediator-editorial {
-            position: absolute;
-            top: 130px;
-            left: 0px;
-            text-align: center;
-        }
-        .cm-mediator-residence {
-            position: absolute;
-            top: 130px;
-            right: 0px;
-            text-align: center;
-        }
-        .cm-mediator-theater {
-            position: absolute;
-            bottom: 0px;
-            left: 70px;
-            text-align: center;
-        }
-        .cm-mediator-reframing {
-            position: absolute;
-            bottom: 0px;
-            right: 70px;
-            text-align: center;
-        }
-        .god-container {
-            width: 400px;
-            height: 400px;
-            text-align: center;
-            position: absolute;
-        }
+
     }
 }
 
+cm-mediator-switcher-mobile {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,136 @@
+@import "../../../../scss/variables.scss";
+
+.gallery {
+  width: 300px;
+  height: 110px;
+  position: absolute;
+}
+
+.gallery-container {
+  display: flex;
+  height: 110px;
+  margin: 0 auto;
+  max-width: 1000px;
+  position: relative;
+  width: 250px;
+}
+
+.mediator {
+  text-align: center;
+  width: 100px;
+  height: 110px;
+  &:focus {
+    outline: 0;
+  }
+  .icon {
+    background-size: 100% 100%;
+    cursor: pointer;
+    display: inline-block;
+  }
+}
+
+.mediator-label {
+    display: inline-block;
+    font-size: $small2-font-size;
+    font-family: $title-regular-font;
+    color: $primary-font-color;
+    position: relative;
+    top: -2px;
+    background-color: #ffffff;
+    padding: 0px 12px;
+    border-radius: 4px;
+    line-height: 1.7;
+}
+
+.gallery-item {
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  z-index: 3;
+  opacity: 0.7;
+  .icon {
+    width: 60px;
+    height: 60px;
+    top: 10px;
+    position: relative;
+  }
+}
+
+.gallery-item.gallery-item-selected {
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  opacity: 1;
+  .icon {
+    width: 80px;
+    height: 80px;
+    top: 0px;
+    position: relative;
+  }
+}
+
+.gallery-item.gallery-item-previous,
+.gallery-item.gallery-item-next {
+  height: 100px;
+  width: 100px;
+  opacity: 0.9;
+  z-index: 4;
+  .icon {
+    width: 70px;
+    height: 70px;
+    top: 5px;
+    position: relative;
+  }
+}
+
+.gallery-item.gallery-item-previous {
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+.gallery-item.gallery-item-next {
+  left: 70%;
+  transform: translateX(-50%);
+}
+
+.gallery-item.gallery-item-first {
+  left: 15%;
+  transform: translateX(-50%);
+}
+
+.gallery-item.gallery-item-last {
+  left: 85%;
+  transform: translateX(-50%);
+}
+
+.previous-icon {
+    position: absolute;
+    width: 100px;
+    height: 110px;
+    font-size: 30px;
+    font-weight: 400;
+    top: 0px;
+    left: 0px;
+    color: #5a5a5a;
+    z-index: 10;
+    i {
+        position: absolute;
+        top: 25px;
+        left: 0px;
+    }
+}
+
+.next-icon {
+    position: absolute;
+    width: 100px;
+    height: 110px;
+    font-size: 30px;
+    top: 0px;
+    right: 0px;
+    color: #5a5a5a;
+    z-index: 10;
+    i {
+        position: absolute;
+        top: 25px;
+        right: 0px;
+    }
+}

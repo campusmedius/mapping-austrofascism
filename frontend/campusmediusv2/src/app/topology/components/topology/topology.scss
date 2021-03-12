@@ -66,7 +66,7 @@ cm-map {
     @media screen and (max-width: $break-mobile) {
         display: block;
         width: 100%;
-        height: calc(100vh - #{$header-height-mobile} - 220px + 60px);
+        height: calc(100vh - #{$header-height-mobile} - 210px + 60px);
         top: $header-height-mobile;
         left: 0px;
     }
@@ -173,13 +173,17 @@ cm-mediations-mobile {
     }
 }
 
+cm-start-selector-mobile {
+    flex-grow: 1;
+}
+
 .mobile-short-info-container{
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
     width: 100%;
     &.at-start {
-        height: calc(100% - #{$header-height-mobile});
+        height: calc(100% - #{$header-height-mobile} - 40px);
     }
     margin-top: 85px;
     z-index: 10;
