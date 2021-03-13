@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { InformationMedia } from '../../models/information';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { InformationComponent } from '../information/information.component';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'cm-info-container',
@@ -36,6 +37,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   constructor(
     private element: ElementRef,
     private scrollToService: ScrollToService,
+    @Inject(PLATFORM_ID) private platformId,
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,10 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   }
 
   public onScroll() {
+      if (isPlatformServer(this.platformId)) {
+        return;
+      }
+
       if (!(window as any).skipSectionChange) {
           let currentSection: string;
           const scrollTop = this.parentElement.scrollTop;
@@ -81,6 +87,10 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   }
 
   public scrollToReference(ref: string, duration=0, offset=-100) {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
+
     (window as any).skipSectionChange = true;
     
     if (ref === 'top' || ref === 'p:1') {

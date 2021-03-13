@@ -146,6 +146,12 @@ a:active {
     text-decoration: underline #fff !important; 
 }
 
+.last {
+    .animation-container {
+        margin-bottom: -35px;
+    }
+}
+
 .mat-form-field-flex {
     background: $background-light-color;
 }

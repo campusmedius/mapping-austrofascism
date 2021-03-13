@@ -1,5 +1,18 @@
 @import '../../../../scss/variables.scss';
 
+:host {
+  display: block;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  @media screen and (max-width: $break-mobile) {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 100%;
+      position: fixed;
+  }
+}
+
 cm-start-page-selector {
   height: calc(100vh - 3.3rem);
   position: fixed;

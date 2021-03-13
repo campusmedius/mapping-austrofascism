@@ -6,6 +6,7 @@
     overflow: hidden;
     z-index: 9;
     bottom: 0px;
+    height: 0px;
     width: calc(100vw - 470px);
     @media screen and (max-width: $break-mobile) {
         bottom: auto;

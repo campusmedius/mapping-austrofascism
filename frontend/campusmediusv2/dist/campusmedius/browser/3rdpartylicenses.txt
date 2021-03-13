@@ -145,6 +145,9 @@ THE SOFTWARE.
 @nguniversal/common
 MIT
 
+@nguniversal/express-engine
+MIT
+
 @ngx-translate/core
 MIT
 

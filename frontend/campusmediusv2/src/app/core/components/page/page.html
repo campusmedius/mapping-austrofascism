@@ -44,7 +44,11 @@
 [title]="translate.currentLang === 'de' ? page.titleDe : page.titleEn"
 [content]="translate.currentLang === 'de' ? page.information.contentDe : page.information.contentEn"
 [media]="page.information.media"
-[showHeader]="false"
+[showHeader]="showTitleHeaderMobile"
 (citeClick)="showCite()"
-(sectionChange)="sectionChange($event)">
+(sectionChange)="sectionChange($event)"
+(sectionChange)="sectionChange($event)"
+(showShort)="mobileShowShort()"
+(galleryClosed)="galleryClosed($event)"
+(galleryOpened)="galleryOpened($event)">
 </cm-info-container-mobile>
