@@ -163,8 +163,12 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     let fragment = this.route.snapshot.fragment;
                     fragment = fragment ? fragment : 'top';
                     let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
-                    infoContainer.scrollToReference(fragment);
-                    this.map.flyTo(this.selectedEvent.coordinates, 14);
+                    if(infoContainer) {
+                        infoContainer.scrollToReference(fragment);
+                    }
+                    if(this.map) {
+                        this.map.flyTo(this.selectedEvent.coordinates, 14);
+                    }
 
                     // set lang in url if not set
                     this.router.navigate(['.'], {

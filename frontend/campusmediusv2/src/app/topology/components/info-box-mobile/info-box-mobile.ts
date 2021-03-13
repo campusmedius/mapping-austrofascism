@@ -15,8 +15,8 @@ import { trigger, transition, animate, style, state } from '@angular/animations'
     styleUrls: ['./info-box-mobile.scss'],
     animations: [
       trigger('infoBoxOpen', [
-          state('true', style({ 'width': '*', display: '*', 'max-height': '140px', opacity: 0.9 })),
-          state('false', style({ 'width': '0px', display: 'none', 'max-height': '0px', opacity: 0 })),
+          state('true', style({ 'width': '*', 'height': '*', display: '*', 'max-height': '140px', opacity: 0.9 })),
+          state('false', style({ 'width': '0px', 'height': '0px', display: 'none', 'max-height': '0px', opacity: 0 })),
           transition('false => true', [
               style({ 'display': 'block' }),
               animate('300ms ease-in')
