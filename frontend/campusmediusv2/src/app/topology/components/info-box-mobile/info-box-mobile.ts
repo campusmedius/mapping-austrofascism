@@ -58,6 +58,10 @@ export class InfoBoxMobileComponent implements OnInit, OnDestroy {
     }
 
     private animateSovereignSign(mediator: Mediator, relation: Relation) {
+        if(!this.mediator) {
+          return;
+        }
+
         const steps = 50;
         const duration = 4500;
         const stepTime = duration / steps;

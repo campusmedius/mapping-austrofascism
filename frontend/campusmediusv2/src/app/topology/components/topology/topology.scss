@@ -138,10 +138,14 @@ cm-mediations-mobile {
     z-index: 11;
 }
 
+cm-god-selector {
+    z-index: 7;
+}
+
 
 .map-control {
     position: fixed;
-    z-index: 5;
+    z-index: 8;
     top: calc(#{$header-height} + 24px);
     left: 24px;
     @media screen and (max-width: $break-mobile) {
@@ -204,6 +208,9 @@ cm-start-selector-mobile {
         flex: 1;
         padding-top: 40px;
     }
+}
+cm-info-box-mobile {
+    z-index: 8;
 }
 
 .mobile-short-info {
