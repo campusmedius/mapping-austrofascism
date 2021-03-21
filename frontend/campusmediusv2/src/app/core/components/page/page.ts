@@ -204,7 +204,7 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         const dialogRef = this.dialog.open(CiteDialogComponent, {
             width: '800px',
             maxHeight: '90vh',
-            data: {data: this.page, type: 'page'},
+            data: {data: this.page, type: 'page', isMobile: this.isMobile},
             autoFocus: false
         });
     }

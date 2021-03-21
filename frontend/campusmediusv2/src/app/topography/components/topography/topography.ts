@@ -352,7 +352,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         const dialogRef = this.dialog.open(CiteDialogComponent, {
             width: '800px',
             maxHeight: '90vh',
-            data: {data: this.selectedEvent, type: 'event'},
+            data: {data: this.selectedEvent, type: 'event', isMobile: this.isMobile},
             autoFocus: false
         });
     }

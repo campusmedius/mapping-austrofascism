@@ -17,6 +17,12 @@ export class CiteDialogComponent implements OnInit {
     public updatedDe: string;
     public updatedEn: string;
     public updatedYear: string;
+    public abstractEn: string;
+    public abstractDe: string;
+    public abstractShortEn: string;
+    public abstractShortDe: string;
+    public abstractExpanded = false;
+    public abstractShowExpanded = true;
     public keywordsEn: string;
     public keywordsDe: string;
     public keywordsShortEn: string;
@@ -65,6 +71,11 @@ export class CiteDialogComponent implements OnInit {
         this.publishedEn = this.data.data.created.format('MMMM D, YYYY');
         this.updatedEn = this.data.data.updated.format('MMMM D, YYYY');
         this.updatedYear = this.data.data.updated.format('YYYY');
+
+        this.abstractEn = this.data.data.abstractEn.replace(/<p>/g, '').replace(/<\/p>/g, '');
+        this.abstractDe = this.data.data.abstractDe.replace(/<p>/g, '').replace(/<\/p>/g, '');
+        this.abstractShortEn = this.abstractEn.split(' ').slice(0,5).join(' ') + ' \u2026';
+        this.abstractShortDe = this.abstractDe.split(' ').slice(0,5).join(' ') + ' \u2026';
 
         this.keywordsEn = this.data.data.keywordsEn.sort().join(', ');
         this.keywordsDe = this.data.data.keywordsDe.sort().join(', ');

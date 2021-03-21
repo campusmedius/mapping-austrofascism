@@ -444,7 +444,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
         const dialogRef = this.dialog.open(CiteDialogComponent, {
             width: '800px',
             maxHeight: '90vh',
-            data: {data: this.selectedMediator, type: 'mediator', mediationId: this.selectedMediation.id},
+            data: {data: this.selectedMediator, type: 'mediator', mediationId: this.selectedMediation.id, isMobile: this.isMobile},
             autoFocus: false
         });
     }

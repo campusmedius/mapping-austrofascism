@@ -49,6 +49,10 @@
         <div class="content">{{ updatedEn }}</div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Abstract</div>
+        <div class="content"><span innerHtml="{{ abstractExpanded ? abstractEn : abstractShortEn }}"></span>&nbsp;<a (click)="abstractExpanded = !abstractExpanded">({{ abstractExpanded ? 'show less' : 'show all' }})</a></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Keywords</div>
         <div class="content">{{ keywordsExpanded ? keywordsEn : keywordsShortEn }} <a *ngIf="keywordsShowExpanded" (click)="keywordsExpanded = !keywordsExpanded">({{ keywordsExpanded ? 'show less' : 'show all' }})</a></div>
     </div>
@@ -65,7 +69,14 @@
         </div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
-        <div class="label">LOD</div>
+        <div *ngIf="data.isMobile" class="label">
+            LOD
+        </div>
+        <div *ngIf="!data.isMobile" class="label">
+            <button class="download-button" mat-icon-button (click)="downloadJsonLd()">
+                <span class="cm-square-download"></span>
+            </button>
+        </div>
         <div class="content"><a (click)="downloadJsonLd()">Download metadata in JSON-LD format</a></div>
     </div>
 </div>
@@ -106,6 +117,10 @@
         <div class="content">{{ updatedDe }}</div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
+        <div class="label">Abstract</div>
+        <div class="content"><span innerHtml="{{ abstractExpanded ? abstractDe : abstractShortDe }}"></span>&nbsp;<a (click)="abstractExpanded = !abstractExpanded">({{ abstractExpanded ? 'weniger anzeigen' : 'alles anzeigen' }})</a></div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Schlagwörter</div>
         <div class="content">{{ keywordsExpanded ? keywordsDe : keywordsShortDe }} <a *ngIf="keywordsShowExpanded" (click)="keywordsExpanded = !keywordsExpanded">({{ keywordsExpanded ? 'weniger anzeigen' : 'alle anzeigen' }})</a></div>
     </div>
@@ -122,7 +137,16 @@
         </div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
-        <div class="label">LOD</div>
+        <div *ngIf="data.isMobile" class="label">
+            <button class="download-button" mat-icon-button (click)="downloadJsonLd()">
+                <span class="cm-square-download"></span>
+            </button>
+        </div>
+        <div *ngIf="!data.isMobile" class="label">
+            <button class="download-button" mat-icon-button (click)="downloadJsonLd()">
+                <span class="cm-square-download"></span>
+            </button>
+        </div>
         <div class="content"><a (click)="downloadJsonLd()">Metadaten im Format JSON-LD herunterladen</a></div>
     </div>
 </div>
