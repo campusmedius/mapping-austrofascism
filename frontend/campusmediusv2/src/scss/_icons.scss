@@ -27,17 +27,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.cm-square-download:before {
+  content: "\e931";
+}
+.cm-download:before {
+  content: "\e932";
+}
+.cm-circle-copyright:before {
+  content: "\e927";
+}
+.cm-circle-info:before {
+  content: "\e928";
+}
 .cm-square-expand:before {
   content: "\e930";
-}
-.cm-info .path1:before {
-  content: "\e927";
-  color: rgb(255, 255, 255);
-}
-.cm-info .path2:before {
-  content: "\e928";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
 }
 .cm-expand:before {
   content: "\e92f";

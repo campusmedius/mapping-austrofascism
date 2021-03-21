@@ -38,10 +38,6 @@ html, body {
     line-height: $base-line-height;
 }
 
-.mat-dialog-container {
-  background: #fff;
-}
-
 h1 {
     font-family: $title-bold-font;
     font-size: $h-primary-font-size;
@@ -162,11 +158,14 @@ a:active {
     display: none;
 }
 .mat-dialog-container {
+    background: #fff;
     border-radius: 0px !important;
     @media screen and (max-width: $break-mobile) {
-        padding: 24px 14px !important;
+        padding: 25px 0px !important;
     }
-    padding: 25px !important;
+    padding: 25px 0px !important;
+    height: initial !important;
+    overflow: hidden;
 }
 
 .mat-form-field-label {
@@ -264,8 +263,36 @@ cm-header {
             color: $accent-color;
         }
     }
-    &.isOpen .mat-mini-fab {
-        background-color: $accent-color;
+    &.isOpen {
+        button {
+            background: #ffffff;
+            &::before {
+              color: $accent-color;
+            }
+        }
+    }
+    button {
+        width: 26px !important;
+        height: 26px !important;
+        margin-top: 3px;
+        margin-right: 1px;
+        background: #ffffff !important;
+        &:hover {
+            background: #ffffff;
+            &::before {
+              color: $accent-color;
+            }
+        }
+        &::before {
+          font-size: 30px;
+          color: $clickable-color;
+          position: absolute;
+          top: -2px;
+          left: -2px;
+        }
+        .mat-button-wrapper{
+            display: none;
+        }
     }
     .mat-mini-fab {
         float: left;
@@ -296,7 +323,7 @@ cm-header {
 // ngx-gallery
 
 .ngx-gallery-preview-img {
-    max-width: 95% !important;
+    max-width: 92% !important;
     max-height: 95% !important;
 }
 

@@ -43,15 +43,34 @@
 }
 
 button {
+  margin-top: 1px;
+  margin-right: 1px;
   display: block;
   min-width: 20px;
-  width: 30px;
+  width: 26px;
   padding: 0px;
-  height: 30px;
+  height: 26px;
   line-height: 30px;
   opacity: 0.9;
+  background: #ffffff !important;
   &:hover {
-      background: $accent-color;
+      background: #ffffff;
+      &::before {
+        color: $accent-color;
+      }
+  }
+  &::before {
+    font-size: 30px;
+    color: $clickable-color;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+  }
+  &.info-box-open {
+    background: #ffffff;
+    &::before {
+      color: $accent-color;
+    }
   }
 }
 .info-box-open {
@@ -75,14 +94,6 @@ button {
     }
   }
   .info-button .mat-button-wrapper {
-    width: 30px !important;
-    height: 30px !important;
-    line-height: 30px !important;
-    margin: 0px !important;
-    padding: 0px !important;
-    .cm-info {
-      line-height: 29px;
-      font-size: 19px;
-    }
+    display: none;
   }
 }
