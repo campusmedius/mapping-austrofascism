@@ -8,7 +8,7 @@ import {
     query
 } from '@angular/animations';
 
-import { Block } from '../../models/information';
+import { Block, InformationMedia } from '../../models/information';
 
 @Component({
     selector: 'cm-note',
@@ -31,6 +31,7 @@ import { Block } from '../../models/information';
 export class NoteComponent implements OnInit {
     @Input() content: string;
     @Input() lang: string;
+    @Input() media: InformationMedia;
 
     @Input() id: string;
     @HostBinding('attr.id')

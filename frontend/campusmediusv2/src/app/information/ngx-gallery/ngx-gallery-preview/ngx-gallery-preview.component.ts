@@ -459,11 +459,11 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
 
             if (this.types[this.index] === 'image') {
                 setTimeout(() => {
-                    if (this.isLoaded(this.previewImage.nativeElement)) {
-                        this.loading = false;
-                        this.startAutoPlay();
-                        this.changeDetectorRef.markForCheck();
-                    } else {
+                    // if (this.isLoaded(this.previewImage.nativeElement)) {
+                    //     this.loading = false;
+                    //     this.startAutoPlay();
+                    //     this.changeDetectorRef.markForCheck();
+                    // } else {
                         setTimeout(() => {
                             if (this.loading) {
                                 this.showSpinner = true;
@@ -478,7 +478,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
                             this.startAutoPlay();
                             this.changeDetectorRef.markForCheck();
                         }
-                    }
+                    // }
                 })
             }
 

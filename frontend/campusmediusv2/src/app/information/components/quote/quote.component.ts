@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 
-import { Block } from '../../models/information';
+import { Block, InformationMedia } from '../../models/information';
 
 @Component({
     selector: 'cm-quote',
@@ -10,6 +10,7 @@ import { Block } from '../../models/information';
 export class QuoteComponent implements OnInit {
     @Input() content: string;
     @Input() lang: string;
+    @Input() media: InformationMedia;
 
     @Input() id: string;
     @HostBinding('attr.id')

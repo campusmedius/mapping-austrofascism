@@ -1,4 +1,5 @@
 import {ElementRef, Injectable, Renderer2} from '@angular/core';
+import * as Hammer from '@egjs/hammerjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,16 @@ export class NgxGalleryService {
     // swipeleft and swiperight are available only if hammerjs is included
     try {
       if (status && !handlers) {
+        const left = new Hammer.Manager(element.nativeElement);
+        left.add(new Hammer.Swipe({ direction: Hammer.DIRECTION_HORIZONTAL }));
+        left.on('swipeleft', () => nextHandler());
+        const right = new Hammer.Manager(element.nativeElement);
+        right.add(new Hammer.Swipe({ direction: Hammer.DIRECTION_HORIZONTAL }));
+        left.on('swiperight', () => prevHandler());
+
         this.swipeHandlers.set(id, [
-          this.renderer.listen(element.nativeElement, 'swipeleft', () => nextHandler()),
-          this.renderer.listen(element.nativeElement, 'swiperight', () => prevHandler())
+          <any>left,
+          <any>right,
         ]);
       } else if (!status && handlers) {
         handlers.map((handler) => handler());

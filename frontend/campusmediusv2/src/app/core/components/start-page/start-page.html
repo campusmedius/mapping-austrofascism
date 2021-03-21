@@ -4,8 +4,8 @@
     <div class="info-content">
       <cm-information [content]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn" [lang]="translate.currentLang"></cm-information>
       <button mat-flat-button class="btn-read-more" color="warn" routerLink="/overview" routerLinkActive="active">{{'header.about' | translate | uppercase}}</button>
-      <button mat-flat-button class="btn-read-more" color="warn" routerLink="/team" routerLinkActive="active">{{'header.team' | translate | uppercase}}</button>
       <button mat-flat-button class="btn-read-more" color="warn" routerLink="/book" routerLinkActive="active">{{'header.book' | translate | uppercase}}</button>
+      <button mat-flat-button class="btn-read-more" color="warn" routerLink="/team" routerLinkActive="active">{{'header.team' | translate | uppercase}}</button>
     </div>
   </div>
 </cm-sidepanel>

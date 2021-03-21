@@ -68,7 +68,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
           }
           if (currentSection !== this.currentSection) {
               this.currentSection = currentSection;
-              this.sectionChange.emit(this.currentSection);
+              this.sectionChange.emit(currentSection);
           }
 
           this.emitTitleHeaderVisibility();
@@ -96,18 +96,17 @@ export class InfoContainerComponent implements OnInit, OnChanges {
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
     }
+    this.information.openComponentByRef(ref);
+    this.scrollToService.scrollTo({
+        target: ref,
+        offset: offset,
+        duration: duration
+    });
     setTimeout(() => {
-      this.information.openComponentByRef(ref);
-      this.scrollToService.scrollTo({
-          target: ref,
-          offset: offset,
-          duration: duration
-      });
-      setTimeout(() => {
-        this.emitTitleHeaderVisibility();
-        (window as any).skipSectionChange = false;
-      }, duration);
-    }, 0);
+      this.emitTitleHeaderVisibility();
+      (window as any).skipSectionChange = false;
+      this.onScroll();
+    }, (duration + 50));
   }
 
 }

@@ -190,7 +190,7 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
                     fragment = fragment ? fragment : 'top';
                     let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
                     if (infoContainer) {
-                        infoContainer.scrollToReference(fragment);
+                        infoContainer.scrollToReference(fragment, 100);
                     }
                 }, 0);
             } else {
@@ -210,12 +210,17 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public scrollUp() {
-        this.infoContainer.scrollToReference('top', 650);
+        this.router.navigate([], {
+            queryParamsHandling: 'merge',
+            fragment: 'top'
+        });
     }
 
     public sectionChange(section: string) {
-        this.skipFragmentUpdate = true;
-        this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
+        if(section !== this.route.snapshot.fragment) {
+            this.skipFragmentUpdate = true;
+            this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
+        }
     }
 
     public mobileShowShort() {

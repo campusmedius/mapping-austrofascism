@@ -261,7 +261,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 fragment = fragment ? fragment : 'top';
                 let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
                 if (infoContainer) {
-                    infoContainer.scrollToReference(fragment);
+                    infoContainer.scrollToReference(fragment, 100);
                 }        
             } else {
                 this.skipFragmentUpdate = false;
@@ -420,10 +420,16 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 // check for backward relation in examining gaze
                 this.selectedMediator.relationsTo.forEach(r => {
                     if (r.sourceId === this.selectedMediator.id) {
+                        foundRelation =  true;
                         infoBox.navigateToMediator(this.selectedMediator, r, 'backward');
                         this.map.doNavigation(this.selectedMediation, r.source, this.selectedMediator);
                     }
                 });
+            }
+            // do direct navigation to support internal links
+            if (!foundRelation) {
+                this.map.showMediator(this.selectedMediation, this.selectedMediator);
+                infoBox.setSpaceTime(this.selectedMediator, 0, 0);
             }
         } else {
             this.map.showMediator(this.selectedMediation, this.selectedMediator);
@@ -450,11 +456,14 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public scrollUp() {
-        this.infoContainer.scrollToReference('top', 650);
+        this.router.navigate([], {
+            queryParamsHandling: 'merge',
+            fragment: 'top'
+        });
     }
 
     public sectionChange(section: string) {
-        if (this.sidepanelState === 'full') {
+        if (this.sidepanelState === 'full' && section !== this.route.snapshot.fragment) {
             this.skipFragmentUpdate = true;
             this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
         }

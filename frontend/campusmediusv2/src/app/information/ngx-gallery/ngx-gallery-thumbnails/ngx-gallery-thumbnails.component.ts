@@ -8,7 +8,8 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
+  ChangeDetectorRef
 } from '@angular/core';
 import {DomSanitizer, SafeResourceUrl, SafeStyle} from '@angular/platform-browser';
 import {NgxGalleryService} from '../ngx-gallery.service';
@@ -56,7 +57,7 @@ export class NgxGalleryThumbnailsComponent implements OnInit, OnChanges {
   private index = 0;
 
   constructor(private sanitization: DomSanitizer, private elementRef: ElementRef,
-              private helperService: NgxGalleryService) {
+              private helperService: NgxGalleryService, private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -214,6 +215,8 @@ export class NgxGalleryThumbnailsComponent implements OnInit, OnChanges {
 
     this.thumbnailsMarginLeft = -((this.margin - (((this.columns - 1)
       * this.margin) / this.columns)) * this.index) + 'px';
+
+    this.changeDetectorRef.markForCheck();
   }
 
   setDefaultPosition(): void {

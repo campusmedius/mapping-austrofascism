@@ -91,6 +91,7 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                     noteId += 1;
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
+                    componentRef.instance.media = this.media;
 
                 } else if (e.tagName === 'CM-QUOTE') {
                     const content = e.innerHTML;
@@ -99,6 +100,7 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                     quoteId += 1;
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
+                    componentRef.instance.media = this.media;
 
                 } else if (e.tagName === 'CM-LINK-INTERN') {
                     const text = e.innerHTML;

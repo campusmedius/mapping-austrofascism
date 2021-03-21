@@ -210,7 +210,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     fragment = fragment ? fragment : 'top';
                     let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
                     if (infoContainer) {
-                        infoContainer.scrollToReference(fragment);
+                        infoContainer.scrollToReference(fragment, 100);
                     }
                 }, 0);
             } else {
@@ -345,7 +345,10 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public scrollUp() {
-        this.infoContainer.scrollToReference('top', 650);
+        this.router.navigate([], {
+            queryParamsHandling: 'merge',
+            fragment: 'top'
+        });
     }
 
     public showCite() {
@@ -414,7 +417,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public sectionChange(section: string) {
-        if (this.sidepanelState === 'full') {
+        if (this.sidepanelState === 'full' && section !== this.route.snapshot.fragment) {
             this.skipFragmentUpdate = true;
             this.router.navigate( [ ], { fragment: section, queryParams: { }, queryParamsHandling: 'merge', replaceUrl: true } );
         }
