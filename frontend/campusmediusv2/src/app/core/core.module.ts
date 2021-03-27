@@ -18,6 +18,7 @@ import { SearchComponent } from './components/search/search';
 import { SearchResultComponent } from './components/search-result/search-result';
 import { SearchResultTextPipe } from './pipes/search-result-text.pipe';
 import { SearchService } from './services/search';
+import { DisclosurePageComponent } from './components/disclosure-page/disclosure-page';
 
 
 export const COMPONENTS = [
@@ -30,6 +31,7 @@ export const COMPONENTS = [
     TeamPageComponent,
     BookPageComponent,
     AboutPageComponent,
+    DisclosurePageComponent,
     PageComponent,
     SearchComponent,
     SearchResultComponent,

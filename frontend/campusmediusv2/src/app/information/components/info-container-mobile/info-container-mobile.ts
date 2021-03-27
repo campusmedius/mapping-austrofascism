@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, OnChanges, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { InformationMedia } from '../../models/information';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { InformationComponent } from '../information/information.component';
 import { trigger, transition, animate, style, state } from '@angular/animations';
+import { isPlatformServer } from '@angular/common';
 
 @Component({
   selector: 'cm-info-container-mobile',
@@ -43,6 +44,7 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   constructor(
     private element: ElementRef,
     private scrollToService: ScrollToService,
+    @Inject(PLATFORM_ID) private platformId,
   ) { }
 
   ngOnInit() {
@@ -72,22 +74,24 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   }
 
   public scrollToReference(ref: string, duration=0, offset=-45) {
-    (window as any).skipSectionChange = true;
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
 
+    (window as any).skipSectionChange = true;
+    
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
     }
+    this.information.openComponentByRef(ref);
+    this.scrollToService.scrollTo({
+        target: ref,
+        offset: offset,
+        duration: duration
+    });
     setTimeout(() => {
-      this.information.openComponentByRef(ref);
-      this.scrollToService.scrollTo({
-          target: ref,
-          offset: offset,
-          duration: duration
-      });
-      setTimeout(() => {
-        (window as any).skipSectionChange = false;
-      }, duration);
-    }, 0);
+      (window as any).skipSectionChange = false;
+    }, (duration + 50));
   }
 
   public triggerGalleryClosed($event) {

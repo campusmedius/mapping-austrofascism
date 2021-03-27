@@ -32,7 +32,7 @@
 
 
 <cm-sidepanel *ngIf="!isMobile" [@sidenav]="sidepanelState" [state]="sidepanelState" [showControl]="selectedMediator && selectedMediator.id !== '0'" (controlClick)="toggleInformationPanel()" >
-    <div *ngIf="sidepanelState === 'full'" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
+    <div *ngIf="sidepanelState === 'full' && selectedMediator" class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
         <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
             <span class="cm-square-quote-alt"></span>
         </button>

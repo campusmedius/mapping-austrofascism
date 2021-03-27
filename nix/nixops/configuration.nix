@@ -77,8 +77,8 @@
                     
                     expires 10m;
                     
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/api" = {
@@ -161,8 +161,8 @@
                     expires 10m;
                     etag off;
 
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."@ssr"= {
@@ -182,8 +182,8 @@
 
                     expires 10m;
 
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
+                    #auth_basic campusmedius;
+                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/sitemap.xml"= {

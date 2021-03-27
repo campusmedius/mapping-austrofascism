@@ -38,6 +38,12 @@ html, body {
     line-height: $base-line-height;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 h1 {
     font-family: $title-bold-font;
     font-size: $h-primary-font-size;
@@ -146,6 +152,18 @@ a:active {
     .animation-container {
         margin-bottom: -35px;
     }
+}
+
+.disclosure-logos {
+    a {
+        width: 20%;
+        img {
+            width: 100%;
+        }
+    }
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
 }
 
 .mat-form-field-flex {

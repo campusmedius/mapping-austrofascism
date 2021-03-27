@@ -18,6 +18,7 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
   selector: 'cm-page',
   templateUrl: './page.html',
   styleUrls: ['./page.scss'],
+  host: {'class': 'scroll-container'},
   animations: [
     trigger('titleHeader', [
         state('false', style({ opacity: 0 })),
@@ -116,12 +117,60 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         } else if(this.page.titleEn === 'Book Edition') {
             canonicalUrl += '/book';
         }
+        const screenshotUrl = this.translate.currentLang === 'de' ? "https://campusmedius.net/assets/screenshot_de.jpg" : "https://campusmedius.net/assets/screenshot_en.jpg"
+        const copyrightNotice = this.translate.currentLang === 'de' ? "Wenn nicht anders angegeben, sind die Inhalte der Website unter Creative Commons CC BY 4.0 frei verfügbar. Diese Lizenz gestattet die uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass die UrheberInnen, bei denen alle Rechte verbleiben, und die Quelle eindeutig genannt werden. Die Referenz sollte in der Form erfolgen, wie sie in den Metadaten empfohlen wird, die über das Zitatsymbol neben dem Titel der jeweiligen Seite abgerufen werden können. Die offene Creative-Commons-Lizenz gilt allerdings nicht für die Werke (Texte, Bilder, Ton- und Filmaufnahmen), die in Campus Medius zitiert werden: Für deren Urheberrechte müssen in jedem Fall die angeführten Quellen konsultiert werden!" : "Unless stated otherwise, the website's content is available open access under Creative Commons CC BY 4.0. This license permits unrestricted use and distribution of the respective material, provided that the creator(s), who retain copyright, and the source are properly credited. The reference should be made in the form suggested in the metadata that can be accessed via the quote icon next to each page title. However, the open Creative Commons license does not apply to the works (texts, images, audio, video) cited in Campus Medius: for their copyright details, the sources given in the notes and captions must be consulted in each case!";
+        let funder;
+        if (this.translate.currentLang === 'de') {
+            funder = [{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Österreichische Akademie der Wissenschaften (ÖAW)",
+                "url": "https://www.oeaw.ac.at/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Österreichischer Wissenschaftsfonds (FWF)",
+                "url": "https://fwf.ac.at/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Universität Wien",
+                "url": "https://www.univie.ac.at/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Stadt Wien",
+                "url": "https://www.wien.gv.at/kultur/abteilung/"
+            }]
+        } else {
+            funder = [{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Austrian Academy of Sciences (ÖAW)",
+                "url": "https://www.oeaw.ac.at/en/austrian-academy-of-sciences"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Austrian Science Fund (FWF)",
+                "url": "https://fwf.ac.at/en/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "University of Vienna",
+                "url": "https://www.univie.ac.at/en/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "City of Vienna",
+                "url": "https://www.wien.gv.at/kultur/abteilung/"
+            }]
+        }
 
         alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
         canonicalUrl += '?lang=' + this.translate.currentLang;
         
         name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
-        let title = 'Campusmedius - ' + name;
+        let title = name + ' in Campus Medius';
         description = description.replace(/<[^>]*>/g, '');
 
         this.title.setTitle(name);
@@ -140,7 +189,7 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.meta.updateTag({name: 'og:description', content: description});
         this.meta.updateTag({name: 'og:type', content: 'website'});
         this.meta.updateTag({name: 'og:url', content: canonicalUrl});
-        this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
+        this.meta.updateTag({name: 'og:image', content: screenshotUrl});
         this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
 
@@ -152,7 +201,7 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
             "headline":name,
             "abstract": description,
             "inLanguage": this.translate.currentLang,
-            "image": "https://campusmedius.net/assets/screenshot.jpg",
+            "image": screenshotUrl,
             "datePublished": this.page.created.toISOString(),
             "dateModified": this.page.updated.toISOString(),
             "keywords": keywords.join(','),
@@ -162,6 +211,8 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
                 "@type": "Person",
                 "name": "Simon Ganahl"
             },
+            "funder": funder,
+            "copyrightNotice": copyrightNotice,
             "isPartOf": {
                 "@context": "https://schema.org",
                 "@type": "WebSite",
@@ -224,12 +275,12 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public mobileShowShort() {
-        this.app.removeHeader = false;
-        setTimeout(() => {
-            this.showTitleHeaderMobile = false;
-            this.app.showHeader = true;
-            this.router.navigate( [ '/' ], { queryParamsHandling: 'merge' } );
-        });
+        // this.app.removeHeader = false;
+        // setTimeout(() => {
+        //     this.showTitleHeaderMobile = false;
+        //     this.app.showHeader = true;
+        //     this.router.navigate( [ '/' ], { queryParamsHandling: 'merge' } );
+        // });
     }
 
     @HostListener('scroll')

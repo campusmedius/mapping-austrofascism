@@ -131,7 +131,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             placeholders[0].style.height = '0px';
         }
 
-        const elements = <any>document.getElementsByTagName('cm-topography');
+        const elements = <any>document.getElementsByClassName('scroll-container');
         if (elements[0]) {
             elements[0].classList.add('noscroll');
             if (!this.isMobile && typeof window !== 'undefined' && (<any>window).isSafari) {
@@ -146,7 +146,7 @@ export class ImageComponent implements OnInit, OnDestroy {
             placeholders[0].style.height = '';
         }
 
-        const elements = <any>document.getElementsByTagName('cm-topography');
+        const elements = <any>document.getElementsByClassName('scroll-container');
         if (elements[0]) {
             elements[0].classList.remove('noscroll');
             if (!this.isMobile && typeof window !== 'undefined' && (<any>window).isSafari) {

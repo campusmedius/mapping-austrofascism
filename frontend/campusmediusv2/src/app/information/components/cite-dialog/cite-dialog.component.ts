@@ -23,10 +23,12 @@ export class CiteDialogComponent implements OnInit {
     public abstractShortDe: string;
     public abstractExpanded = false;
     public abstractShowExpanded = true;
-    public keywordsEn: string;
-    public keywordsDe: string;
-    public keywordsShortEn: string;
-    public keywordsShortDe: string;
+    public keywordsEn: string[];
+    public keywordsDe: string[];
+    public keywordsEnStr: string;
+    public keywordsDeStr: string;
+    public keywordsShortEnStr: string;
+    public keywordsShortDeStr: string;
     public keywordsExpanded = false;
     public keywordsShowExpanded = true;
     public url: string;
@@ -64,12 +66,12 @@ export class CiteDialogComponent implements OnInit {
 
         this.data.data.created.locale('de-at');
         this.data.data.updated.locale('de-at');
-        this.publishedDe = this.data.data.created.format('D. MMMM YYYY');
-        this.updatedDe = this.data.data.updated.format('D. MMMM YYYY');
+        this.publishedDe = this.data.data.created.format('D.\u00a0MMMM\u00a0YYYY');
+        this.updatedDe = this.data.data.updated.format('D.\u00a0MMMM\u00a0YYYY');
         this.data.data.created.locale('en');
         this.data.data.updated.locale('en');
-        this.publishedEn = this.data.data.created.format('MMMM D, YYYY');
-        this.updatedEn = this.data.data.updated.format('MMMM D, YYYY');
+        this.publishedEn = this.data.data.created.format('MMMM\u00a0D,\u00a0YYYY');
+        this.updatedEn = this.data.data.updated.format('MMMM\u00a0D,\u00a0YYYY');
         this.updatedYear = this.data.data.updated.format('YYYY');
 
         this.abstractEn = this.data.data.abstractEn.replace(/<p>/g, '').replace(/<\/p>/g, '');
@@ -77,20 +79,26 @@ export class CiteDialogComponent implements OnInit {
         this.abstractShortEn = this.abstractEn.split(' ').slice(0,5).join(' ') + ' \u2026';
         this.abstractShortDe = this.abstractDe.split(' ').slice(0,5).join(' ') + ' \u2026';
 
-        this.keywordsEn = this.data.data.keywordsEn.sort().join(', ');
-        this.keywordsDe = this.data.data.keywordsDe.sort().join(', ');
-        if (this.data.data.keywordsEn.length > 3) {
-            this.keywordsShortEn = this.data.data.keywordsEn.sort().slice(0,3).join(', ') + ', \u2026';
+        this.keywordsEn = this.data.data.keywordsEn.sort(function (a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+        this.keywordsEnStr = this.keywordsEn.join(', ');
+        this.keywordsDe = this.data.data.keywordsDe.sort(function (a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        })
+        this.keywordsDeStr = this.keywordsDe.join(', ');
+        if (this.keywordsEn.length > 3) {
+            this.keywordsShortEnStr = this.keywordsEn.slice(0,3).join(', ') + ', \u2026';
             this.keywordsShowExpanded = true;
         } else {
-            this.keywordsShortEn = this.keywordsEn;
+            this.keywordsShortEnStr = this.keywordsEnStr;
             this.keywordsShowExpanded = false;
         }
         if (this.data.data.keywordsDe.length > 3) {
-            this.keywordsShortDe = this.data.data.keywordsDe.sort().slice(0,3).join(', ') + ', \u2026';
+            this.keywordsShortDeStr = this.keywordsDe.slice(0,3).join(', ') + ', \u2026';
             this.keywordsShowExpanded = true;
         } else {
-            this.keywordsShortDe = this.keywordsDe;
+            this.keywordsShortDeStr = this.keywordsDeStr;
             this.keywordsShowExpanded = false;
         }
 

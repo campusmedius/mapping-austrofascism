@@ -37,6 +37,7 @@ const SIDEPANEL_WIDTH = {
     selector: 'cm-topography',
     templateUrl: './topography.html',
     styleUrls: ['./topography.scss'],
+    host: {'class': 'scroll-container'},
     animations: [
         trigger('sidenav', [
             state('full', style({ width: SIDEPANEL_WIDTH.full })),
@@ -239,9 +240,57 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
             alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
             canonicalUrl += '?lang=' + this.translate.currentLang;
-        }        
+        }
+        const screenshotUrl = this.translate.currentLang === 'de' ? "https://campusmedius.net/assets/screenshot_de.jpg" : "https://campusmedius.net/assets/screenshot_en.jpg"     
+        const copyrightNotice = this.translate.currentLang === 'de' ? "Wenn nicht anders angegeben, sind die Inhalte der Website unter Creative Commons CC BY 4.0 frei verfügbar. Diese Lizenz gestattet die uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass die UrheberInnen, bei denen alle Rechte verbleiben, und die Quelle eindeutig genannt werden. Die Referenz sollte in der Form erfolgen, wie sie in den Metadaten empfohlen wird, die über das Zitatsymbol neben dem Titel der jeweiligen Seite abgerufen werden können. Die offene Creative-Commons-Lizenz gilt allerdings nicht für die Werke (Texte, Bilder, Ton- und Filmaufnahmen), die in Campus Medius zitiert werden: Für deren Urheberrechte müssen in jedem Fall die angeführten Quellen konsultiert werden!" : "Unless stated otherwise, the website's content is available open access under Creative Commons CC BY 4.0. This license permits unrestricted use and distribution of the respective material, provided that the creator(s), who retain copyright, and the source are properly credited. The reference should be made in the form suggested in the metadata that can be accessed via the quote icon next to each page title. However, the open Creative Commons license does not apply to the works (texts, images, audio, video) cited in Campus Medius: for their copyright details, the sources given in the notes and captions must be consulted in each case!";
+        let funder;
+        if (this.translate.currentLang === 'de') {
+            funder = [{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Österreichische Akademie der Wissenschaften (ÖAW)",
+                "url": "https://www.oeaw.ac.at/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Österreichischer Wissenschaftsfonds (FWF)",
+                "url": "https://fwf.ac.at/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Universität Wien",
+                "url": "https://www.univie.ac.at/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Stadt Wien",
+                "url": "https://www.wien.gv.at/kultur/abteilung/"
+            }]
+        } else {
+            funder = [{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Austrian Academy of Sciences (ÖAW)",
+                "url": "https://www.oeaw.ac.at/en/austrian-academy-of-sciences"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Austrian Science Fund (FWF)",
+                "url": "https://fwf.ac.at/en/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "University of Vienna",
+                "url": "https://www.univie.ac.at/en/"
+            },{
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "City of Vienna",
+                "url": "https://www.wien.gv.at/kultur/abteilung/"
+            }]
+        }
         name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
-        let title = name + 'in Campus Medius';
+        let title = name + ' in Campus Medius';
         description = description.replace(/<[^>]*>/g, '');
         
         this.title.setTitle(name);
@@ -260,63 +309,126 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         this.meta.updateTag({name: 'og:description', content: description});
         this.meta.updateTag({name: 'og:type', content: 'website'});
         this.meta.updateTag({name: 'og:url', content: canonicalUrl});
-        this.meta.updateTag({name: 'og:image', content: "https://campusmedius.net/assets/screenshot.jpg"});
+        this.meta.updateTag({name: 'og:image', content: screenshotUrl});
         this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
 
         let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
         if(this.selectedEvent) {
-            jsonLdScript.text = JSON.stringify({
-                "@context": "https://schema.org/",
-                "@type": "ScholarlyArticle",
-                "name":title,
-                "headline":name,
-                "abstract": description,
-                "inLanguage": this.translate.currentLang,
-                "image": "https://campusmedius.net/assets/screenshot.jpg",
-                "datePublished": this.selectedEvent.created.toISOString(),
-                "dateModified": this.selectedEvent.updated.toISOString(),
-                "keywords": keywords.join(','),
-                "url": canonicalUrl,
-                "author": {
+            if(this.translate.currentLang === 'en') {
+                jsonLdScript.text = JSON.stringify({
                     "@context": "https://schema.org/",
-                    "@type": "Person",
-                    "name": "Simon Ganahl"
-                },
-                "about": {
-                    "@type": "Event",
-                    "name": name,
-                    "startDate": this.selectedEvent.start.toISOString(),
-                    "endDate": this.selectedEvent.end.toISOString(),
-                    "location": {
-                        "@context": "https://schema.org",
-                        "@type": "Place",
-                        "geo": {
-                            "@type": "GeoCoordinates",
-                            "latitude": this.selectedEvent.coordinates.lat,
-                            "longitude": this.selectedEvent.coordinates.lng
-                        }
-                    }
-                },
-                "isPartOf": {
-                    "@context": "https://schema.org",
-                    "@type": "WebSite",
-                    "url": "https://campusmedius.net",
-                    "author": [{
+                    "@type": "ScholarlyArticle",
+                    "name":title,
+                    "headline":name,
+                    "abstract": description,
+                    "inLanguage": this.translate.currentLang,
+                    "image": screenshotUrl,
+                    "datePublished": this.selectedEvent.created.toISOString(),
+                    "dateModified": this.selectedEvent.updated.toISOString(),
+                    "keywords": keywords.join(','),
+                    "url": canonicalUrl,
+                    "author": {
                         "@context": "https://schema.org/",
                         "@type": "Person",
                         "name": "Simon Ganahl"
-                    },{
+                    },
+                    "translator": {
                         "@context": "https://schema.org/",
                         "@type": "Person",
-                        "name": "Susanne Kiesenhofer"
-                    },{
+                        "name": "Katy Derbyshire"
+                    },
+                    "funder": funder,
+                    "copyrightNotice": copyrightNotice,
+                    "about": {
+                        "@type": "Event",
+                        "name": name,
+                        "startDate": this.selectedEvent.start.toISOString(),
+                        "endDate": this.selectedEvent.end.toISOString(),
+                        "location": {
+                            "@context": "https://schema.org",
+                            "@type": "Place",
+                            "geo": {
+                                "@type": "GeoCoordinates",
+                                "latitude": this.selectedEvent.coordinates.lat,
+                                "longitude": this.selectedEvent.coordinates.lng
+                            }
+                        }
+                    },
+                    "isPartOf": {
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        "url": "https://campusmedius.net",
+                        "author": [{
+                            "@context": "https://schema.org/",
+                            "@type": "Person",
+                            "name": "Simon Ganahl"
+                        },{
+                            "@context": "https://schema.org/",
+                            "@type": "Person",
+                            "name": "Susanne Kiesenhofer"
+                        },{
+                            "@context": "https://schema.org/",
+                            "@type": "Person",
+                            "name": "Andreas Krimbacher"
+                        }]
+                    }
+                }, null, 2);
+            } else {
+                jsonLdScript.text = JSON.stringify({
+                    "@context": "https://schema.org/",
+                    "@type": "ScholarlyArticle",
+                    "name":title,
+                    "headline":name,
+                    "abstract": description,
+                    "inLanguage": this.translate.currentLang,
+                    "image": screenshotUrl,
+                    "datePublished": this.selectedEvent.created.toISOString(),
+                    "dateModified": this.selectedEvent.updated.toISOString(),
+                    "keywords": keywords.join(','),
+                    "url": canonicalUrl,
+                    "author": {
                         "@context": "https://schema.org/",
                         "@type": "Person",
-                        "name": "Andreas Krimbacher"
-                    }]
-                }
-            }, null, 2);
+                        "name": "Simon Ganahl"
+                    },
+                    "funder": funder,
+                    "about": {
+                        "@type": "Event",
+                        "name": name,
+                        "startDate": this.selectedEvent.start.toISOString(),
+                        "endDate": this.selectedEvent.end.toISOString(),
+                        "location": {
+                            "@context": "https://schema.org",
+                            "@type": "Place",
+                            "geo": {
+                                "@type": "GeoCoordinates",
+                                "latitude": this.selectedEvent.coordinates.lat,
+                                "longitude": this.selectedEvent.coordinates.lng
+                            }
+                        }
+                    },
+                    "copyrightNotice": copyrightNotice,
+                    "isPartOf": {
+                        "@context": "https://schema.org",
+                        "@type": "WebSite",
+                        "url": "https://campusmedius.net",
+                        "author": [{
+                            "@context": "https://schema.org/",
+                            "@type": "Person",
+                            "name": "Simon Ganahl"
+                        },{
+                            "@context": "https://schema.org/",
+                            "@type": "Person",
+                            "name": "Susanne Kiesenhofer"
+                        },{
+                            "@context": "https://schema.org/",
+                            "@type": "Person",
+                            "name": "Andreas Krimbacher"
+                        }]
+                    }
+                }, null, 2);
+            }
         } else {
             jsonLdScript.text = "";
         }
