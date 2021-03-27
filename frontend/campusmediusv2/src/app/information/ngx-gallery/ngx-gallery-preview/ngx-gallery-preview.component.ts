@@ -458,6 +458,7 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
 
 
             if (this.types[this.index] === 'image') {
+               this.changeDetectorRef.markForCheck();
                 setTimeout(() => {
                     // if (this.isLoaded(this.previewImage.nativeElement)) {
                     //     this.loading = false;
@@ -465,19 +466,24 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
                     //     this.changeDetectorRef.markForCheck();
                     // } else {
                         setTimeout(() => {
-                            if (this.loading) {
+                            if (this.loading && !this.previewImage.nativeElement.complete) {
+                              console.log('loading')
                                 this.showSpinner = true;
                                 this.changeDetectorRef.markForCheck();
+                            } else {
+                              console.log('no loading')
+                              this.loading = false;
+                              this.changeDetectorRef.markForCheck();
                             }
                         })
 
-                        if (this.previewImage.nativeElement.complete) {
-                          this.loading = false;
-                          this.showSpinner = false;
-                          this.previewImage.nativeElement.onload = null;
-                          this.startAutoPlay();
-                          this.changeDetectorRef.markForCheck();
-                        }
+                        // if (this.previewImage.nativeElement.complete) {
+                        //   this.loading = false;
+                        //   this.showSpinner = false;
+                        //   this.previewImage.nativeElement.onload = null;
+                        //   this.startAutoPlay();
+                        //   this.changeDetectorRef.markForCheck();
+                        // }
 
                         this.previewImage.nativeElement.onload = () => {
                             this.loading = false;

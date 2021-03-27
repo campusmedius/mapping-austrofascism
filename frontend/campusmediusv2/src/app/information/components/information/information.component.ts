@@ -101,6 +101,12 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
                     componentRef.instance.media = this.media;
+                    this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
+                        this.galleryOpened.emit();
+                    }));
+                    this.subscriptions.push(componentRef.instance.closed.subscribe(() => {
+                        this.galleryClosed.emit();
+                    }));
 
                 } else if (e.tagName === 'CM-LINK-INTERN') {
                     const text = e.innerHTML;

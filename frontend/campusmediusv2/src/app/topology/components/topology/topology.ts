@@ -197,6 +197,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.previousMediator = null;
             }
 
+            this.atGod = false;
             if (this.selectedMediator) {
                 this.isStartPage = false;
                 if (this.selectedMediator.id === '0') {

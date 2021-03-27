@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, Output, EventEmitter } from '@angular/core';
 
-import { Block, InformationMedia } from '../../models/information';
+import { InformationMedia } from '../../models/information';
 
 @Component({
     selector: 'cm-quote',
@@ -17,6 +17,9 @@ export class QuoteComponent implements OnInit {
     get elementId() { 
         return 'q:' + this.id; 
     }
+
+    @Output() closed = new EventEmitter();
+    @Output() opened = new EventEmitter();
 
     constructor() { }
 

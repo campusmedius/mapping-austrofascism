@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
 
 import { NgxGalleryComponent } from '../../ngx-gallery/ngx-gallery.component';
 import { NgxGalleryOptions } from '../../ngx-gallery/ngx-gallery-options';
-import { NgxGalleryAnimation } from '../../ngx-gallery/ngx-gallery-animation';
 import { NgxGalleryImage } from '../../ngx-gallery/ngx-gallery-image';
 
 import { Image } from '../../models/information';
