@@ -1,7 +1,7 @@
 @import '../../../../scss/variables.scss';
 
 cm-start-page-selector {
-  height: calc(100vh - #{$header-height});
+  height: calc(100% - #{$header-height});
   position: fixed;
   top: $header-height;
   width: calc(100vw - 450px);
@@ -33,7 +33,7 @@ cm-start-page-selector {
 }
 
 .mobile-short-info {
-  height: calc(100vh - #{$header-height-mobile});
+  height: calc(100% - #{$header-height-mobile});
   display: flex;
   flex-direction: column;
   position: fixed;

@@ -40,7 +40,16 @@ export class AppComponent implements OnInit, OnDestroy {
             (<any>document).isIE = /*@cc_on!@*/false || !!(<any>document).documentMode;
             (<any>document).isEdge = !(<any>document).isIE && !!(<any>window).StyleMedia;
             (<any>document).isSafari = /constructor/i.test((<any>window).HTMLElement) || (function(p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+            
+            let vh = (<any>window).innerHeight * 0.01;
+            (<any>document).documentElement.style.setProperty('--vh', `${vh}px`);
+            window.addEventListener('resize', () => {
+                // We execute the same script as before
+                let vh = (<any>window).innerHeight * 0.01;
+                (<any>document).documentElement.style.setProperty('--vh', `${vh}px`);
+            });
         }
+        
 
         moment.updateLocale('en', {
             meridiem: function(hour, minute, isLowerCase) {

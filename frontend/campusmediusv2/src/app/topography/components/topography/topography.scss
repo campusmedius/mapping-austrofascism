@@ -2,7 +2,7 @@
 
 :host {
     display: block;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     position: relative;
     overflow: hidden;
     @media screen and (max-width: $break-mobile) {
@@ -34,13 +34,13 @@ cm-info-event-nav {
 }
 
 cm-map {
-    height: calc(100vh - #{$header-height});
+    height: calc(100% - #{$header-height});
     top: $header-height;
     width: 100%;
     position: fixed;
     @media screen and (max-width: $break-mobile) {
         display: block;
-        height: calc(100vh - #{$header-height-mobile});
+        height: calc(100% - #{$header-height-mobile});
         top: $header-height-mobile;
     }
 }

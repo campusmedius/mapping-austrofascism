@@ -2,7 +2,7 @@
 
 :host {
   display: block;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   position: relative;
   overflow: hidden;
   @media screen and (max-width: $break-mobile) {
@@ -14,7 +14,7 @@
 }
 
 cm-start-page-selector {
-  height: calc(100vh - 3.3rem);
+  height: calc(100% - 3.3rem);
   position: fixed;
   top: 3.3rem;
   width: 20%;
@@ -38,7 +38,7 @@ cm-start-page-selector {
 
 
 .mobile-short-info {
-  height: calc(100vh - #{$header-height-mobile});
+  height: calc(100% - #{$header-height-mobile});
   display: flex;
   flex-direction: column;
   position: fixed;
