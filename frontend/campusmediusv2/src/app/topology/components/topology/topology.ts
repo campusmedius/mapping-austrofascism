@@ -18,6 +18,7 @@ import { InfoContainerMobileComponent } from '@app/information/components/info-c
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { ThrowStmt } from '@angular/compiler';
 
 const SIDEPANEL_WIDTH = {
     full: '70%',
@@ -169,7 +170,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
             if (queryParams['info']) {
-                if (this.previousMediator && this.previousMediator.id === '0') {
+                if (this.previousMediator && this.previousMediator.id === '0' && !this.isMobile) {
                     this.sidepanelState = 'short';
                     if ( queryParams['info'] === 'full') {
                         this.godToFulltimer = setTimeout(() => {
@@ -182,7 +183,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
-                    setTimeout(() => this.infoContainerMobile.scrollToReference('top'));
+                    setTimeout(() => {
+                        if(this.infoContainerMobile) {
+                            this.infoContainerMobile.scrollToReference('top');
+                        }
+                    });
                 }
             }
             if (this.sidepanelState === 'short') {
@@ -542,8 +547,12 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                 });
             }
-            // do direct navigation to support internal links
-            if (!foundRelation) {
+            if (!foundRelation && this.previousMediation.id === this.selectedMediation.id) {
+                if(this.selectedMediation.id === '1') {
+                    infoBox.setSpaceTime(this.selectedMediator, null, null);
+                    this.map.flyToSovereignSign(this.selectedMediation, this.previousMediator, this.selectedMediator);
+                }
+            } else if (!foundRelation) {
                 this.map.showMediator(this.selectedMediation, this.selectedMediator);
                 infoBox.setSpaceTime(this.selectedMediator, 0, 0);
             }

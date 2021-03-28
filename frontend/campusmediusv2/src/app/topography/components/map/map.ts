@@ -189,6 +189,30 @@ export class MapComponent implements OnInit {
         });
     }
 
+    public jumpTo(coordinate: LngLat, zoom: number = null) {
+        if (!this.map) {
+            return;
+        }
+
+        if (!zoom) {
+            zoom = this.map.getZoom();
+        }
+
+        this.map.setZoom(zoom);
+
+        const mapCenterPixel = this.map.project(this.map.getCenter());
+        const visibleMapCenterPixel = this.getVisibleMapCenterPixel();
+        const coordPixel = this.map.project(coordinate);
+
+        const centerX = coordPixel.x + (mapCenterPixel.x - visibleMapCenterPixel.x);
+        const centerY = coordPixel.y + (mapCenterPixel.y - visibleMapCenterPixel.y);
+
+        this.map.jumpTo({
+            center: this.map.unproject(<Point>{ x: centerX, y: centerY }),
+            zoom: zoom
+        });
+    }
+
     public toogleViennaMap() {
         this.viennaMapVisible = !this.viennaMapVisible;
         if (this.viennaMapVisible) {

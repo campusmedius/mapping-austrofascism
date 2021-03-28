@@ -3,6 +3,8 @@ import { Mediator } from '@app/topology/models/mediator';
 import { Marker } from 'mapbox-gl';
 import { MapComponent } from '../map/map';
 import { Mediation } from '@app/topology/models/mediation';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'cm-map-mediator',
@@ -21,7 +23,7 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
 
     public mapAvailable = true;
 
-    constructor(private mapCmp: MapComponent) { }
+    constructor(private mapCmp: MapComponent,private router: Router) { }
 
     ngOnInit() {
         if (!this.mapCmp.map) {
@@ -39,6 +41,12 @@ export class MapMediatorComponent implements OnInit, OnDestroy {
         this.marker = new Marker(this.markerElement.nativeElement, { offset: [0, 0] })
             .setLngLat([this.mediator.coordinates.lng, this.mediator.coordinates.lat])
             .addTo(this.mapCmp.map);
+    }
+
+    navigate(path: string[]) {
+        this.router.navigate(path, {
+            queryParamsHandling: 'merge'
+        });
     }
 
     ngOnDestroy() {

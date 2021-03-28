@@ -35,10 +35,7 @@ export const routes: Routes = [
     },
     {
         path: 'about',
-        component: AboutPageComponent,
-        resolve: {
-            pages: PagesResolver
-        }
+        redirectTo: 'overview',
     },
     {
         path: 'team',

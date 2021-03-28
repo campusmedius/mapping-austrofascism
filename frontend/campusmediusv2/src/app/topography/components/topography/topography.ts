@@ -64,6 +64,7 @@ const SIDEPANEL_WIDTH = {
 export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     public events: Event[];
     public selectedEvent: Event;
+    public isFirst = true;
     public nextEvent: Event;
     public previousEvent: Event;
     public information: Information;
@@ -148,7 +149,11 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     setTimeout(() => this.infoContainerMobile.scrollToReference('top'));
                 }
                 if (this.selectedEvent) {
-                    setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
+                    if(!this.isFirst) {
+                        setTimeout(() => this.map.flyTo(this.selectedEvent.coordinates));
+                    } else {
+                        setTimeout(() => this.map.jumpTo(this.selectedEvent.coordinates));
+                    }
                 }
             }
             if (this.sidepanelState === 'short') {
@@ -177,7 +182,12 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                         infoContainer.scrollToReference(fragment);
                     }
                     if(this.map) {
-                        this.map.flyTo(this.selectedEvent.coordinates, 14);
+                        if(!this.isFirst) {
+                            this.map.flyTo(this.selectedEvent.coordinates, 14);
+                        } else {
+                            this.map.jumpTo(this.selectedEvent.coordinates, 14);
+                        }
+                        this.isFirst = false;
                     }
 
                     // set lang in url if not set
@@ -192,6 +202,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     }
                 });
             } else {
+                this.isFirst = false;
                 if (this.isMobile) {
                     setTimeout(() => this.map.flyTo(<any>[16.372472, 48.208417], 11));
                 } else {

@@ -53,6 +53,8 @@ export class CiteDialogComponent implements OnInit {
                 this.url += '/team';
             } else if(this.data.data.titleEn === 'Book Edition') {
                 this.url += '/book';
+            } else if(this.data.data.titleEn === 'Disclosure') {
+                this.url += '/disclosure';
             }
         } else {
             this.url = 'https://campusmedius.net';

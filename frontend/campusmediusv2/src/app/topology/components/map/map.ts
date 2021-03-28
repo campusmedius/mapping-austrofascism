@@ -221,6 +221,20 @@ export class MapComponent implements OnInit {
         }
     }
 
+    public flyToSovereignSign(mediation: Mediation, sourceMediator: Mediator, targetMediator: Mediator) {
+        if (!this.map) {
+            return
+        }
+
+        this.map.flyTo({
+            center: targetMediator.coordinates,
+            curve: 20,
+            duration: 5000,
+            zoom: targetMediator.zoom
+        });
+
+    }
+
     public showMediator(mediation: Mediation, mediator: Mediator) {
         if (!this.map) {
             return
