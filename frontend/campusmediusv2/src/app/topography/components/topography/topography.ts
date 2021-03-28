@@ -181,13 +181,15 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     }
 
                     // set lang in url if not set
-                    this.router.navigate(['.'], {
-                        relativeTo: this.route,
-                        queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-                        queryParamsHandling: 'merge',
-                        fragment: fragment,
-                        replaceUrl: true
-                    });
+                    if(!this.route.snapshot.queryParams.lang || !this.route.snapshot.queryParams.info) {
+                        this.router.navigate(['.'], {
+                            relativeTo: this.route,
+                            queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                            queryParamsHandling: 'merge',
+                            fragment: fragment,
+                            replaceUrl: true
+                        });
+                    }
                 });
             } else {
                 if (this.isMobile) {
@@ -495,14 +497,14 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public eventSelected(event: Event) {
-        (window as any).skipSectionChange = true;
+        (window as any).skipSectionChange += 1;
         this.router.navigate(['/topography', 'events', event.id],
             {
                 queryParamsHandling: 'preserve',
                 fragment: 'p:1'
             });
         setTimeout(() => {
-            (window as any).skipSectionChange = false;
+            (window as any).skipSectionChange -= 1;
             }, 200);
     }
 
@@ -517,8 +519,11 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     public mobileShowMore() {
-        this.sidepanelState = 'full';
-        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
+        (window as any).skipSectionChange += 1;
+        this.router.navigate([], { queryParams: { info: 'full' }, queryParamsHandling: 'merge' });
+        setTimeout(() => {
+            (window as any).skipSectionChange -= 1;
+          }, 2000);
     }
 
     public mobileShowShort() {
@@ -537,7 +542,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @HostListener('scroll')
     private onMobileScroll() {
-        if (this.galleryIsOpen) {
+        if (this.galleryIsOpen || (window as any).skipSectionChange) {
             return;
         }
 

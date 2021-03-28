@@ -88,13 +88,15 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
             fragment = fragment ? fragment : 'top';
             
             // set lang in url if not set
-            this.router.navigate(['.'], {
-                relativeTo: this.route,
-                queryParams: { 'lang': this.translate.currentLang },
-                queryParamsHandling: 'merge',
-                replaceUrl: true,
-                fragment: fragment
-            });
+            if(!this.route.snapshot.queryParams.lang || !this.route.snapshot.queryParams.info) {
+                this.router.navigate(['.'], {
+                    relativeTo: this.route,
+                    queryParams: { 'lang': this.translate.currentLang },
+                    queryParamsHandling: 'merge',
+                    replaceUrl: true,
+                    fragment: fragment
+                });
+            }
 
             this.updateSiteMetaAndTitle();
         });
@@ -241,7 +243,11 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
                     fragment = fragment ? fragment : 'top';
                     let infoContainer = this.isMobile ? this.infoContainerMobile : this.infoContainer;
                     if (infoContainer) {
+                        (window as any).skipSectionChange += 1;
                         infoContainer.scrollToReference(fragment, 100);
+                        setTimeout(() => {
+                            (window as any).skipSectionChange -= 1;
+                          }, 2000);
                     }
                 }, 0);
             } else {
@@ -275,17 +281,18 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public mobileShowShort() {
-        // this.app.removeHeader = false;
-        // setTimeout(() => {
-        //     this.showTitleHeaderMobile = false;
-        //     this.app.showHeader = true;
-        //     this.router.navigate( [ '/' ], { queryParamsHandling: 'merge' } );
-        // });
+        this.app.removeHeader = false;
+        setTimeout(() => {
+            this.showTitleHeaderMobile = false;
+            this.app.showHeader = true;
+            this.router.navigate( [ '/' ], { queryParamsHandling: 'merge' } );
+        });
+        
     }
 
     @HostListener('scroll')
     private onMobileScroll() {
-        if (this.galleryIsOpen) {
+        if (this.galleryIsOpen || (window as any).skipSectionChange) {
             return;
         }
 

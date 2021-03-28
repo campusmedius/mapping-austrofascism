@@ -29,14 +29,14 @@ export class LinkInternComponent implements OnInit {
 
     click(event) {
         event.preventDefault();
-        (window as any).skipSectionChange = true;
+        (window as any).skipSectionChange += 1;
         this.router.navigate([this.href], {
             queryParams: { 'info': this.info },
             queryParamsHandling: 'merge',
             fragment: this.fragment
         });
         setTimeout(() => {
-            (window as any).skipSectionChange = false;
+            (window as any).skipSectionChange -= 1;
           }, 200);
     }
 

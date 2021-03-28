@@ -38,7 +38,6 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
   private spiedElements;
   private parentElement;
   private currentSection: string;
-  private skipSectionChange = false;
   public galleryIsOpen = false;
 
   constructor(
@@ -73,15 +72,16 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
     }
   }
 
-  public scrollToReference(ref: string, duration=0, offset=-45) {
+  public scrollToReference(ref: string, duration=0, offset=-95) {
     if (isPlatformServer(this.platformId)) {
       return;
     }
 
-    (window as any).skipSectionChange = true;
+    (window as any).skipSectionChange += 1;
     
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
+        offset = -45;
     }
     this.information.openComponentByRef(ref);
     this.scrollToService.scrollTo({
@@ -90,7 +90,7 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
         duration: duration
     });
     setTimeout(() => {
-      (window as any).skipSectionChange = false;
+      (window as any).skipSectionChange -= 1;
     }, (duration + 50));
   }
 

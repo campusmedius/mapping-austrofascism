@@ -48,6 +48,8 @@ export class AppComponent implements OnInit, OnDestroy {
                 let vh = (<any>window).innerHeight * 0.01;
                 (<any>document).documentElement.style.setProperty('--vh', `${vh}px`);
             });
+
+            (window as any).skipSectionChange = 0;
         }
         
 

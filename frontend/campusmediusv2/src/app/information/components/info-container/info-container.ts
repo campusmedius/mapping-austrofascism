@@ -91,7 +91,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
       return;
     }
 
-    (window as any).skipSectionChange = true;
+    (window as any).skipSectionChange += 1;
     
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
@@ -104,7 +104,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
     });
     setTimeout(() => {
       this.emitTitleHeaderVisibility();
-      (window as any).skipSectionChange = false;
+      (window as any).skipSectionChange -= 1;
       this.onScroll();
     }, (duration + 50));
   }

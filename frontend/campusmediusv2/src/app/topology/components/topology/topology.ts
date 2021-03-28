@@ -61,8 +61,8 @@ const SIDEPANEL_WIDTH = {
             transition('false <=> true', animate('300ms ease-in'))
         ]),
         trigger('mapattribOpen', [
-            state('true', style({ 'width': '*', display: '*' })),
-            state('false', style({ 'width': '0px', display: 'none' })),
+            state('true', style({ 'width': '*', 'max-height': '140px', display: '*' })),
+            state('false', style({ 'width': '0px', 'max-height': '0px', display: 'none' })),
             transition('false => true', [
                 style({ 'display': 'block' }),
                 animate('300ms ease-in')
@@ -103,6 +103,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public atGod = false;
 
     private timer;
+    private godToFulltimer;
 
     sidepanelState = 'short'; // full, short
     sidepanelStateForLinksInGodSelector = 'short'
@@ -168,7 +169,17 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
             if (queryParams['info']) {
-                this.sidepanelState = queryParams['info'];
+                if (this.previousMediator && this.previousMediator.id === '0') {
+                    this.sidepanelState = 'short';
+                    if ( queryParams['info'] === 'full') {
+                        this.godToFulltimer = setTimeout(() => {
+                            this.sidepanelState = 'full';
+                            this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
+                        }, 4000);
+                    }
+                } else {
+                    this.sidepanelState = queryParams['info'];
+                }
                 this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
                 if (this.isMobile && this.sidepanelState === 'full') {
                     setTimeout(() => this.infoContainerMobile.scrollToReference('top'));
@@ -195,6 +206,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
             if (this.selectedMediation !== this.previousMediation) {
                 this.previousMediator = null;
+                clearTimeout(this.godToFulltimer);
             }
 
             this.atGod = false;
@@ -227,13 +239,15 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
 
                     // set lang in url if not set
-                    this.router.navigate(['.'], {
-                        relativeTo: this.route,
-                        queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
-                        queryParamsHandling: 'merge',
-                        fragment: fragment,
-                        replaceUrl: true
-                    });
+                    if(!this.route.snapshot.queryParams.lang || !this.route.snapshot.queryParams.info) {
+                        this.router.navigate(['.'], {
+                            relativeTo: this.route,
+                            queryParams: { 'lang': this.translate.currentLang, 'info': this.sidepanelState },
+                            queryParamsHandling: 'merge',
+                            fragment: fragment,
+                            replaceUrl: true
+                        });
+                    }
                 });
             } else {
                 this.isStartPage = true;
@@ -573,8 +587,11 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     public mobileShowMore() {
-        this.sidepanelState = 'full';
-        this.router.navigate([], { queryParams: { info: this.sidepanelState }, queryParamsHandling: 'merge' });
+        (window as any).skipSectionChange += 1;
+        this.router.navigate([], { queryParams: { info: 'full' }, queryParamsHandling: 'merge' });
+        setTimeout(() => {
+            (window as any).skipSectionChange -= 1;
+          }, 2000);
     }
 
     public mobileShowShort() {
@@ -586,7 +603,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @HostListener('scroll')
     private onMobileScroll() {
-        if (this.galleryIsOpen) {
+        if (this.galleryIsOpen || (window as any).skipSectionChange) {
             return;
         }
 

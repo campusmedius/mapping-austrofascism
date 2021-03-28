@@ -5,10 +5,6 @@
       display: flex;
       align-items: flex-end;
     }
-    min-width: 290px;
-    &.at-god {
-      min-width: 120px;
-    }
 
     border-radius: 3px;
     .meta-info-container {
@@ -82,10 +78,16 @@ button {
 .label {
     font-family: $caption-semibold-font;
     width: 65px;
+    min-width: 65px;
 }
 
 .content {
     font-family: $caption-regular-font;
+    min-width: 210px;
+}
+
+:host.at-god .content {
+  min-width: 60px;
 }
 
 ::ng-deep {

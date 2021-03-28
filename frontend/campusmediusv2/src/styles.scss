@@ -41,10 +41,16 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100vh; /* Fallback for browsers that do not support Custom Properties */
     height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
 }
+
+.cdk-overlay-pane {
+    max-height: calc(var(--vh, 1vh) * 90) !important;
+}
+
 
 h1 {
     font-family: $title-bold-font;
@@ -264,6 +270,7 @@ cm-header {
 
 
 .map-attrib {
+    overflow: hidden;
     border-radius: 3px;
     .map-attrib-inner {
         padding: 5px 10px;
@@ -300,8 +307,9 @@ cm-header {
         width: 26px !important;
         height: 26px !important;
         margin-top: 3px;
-        margin-right: 1px;
+        margin: 2px;
         background: #ffffff !important;
+        box-shadow: none !important;
         &:hover {
             background: #ffffff;
             &::before {
