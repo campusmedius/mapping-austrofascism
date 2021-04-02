@@ -259,7 +259,10 @@ cm-header {
     border-radius: 0px !important;
     .mat-menu-item {
         font-size: $small-font-size;   
-        height: 50px;
+        height: 55px;
+        @media screen and (max-width: $break-mobile) {
+            height: 50px;
+        }
         padding: 0 32px;
         &:hover {
             background: #8c8c8c;
@@ -268,6 +271,14 @@ cm-header {
     min-width: 240px !important;
 }
 
+cm-topology {
+ canvas {
+    cursor: default;
+ }
+ .marker {
+    cursor: default;
+ }
+}
 
 .map-attrib {
     overflow: hidden;
@@ -387,7 +398,7 @@ cm-header {
 ngx-gallery-thumbnails .ngx-gallery-arrow-left {
     left: -60px !important;
     .ngx-gallery-icon-content {
-        color: #8c8c8c !important;
+        color: #5a5a5a !important;
         font-size: 30px !important;
     }
 }
@@ -395,7 +406,7 @@ ngx-gallery-thumbnails .ngx-gallery-arrow-left {
 ngx-gallery-thumbnails .ngx-gallery-arrow-right {
     right: -60px !important;
     .ngx-gallery-icon-content {
-        color: #8c8c8c !important;
+        color: #5a5a5a !important;
         font-size: 30px !important;
     }
 }
