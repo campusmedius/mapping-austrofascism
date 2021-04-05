@@ -34,6 +34,7 @@ export class InfoContainerComponent implements OnInit, OnChanges {
   private currentSection: string;
   private currentShowTitleHeader = false;
 
+
   constructor(
     private element: ElementRef,
     private scrollToService: ScrollToService,
@@ -114,6 +115,6 @@ export class InfoContainerComponent implements OnInit, OnChanges {
       setTimeout(() => {
         (window as any).skipSectionChange -= 1;
       }, (duration + 50));
-    });
+    }, 250);
   }
 }

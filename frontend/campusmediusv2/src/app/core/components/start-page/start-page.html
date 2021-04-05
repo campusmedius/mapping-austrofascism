@@ -1,8 +1,8 @@
 <cm-start-page-selector *ngIf="!isMobile"></cm-start-page-selector>
-<cm-sidepanel *ngIf="!isMobile" width="470px">
+<cm-sidepanel *ngIf="!isMobile">
   <div *ngIf="page" class="info-container">
     <div class="info-content">
-      <cm-information [content]="translate.currentLang === 'de' ? page.abstractDe : page.abstractEn" [lang]="translate.currentLang"></cm-information>
+      <cm-information [content]="translate.currentLang === 'de' ? startTextDe : startTextEn" [lang]="translate.currentLang"></cm-information>
       <button mat-flat-button class="btn-read-more" color="warn" routerLink="/overview" routerLinkActive="active">{{'header.about' | translate | uppercase}}</button>
       <button mat-flat-button class="btn-read-more" color="warn" routerLink="/book" routerLinkActive="active">{{'header.book' | translate | uppercase}}</button>
       <button mat-flat-button class="btn-read-more" color="warn" routerLink="/team" routerLinkActive="active">{{'header.team' | translate | uppercase}}</button>
@@ -14,7 +14,7 @@
   <cm-start-page-selector></cm-start-page-selector>
   <div *ngIf="page" class="info">
       <div class="mobile-abstract">
-          <div [innerHTML]="translate.currentLang === 'de' ? page.mobileAbstractDe : page.mobileAbstractEn"></div>
+          <div [innerHTML]="translate.currentLang === 'de' ? startMobileTextDe : startMobileTextEn"></div>
       </div>
       <div class="intro">
           <button mat-flat-button (click)="mobileShowMore()" class="btn-read-more" color="warn">{{'header.about' | translate | uppercase}}</button>

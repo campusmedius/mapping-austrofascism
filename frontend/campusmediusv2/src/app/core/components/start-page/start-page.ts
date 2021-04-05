@@ -20,6 +20,12 @@ export class StartPageComponent implements OnInit, OnDestroy {
     isMobile = true;
     mediaSubscription: Subscription;
 
+    public startTextDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Kultur- und Medienwissenschaften. Die Felder auf der linken Seite führen direkt zur historischen Fallstudie. Wir empfehlen aber, zuerst den einführenden Überblick zu lesen.</p>';
+    public startTextEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies. The fields on the left lead directly to the historical case study. However, we recommend reading the introductory overview first.</p>';
+    public startMobileTextDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglich&shy;keiten der digitalen Karto&shy;grafie in den Kultur- und Medien&shy;wissen&shy;schaften.</p>';
+    public startMobileTextEn = '<p><i>Campus Medius</i> explores and expands the possi&shy;bilities of digital mapping in cultural and media studies.</p>';
+    
+
     constructor(
         private translate: TranslateService,
         private route: ActivatedRoute,

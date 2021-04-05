@@ -271,6 +271,38 @@ cm-header {
     min-width: 240px !important;
 }
 
+cm-gallery {
+    height: 220px;
+    background: #f4f4f4;
+    display: block;
+}
+
+cm-note, cm-image, cm-audio, cm-video {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: #a67481;
+    color: #a67481;
+    top: 1px;
+    position: relative;
+    overflow: hidden;
+    &.reset {
+        overflow: initial;
+        width: initial;
+        height: initial;
+        display: initial;
+        background: initial;
+        position: initial;
+        top: initial;
+        color: initial;
+    }
+}
+
+cm-link-intern, cm-link-inpage, cm-link-extern {
+    color: #a67481;
+    text-decoration: underline;
+}
+
 cm-topology {
  canvas {
     cursor: default;

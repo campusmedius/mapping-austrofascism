@@ -13,6 +13,13 @@
     }
 }
 
+cm-sidepanel {
+    width: 470px;
+    &.is-full {
+        width: 70%;
+    }
+}
+
 .info-container {
     color: $primary-font-color;
     height: 100%;

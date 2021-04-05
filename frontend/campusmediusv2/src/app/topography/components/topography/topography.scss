@@ -24,6 +24,13 @@ cm-info-event-nav {
     right: 0px;
 }
 
+cm-sidepanel {
+    width: 470px;
+    &.is-full {
+        width: 70%;
+    }
+}
+
 
 .row, .col {
     height: 100%;

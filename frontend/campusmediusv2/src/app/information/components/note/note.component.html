@@ -3,7 +3,7 @@
 </button>
 
 <div class="animation-container" [@container]="opened">
-    <div class="container">
+    <div *ngIf="opened" class="container">
         <cm-information [content]="content" [lang]="lang" [media]="media"></cm-information>
     </div>
 </div>

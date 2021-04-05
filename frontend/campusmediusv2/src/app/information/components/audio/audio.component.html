@@ -9,7 +9,7 @@
                     <source [src]="this.data.data.full" type="audio/mpeg">
                 </audio>
             </div>
-            <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe" [lang]="lang"></cm-caption>
+            <cm-caption *ngIf="opened" fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe" [lang]="lang"></cm-caption>
         </div>
     </div>
 </span>

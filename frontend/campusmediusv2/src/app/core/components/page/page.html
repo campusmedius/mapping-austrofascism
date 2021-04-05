@@ -1,6 +1,6 @@
 <cm-start-page-selector></cm-start-page-selector>
 
-<cm-sidepanel *ngIf="!isMobile" width="80%">
+<cm-sidepanel *ngIf="!isMobile">
   <div class="title-header" fxLayout="row" fxLayoutAlign=" center" [@titleHeader]="showTitleHeader">
       <button class="cite-button" [title]="translate.currentLang === 'de' ? 'Metadaten' : 'Metadata'" mat-icon-button (click)="showCite()">
           <span class="cm-square-quote-alt"></span>

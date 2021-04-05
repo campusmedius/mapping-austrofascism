@@ -21,6 +21,13 @@ import { SearchService } from './services/search';
 import { DisclosurePageComponent } from './components/disclosure-page/disclosure-page';
 
 
+import {Compiler, COMPILER_OPTIONS, CompilerFactory} from '@angular/core';
+import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
+export function createCompiler(compilerFactory: CompilerFactory) {
+  return compilerFactory.createCompiler();
+}
+
+
 export const COMPONENTS = [
     AppComponent,
     NotFoundPageComponent,
@@ -59,7 +66,11 @@ export class CoreModule {
     static forRoot(): ModuleWithProviders<CoreModule> {
     return {
         ngModule: CoreModule,
-        providers: [],
+        providers: [
+            {provide: COMPILER_OPTIONS, useValue: {}, multi: true},
+            {provide: CompilerFactory, useClass: JitCompilerFactory, deps: [COMPILER_OPTIONS]},
+            {provide: Compiler, useFactory: createCompiler, deps: [CompilerFactory]}
+        ],
     };
 }
 }

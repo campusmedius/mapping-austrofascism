@@ -1,7 +1,7 @@
 import {
     Component, OnInit, OnDestroy, OnChanges, Input, ElementRef, ComponentFactory,
-    ComponentFactoryResolver, ViewChild, ViewContainerRef, ComponentRef, Injector, ApplicationRef,
-    Output, EventEmitter, HostListener
+    ComponentFactoryResolver, ComponentRef, Injector, ApplicationRef,
+    Output, EventEmitter, ChangeDetectionStrategy, AfterViewInit
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { VideoComponent } from '../video/video.component';
     templateUrl: './information.component.html',
     styleUrls: ['./information.component.scss']
 })
-export class InformationComponent implements OnInit, OnDestroy, OnChanges {
+export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     @Input() content: string;
     @Input() lang: string;
     @Input() media: InformationMedia;
@@ -47,6 +47,8 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
 
     private componentRefs: ComponentRef<any>[] = [];
 
+    public loading = false;
+
     constructor(
         private element: ElementRef,
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -67,12 +69,40 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
     ngOnInit() {
     }
 
+    private insertIds() {
+        const elements = this.element.nativeElement.querySelectorAll(':scope > .wrapper > p, cm-note, cm-quote');
+            let paragraphId = 1;
+            let noteId = 1;
+            let quoteId = 1;
+            elements.forEach((e) => {
+                if (e.tagName === 'P') {
+                    e.id = 'p:' + paragraphId;
+                    paragraphId += 1;
+                    return
+                } else if (e.tagName === 'CM-NOTE') {
+                    e.id = noteId;
+                    noteId += 1;
+
+                } else if (e.tagName === 'CM-QUOTE') {
+                    e.id = quoteId;
+                    quoteId += 1;
+
+                }
+            });
+    }
+
+    ngAfterViewInit() {
+        this.insertIds();
+    }
+
     ngOnChanges() {
         this.destroyAllDynamicComponents();
+        this.insertIds();
         this.insertDynamicComponents();
     }
 
     private insertDynamicComponents() {
+        this.loading = false;
         setTimeout(() => {
             const elements = this.element.nativeElement.querySelectorAll(':scope > .wrapper > p, cm-note, cm-quote, cm-link-intern, cm-link-extern, cm-link-inpage, cm-gallery, cm-image, cm-video, cm-audio');
             let paragraphId = 1;
@@ -85,6 +115,7 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                     paragraphId += 1;
                     return
                 } else if (e.tagName === 'CM-NOTE') {
+                    e.classList.add('reset')
                     const content = e.innerHTML;
                     componentRef = this.noteFactory.create(this.injector, [], e);
                     componentRef.instance.id = noteId;
@@ -144,6 +175,7 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                         this.galleryClosed.emit();
                     }));
                 } else if (e.tagName === 'CM-IMAGE') {
+                    e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.imageFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
@@ -156,12 +188,14 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                         this.galleryClosed.emit();
                     }));
                 } else if (e.tagName === 'CM-VIDEO') {
+                    e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.videoFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
                     componentRef.instance.data = this.media.videos[id];
                     componentRef.instance.lang = this.lang;
                 } else if (e.tagName === 'CM-AUDIO') {
+                    e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.audioFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
@@ -171,16 +205,17 @@ export class InformationComponent implements OnInit, OnDestroy, OnChanges {
                 this.applicationRef.attachView(componentRef.hostView);
                 this.componentRefs.push(componentRef);
             });
-        });
+            this.loading = false;
+        },250);
     }
 
     private destroyAllDynamicComponents() {
         this.subscriptions.forEach((s) => {
             s.unsubscribe();
         });
-        this.componentRefs.forEach((c) => {
-            c.destroy();
-        });
+        // this.componentRefs.forEach((c) => {
+        //     c.destroy();
+        // });
     }
 
     public openComponentByRef(ref: string) {

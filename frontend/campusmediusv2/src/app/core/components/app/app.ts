@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { trigger, transition, animate, style, query, state } from '@angular/animations';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { trigger, transition, animate, style, state } from '@angular/animations';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
@@ -115,3 +114,5 @@ export class AppComponent implements OnInit, OnDestroy {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 }
+
+

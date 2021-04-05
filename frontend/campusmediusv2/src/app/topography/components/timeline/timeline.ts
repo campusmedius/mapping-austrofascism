@@ -136,11 +136,9 @@ export class TimelineComponent implements OnChanges, OnDestroy, AfterViewInit {
         }
 
         if (changes['events']) {
-            console.log(changes['events'].currentValue);
             this.setupRows(changes['events'].currentValue);
         }
         if (changes['filteredIds']) {
-            console.log(this.filteredIds);
         }
     }
 

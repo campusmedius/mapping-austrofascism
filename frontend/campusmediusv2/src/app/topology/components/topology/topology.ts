@@ -34,12 +34,12 @@ const SIDEPANEL_WIDTH = {
         trigger('sidenav', [
             state('full', style({ width: SIDEPANEL_WIDTH.full })),
             state('short', style({ width: SIDEPANEL_WIDTH.short })),
-            transition('* <=> *', animate('300ms ease-in'))
+            transition('* <=> *', animate('200ms ease-in'))
         ]),
         trigger('mediationsPanel', [
             state('full', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.full + ')' })),
             state('short', style({ width: 'calc(100vw - ' + SIDEPANEL_WIDTH.short + ')' })),
-            transition('* <=> *', animate('300ms ease-in'))
+            transition('* <=> *', animate('200ms ease-in'))
         ]),
         trigger('infoBox', [
             state('open', style({ bottom: '240px' })),
@@ -54,7 +54,7 @@ const SIDEPANEL_WIDTH = {
         trigger('mapLeftOffset', [
             state('full', style({ left: 'calc(-35% - 150px)' })),
             state('short', style({ left: '-385px' })),
-            transition('* <=> *', animate('300ms ease-in'))
+            transition('* <=> *', animate('200ms ease-in'))
         ]),
         trigger('titleHeader', [
             state('false', style({ opacity: 0 })),
@@ -166,6 +166,9 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.elementRef.nativeElement.style.webkitTransform = 'translate3d(0,0,0)';
         }
 
+        if (this.route.snapshot.queryParams.info === 'full') {
+            this.sidepanelState = 'full';
+        }
         this.sidepanelWidth = SIDEPANEL_WIDTH[this.sidepanelState];
 
         this.queryParamsSubscription = this.route.queryParams.subscribe(queryParams => {
