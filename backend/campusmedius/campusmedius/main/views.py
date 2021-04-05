@@ -250,3 +250,158 @@ def get_mediators_search_documents(lang):
                 index += 1
 
     return documents
+
+
+def insert_nbsp_in_text(text):
+    text = text.replace(' 1.0', '&nbsp;1.0')
+    text = text.replace(' 2.0', '&nbsp;2.0')
+
+    text = text.replace('Mapbox GL JS', 'Mapbox&nbsp;GL&nbsp;JS')
+    text = text.replace('Howell 2709', 'Howell&nbsp;2709')
+
+    text = text.replace('Howell 2709', 'Howell&nbsp;2709')
+
+    text = re.sub(r"([0-9]\.)\s(?!und)(.)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9])\s(Uhr)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9])\s(Stunden)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9])\s(Jahre)", r"\1&nbsp;\2", text)
+
+    text = text.replace('S. ', 'S.&nbsp;')
+    text = text.replace('Bd. ', 'Bd.&nbsp;')
+    text = text.replace('Bde. ', 'Bde.&nbsp;')
+    text = text.replace('Abb. ', 'Abb.&nbsp;')
+    text = text.replace('Taf. ', 'Taf.&nbsp;')
+    text = text.replace('Nr. ', 'Nr.&nbsp;')
+
+    text = text.replace('frz. ', 'S.&nbsp;')
+    text = text.replace('engl. ', 'S.&nbsp;')
+    text = text.replace('russ. ', 'S.&nbsp;')
+    text = text.replace('frz. ', 'S.&nbsp;')
+    text = text.replace('frz. ', 'S.&nbsp;')
+
+    text = re.sub(r"(frz\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(engl\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(russ\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(ital\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(dt\.)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = text.replace(' I.', '&nbsp;I.')
+    text = text.replace(' II.', '&nbsp;II.')
+    text = text.replace(' III', '&nbsp;III.')
+    text = text.replace(' XIV.', '&nbsp;XIV.')
+    text = text.replace(' XVIII.', '&nbsp;XVIII.')
+
+    text = re.sub(r"(u\.)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"(January)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(February)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(March)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(April)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(May)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(June)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(July)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(August)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(September)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(October)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(November)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(December)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"([0-9])\s(a\.m\.)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9])\s(p\.m\.)", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"(p\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(pp\.)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"([0-9])\s(years)", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"(vol\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(vols\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(fig\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(tab\.)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = text.replace('War I', 'War&nbsp;I')
+    text = text.replace('War II', 'War&nbsp;II')
+
+    text = text.replace('35 mm', '35&nbsp;mm')
+    text = text.replace('Leopold I', 'Leopold&nbsp;I')
+    text = text.replace('Francis I', 'Francis&nbsp;I')
+    text = text.replace('Gundacker I', 'Gundacker&nbsp;I')
+    text = text.replace('Joseph I', 'Joseph&nbsp;I')
+    text = text.replace('Erasmus I', 'Erasmus&nbsp;I')
+    text = text.replace('Ferdinand I', 'Ferdinand&nbsp;I')
+    text = text.replace('Maximilian I', 'Maximilian&nbsp;I')
+    text = text.replace('Charles I', 'Charles&nbsp;I')
+
+
+    text = text.replace(' ed.', '&nbsp;ed.')
+
+    # print(text)
+    for m in re.finditer('&nbsp;', text):
+        start = m.start() - 30
+        if start < 0:
+            start = 0
+        end = m.start() + 35
+        if end > len(text):
+            end = len(text)
+        print(text.replace('&nbsp;', '~').replace('\n', '')[start:end])
+
+    return text
+
+
+@api_view(['GET'])
+def insert_nbsp(request):
+
+    pages_all = Page.objects.all()
+    for page in pages_all:
+        page.abstract_de = insert_nbsp_in_text(page.abstract_de)
+        page.abstract_en = insert_nbsp_in_text(page.abstract_en)
+        page.mobile_abstract_de = insert_nbsp_in_text(page.mobile_abstract_de)
+        page.mobile_abstract_en = insert_nbsp_in_text(page.mobile_abstract_en)
+        page.save()
+
+        if page.information:
+            page.information.content_de = insert_nbsp_in_text(page.information.content_de)
+            page.information.content_en = insert_nbsp_in_text(page.information.content_en)
+            page.information.save()
+
+    events_all = Event.objects.all()
+    for event in events_all:
+        event.abstract_de = insert_nbsp_in_text(event.abstract_de)
+        event.abstract_en = insert_nbsp_in_text(event.abstract_en)
+        event.save()
+
+        if event.information:
+            event.information.content_de = insert_nbsp_in_text(event.information.content_de)
+            event.information.content_en = insert_nbsp_in_text(event.information.content_en)
+            event.information.save()
+
+    mediators_all = Mediator.objects.all()
+    for mediator in mediators_all:
+        mediator.abstract_de = insert_nbsp_in_text(mediator.abstract_de)
+        mediator.abstract_en = insert_nbsp_in_text(mediator.abstract_en)
+        mediator.save()
+
+        if mediator.information:
+            mediator.information.content_de = insert_nbsp_in_text(mediator.information.content_de)
+            mediator.information.content_en = insert_nbsp_in_text(mediator.information.content_en)
+            mediator.information.save()
+
+    images_all = Image.objects.all()
+    for image in images_all:
+        image.caption_de = insert_nbsp_in_text(image.caption_de)
+        image.caption_en = insert_nbsp_in_text(image.caption_en)
+        image.save()
+
+    videos_all = Video.objects.all()
+    for video in videos_all:
+        video.caption_de = insert_nbsp_in_text(video.caption_de)
+        video.caption_en = insert_nbsp_in_text(video.caption_en)
+        video.save()
+
+    audios_all = Audio.objects.all()
+    for audio in audios_all:
+        audio.caption_de = insert_nbsp_in_text(audio.caption_de)
+        audio.caption_en = insert_nbsp_in_text(audio.caption_en)
+        audio.save()
+            
+    return Response({"success": True})
