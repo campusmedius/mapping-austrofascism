@@ -48,11 +48,14 @@
 }
 
 .god-info-content {
-    margin-top: 10px;
+    margin-top: -20px;
     .cite-button {
         position: relative;
-        top: 85px;
+        top: 35px;
         left: -50px;
+    }
+    h2 {
+        margin-top: 0px;
     }
 }
 

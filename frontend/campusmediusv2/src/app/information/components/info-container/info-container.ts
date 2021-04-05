@@ -91,22 +91,29 @@ export class InfoContainerComponent implements OnInit, OnChanges {
       return;
     }
 
-    (window as any).skipSectionChange += 1;
-    
     if (ref === 'top' || ref === 'p:1') {
         ref = '#info-top';
     }
-    this.information.openComponentByRef(ref);
-    this.scrollToService.scrollTo({
-        target: ref,
-        offset: offset,
-        duration: duration
-    });
-    setTimeout(() => {
-      this.emitTitleHeaderVisibility();
-      (window as any).skipSectionChange -= 1;
-      this.onScroll();
-    }, (duration + 50));
-  }
 
+    setTimeout(() => {
+      (window as any).skipSectionChange += 1;
+      const refElement = document.getElementById(ref.replace('#', ''));
+      if(refElement) {
+        this.information.openComponentByRef(ref);
+        this.scrollToService.scrollTo({
+              target: refElement,
+              offset: offset,
+              duration: duration
+          }).subscribe(
+            value => {
+              this.emitTitleHeaderVisibility();
+              this.onScroll();
+            }
+          );
+      }
+      setTimeout(() => {
+        (window as any).skipSectionChange -= 1;
+      }, (duration + 50));
+    });
+  }
 }

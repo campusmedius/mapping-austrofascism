@@ -20,12 +20,6 @@ export class StartPageComponent implements OnInit, OnDestroy {
     isMobile = true;
     mediaSubscription: Subscription;
 
-    public startTextDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Kultur- und Medienwissenschaften. Die Felder auf der linken Seite führen direkt zur historischen Fallstudie. Wir empfehlen aber, zuerst den einführenden Überblick zu lesen.</p>';
-    public startTextEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies. The fields on the left lead directly to the historical case study. However, we recommend reading the introductory overview first.</p>';
-    public startMobileTextDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglich­keiten der digitalen Karto­grafie in den Kultur- und Medienwissenschaften.</p>';
-    public startMobileTextEn = '<p><i>Campus Medius</i>&nbsp;explores and expands the possi&shy;bilities of digital mapping in cultural and media studies.</p>';
-
-
     constructor(
         private translate: TranslateService,
         private route: ActivatedRoute,
@@ -72,7 +66,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
         description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn).replace(/<[^>]*>/g, '');
         alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
         canonicalUrl += '?lang=' + this.translate.currentLang;
-        const screenshotUrl = this.translate.currentLang === 'de' ? "https://campusmedius.net/assets/screenshot_de.jpg" : "https://campusmedius.net/assets/screenshot_en.jpg"     
+        const screenshotUrl = this.translate.currentLang === 'de' ? "https://campusmedius.net/assets/screenshot_de.png" : "https://campusmedius.net/assets/screenshot_en.png"     
         
         
         this.title.setTitle(title);

@@ -2,7 +2,7 @@
 <div class="container">
     <form class="search-form">
         <mat-form-field class="example-full-width" floatLabel="never">
-        <input #searchElement matInput (keyup)="searchByTerm($event.target.value)" autocomplete="off" placeholder="{{'search.placeholder' | translate}}">
+        <input #searchElement matInput (keydown)="$event.keyCode == 13 ? $event.preventDefault() : null" (keyup)="searchByTerm($event.target.value)" autocomplete="off" placeholder="{{'search.placeholder' | translate}}">
         <mat-icon class="cm-search" matSuffix></mat-icon>
         </mat-form-field>
     </form>

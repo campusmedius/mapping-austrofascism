@@ -70,9 +70,6 @@ export class MapComponent implements OnInit {
     }
 
     animateRoute(source: Mediator, target: Mediator) {
-        const bearing = turf.bearing([source.coordinates.lng, source.coordinates.lat],
-                                     [target.coordinates.lng, target.coordinates.lat]);
-
         const distance = turf.distance([source.coordinates.lng, source.coordinates.lat],
                                        [target.coordinates.lng, target.coordinates.lat]);
 
@@ -116,7 +113,7 @@ export class MapComponent implements OnInit {
             pitch: 55,
             bearing: -21.6,
             zoom: 16.6, // starting zoom
-            // interactive: false TODO: activate before launch
+            interactive: false
         });
 
         this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');
@@ -227,12 +224,17 @@ export class MapComponent implements OnInit {
         }
 
         this.map.flyTo({
-            center: targetMediator.coordinates,
-            curve: 20,
-            duration: 5000,
-            zoom: targetMediator.zoom
+            center: [16.372472, 48.208417],
+            duration: 2000,
+            zoom: 11
         });
-
+        this.map.once('moveend', () => {
+            this.map.flyTo({
+                center: targetMediator.coordinates,
+                duration: 2000,
+                zoom: targetMediator.zoom
+            });
+        });
     }
 
     public showMediator(mediation: Mediation, mediator: Mediator) {
@@ -255,7 +257,7 @@ export class MapComponent implements OnInit {
 
         this.map.jumpTo({
             center: mediator.coordinates,
-            zoom: mediator.zoom,
+            zoom: (this.isMobile === true && mediation.id === '3') ? (mediator.zoom - 0.5) : mediator.zoom,
             pitch: (this.isMobile === false) ? mediator.pitch : (mediator.pitch - 10),
             bearing: mediator.bearing
         });

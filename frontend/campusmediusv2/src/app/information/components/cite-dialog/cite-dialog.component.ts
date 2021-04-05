@@ -68,12 +68,12 @@ export class CiteDialogComponent implements OnInit {
 
         this.data.data.created.locale('de-at');
         this.data.data.updated.locale('de-at');
-        this.publishedDe = this.data.data.created.format('D.\u00a0MMMM\u00a0YYYY');
-        this.updatedDe = this.data.data.updated.format('D.\u00a0MMMM\u00a0YYYY');
+        this.publishedDe = this.data.data.created.format('D.\u00a0MMMM YYYY');
+        this.updatedDe = this.data.data.updated.format('D.\u00a0MMMM YYYY');
         this.data.data.created.locale('en');
         this.data.data.updated.locale('en');
-        this.publishedEn = this.data.data.created.format('MMMM\u00a0D,\u00a0YYYY');
-        this.updatedEn = this.data.data.updated.format('MMMM\u00a0D,\u00a0YYYY');
+        this.publishedEn = this.data.data.created.format('MMMM\u00a0D, YYYY');
+        this.updatedEn = this.data.data.updated.format('MMMM\u00a0D, YYYY');
         this.updatedYear = this.data.data.updated.format('YYYY');
 
         this.abstractEn = this.data.data.abstractEn.replace(/<p>/g, '').replace(/<\/p>/g, '');
