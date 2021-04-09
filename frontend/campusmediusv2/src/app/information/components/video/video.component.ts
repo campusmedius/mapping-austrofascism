@@ -43,6 +43,7 @@ export class VideoComponent implements OnInit {
     @ViewChild('video') videoElement: ElementRef;
 
     public opened = false;
+    public openedFirst = false;
     private hls: Hls;
 
     constructor() { }
@@ -52,6 +53,7 @@ export class VideoComponent implements OnInit {
     toggle() {
         if (!this.opened) {
             this.opened = true;
+            this.openedFirst = true;
             if (Hls.isSupported()) {
                 this.hls = new Hls({
                     maxBufferLength: 10,

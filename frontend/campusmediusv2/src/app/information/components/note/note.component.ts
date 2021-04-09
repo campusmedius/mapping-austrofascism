@@ -40,6 +40,7 @@ export class NoteComponent implements OnInit {
     }
 
     public opened = false;
+    public openedFirst = false;
 
     constructor() { }
 
@@ -48,6 +49,15 @@ export class NoteComponent implements OnInit {
 
     public openInline() {
         this.opened = true;
+        this.openedFirst = true;
     }
+
+    public toogle() {
+        this.opened = !this.opened;
+        if(this.opened) {
+            this.openedFirst = true;
+        }
+    }
+
 
 }

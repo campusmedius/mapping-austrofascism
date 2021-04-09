@@ -60,6 +60,7 @@ export class ImageComponent implements OnInit, OnDestroy {
     public isMobile: boolean;
 
     public isOpen = false;
+    public openedFirst = false;
 
     mediaSubscription: Subscription;
 
@@ -112,6 +113,14 @@ export class ImageComponent implements OnInit, OnDestroy {
 
     public openInline() {
         this.isOpen = true;
+        this.openedFirst = true;
+    }
+
+    public toggle() {
+        this.isOpen = !this.isOpen;
+        if(this.isOpen) {
+            this.openedFirst = true;
+        }
     }
 
     public showImage() {

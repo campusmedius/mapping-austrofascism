@@ -251,20 +251,60 @@ def get_mediators_search_documents(lang):
 
     return documents
 
-
 def insert_nbsp_in_text(text):
+    text = text.replace(' <cm-note', '&nbsp;<cm-note')
+    text = text.replace(' <cm-image', '&nbsp;<cm-image')
+    text = text.replace(' <cm-audio', '&nbsp;<cm-audio')
+    text = text.replace(' <cm-video', '&nbsp;<cm-video')
+
     text = text.replace(' 1.0', '&nbsp;1.0')
     text = text.replace(' 2.0', '&nbsp;2.0')
 
     text = text.replace('Mapbox GL JS', 'Mapbox&nbsp;GL&nbsp;JS')
     text = text.replace('Howell 2709', 'Howell&nbsp;2709')
 
-    text = text.replace('Howell 2709', 'Howell&nbsp;2709')
+    text = text.replace(' GmbH', '&nbsp;GmbH')
+    text = text.replace(' AG', '&nbsp;AG')
+    text = text.replace('Dr. ', 'Dr.&nbsp;')
+    text = text.replace('Mr. ', 'Mr.&nbsp;')
 
-    text = re.sub(r"([0-9]\.)\s(?!und)(.)", r"\1&nbsp;\2", text)
+    text = re.sub(r"(straße)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(strasse)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Straße)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Strasse)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(gasse)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Wienzeile)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"([0-9])\s(cm)", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"(box)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Box)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(box)\s(I)", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Box)\s(I)", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"(Mappe)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(folder)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"([0-9]\.)\s(Jänner)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Februar)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(März)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(April)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Mai)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Juni)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Juli)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(August)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(September)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Oktober)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(November)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Dezember)", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"([0-9]\.)\s(Jahrhundert)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9]\.)\s(Jahrhunderts)", r"\1&nbsp;\2", text)
+
     text = re.sub(r"([0-9])\s(Uhr)", r"\1&nbsp;\2", text)
     text = re.sub(r"([0-9])\s(Stunden)", r"\1&nbsp;\2", text)
     text = re.sub(r"([0-9])\s(Jahre)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9])\s(Bilder)", r"\1&nbsp;\2", text)
 
     text = text.replace('S. ', 'S.&nbsp;')
     text = text.replace('Bd. ', 'Bd.&nbsp;')
@@ -272,12 +312,8 @@ def insert_nbsp_in_text(text):
     text = text.replace('Abb. ', 'Abb.&nbsp;')
     text = text.replace('Taf. ', 'Taf.&nbsp;')
     text = text.replace('Nr. ', 'Nr.&nbsp;')
-
-    text = text.replace('frz. ', 'S.&nbsp;')
-    text = text.replace('engl. ', 'S.&nbsp;')
-    text = text.replace('russ. ', 'S.&nbsp;')
-    text = text.replace('frz. ', 'S.&nbsp;')
-    text = text.replace('frz. ', 'S.&nbsp;')
+    
+    text = re.sub(r"([0-9]\.)\s(Teilband)", r"\1&nbsp;\2", text)
 
     text = re.sub(r"(frz\.)\s([0-9])", r"\1&nbsp;\2", text)
     text = re.sub(r"(engl\.)\s([0-9])", r"\1&nbsp;\2", text)
@@ -287,11 +323,16 @@ def insert_nbsp_in_text(text):
 
     text = text.replace(' I.', '&nbsp;I.')
     text = text.replace(' II.', '&nbsp;II.')
-    text = text.replace(' III', '&nbsp;III.')
+    text = text.replace(' III.', '&nbsp;III.')
     text = text.replace(' XIV.', '&nbsp;XIV.')
     text = text.replace(' XVIII.', '&nbsp;XVIII.')
 
     text = re.sub(r"(u\.)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = text.replace('Modell 2709', 'Modell&nbsp;2709')
+    text = text.replace('Modells 2709', 'Modells&nbsp;2709')
+
+    text = text.replace('Magistratsabteilung 5', 'Magistratsabteilung&nbsp;5')
 
     text = re.sub(r"(January)\s([0-9])", r"\1&nbsp;\2", text)
     text = re.sub(r"(February)\s([0-9])", r"\1&nbsp;\2", text)
@@ -313,6 +354,7 @@ def insert_nbsp_in_text(text):
     text = re.sub(r"(pp\.)\s([0-9])", r"\1&nbsp;\2", text)
 
     text = re.sub(r"([0-9])\s(years)", r"\1&nbsp;\2", text)
+    text = re.sub(r"([0-9])\s(frames)", r"\1&nbsp;\2", text)
 
     text = re.sub(r"(vol\.)\s([0-9])", r"\1&nbsp;\2", text)
     text = re.sub(r"(vols\.)\s([0-9])", r"\1&nbsp;\2", text)
@@ -332,8 +374,14 @@ def insert_nbsp_in_text(text):
     text = text.replace('Maximilian I', 'Maximilian&nbsp;I')
     text = text.replace('Charles I', 'Charles&nbsp;I')
 
-
     text = text.replace(' ed.', '&nbsp;ed.')
+
+    text = text.replace('2709 model', '2709&nbsp;model')
+
+    text = re.sub(r"(No\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(no\.)\s([0-9])", r"\1&nbsp;\2", text)
+
+    text = re.sub(r"(department)\s([0-9])", r"\1&nbsp;\2", text)
 
     # print(text)
     for m in re.finditer('&nbsp;', text):

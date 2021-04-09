@@ -45,6 +45,9 @@ export class SearchService {
         const terms = term.split(' ');
         let enhancedTerm = '';
         terms.forEach((t) => {
+          t = t.replace('gasse', 'gass*')
+          t = t.replace('Gasse', 'Gass*')
+          
           enhancedTerm += '*' + t + '* ';
           enhancedTerm += t + ' ';
         });

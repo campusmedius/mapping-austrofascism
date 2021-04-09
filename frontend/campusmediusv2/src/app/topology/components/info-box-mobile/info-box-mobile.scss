@@ -34,7 +34,7 @@
         }
     }
     @media screen and (max-width: $break-mobile) {  
-        max-width: calc(100vw - 85px);
+        max-width: calc(100vw - 30px);
     }
 }
 
@@ -83,7 +83,9 @@ button {
 
 .content {
     font-family: $caption-regular-font;
-    min-width: 210px;
+    @media screen and (min-width: $break-mobile) {  
+      min-width: 210px;
+    }
 }
 
 :host.at-god .content {

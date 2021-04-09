@@ -555,6 +555,14 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                     infoBox.setSpaceTime(this.selectedMediator, null, null);
                     this.map.flyToSovereignSign(this.selectedMediation, this.previousMediator, this.selectedMediator);
                 }
+                if(this.selectedMediation.id === '2') {
+                    if(this.selectedMediator.id < this.previousMediator.id) {
+                        infoBox.navigateToMediator(this.selectedMediator, null, 'backward');
+                    } else {
+                        infoBox.navigateToMediator(this.selectedMediator, null, 'forward');
+                    }
+                    this.map.doNavigation(this.selectedMediation, this.previousMediator, this.selectedMediator);
+                }
             } else if (!foundRelation) {
                 this.map.showMediator(this.selectedMediation, this.selectedMediator);
                 infoBox.setSpaceTime(this.selectedMediator, 0, 0);

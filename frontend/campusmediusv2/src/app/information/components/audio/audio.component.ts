@@ -39,6 +39,7 @@ export class AudioComponent implements OnInit {
     }
 
     public opened = false;
+    public openedFirst = false;
 
     constructor() { }
 
@@ -50,5 +51,13 @@ export class AudioComponent implements OnInit {
 
     public openInline() {
         this.opened = true;
+        this.openedFirst = true;
+    }
+
+    public toggle() {
+        this.opened = !this.opened;
+        if(this.opened) {
+            this.openedFirst = true;
+        }
     }
 }

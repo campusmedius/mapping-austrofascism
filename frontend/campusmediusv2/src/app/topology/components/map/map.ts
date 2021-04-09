@@ -224,7 +224,7 @@ export class MapComponent implements OnInit {
         }
 
         this.map.flyTo({
-            center: [16.372472, 48.208417],
+            // center: [16.372472, 48.208417],
             duration: 2000,
             zoom: 11
         });
