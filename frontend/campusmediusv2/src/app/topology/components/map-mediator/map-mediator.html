@@ -1,6 +1,5 @@
 <div #marker *ngIf="mapAvailable"
-     class="marker"
-     [ngClass]="{'active': true, 'selected': selected}">
+     class="marker selected">
     <div class="outer">
         <div class="icon-relation up cm-chevron-double-up"
              *ngIf="mediation.id === '1'"

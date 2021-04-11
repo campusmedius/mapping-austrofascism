@@ -107,8 +107,10 @@ export class InfoContainerComponent implements OnInit, OnChanges {
               duration: duration
           }).subscribe(
             value => {
-              this.emitTitleHeaderVisibility();
               this.onScroll();
+              setTimeout(() => {
+                this.emitTitleHeaderVisibility();
+              }, 0);
             }
           );
       }

@@ -81,7 +81,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
     public focusedMediation: Mediation;
     public previousMediation: Mediation;
     public mediators: Mediator[];
-    public visibleMediators: Mediator[];
+    public visibleMediator: Mediator;
     public selectedMediator: Mediator;
     public focusedMediator: Mediator;
     public previousMediator: Mediator = null;
@@ -209,7 +209,7 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
             this.mediations = data.mediations;
             this.selectedMediation = data.selectedMediation;
             this.mediators = data.mediators;
-            this.visibleMediators = [];
+            this.visibleMediator = null;
             this.selectedMediator = data.selectedMediator ? data.selectedMediator : null;
 
             if (this.selectedMediation !== this.previousMediation) {
@@ -233,7 +233,15 @@ export class TopologyComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                 } else {
                     this.atGod = false;
-                    this.visibleMediators = [ this.selectedMediator ];
+                    if (this.selectedMediation !== this.previousMediation) {
+                        setTimeout(() => {
+                            this.visibleMediator = this.selectedMediator;
+                        }, 0)
+                    } else {
+                        setTimeout(() => {
+                            this.visibleMediator = this.selectedMediator;
+                        }, 2000)
+                    }
                 }
 
                 this.information = this.selectedMediator.information;

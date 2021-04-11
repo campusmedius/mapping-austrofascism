@@ -19,14 +19,14 @@
     [isMobile]="isMobile"
     [@mapTopOffset]="mediationState"
     [@mapLeftOffset]="sidepanelState" >
-    <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
+    <cm-map-mediator *ngIf="visibleMediator" [mediator]="visibleMediator" [mediation]="selectedMediation" [lang]="translate.currentLang">
     </cm-map-mediator>
 </cm-map>
 <cm-map *ngIf="isMobile && selectedMediator"
     [selectedMediation]="selectedMediation"
     [selectedMediator]="selectedMediator" 
     [isMobile]="isMobile">
-    <cm-map-mediator *ngFor="let mediator of visibleMediators" [mediator]="mediator" [mediation]="selectedMediation" [lang]="translate.currentLang" [selected]="mediator === selectedMediator">
+    <cm-map-mediator *ngIf="visibleMediator" [mediator]="visibleMediator" [mediation]="selectedMediation" [lang]="translate.currentLang">
     </cm-map-mediator>
 </cm-map>
 
