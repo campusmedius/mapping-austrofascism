@@ -110,6 +110,9 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
         let alternateUrl;
         name = (this.translate.currentLang === 'de' ? this.page.titleDe : this.page.titleEn);
         keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
+        keywords = keywords.sort(function (a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
         description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn);
 
         if(this.page.titleEn === 'Overview') {
