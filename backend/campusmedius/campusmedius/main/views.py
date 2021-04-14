@@ -356,10 +356,12 @@ def insert_nbsp_in_text(text):
     text = re.sub(r"([0-9])\s(years)", r"\1&nbsp;\2", text)
     text = re.sub(r"([0-9])\s(frames)", r"\1&nbsp;\2", text)
 
-    text = re.sub(r"(vol\.)\s([0-9])", r"\1&nbsp;\2", text)
-    text = re.sub(r"(vols\.)\s([0-9])", r"\1&nbsp;\2", text)
-    text = re.sub(r"(fig\.)\s([0-9])", r"\1&nbsp;\2", text)
-    text = re.sub(r"(tab\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(vol\.)\s([0-9I])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(vols\.)\s([0-9I])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Vol\.)\s([0-9I])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(Vols\.)\s([0-9I])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(fig\.)\s([0-9I])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(tab\.)\s([0-9I])", r"\1&nbsp;\2", text)
 
     text = text.replace('War I', 'War&nbsp;I')
     text = text.replace('War II', 'War&nbsp;II')
@@ -373,13 +375,16 @@ def insert_nbsp_in_text(text):
     text = text.replace('Ferdinand I', 'Ferdinand&nbsp;I')
     text = text.replace('Maximilian I', 'Maximilian&nbsp;I')
     text = text.replace('Charles I', 'Charles&nbsp;I')
+    text = text.replace('Frederick III', 'Frederick&nbsp;III')
+    text = text.replace('Louis XIV', 'Louis&nbsp;XIV')
+    text = text.replace('Louis XVIII', 'Louis&nbsp;XVIII')
 
     text = text.replace(' ed.', '&nbsp;ed.')
 
     text = text.replace('2709 model', '2709&nbsp;model')
 
-    text = re.sub(r"(No\.)\s([0-9])", r"\1&nbsp;\2", text)
-    text = re.sub(r"(no\.)\s([0-9])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(No\.)\s([0-9I])", r"\1&nbsp;\2", text)
+    text = re.sub(r"(no\.)\s([0-9I])", r"\1&nbsp;\2", text)
 
     text = re.sub(r"(department)\s([0-9])", r"\1&nbsp;\2", text)
 
