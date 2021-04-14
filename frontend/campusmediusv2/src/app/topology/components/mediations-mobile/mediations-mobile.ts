@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Mediator } from '@app/topology/models/mediator';
 
 
-const OPENED_HEIGHT = '180px';
+const OPENED_HEIGHT = '140px';
 const CLOSED_HEIGHT = '40px';
 
 
@@ -31,6 +31,11 @@ const CLOSED_HEIGHT = '40px';
         trigger('panel', [
             state('true', style({ height: OPENED_HEIGHT })),
             state('false', style({ height: CLOSED_HEIGHT })),
+            transition('false <=> true', animate('300ms ease-in'))
+        ]),
+        trigger('header', [
+            state('false', style({ height: CLOSED_HEIGHT })),
+            state('true', style({ height: '0px' })),
             transition('false <=> true', animate('300ms ease-in'))
         ])
     ]

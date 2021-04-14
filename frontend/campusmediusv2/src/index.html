@@ -53,7 +53,7 @@
         <span style="font-family: 'Source Serife Pro Italic';"></span>
     </div>
 
-    <cm-app>
+    <cm-app id="cm-app">
         <div class="spinner"><i class="fas fa-spinner"></i></div>
     </cm-app>
     <div id="isie">
@@ -69,6 +69,7 @@
      // IE stuff
      var isIE = /*@cc_on!@*/false || !!document.documentMode;
      if (isIE) document.getElementById("isie").style.display = "block";
+     if (isIE) document.getElementById("cm-app").style.display = "none";
     </script>
 </body>
 </html>

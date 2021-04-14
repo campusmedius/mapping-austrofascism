@@ -1,4 +1,4 @@
-<div class="header" (click)="toggle()">
+<div class="header" (click)="toggle()" [@header]="opened">
     <button mat-flat-button color="warn" class="panel-control">
         <mat-icon fontSet="fa" fontIcon="fa-caret-down" [@panelControl]="opened"></mat-icon>
     </button>

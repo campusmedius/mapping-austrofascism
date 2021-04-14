@@ -5,6 +5,7 @@
     position: absolute;
     z-index: 9;
     bottom: 0px;
+    opacity: 0.9;
     @media screen and (max-width: $break-mobile) {
         bottom: auto;
         width: 100% !important;

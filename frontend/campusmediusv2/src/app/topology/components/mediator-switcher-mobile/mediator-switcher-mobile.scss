@@ -40,6 +40,9 @@
     padding: 0px 12px;
     border-radius: 4px;
     line-height: 1.7;
+    @media screen and (max-height: 539px) {
+      display: none;
+  }
 }
 
 .gallery-item {

@@ -45,7 +45,7 @@ const SIDEPANEL_WIDTH = {
             transition('* <=> *', animate('200ms ease-in'))
         ]),
         trigger('infoEventNav', [
-            state('full', style({ right: '50px' })),
+            state('full', style({ right: '60px' })),
             state('short', style({ right: '0px' })),
             transition('* <=> *', animate('300ms ease-in'))
         ]),

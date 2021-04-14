@@ -392,7 +392,7 @@ cm-topology {
         opacity: 0.9;
     }
     @media screen and (max-width: $break-mobile) {  
-        max-width: calc(100vw - 85px);
+        max-width: calc(100vw - 30px);
     }
 }
 

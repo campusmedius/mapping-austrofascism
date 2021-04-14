@@ -96,6 +96,8 @@ def get_pages_search_documents(lang):
             path = '/team'
         elif page.title_en == "Book Edition":
             path = '/book'
+        elif page.title_en == "Disclosure":
+            path = '/disclosure'
 
         title = re.sub('<[^<]+?>', '', getattr(page, "title_" + lang))
 
