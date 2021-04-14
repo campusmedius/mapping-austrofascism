@@ -5,6 +5,7 @@
     position: absolute;
     z-index: 9;
     bottom: 0px;
+    opacity: 0.9;
     @media screen and (max-width: $break-mobile) {
         bottom: auto;
         width: 100% !important;
@@ -17,7 +18,7 @@
     background: $map-overlay-background-color;
     color: white;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 15px;
     font-family: $title-regular-font;
     overflow: hidden;
     .panel-control {
@@ -51,7 +52,10 @@
 }
 
 .header {
-    padding: 6px 0px;
+    .title {
+        padding: 6px 0px;
+        display: inline-block;
+    }
     font-family: $title-regular-font;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -65,7 +69,8 @@
 }
 
 .events {
-    margin-top: 25px;
+    margin-top: 35px;
+    padding: 0px 5px;
 }
 
 .events-row {
@@ -89,17 +94,16 @@
     min-width: 5px;
     width: 100%;
     height: 100%;
-    background: white;
+    background: $clickable-color;
     border-radius: 1px;
-    opacity: 0.4;
     &.active {
-        opacity: 1;
+        background: white;
     }
     &.selected {
-        opacity: 1;
-        background: #b18691;
+        background: $accent-color;
     }
 }
+
 
 .baseline {
     position: relative;

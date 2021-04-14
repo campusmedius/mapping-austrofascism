@@ -9,7 +9,7 @@
                 <video #video controls controlsList="nodownload" preload="metadata" (contextmenu)="onRightClick($event)">
                 </video>
             </div>
-            <cm-caption fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe" [lang]="lang"></cm-caption>
+            <cm-caption *ngIf="openedFirst"  fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe" [lang]="lang"></cm-caption>
         </div>
     </div>
 </span>

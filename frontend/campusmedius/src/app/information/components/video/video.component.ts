@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, HostBinding } from '@angular/core';
 import {
     trigger,
     state,
@@ -20,7 +20,13 @@ import * as Hls from 'hls.js';
         trigger('container', [
             state('true', style({ height: '*', display: '*' })),
             state('false', style({ height: '0px', display: 'none' })),
-            transition('false <=> true', animate('300ms ease-in'))
+            transition('false => true', [
+                style({ 'display': 'block' }),
+                animate('300ms ease-in')
+            ]),
+            transition('true => false', [
+                animate('300ms ease-in')
+            ])
         ])
     ]
 })
@@ -28,9 +34,16 @@ export class VideoComponent implements OnInit {
     @Input() data: Video;
     @Input() lang: string;
 
+    @Input() id: string;
+    @HostBinding('attr.id')
+    get elementId() { 
+        return 'v:' + this.id; 
+    }
+
     @ViewChild('video') videoElement: ElementRef;
 
     public opened = false;
+    public openedFirst = false;
     private hls: Hls;
 
     constructor() { }
@@ -40,6 +53,7 @@ export class VideoComponent implements OnInit {
     toggle() {
         if (!this.opened) {
             this.opened = true;
+            this.openedFirst = true;
             if (Hls.isSupported()) {
                 this.hls = new Hls({
                     maxBufferLength: 10,
@@ -57,6 +71,12 @@ export class VideoComponent implements OnInit {
             if (this.hls) {
                 this.hls.destroy();
             }
+        }
+    }
+
+    public openInline() {
+        if (!this.opened) {
+            this.toggle();
         }
     }
 

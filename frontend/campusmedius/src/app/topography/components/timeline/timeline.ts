@@ -1,24 +1,22 @@
 import {
     Component,
-    OnInit,
-    OnDestroy,
     HostBinding,
     Input,
     OnChanges,
+    OnDestroy,
     SimpleChanges,
-    HostListener,
     ViewChild,
     ElementRef,
     EventEmitter,
-    Output
+    Output,
+    AfterViewInit
 } from '@angular/core';
 import {
     trigger,
     state,
     style,
     animate,
-    transition,
-    query
+    transition
 } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -28,7 +26,8 @@ import { Event, TimelineLine } from '../../models/event';
 
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import * as hammerjs from 'hammerjs';
+
+import * as Hammer from '@egjs/hammerjs';
 
 const OPENED_HEIGHT = '220px';
 const CLOSED_HEIGHT = '40px';
@@ -53,7 +52,7 @@ const CLOSED_HEIGHT = '40px';
         ])
     ]
 })
-export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
+export class TimelineComponent implements OnChanges, OnDestroy, AfterViewInit {
     @Input() events: Event[];
     @Input() filteredIds: number[];
     @Input() selectedEvent: Event;
@@ -101,17 +100,17 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     private initialized = false;
 
     @HostBinding('@panel')
-    public opened = false;
+    public opened = true;
 
     constructor(private translate: TranslateService) { }
 
-    ngOnInit() {
+    ngAfterViewInit() {
 
-        this.handleRightHammer = new hammerjs(this.handleRightElement.nativeElement);
-        this.handleRightHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_ALL, threshold: 0 }));
+        this.handleRightHammer = new Hammer.Manager(this.handleRightElement.nativeElement);
+        this.handleRightHammer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }));
         this.handleRightHammer.on('pan', (ev) => this.handleRightMouseMove(ev));
-        this.handleLeftHammer = new hammerjs(this.handleLeftElement.nativeElement);
-        this.handleLeftHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_ALL, threshold: 0 }));
+        this.handleLeftHammer = new Hammer.Manager(this.handleLeftElement.nativeElement);
+        this.handleLeftHammer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_ALL, threshold: 0 }));
         this.handleLeftHammer.on('pan', (ev) => this.handleLeftMouseMove(ev));
 
         this.leftHandleX = 0;
@@ -137,11 +136,9 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         if (changes['events']) {
-            console.log(changes['events'].currentValue);
             this.setupRows(changes['events'].currentValue);
         }
         if (changes['filteredIds']) {
-            console.log(this.filteredIds);
         }
     }
 
@@ -160,6 +157,10 @@ export class TimelineComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private setupRows(events: Event[]) {
+        if (!events) {
+            return;
+        }
+
         const rows = [];
 
         events.forEach((event: Event) => {

@@ -20,11 +20,6 @@
             CORSAllowAll = true;
             djangoAllowedHosts = ["*"];
         };
-        # campusmedius backend v2
-        services.campusmedius.backendv2 = {
-            CORSAllowAll = true;
-            djangoAllowedHosts = ["*"];
-        };
 
         # keys
         deployment.keys.basicAuth.text = builtins.readFile ./keys/basicAuth;

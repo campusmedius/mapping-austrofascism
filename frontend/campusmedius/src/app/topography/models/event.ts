@@ -11,12 +11,18 @@ export interface Event {
     abstractEn: string;
     start: Moment;
     end: Moment;
+    created: Moment;
+    updated: Moment;
     timelineRow: number;
-    information: string;
+    information: Information;
     informationId: string;
     coordinates: LngLat;
-    nextEvent: string;
-    previousEvent: string;
+    keywordsDe: string[];
+    keywordsEn: string[];
+    nextEvent: Event;
+    previousEvent: Event;
+    nextEventId: string;
+    previousEventId: string;
 }
 
 export interface TimelineLine {

@@ -6,27 +6,34 @@
 }
 
 
-:host /deep/ .mapboxgl-ctrl-attrib {
-    @media screen and (min-width: $break-mobile) {
-        right: 470px;
-        bottom: 40px;
-        position: fixed;
-    }
-    @media screen and (max-width: $break-mobile) {
-        right: 0px;
-        top: 85px;
-        position: fixed;
-    }
+:host ::ng-deep .mapboxgl-ctrl-attrib {
+    display: none;
+}
+
+.map-spinner {
+    position: absolute;
+    background: transparent url("../../../../assets/icons/cm-loading.svg");
+    z-index: 1000;
+    height: 64px;
+    width: 64px;
+    top: 64px;
+    left: 78px;
+}
+.map-spinner .fa-spinner::before {
+    content: none;
 }
 
 .map-control {
     position: absolute;
     z-index: 5;
-    top: 20px;
+    top: 24px;
     @media screen and (max-width: $break-mobile) {
-        top: 60px;
+        top: 55px;
     }
-    left: 20px;
+    left: 24px;
+    @media screen and (max-width: $break-mobile) {  
+        left: 15px;
+    }
     button {
         display: block;
         min-width: 20px;
@@ -35,6 +42,10 @@
         padding: 0px;
         height: 30px;
         line-height: 30px;
+        opacity: 0.9;
+        &:hover {
+            background: $accent-color;
+        }
     }
     .zoom {
         font-size: 16px;
@@ -42,6 +53,9 @@
     .deactivated {
         opacity: 0.6;
         cursor: default;
+        &:hover {
+            background: $clickable-color;
+        }
     }
     .mat-button-wraper {
         line-height: 30px;
@@ -50,10 +64,16 @@
         color: #666666;
         background-color: white;
         border: solid #666666 1px;
+        &:hover {
+            color: #fff;
+        }
     }
     .vie-map-toggle {
         margin-top: 15px;
         font-size: 22px;
+    }
+    .map-attrib {
+        margin-top: 15px;
     }
 }
 

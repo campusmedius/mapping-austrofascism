@@ -1,33 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, Injectable, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {TransferHttpCacheModule} from '@nguniversal/common';
 import { RouterModule, RouteReuseStrategy, ActivatedRouteSnapshot, DetachedRouteHandle } from '@angular/router';
-
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { CoreModule } from './core/core.module';
 
-import { routes } from './routes';
-import { reducers, metaReducers } from './core/reducers';
-import { CustomRouterStateSerializer } from './shared/utils';
-
-import { AppComponent } from './core/containers/app/app';
+import { AppComponent } from '@app/core';
 import { environment } from '../environments/environment';
+import { routes } from './app.routes';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateFsLoader } from './translateFsLoader';
+import { TranslateBrowserLoader } from './translateBrowserLoader';
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http);
-}
+export function translateLoaderFactory(httpClient: HttpClient, transferState: TransferState, platform: any) {
+    return isPlatformBrowser(platform)
+      ? new TranslateBrowserLoader(transferState, httpClient)
+      : new TranslateFsLoader(transferState);
+  }
 
+@Injectable()
 export class CustomRouteReuseStrategy extends RouteReuseStrategy {
     public shouldDetach(route: ActivatedRouteSnapshot): boolean { return false; }
     public store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void { }
@@ -38,77 +34,40 @@ export class CustomRouteReuseStrategy extends RouteReuseStrategy {
     }
 }
 
-export class CustomHammerConfig extends HammerGestureConfig {
-    overrides = <any>{
-        'pinch': { enable: false },
-        'rotate': { enable: false }
-    };
+@Injectable()
+export class CustomHammerConfig extends HammerGestureConfig  {
+  overrides = {
+    pinch: { enable: false },
+    rotate: { enable: false }
+  } as any;
 }
 
 @NgModule({
-    imports: [
+     imports: [
         CommonModule,
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         HttpClientModule,
-
-        /**
-         * StoreModule.forRoot is imported once in the root module, accepting a reducer
-         * function or object map of reducer functions. If passed an object of
-         * reducers, combineReducers will be run creating your application
-         * meta-reducer. This returns all providers for an @ngrx/store
-         * based application.
-         */
-        StoreModule.forRoot(reducers, { metaReducers }),
-
-        /**
-         * @ngrx/router-store keeps router state up-to-date in the store.
-         */
-        StoreRouterConnectingModule,
-
-        /**
-         * Store devtools instrument the store retaining past versions of state
-         * and recalculating new states. This enables powerful time-travel
-         * debugging.
-         *
-         * To use the debugger, install the Redux Devtools extension for either
-         * Chrome or Firefox
-         *
-         * See: https://github.com/zalmoxisus/redux-devtools-extension
-         */
-        !environment.production ? StoreDevtoolsModule.instrument() : [],
-
-        /**
-         * EffectsModule.forRoot() is imported once in the root module and
-         * sets up the effects class to be initialized immediately when the
-         * application starts.
-         *
-         * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
-         */
-        EffectsModule.forRoot([]),
+        TransferHttpCacheModule,
+        BrowserTransferStateModule,
 
         CoreModule.forRoot(),
 
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
+                useFactory: translateLoaderFactory,
+                deps: [HttpClient, TransferState, PLATFORM_ID]
             }
         }),
 
         RouterModule.forRoot(routes, {
             useHash: false,
-            anchorScrolling: 'enabled'
+            anchorScrolling: 'enabled',
+            relativeLinkResolution: 'legacy'
         })
     ],
     providers: [
-        /**
- * The `RouterStateSnapshot` provided by the `Router` is a large complex structure.
- * A custom RouterStateSerializer is used to parse the `RouterStateSnapshot` provided
- * by `@ngrx/router-store` to include only the desired pieces of the snapshot.
- */
-        { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer },
         {
             provide: RouteReuseStrategy,
             useClass: CustomRouteReuseStrategy
@@ -118,4 +77,4 @@ export class CustomHammerConfig extends HammerGestureConfig {
     bootstrap: [AppComponent],
     declarations: []
 })
-export class AppModule { }
+ export class AppBrowserModule { }

@@ -1,0 +1,9 @@
+<button mat-icon-button class="control" (click)="opened = !opened">
+    <span [ngClass]="{'cm-square-plus':!opened,'cm-square-close':opened}"></span>
+</button>
+
+<div class="animation-container" [@container]="opened">
+    <div class="container">
+        <cm-information [content]="content" [lang]="lang"></cm-information>
+    </div>
+</div>

@@ -1,30 +1,58 @@
-import 'rxjs/add/operator/map';
-import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { Event } from '../models/event';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 
 import * as moment from 'moment';
 
+const CACHE_SIZE = 1;
+const API_URL = environment.apiUrl;
+
 @Injectable()
 export class EventService {
-    private API_URL = environment.apiUrl;
+    private cache$: Observable<Event[]>;
 
     constructor(private http: HttpClient) { }
 
-    getEvents(): Observable<Event[]> {
+    get events(): Observable<Event[]> {
+        if (!this.cache$) {
+            this.cache$ = this.requestEvents().pipe(
+                shareReplay(CACHE_SIZE)
+            );
+        }
+        return this.cache$;
+    }
+
+    event(id: string): Observable<Event> {
+        return this.events.pipe(
+            map((events: Event[]) => {
+                return events.find(e => e.id === id);
+            })
+        );
+    }
+
+    private requestEvents(): Observable<Event[]> {
         return this.http
-            .get(`${this.API_URL}/topography/events?format=json`)
-            .map((data: Event[]) => {
-                data = data || [];
-                data.forEach(event => {
-                    event.id = event.id + '';
-                    event.start = moment(event.start);
-                    event.end = moment(event.end);
-                });
-                return data;
-            });
+            .get(`${API_URL}/topography/events/?format=json`).pipe(
+                map((data: Event[]) => {
+                    data = data || [];
+                    data.forEach(event => {
+                        event.id = event.id + '';
+                        event.previousEventId = event.previousEvent + '';
+                        event.previousEvent = null;
+                        event.nextEventId = event.nextEvent + '';
+                        event.nextEvent = null;
+                        event.informationId = event.informationId + '';
+                        event.information = null;
+                        event.start = moment(event.start);
+                        event.end = moment(event.end);
+                        event.created = moment(event.created);
+                        event.updated = moment(event.updated);
+                    });
+                    return data;
+                }));
     }
 }
+

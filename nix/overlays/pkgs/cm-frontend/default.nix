@@ -15,7 +15,7 @@ in
   
   installPhase = ''
     mkdir -p $out/share/campusmedius/viewer
-    cd frontend/campusmediusv2
+    cd frontend/campusmedius
     cp -R ./dist $out/share/campusmedius/viewer/dist
   '';
 

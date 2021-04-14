@@ -6,5 +6,6 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:8000',
-    mapTilesUrl: 'http://localhost:8001'
+    searchAssetsPath: '/assets/search',
+    mapTilesUrl: 'http://campusmedius.net/tiles' // set in style files
 };

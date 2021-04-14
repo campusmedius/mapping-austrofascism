@@ -5,9 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { SharedModule } from '../shared/shared.module';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './reducers';
 
+import { InfoContainerComponent } from './components/info-container/info-container';
 import { InformationComponent } from './components/information/information.component';
 import { ImageComponent } from './components/image/image.component';
 import { VideoComponent } from './components/video/video.component';
@@ -19,20 +18,27 @@ import { CaptionComponent } from './components/caption/caption.component';
 import { LinkExternComponent } from './components/link-extern/link-extern.component';
 import { LinkInpageComponent } from './components/link-inpage/link-inpage.component';
 import { LinkInternComponent } from './components/link-intern/link-intern.component';
+import { CiteDialogComponent } from './components/cite-dialog/cite-dialog.component';
 
 import { InformationService } from './services/information';
+import { PageService } from './services/page';
+
+import { PagesResolver } from './guards/page';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NgxGalleryActionComponent } from './ngx-gallery/ngx-gallery-action.component';
-import { NgxGalleryArrowsComponent } from './ngx-gallery/ngx-gallery-arrows.component';
-import { NgxGalleryBulletsComponent } from './ngx-gallery/ngx-gallery-bullets.component';
-import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image.component';
-import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails.component';
-import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview.component';
+import { NgxGalleryActionComponent } from './ngx-gallery/ngx-gallery-action/ngx-gallery-action.component';
+import { NgxGalleryArrowsComponent } from './ngx-gallery/ngx-gallery-arrows/ngx-gallery-arrows.component';
+import { NgxGalleryBulletsComponent } from './ngx-gallery/ngx-gallery-bullets/ngx-gallery-bullets.component';
+import { NgxGalleryImageComponent } from './ngx-gallery/ngx-gallery-image/ngx-gallery-image.component';
+import { NgxGalleryThumbnailsComponent } from './ngx-gallery/ngx-gallery-thumbnails/ngx-gallery-thumbnails.component';
+import { NgxGalleryPreviewComponent } from './ngx-gallery/ngx-gallery-preview/ngx-gallery-preview.component';
 import { NgxGalleryComponent } from './ngx-gallery/ngx-gallery.component';
+import { InfoContainerMobileComponent } from './components/info-container-mobile/info-container-mobile';
 
 export const COMPONENTS = [
+    InfoContainerComponent,
+    InfoContainerMobileComponent,
     InformationComponent,
     ImageComponent,
     AudioComponent,
@@ -44,6 +50,7 @@ export const COMPONENTS = [
     LinkExternComponent,
     LinkInpageComponent,
     LinkInternComponent,
+    CiteDialogComponent,
     NgxGalleryActionComponent,
     NgxGalleryArrowsComponent,
     NgxGalleryBulletsComponent,
@@ -60,14 +67,6 @@ export const COMPONENTS = [
         FlexLayoutModule,
         ScrollToModule.forRoot(),
 
-        /**
-         * StoreModule.forFeature is used for composing state
-         * from feature modules. These modules can be loaded
-         * eagerly or lazily and will be dynamically added to
-         * the existing state.
-         */
-        StoreModule.forFeature('information', reducers),
-
         TranslateModule.forChild(),
         RouterModule,
     ],
@@ -76,22 +75,12 @@ export const COMPONENTS = [
         ...COMPONENTS,
         FlexLayoutModule,
         TranslateModule,
-        RouterModule,
         ScrollToModule
     ],
     providers: [
-        InformationService
-    ],
-    entryComponents: [
-        NoteComponent,
-        QuoteComponent,
-        GalleryComponent,
-        ImageComponent,
-        VideoComponent,
-        AudioComponent,
-        LinkInternComponent,
-        LinkExternComponent,
-        LinkInpageComponent
+        InformationService,
+        PageService,
+        PagesResolver
     ]
 })
 export class InformationModule { }

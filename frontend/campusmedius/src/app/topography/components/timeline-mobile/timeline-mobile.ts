@@ -10,7 +10,8 @@ import {
     ViewChild,
     ElementRef,
     EventEmitter,
-    Output
+    Output,
+    AfterViewInit
 } from '@angular/core';
 import {
     trigger,
@@ -26,9 +27,10 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { Event, TimelineLine } from '../../models/event';
 
+import * as Hammer from '@egjs/hammerjs';
+
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import * as hammerjs from 'hammerjs';
 
 const OPENED_HEIGHT = '180px';
 const CLOSED_HEIGHT = '40px';
@@ -58,7 +60,7 @@ const CLOSED_HEIGHT = '40px';
         ])
     ]
 })
-export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
+export class TimelineMobileComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     @Input() events: Event[];
     @Input() filteredIds: number[];
     @Input() selectedEvent: Event;
@@ -111,12 +113,15 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
     constructor(private translate: TranslateService) { }
 
     ngOnInit() {
+    }
+    
+    ngAfterViewInit() {
 
-        this.handleRightHammer = new hammerjs(this.handleRightElement.nativeElement);
-        this.handleRightHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_HORIZONTAL, threshold: 0 }));
+        this.handleRightHammer = new Hammer.Manager(this.handleRightElement.nativeElement);
+        this.handleRightHammer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 0 }));
         this.handleRightHammer.on('pan', (ev) => this.handleRightMouseMove(ev));
-        this.handleLeftHammer = new hammerjs(this.handleLeftElement.nativeElement);
-        this.handleLeftHammer.add(new hammerjs.Pan({ direction: hammerjs.DIRECTION_HORIZONTAL, threshold: 0 }));
+        this.handleLeftHammer = new Hammer.Manager(this.handleLeftElement.nativeElement);
+        this.handleLeftHammer.add(new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 0 }));
         this.handleLeftHammer.on('pan', (ev) => this.handleLeftMouseMove(ev));
 
         this.leftHandleX = 0;
@@ -142,11 +147,7 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
         }
 
         if (changes['events']) {
-            console.log(changes['events'].currentValue);
             this.setupRows(changes['events'].currentValue);
-        }
-        if (changes['filteredIds']) {
-            console.log(this.filteredIds);
         }
     }
 
@@ -224,8 +225,6 @@ export class TimelineMobileComponent implements OnInit, OnChanges, OnDestroy {
                 step = this.steps;
             }
         }
-        console.log(newValue);
-        console.log(step);
 
         if (this.rightHandleStep !== step) {
             this.endFilterChanged.emit(this.timelineStart.clone().add(step, 'hours'));

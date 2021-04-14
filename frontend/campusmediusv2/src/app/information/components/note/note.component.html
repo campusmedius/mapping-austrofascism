@@ -1,9 +1,0 @@
-<button mat-icon-button class="control" (click)="toogle()">
-    <span [ngClass]="{'cm-square-plus':!opened,'cm-square-close':opened}"></span>
-</button>
-
-<div class="animation-container" [@container]="opened">
-    <div *ngIf="openedFirst" class="container">
-        <cm-information [content]="content" [lang]="lang" [media]="media"></cm-information>
-    </div>
-</div>

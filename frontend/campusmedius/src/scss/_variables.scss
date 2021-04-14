@@ -13,19 +13,28 @@ $text-italics-font: "Source Serif Pro Italics";
 $caption-regular-font: "Source Sans Pro";
 $caption-italics-font: "Source Sans Pro Italic";
 $caption-semibold-font: "Source Sans Pro Semibold";
+$caption-bold-font: "Source Sans Pro Bold";
 
-$header-color: #333333;
-$map-overlay-background-color: #666;
-$map-overlay-active-color: #fff;
-$map-overlay-inactive-color: #a7a7a7;
-$text-block-background-color: #f4f4f4;
+$text-color: #333333;
+$background-color: #5a5a5a;
+$headline-color: #5a5a5a;
+$clickable-color: #8c8c8c;
+$text-light-color: #8c8c8c;
+$background-light-color: #f4f4f4;
+$accent-color: #a67481;
 
-$h-primary-font-color: #666666;
-$h-secondary-font-color: #8e8e8e;
-$primary-font-color: #4d4d4d;
-$secondary-font-color: #a7a7a7;
+$header-color: $text-color;
+$map-overlay-background-color: $background-color;
+$map-overlay-inactive-color: $text-light-color;
+$text-block-background-color: $background-light-color;
+
+$h-primary-font-color: $headline-color;
+$h-secondary-font-color: $text-light-color;
+$primary-font-color: $text-color; // #4d4d4d in version 1.0
+$secondary-font-color: $text-light-color;
 $active-font-color: #fff;
-$inactive-font-color: #d7d7d7;
+$inactive-font-color: $background-light-color;
+$main-color: $text-color;
 
 
 $base-font-size: 20px;
@@ -46,5 +55,4 @@ $header-height-mobile: 2.5rem;
 $event-nav-height: $header-height;
 $event-nav-height-mobile: $header-height-mobile;
 
-$accent-color: #b18691;
 

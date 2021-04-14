@@ -3,7 +3,6 @@
     imports =
     [
         ../nixos/modules/services/backend.nix
-        ../nixos/modules/services/backend-v2.nix
         ../nixos/modules/services/frontend.nix
     ];
     
@@ -33,7 +32,6 @@
 
     # campusmedius backend
     services.campusmedius.backend.enable = true;
-    services.campusmedius.backendv2.enable = true;
     services.campusmedius.frontend.enable = true;
     
     # Enable the OpenSSH daemon.
@@ -61,7 +59,7 @@
             };
         };
         virtualHosts."campusmedius.net" = {
-            locations."/api/v2" = {
+            locations."/api/" = {
                 extraConfig = ''
                     proxy_pass http://127.0.0.1:8000;
                     proxy_set_header X-Real-IP $remote_addr;
@@ -81,46 +79,9 @@
                     #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
-            locations."/api" = {
-                extraConfig = ''
-                    uwsgi_pass unix:///var/run/campusmedius/backend/uwsgi.sock;
-
-                    uwsgi_cache my_cache;
-                    uwsgi_cache_bypass 0;
-                    uwsgi_cache_use_stale error timeout updating http_500;
-                    uwsgi_cache_valid 200 10m;
-                    uwsgi_cache_key $scheme$host$request_uri;
-                    uwsgi_ignore_headers Set-Cookie Cache-Control Vary;
-                    
-                    expires 10m;
-                    
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
-                '';
-            };
-            locations."/static/v2/" = {
-                alias = "${pkgs.cm-backend-v2}/share/campusmedius/static/";
-                extraConfig = ''
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;                    
-                    expires 10m;
-                    etag off;
-                '';
-            };
-            locations."/media/v2/" = {
-                alias = "${config.services.campusmedius.backendv2.mediaDir}/";
-                extraConfig = ''
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
-                    expires 24h;
-                    etag off;
-                '';
-            };
             locations."/static/" = {
                 alias = "${pkgs.cm-backend}/share/campusmedius/static/";
-                extraConfig = ''
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;                    
+                extraConfig = ''                  
                     expires 10m;
                     etag off;
                 '';
@@ -128,8 +89,6 @@
             locations."/media/" = {
                 alias = "${config.services.campusmedius.backend.mediaDir}/";
                 extraConfig = ''
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
                     expires 24h;
                     etag off;
                 '';
@@ -138,8 +97,6 @@
                 alias = "${pkgs.cm-tiles}/share/campusmedius/tiles/";
                 extraConfig = ''
                     try_files $uri /tiles/empty.png;
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
                     expires 24h;
                     etag off;
                 '';
@@ -148,42 +105,8 @@
                 alias = "${pkgs.cm-osm-tiles}/share/campusmedius/osm-tiles/";
                 extraConfig = ''
                     try_files $uri /tiles/empty.png;
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
                     expires 24h;
                     etag off;
-                '';
-            };
-            locations."/v2/" = {
-                alias = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer/dist/campusmedius/browser/";
-                extraConfig = ''
-                    try_files $uri $uri/ @ssr;
-                    expires 10m;
-                    etag off;
-
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
-                '';
-            };
-            locations."@ssr"= {
-                extraConfig = ''
-                    rewrite  ^/v2/(.*) /$1 break;
-                    proxy_pass http://127.0.0.1:4000;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_set_header Host $host;
-                    proxy_http_version 1.1;
-                    proxy_set_header X-NginX-Proxy true;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "upgrade";
-                    proxy_cache_bypass $http_upgrade;
-                    proxy_redirect off;
-                    proxy_set_header X-Forwarded-Proto $scheme;
-
-                    expires 10m;
-
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/sitemap.xml"= {
@@ -201,21 +124,34 @@
                     proxy_set_header X-Forwarded-Proto $scheme;
                     
                     expires 10m;
-                    
-                    auth_basic campusmedius;
-                    auth_basic_user_file /run/keys/basicAuth;
                 '';
             };
             locations."/" = {
-                alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/";
+                alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/dist/campusmedius/browser/";
                 extraConfig = ''
-                    try_files $uri $uri/ /index.html;
-                    #auth_basic campusmedius;
-                    #auth_basic_user_file /run/keys/basicAuth;
+                    try_files $uri $uri/ @ssr;
                     expires 10m;
                     etag off;
                 '';
                 priority = 1001;
+            };
+            locations."@ssr"= {
+                extraConfig = ''
+                    rewrite  ^/(.*) /$1 break;
+                    proxy_pass http://127.0.0.1:4000;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header Host $host;
+                    proxy_http_version 1.1;
+                    proxy_set_header X-NginX-Proxy true;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                    proxy_cache_bypass $http_upgrade;
+                    proxy_redirect off;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+
+                    expires 10m;
+                '';
             };
         };
         appendHttpConfig = ''

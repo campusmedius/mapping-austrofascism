@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>Campus Medius</title>
     <base href="/">
-
-    <meta name="description" lang="en" content="Campus Medius explores and expands the possibilities of digital cartography in cultural and media studies. The project, headed by Simon Ganahl, is developing from a historical case study to a mapping platform. The initial version of campusmedius.net consists of an interactive map with a timeline displaying selected events within 24 hours in Vienna on May 13 and 14, 1933. The forthcoming version of the website will additionally focus on the main event of this exemplary time-space: a so-called &quot;Turks Deliverance Celebration&quot; (Türkenbefreiungsfeier) in Schönbrunn Palace Park, which is mediated in three different interfaces (from a bird's-eye perspective, panoramically, and in street view). The aim of Campus Medius is to establish a collaborative platform for mapping media experiences in everyday life.">
-    <meta name="description" lang="de" content="Campus Medius erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Kultur- und Medienwissenschaften. Das von Simon Ganahl geleitete Projekt entwickelt sich von einer historischen Fallstudie zu einer Mapping-Plattform. Die ursprüngliche Version von campusmedius.net stellt ausgewählte Ereignisse innerhalb von 24 Stunden am 13. und 14. Mai 1933 in Wien auf einer interaktiven Karte mit Zeitleiste dar. Die neu entstehende Version der Website fokussiert zusätzlich auf das Hauptereignis dieses beispielhaften Zeit-Raums: eine sogenannte &quot;Türkenbefreiungsfeier&quot; im Schlosspark Schönbrunn, deren Verlauf in drei verschiedenen Interfaces vermittelt wird (aus der Vogelperspektive, dem Panorama und der Street View). Das Ziel von Campus Medius besteht im Aufbau einer kollaborativen Plattform zum Mapping alltäglicher Medienerfahrungen.">
-
-    <meta property="og:title" content="Campus Medius">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://campusmedius.net/">
-    <meta property="og:image" content="https://campusmedius.net/assets/screenshot.jpg">
-    <meta property="og:description" content="Campus Medius explores and expands the possibilities of digital mapping in cultural and media studies.">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <meta name="author" content="Simon Ganahl">
+    <meta name="author" content="Andreas Krimbacher">
+    <meta name="author" content="Susanne Kiesenhofer">
+
+    <link rel="alternate" hreflang="en" href="https://campusmedius.net?lang=en" />
+    <link rel="canonical" href="https://campusmedius.net">
+    <script id="jsonld" type="application/ld+json"></script>
 
     <style type="text/css">
       .spinner {
@@ -31,6 +29,9 @@
         bottom: 0;
         right: 0;
       }
+      .spinner .fa-spinner::before {
+        content: none;
+      }
      #isie {
         max-width: 950px;
         margin: auto;
@@ -39,23 +40,21 @@
         padding: 20px;
         line-height: 1.5rem;
         color: #4d4d4d;
-         display: none;
-         z-index: 999999;
+        display: none;
+        z-index: 999999;
      }
 
     </style>
-
 </head>
 <body>
-
     <div class="font_preload" style="opacity: 0">
         <span style="font-family: 'Source Sans Pro Bold';"></span>
         <span style="font-family: 'Source Sans Pro Bold Italic';"></span>
         <span style="font-family: 'Source Serife Pro Italic';"></span>
     </div>
 
-    <cm-app>
-        <div class="spinner"></div>
+    <cm-app id="cm-app">
+        <div class="spinner"><i class="fas fa-spinner"></i></div>
     </cm-app>
     <div id="isie">
         <p>
@@ -70,6 +69,8 @@
      // IE stuff
      var isIE = /*@cc_on!@*/false || !!document.documentMode;
      if (isIE) document.getElementById("isie").style.display = "block";
+     if (isIE) document.getElementById("cm-app").style.display = "none";
     </script>
 </body>
 </html>
+

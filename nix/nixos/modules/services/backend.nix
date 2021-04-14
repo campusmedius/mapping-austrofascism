@@ -136,7 +136,7 @@ with lib;
       '';
       environment = env;
       script = ''
-          ${uwsgi}/bin/uwsgi --plugin python3 --chdir=${pkgs.cm-backend}/share/campusmedius/campusmedius --mount ${cfg.mountPath}=campusmedius.wsgi:application --manage-script-name --master --pidfile=${cfg.stateDir}/cm-backend.pid --socket=${cfg.stateDir}/uwsgi.sock --processes=4 --harakiri=20 --max-requests=5000 --vacuum --home=/path/to/virtual/env --daemonize=${cfg.logDir}/cm-backend.log
+          ${uwsgi}/bin/uwsgi --plugin python3 --chdir=${pkgs.cm-backend}/share/campusmedius/campusmedius --mount ${cfg.mountPath}=campusmedius.wsgi:application --manage-script-name --master --pidfile=${cfg.stateDir}/cm-backend.pid --http-socket 127.0.0.1:8000 --processes=4 --harakiri=20 --max-requests=5000 --vacuum --home=/path/to/virtual/env --daemonize=${cfg.logDir}/cm-backend.log
       '';
       serviceConfig = {
         Type = "forking";

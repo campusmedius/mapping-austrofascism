@@ -2,6 +2,7 @@
 
 :host {
     display: inline-block;
+    color: $text-light-color;
     font-size: $small2-font-size;
     @media screen and (max-width: $break-mobile) {
         font-size: $small2-font-size;
@@ -9,6 +10,20 @@
     max-width: 470px;
     width: 100%;
     white-space: nowrap;
+    ::ng-deep {
+        font-family: $title-semibold-font;
+        i, em {
+            font-family: $title-semibold-italic-font;
+            font-style: normal;
+        }
+        .text:hover, .text:hover {
+            text-decoration: underline;
+            i, em {
+                font-style: normal;
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 .wrapper {
@@ -22,18 +37,17 @@
     height: 32px;
     cursor: pointer;
     text-align: right;
-    color: $primary-font-color;
     overflow: hidden;
     .arrow {
         line-height: 32px;
         margin-right: 5px;
         font-size: 1.1rem;
-        color: #b3b3b3;
+        color: $clickable-color;
     }
 }
 
 .cm-seperator {
-    color: #b3b3b3;
+    color: $clickable-color;
     font-size: 1.5rem;
     margin-right: -5px;
     margin-left: -5px;
@@ -44,12 +58,11 @@
     cursor: pointer;
     height: 32px;
     text-align: left;
-    color: $primary-font-color;
     overflow: hidden;
     .arrow {
         line-height: 32px;
         margin-left: 5px;
         font-size: 1.1rem;
-        color: #b3b3b3;
+        color: $clickable-color;
     }
 }

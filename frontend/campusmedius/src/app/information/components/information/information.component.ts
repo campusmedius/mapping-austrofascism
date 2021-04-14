@@ -1,10 +1,10 @@
 import {
-    Component, OnInit, AfterViewInit, OnDestroy, OnChanges, Input, ElementRef, ComponentFactory,
-    ComponentFactoryResolver, ViewChild, ViewContainerRef, ComponentRef, Injector, ApplicationRef,
-    Output, EventEmitter
+    Component, OnInit, OnDestroy, OnChanges, Input, ElementRef, ComponentFactory,
+    ComponentFactoryResolver, ComponentRef, Injector, ApplicationRef,
+    Output, EventEmitter, ChangeDetectionStrategy, AfterViewInit
 } from '@angular/core';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { InformationMedia } from '../../models/information';
 
@@ -47,6 +47,8 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
 
     private componentRefs: ComponentRef<any>[] = [];
 
+    public loading = false;
+
     constructor(
         private element: ElementRef,
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -55,7 +57,6 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
     ) {
         this.noteFactory = this.componentFactoryResolver.resolveComponentFactory(NoteComponent);
         this.quoteFactory = this.componentFactoryResolver.resolveComponentFactory(QuoteComponent);
-
         this.linkInternFactory = this.componentFactoryResolver.resolveComponentFactory(LinkInternComponent);
         this.linkExternFactory = this.componentFactoryResolver.resolveComponentFactory(LinkExternComponent);
         this.linkInpageFactory = this.componentFactoryResolver.resolveComponentFactory(LinkInpageComponent);
@@ -68,30 +69,75 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
     ngOnInit() {
     }
 
-    ngOnChanges() {
-        this.destroyAllDynamicComponents();
-        this.insertDynamicComponents();
+    private insertIds() {
+        const elements = this.element.nativeElement.querySelectorAll(':scope > .wrapper > p, cm-note, cm-quote');
+            let paragraphId = 1;
+            let noteId = 1;
+            let quoteId = 1;
+            elements.forEach((e) => {
+                if (e.tagName === 'P') {
+                    e.id = 'p:' + paragraphId;
+                    paragraphId += 1;
+                    return
+                } else if (e.tagName === 'CM-NOTE') {
+                    e.id = noteId;
+                    noteId += 1;
+
+                } else if (e.tagName === 'CM-QUOTE') {
+                    e.id = quoteId;
+                    quoteId += 1;
+
+                }
+            });
     }
 
     ngAfterViewInit() {
+        this.insertIds();
+    }
+
+    ngOnChanges() {
+        this.destroyAllDynamicComponents();
+        this.insertIds();
+        this.insertDynamicComponents();
     }
 
     private insertDynamicComponents() {
+        this.loading = false;
         setTimeout(() => {
-            const elements = this.element.nativeElement.querySelectorAll('cm-note, cm-quote, cm-link-intern, cm-link-extern, cm-link-inpage, cm-gallery, cm-image, cm-video, cm-audio');
+            const elements = this.element.nativeElement.querySelectorAll(':scope > .wrapper > p, cm-note, cm-quote, cm-link-intern, cm-link-extern, cm-link-inpage, cm-gallery, cm-image, cm-video, cm-audio');
+            let paragraphId = 1;
+            let noteId = 1;
+            let quoteId = 1;
             elements.forEach((e) => {
                 let componentRef;
-                if (e.tagName === 'CM-NOTE') {
+                if (e.tagName === 'P') {
+                    e.id = 'p:' + paragraphId;
+                    paragraphId += 1;
+                    return
+                } else if (e.tagName === 'CM-NOTE') {
+                    e.classList.add('reset')
                     const content = e.innerHTML;
                     componentRef = this.noteFactory.create(this.injector, [], e);
+                    componentRef.instance.id = noteId;
+                    noteId += 1;
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
+                    componentRef.instance.media = this.media;
 
                 } else if (e.tagName === 'CM-QUOTE') {
                     const content = e.innerHTML;
                     componentRef = this.quoteFactory.create(this.injector, [], e);
+                    componentRef.instance.id = quoteId;
+                    quoteId += 1;
                     componentRef.instance.content = content;
                     componentRef.instance.lang = this.lang;
+                    componentRef.instance.media = this.media;
+                    this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
+                        this.galleryOpened.emit();
+                    }));
+                    this.subscriptions.push(componentRef.instance.closed.subscribe(() => {
+                        this.galleryClosed.emit();
+                    }));
 
                 } else if (e.tagName === 'CM-LINK-INTERN') {
                     const text = e.innerHTML;
@@ -119,6 +165,7 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                 } else if (e.tagName === 'CM-GALLERY') {
                     const id = e.attributes.id.value;
                     componentRef = this.galleryFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.galleries[id];
                     componentRef.instance.lang = this.lang;
                     this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
@@ -128,8 +175,10 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                         this.galleryClosed.emit();
                     }));
                 } else if (e.tagName === 'CM-IMAGE') {
+                    e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.imageFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.images[id];
                     componentRef.instance.lang = this.lang;
                     this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
@@ -139,29 +188,44 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                         this.galleryClosed.emit();
                     }));
                 } else if (e.tagName === 'CM-VIDEO') {
+                    e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.videoFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.videos[id];
                     componentRef.instance.lang = this.lang;
                 } else if (e.tagName === 'CM-AUDIO') {
+                    e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.audioFactory.create(this.injector, [], e);
+                    componentRef.instance.id = id;
                     componentRef.instance.data = this.media.audios[id];
                     componentRef.instance.lang = this.lang;
                 }
                 this.applicationRef.attachView(componentRef.hostView);
                 this.componentRefs.push(componentRef);
             });
-        });
+            this.loading = false;
+        },250);
     }
 
     private destroyAllDynamicComponents() {
         this.subscriptions.forEach((s) => {
             s.unsubscribe();
         });
-        this.componentRefs.forEach((c) => {
-            c.destroy();
-        });
+        // this.componentRefs.forEach((c) => {
+        //     c.destroy();
+        // });
+    }
+
+    public openComponentByRef(ref: string) {
+        if (ref.startsWith('i:') || ref.startsWith('v:') || ref.startsWith('a:') || ref.startsWith('n:')) {
+            this.componentRefs.forEach(c => {
+                if ((<any>c).instance.elementId === ref) {
+                    c.instance.openInline();
+                }
+            })
+        }
     }
 
     ngOnDestroy() {

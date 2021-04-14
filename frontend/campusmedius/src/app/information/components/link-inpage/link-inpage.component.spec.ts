@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LinkInpageComponent } from './link-inpage.component';
 
@@ -6,7 +6,7 @@ describe('LinkInpageComponent', () => {
   let component: LinkInpageComponent;
   let fixture: ComponentFixture<LinkInpageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LinkInpageComponent ]
     })

@@ -57,7 +57,7 @@ with lib;
         RestartSec = "5s";
         User = "www-data";
         Group = "www-data";
-        WorkingDirectory = "${pkgs.cm-frontend-v2}/share/campusmedius/viewer";
+        WorkingDirectory = "${pkgs.cm-frontend}/share/campusmedius/viewer";
       };
     };
 

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Campus Medius</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <meta name="author" content="Simon Ganahl">
+    <meta name="author" content="Andreas Krimbacher">
+    <meta name="author" content="Susanne Kiesenhofer">
+
+    <link rel="alternate" hreflang="en" href="https://campusmedius.net?lang=en"/>
+    <link rel="canonical" href="https://campusmedius.net">
+    <script id="jsonld" type="application/ld+json"></script>
+
+    <style type="text/css">
+      .spinner {
+        position: fixed;
+        background: transparent url("./assets/icons/cm-loading.svg");
+        z-index: 1000;
+        height: 64px;
+        width: 64px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      .spinner .fa-spinner::before {
+        content: none;
+      }
+     #isie {
+        max-width: 950px;
+        margin: auto;
+        margin-top: 50px;
+        font-size: 20px;
+        padding: 20px;
+        line-height: 1.5rem;
+        color: #4d4d4d;
+        display: none;
+        z-index: 999999;
+     }
+
+    </style>
+<link rel="stylesheet" href="styles.7c6d6521c91958ced1a5.css"></head>
+<body>
+    <div class="font_preload" style="opacity: 0">
+        <span style="font-family: 'Source Sans Pro Bold';"></span>
+        <span style="font-family: 'Source Sans Pro Bold Italic';"></span>
+        <span style="font-family: 'Source Serife Pro Italic';"></span>
+    </div>
+
+    <cm-app id="cm-app">
+        <div class="spinner"><i class="fas fa-spinner"></i></div>
+    </cm-app>
+    <div id="isie">
+        <p>
+            <i>Campus Medius</i> does not run anymore on Internet Explorer. Please use the website in one of the following web browsers: Google Chrome (recommended), Mozilla Firefox, Apple Safari, Microsoft Edge.
+        </p>
+        <p>
+            <i>Campus Medius</i> läuft nicht mehr im Internet Explorer. Bitte nutzen Sie die Website in einem der folgenden Webbrowser: Google Chrome (empfohlen), Mozilla Firefox, Apple Safari, Microsoft Edge.
+        </p>
+    </div>
+
+    <script type="text/javascript">
+     // IE stuff
+     var isIE = /*@cc_on!@*/false || !!document.documentMode;
+     if (isIE) document.getElementById("isie").style.display = "block";
+     if (isIE) document.getElementById("cm-app").style.display = "none";
+    </script>
+<script src="runtime-es2015.a1ac991fc00ebf39524f.js" type="module"></script><script src="runtime-es5.a1ac991fc00ebf39524f.js" nomodule defer></script><script src="polyfills-es5.9c86921b1e9f5c36de6f.js" nomodule defer></script><script src="polyfills-es2015.69712ed794c29f5f789c.js" type="module"></script><script src="scripts.715b141b548febf4d8a8.js" defer></script><script src="main-es2015.bb04f8a60cc738675b6a.js" type="module"></script><script src="main-es5.bb04f8a60cc738675b6a.js" nomodule defer></script></body>
+</html>
+
