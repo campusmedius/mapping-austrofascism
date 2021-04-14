@@ -124,9 +124,8 @@ function run_frontend(){
 
 function_build_frontend(){
   info "Build frontend distribution package"
-  cd frontend/campusmediusv2
-  nix-shell --command "ng build --prod --base-href /v2/ --output-path ./dist"
-  # ng build --prod --buildOptimizer=false --aot=false --optimization=false --base-href /v2/ --output-path ./dist
+  cd frontend/campusmedius
+  nix-shell --command "npm run build:ssr"
 }
 
 function deploy_development(){
@@ -182,8 +181,7 @@ function upgrade_backend(){
 }
 
 function backup_backend(){
-  scp -r root@131.130.75.201:/var/data/campusmedius backup/ 
-  scp -r root@131.130.75.201:/var/data/campusmediusv2 backup/ 
+  scp -r root@131.130.75.201:/var/data/campusmedius backup/
 }
 
 # run command
