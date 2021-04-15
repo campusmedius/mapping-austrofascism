@@ -71,9 +71,9 @@ export class InfoContainerComponent implements OnInit, OnChanges {
               this.currentSection = currentSection;
               this.sectionChange.emit(currentSection);
           }
-
-          this.emitTitleHeaderVisibility();
       }
+      
+      this.emitTitleHeaderVisibility();
   }
 
   public emitTitleHeaderVisibility() {
