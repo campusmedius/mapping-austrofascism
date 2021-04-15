@@ -63,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
           });
 
         this.translate.addLangs(['en', 'de']);
-        translate.setDefaultLang('de');
+        translate.setDefaultLang('en');
 
         let setLangTo = null;
 
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
             }
         }
 
-        setLangTo = setLangTo ? setLangTo : 'de';
+        setLangTo = setLangTo ? setLangTo : 'en';
         this.translate.use(setLangTo);
         this.lang = setLangTo;
     }
