@@ -77,21 +77,26 @@ export class InfoContainerMobileComponent implements OnInit, OnChanges {
       return;
     }
 
-    (window as any).skipSectionChange += 1;
-    
-    if (ref === 'top' || ref === 'p:1') {
-        ref = '#info-top';
-        offset = -45;
-    }
-    this.information.openComponentByRef(ref);
-    this.scrollToService.scrollTo({
-        target: ref,
-        offset: offset,
-        duration: duration
-    });
     setTimeout(() => {
-      (window as any).skipSectionChange -= 1;
-    }, (duration + 50));
+      (window as any).skipSectionChange += 1;
+      
+      if (ref === 'top' || ref === 'p:1') {
+          ref = '#info-top';
+          offset = -45;
+      }
+      const refElement = document.getElementById(ref.replace('#', ''));
+      this.information.openComponentByRef(ref);
+      if(refElement) {
+        this.scrollToService.scrollTo({
+            target: refElement,
+            offset: offset,
+            duration: duration
+        });
+      }
+      setTimeout(() => {
+        (window as any).skipSectionChange -= 1;
+      }, (duration + 50));
+    }, 250);
   }
 
   public triggerGalleryClosed($event) {
