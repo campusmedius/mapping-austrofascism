@@ -42,8 +42,7 @@ h2 {
     line-height: 1.25rem;
     color: $headline-color;
     &.active {
-        background-color: $accent-color;
-        opacity: 0.9;
+        background-color: $accent-color-opacity;
         color: #fff;
     }
 }
@@ -58,8 +57,7 @@ h2 {
     padding-top: 5px;
     padding-bottom: 5px;
     &:hover {
-        background-color: $accent-color;
-        opacity: 0.9;
+        background-color: $accent-color-opacity;
         color: #fff;
         cursor: pointer;
         h2 {

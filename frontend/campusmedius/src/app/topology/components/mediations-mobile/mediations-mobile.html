@@ -6,7 +6,15 @@
 </div>
 
 <div class="mediation-container" [ngClass]="{'short': sidepanelState == 'full'}">
-    <hr>
+    <div class="hr-container">
+        <hr class="hr-grow">
+        <span class="hr-gap"></span>
+        <hr class="hr-middle">
+        <span class="hr-gap"></span>
+        <hr class="hr-middle">
+        <span class="hr-gap"></span>
+        <hr class="hr-grow">
+    </div>
     <div class="mediation"
          (mouseenter)="selectMediation('1')"
          (mouseleave)="selectMediation(null)"

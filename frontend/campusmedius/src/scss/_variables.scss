@@ -23,8 +23,16 @@ $text-light-color: #8c8c8c;
 $background-light-color: #f4f4f4;
 $accent-color: #a67481;
 
+$text-color-opacity: rgba(51,51,51,0.9);
+$background-color-opacity: rgba(90,90,90,0.9);
+$headline-color-opacity: rgba(90,90,90,0.9);
+$clickable-color-opacity: rgba(140,140,140, 0.9);
+$text-light-color-opacity: rgba(140,140,140, 0.9);;
+$background-light-color-opacity: rgba(244,244,244,0.9);
+$accent-color-opacity: rgba(166,116,129,0.9);
+
 $header-color: $text-color;
-$map-overlay-background-color: $background-color;
+$map-overlay-background-color: $background-color-opacity;
 $map-overlay-inactive-color: $text-light-color;
 $text-block-background-color: $background-light-color;
 

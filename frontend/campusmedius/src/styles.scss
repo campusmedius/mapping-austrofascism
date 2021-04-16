@@ -147,6 +147,10 @@ a:active {
     color: $accent-color;
 }
 
+* {
+	outline: none;
+}
+
 .highlight {
     color: $accent-color;
     text-decoration: underline $accent-color; 
@@ -250,7 +254,7 @@ cm-header {
 
 .mat-menu-panel {
     width: 7rem;
-    background: $map-overlay-background-color;
+    background: $background-color;
     margin-top: 13px;
     @media screen and (max-width: $break-mobile) {
         margin-top: 2px;
@@ -353,6 +357,7 @@ cm-topology {
         margin: 2px;
         background: #ffffff !important;
         box-shadow: none !important;
+        opacity: 0.9;
         &:hover {
             background: #ffffff;
             &::before {
@@ -365,6 +370,7 @@ cm-topology {
           position: absolute;
           top: -2px;
           left: -2px;
+          opacity: 0.9;
         }
         .mat-button-wrapper{
             display: none;
@@ -388,8 +394,7 @@ cm-topology {
         }
     }
     .map-attrib-inner {
-        background-color: $background-light-color;
-        opacity: 0.9;
+        background-color: $background-light-color-opacity;
     }
     @media screen and (max-width: $break-mobile) {  
         max-width: calc(100vw - 30px);
@@ -603,7 +608,6 @@ $back-to-top-size: 26px;
 
 .btn-read-more {
     &:hover {
-      background: #a67481;
-      opacity: 0.9;
+      background: $accent-color-opacity;
     }
   }

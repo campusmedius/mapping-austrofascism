@@ -5,7 +5,6 @@
     position: absolute;
     z-index: 9;
     bottom: 0px;
-    opacity: 0.9;
     @media screen and (max-width: $break-mobile) {
         bottom: auto;
         width: 100% !important;
@@ -94,13 +93,13 @@
     min-width: 5px;
     width: 100%;
     height: 100%;
-    background: $clickable-color;
+    background: $clickable-color-opacity;
     border-radius: 1px;
     &.active {
-        background: white;
+        background: $background-light-color-opacity;
     }
     &.selected {
-        background: $accent-color;
+        background: $accent-color-opacity;
     }
 }
 
@@ -120,7 +119,7 @@
     height: 6px;
     background: white;
     transform: translateY(-2px);
-    opacity: 0.8;
+    opacity: 0.9;
     border-radius: 3px;
     transition: left .2s cubic-bezier(.25,.8,.25,1), right .2s cubic-bezier(.25,.8,.25,1);
 }
@@ -157,7 +156,6 @@
     height: 16px;
     width: 16px;
     background: white;
-    opacity: 0.8;
     border-radius: 8px;
     &:hover, &.move {
         opacity: 1;

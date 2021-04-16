@@ -5,10 +5,7 @@
   height: calc(50% - 4px);
   cursor: pointer;
   &:hover .label {
-    background: $accent-color;
-  }
-  .label {
-    opacity: 0.9;
+    background: $accent-color-opacity;
   }
   overflow: hidden;
   &:focus {
@@ -52,7 +49,7 @@
   font-family: $title-bold-font;
   font-size: $h-secondary-font-size;
   color: #fff;
-  background: $clickable-color;
+  background: $clickable-color-opacity;
   text-align: center;
   width: 240px;
   height: 60px;

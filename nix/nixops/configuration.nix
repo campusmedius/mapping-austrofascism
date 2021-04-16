@@ -82,7 +82,7 @@
             locations."/static/" = {
                 alias = "${pkgs.cm-backend}/share/campusmedius/static/";
                 extraConfig = ''                  
-                    expires 10m;
+                    expires 24h;
                     etag off;
                 '';
             };
@@ -130,8 +130,7 @@
                 alias = "${pkgs.cm-frontend}/share/campusmedius/viewer/dist/campusmedius/browser/";
                 extraConfig = ''
                     try_files $uri $uri/ @ssr;
-                    expires 10m;
-                    etag off;
+                    add_header Cache-Control "no-store, no-cache, must-revalidate";
                 '';
                 priority = 1001;
             };

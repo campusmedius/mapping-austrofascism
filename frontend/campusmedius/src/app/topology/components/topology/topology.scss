@@ -170,7 +170,7 @@ cm-god-selector {
         padding: 0px;
         height: 30px;
         line-height: 30px;
-        opacity: 0.9;
+        background: $clickable-color-opacity;
         &:hover {
             background: $accent-color;
         }

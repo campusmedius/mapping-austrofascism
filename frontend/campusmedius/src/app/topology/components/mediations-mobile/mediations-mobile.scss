@@ -18,7 +18,6 @@
         }
     }
     background: $map-overlay-background-color;
-    opacity: 0.9;
     color: white;
     box-sizing: border-box;
     padding: 0px 24px;
@@ -78,17 +77,34 @@
     user-select: none;
 }
 
-hr {
-    margin-left: -20px;
-    margin-right: -20px;
-    color: $secondary-font-color;
+
+.hr-container {
     top: 38px;
     @media screen and (max-width: $break-mobile) {
         top: 35px;
     }
     position: relative;
-    width: calc(100% + 40px);
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    hr {
+        display: inline-block;
+        color: $secondary-font-color;
+    }
+    .hr-gap {
+        width: 78px;
+    }
+    
+    .hr-grow {
+        flex-grow: 1;
+    }
+    
+    .hr-middle {
+        max-width: 97px;
+        width: calc(30% - 78px);
+    }
 }
+
 
 .mediation-label {
     margin-top: 10px;
@@ -132,7 +148,7 @@ hr {
     display: inline-block;
     white-space: nowrap;
     position: relative;
-    &:hover, {
+    &:hover {
         cursor: pointer;
         .mediation-icon, .mediation-label {
             color: #ffffff;
@@ -184,7 +200,6 @@ hr {
     }
     height: 50px;
     display: inline-block;
-    background: $background-color;
     position: relative;
 }
 

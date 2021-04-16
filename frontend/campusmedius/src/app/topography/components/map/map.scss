@@ -35,6 +35,7 @@
         left: 15px;
     }
     button {
+        background: $clickable-color-opacity;
         display: block;
         min-width: 20px;
         margin-bottom: 2px;
@@ -42,9 +43,8 @@
         padding: 0px;
         height: 30px;
         line-height: 30px;
-        opacity: 0.9;
         &:hover {
-            background: $accent-color;
+            background: $accent-color-opacity;
         }
     }
     .zoom {
@@ -54,18 +54,18 @@
         opacity: 0.6;
         cursor: default;
         &:hover {
-            background: $clickable-color;
+            background: $clickable-color-opacity;
         }
     }
     .mat-button-wraper {
         line-height: 30px;
     }
     .vie-map-not-visible {
-        color: #666666;
-        background-color: white;
-        border: solid #666666 1px;
+        color: $clickable-color-opacity;
+        background-color: rgba(255,255,255,0.9);
+        border: solid $clickable-color-opacity 1px;
         &:hover {
-            color: #fff;
+            color: rgba(255,255,255,0.9);;
         }
     }
     .vie-map-toggle {
