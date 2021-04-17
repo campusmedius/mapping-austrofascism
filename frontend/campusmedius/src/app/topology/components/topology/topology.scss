@@ -105,10 +105,12 @@ cm-map {
     background-image: url("../../../../assets/topology.jpg");
     background-position: center center;
     background-size: cover;
+    filter: blur(4px);
     background-color: $map-overlay-background-color;
     @media screen and (max-width: $break-mobile) {
         height: 100%;
         width: 100%;
+        filter: blur(2px);
     }
 }
 

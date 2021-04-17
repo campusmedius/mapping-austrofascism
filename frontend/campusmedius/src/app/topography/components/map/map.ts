@@ -22,8 +22,8 @@ const MIN_ZOOM = 10;
     styleUrls: ['./map.scss'],
     animations: [
         trigger('mapattribOpen', [
-            state('true', style({ 'width': '*', 'max-height': '140px', display: '*', opacity: 1 })),
-            state('false', style({ 'width': '0px', 'max-height': '0px', display: 'none', opacity: 0 })),
+            state('true', style({ opacity: 1 })),
+            state('false', style({ 'width': '0px', 'height': '0px', opacity: 0 })),
             transition('false => true', [
                 style({ 'display': 'block' }),
                 animate('300ms ease-in')

@@ -319,6 +319,9 @@ cm-topology {
 .map-attrib {
     overflow: hidden;
     border-radius: 3px;
+    padding: 1px;
+    margin-left: -1px;
+    margin-top: -1px;
     .map-attrib-inner {
         padding: 5px 10px;
         font-size: $small2-font-size;
