@@ -32,6 +32,7 @@ export class CiteDialogComponent implements OnInit {
     public keywordsExpanded = false;
     public keywordsShowExpanded = true;
     public url: string;
+    public copyUrlStr: string;
 
     constructor(
         public translate: TranslateService,
@@ -42,23 +43,25 @@ export class CiteDialogComponent implements OnInit {
 
     ngOnInit() {
         if (this.data.type === 'event') {
-            this.url = 'https://campusmedius.net/topography/events/' + this.data.data.id;
+            this.url = 'https://campusmedius.net/topography/events/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
         } else if (this.data.type === 'mediator') {
-            this.url = 'https://campusmedius.net/topology/mediations/' + this.data.mediationId + '/mediators/' + this.data.data.id;
+            this.url = 'https://campusmedius.net/topology/mediations/' + this.data.mediationId + '/mediators/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
         } else if (this.data.type === 'page') {
             this.url = 'https://campusmedius.net';
             if(this.data.data.titleEn === 'Overview') {
-                this.url += '/overview';
+                this.url += '/overview' + '?lang=' + this.translate.currentLang;
             } else if(this.data.data.titleEn === 'Project Team') {
-                this.url += '/team';
+                this.url += '/team' + '?lang=' + this.translate.currentLang;
             } else if(this.data.data.titleEn === 'Book Edition') {
-                this.url += '/book';
+                this.url += '/book' + '?lang=' + this.translate.currentLang;
             } else if(this.data.data.titleEn === 'Disclosure') {
-                this.url += '/disclosure';
+                this.url += '/disclosure' + '?lang=' + this.translate.currentLang;
             }
         } else {
-            this.url = 'https://campusmedius.net';
+            this.url = 'https://campusmedius.net' + '?lang=' + this.translate.currentLang;
         }
+
+        this.copyUrlStr = this.url;
 
         this.url = this.url.replace(/\//g, '/\u200B');
         this.url = this.url.replace(/\./g, '.\u200B');
@@ -111,7 +114,7 @@ export class CiteDialogComponent implements OnInit {
     }
 
     public copyUrl() {
-        this.clipboard.copy(this.url);
+        this.clipboard.copy(this.copyUrlStr);
     }
 
     public copyCitation() {
@@ -124,9 +127,9 @@ export class CiteDialogComponent implements OnInit {
             if (this.data.type === 'mediator' && this.data.data.id !== '0') {
                 transStr = ' trans. by Maria Slater,';
             }
-            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.url;
+            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.copyUrlStr;
         } else {
-            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.url;
+            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.copyUrlStr;
         }
 
         this.clipboard.copy(citation);
