@@ -117,10 +117,18 @@ export class CiteDialogComponent implements OnInit {
     public copyCitation() {
         let citation;
         if (this.translate.currentLang === 'en') {
-            citation = 'Simon Ganahl et al.: "' + this.titleEn + '", last updated on ' + this.updatedEn + ', in: Campus Medius, 2014–2021, URL: ' + this.url;
+            let transStr = ''
+            if (this.data.type === 'event') {
+                transStr = ' trans. by Katy Derbyshire,';
+            }
+            if (this.data.type === 'mediator' && this.data.data.id !== '0') {
+                transStr = ' trans. by Maria Slater,';
+            }
+            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.url;
         } else {
-            citation = 'Simon Ganahl u.a.: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Campus Medius, 2014–2021, URL: ' + this.url;
+            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.url;
         }
+
         this.clipboard.copy(citation);
     }
 
