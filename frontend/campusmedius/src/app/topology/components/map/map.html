@@ -1,5 +1,5 @@
 <div *ngIf="isServer" class="map-spinner"><i class="fas fa-spinner"></i></div>
-<div #map></div>
+<div #map class="noselect"></div>
 <ng-content></ng-content>
 <div *ngIf="noWebGL" [innerHtml]="'map.webgl' | translate" class="nowebgl">
 </div>
