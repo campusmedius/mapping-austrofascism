@@ -19,7 +19,7 @@
         deployment.keys.basicAuth.group = "keys";
         deployment.keys.basicAuth.permissions = "0640";
         deployment.keys.djangoSecret.text = builtins.readFile ./keys/djangoSecret;
-        
+
         networking.hostName = "campusmedius";
 
         services.nginx = {

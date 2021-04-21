@@ -2,7 +2,7 @@
 # See more at: https://github.com/nix-community/pypi2nix
 #
 # COMMAND:
-#   pypi2nix -V python37 -r requirements.txt
+#   pypi2nix -V python38 -r requirements.txt
 #
 
 { pkgs ? import <nixpkgs> {},
@@ -18,7 +18,7 @@ let
   import "${toString pkgs.path}/pkgs/top-level/python-packages.nix" {
     inherit pkgs;
     inherit (pkgs) stdenv;
-    python = pkgs.python37;
+    python = pkgs.python38;
   };
 
   commonBuildInputs = [];
@@ -28,7 +28,7 @@ let
     let
       pkgs = builtins.removeAttrs pkgs' ["__unfix__"];
       interpreterWithPackages = selectPkgsFn: pythonPackages.buildPythonPackage {
-        name = "python37-interpreter";
+        name = "python38-interpreter";
         buildInputs = [ makeWrapper ] ++ (selectPkgsFn pkgs);
         buildCommand = ''
           mkdir -p $out/bin
@@ -132,17 +132,16 @@ let
     };
 
     "django-extensions" = python.mkDerivation {
-      name = "django-extensions-1.9.8";
+      name = "django-extensions-2.2.9";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/96/cd/a5a2ac25012a7859e788461e04e50be7e128fe988a58281a56f833009b88/django-extensions-1.9.8.tar.gz";
-        sha256 = "9f1c314cfd4b974f03c5589f46f33051aa1d6b5a38cfb7f8824f59e9337768ae";
+        url = "https://files.pythonhosted.org/packages/2f/36/c0b28881227d658b2346c11809c88f3d1e52cf2968e25642d74727a97b31/django-extensions-2.2.9.tar.gz";
+        sha256 = "2f81b618ba4d1b0e58603e25012e5c74f88a4b706e0022a3b21f24f0322a6ce6";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
       buildInputs = commonBuildInputs ++ [ ];
       propagatedBuildInputs = [
         self."six"
-        self."typing"
       ];
       meta = with pkgs.stdenv.lib; {
         homepage = "http://github.com/django-extensions/django-extensions";
@@ -391,10 +390,10 @@ let
     };
 
     "pytz" = python.mkDerivation {
-      name = "pytz-2020.4";
+      name = "pytz-2021.1";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/09/07/448a8887c7195450604dfc0305d80d74324c36ee18ed997664051d4bffe3/pytz-2020.4.tar.gz";
-        sha256 = "3e6b7dd2d1e0a59084bcee14a17af60c5c562cdc16d828e8eba2e683d3a7e268";
+        url = "https://files.pythonhosted.org/packages/b0/61/eddc6eb2c682ea6fd97a7e1018a6294be80dba08fa28e7a3570148b4612d/pytz-2021.1.tar.gz";
+        sha256 = "83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -404,6 +403,25 @@ let
         homepage = "http://pythonhosted.org/pytz";
         license = licenses.mit;
         description = "World timezone definitions, modern and historical";
+      };
+    };
+
+    "setuptools" = python.mkDerivation {
+      name = "setuptools-56.0.0";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/f6/e9/19af16328705915233299f6f1f02db95899fb00c75ac9da4757aa1e5d1de/setuptools-56.0.0.tar.gz";
+        sha256 = "08a1c0f99455307c48690f00d5c2ac2c1ccfab04df00454fef854ec145b81302";
+};
+      doCheck = commonDoCheck;
+      format = "pyproject";
+      buildInputs = commonBuildInputs ++ [
+        self."wheel"
+      ];
+      propagatedBuildInputs = [ ];
+      meta = with pkgs.stdenv.lib; {
+        homepage = "https://github.com/pypa/setuptools";
+        license = licenses.mit;
+        description = "Easily download, build, install, upgrade, and uninstall Python packages";
       };
     };
 
@@ -425,14 +443,17 @@ let
     };
 
     "soupsieve" = python.mkDerivation {
-      name = "soupsieve-2.1";
+      name = "soupsieve-2.2.1";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/58/5d/445e21e92345848305eecf473338e9ec7ed8905b99ea78415042060127fc/soupsieve-2.1.tar.gz";
-        sha256 = "6dc52924dc0bc710a5d16794e6b3480b2c7c08b07729505feab2b2c16661ff6e";
+        url = "https://files.pythonhosted.org/packages/c8/3f/e71d92e90771ac2d69986aa0e81cf0dfda6271e8483698f4847b861dd449/soupsieve-2.2.1.tar.gz";
+        sha256 = "052774848f448cf19c7e959adf5566904d525f33a3f8b6ba6f6f8f26ec7de0cc";
 };
       doCheck = commonDoCheck;
-      format = "setuptools";
-      buildInputs = commonBuildInputs ++ [ ];
+      format = "pyproject";
+      buildInputs = commonBuildInputs ++ [
+        self."setuptools"
+        self."wheel"
+      ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
         homepage = "https://github.com/facelessuser/soupsieve";
@@ -441,20 +462,21 @@ let
       };
     };
 
-    "typing" = python.mkDerivation {
-      name = "typing-3.7.4.3";
+    "wheel" = python.mkDerivation {
+      name = "wheel-0.36.2";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/05/d9/6eebe19d46bd05360c9a9aae822e67a80f9242aabbfc58b641b957546607/typing-3.7.4.3.tar.gz";
-        sha256 = "1187fb9c82fd670d10aa07bbb6cfcfe4bdda42d6fab8d5134f04e8c4d0b71cc9";
+        url = "https://files.pythonhosted.org/packages/ed/46/e298a50dde405e1c202e316fa6a3015ff9288423661d7ea5e8f22f589071/wheel-0.36.2.tar.gz";
+        sha256 = "e11eefd162658ea59a60a0f6c7d493a7190ea4b9a85e335b33489d9f17e0245e";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
-      buildInputs = commonBuildInputs ++ [ ];
+      buildInputs = commonBuildInputs ++ [
+      ];
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
-        homepage = "https://docs.python.org/3/library/typing.html";
-        license = licenses.psfl;
-        description = "Type Hints for Python";
+        homepage = "https://github.com/pypa/wheel";
+        license = licenses.mit;
+        description = "A built-package format for Python";
       };
     };
   };

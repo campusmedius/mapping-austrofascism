@@ -48,7 +48,7 @@ with lib;
       '';
       environment = env;
       script = ''
-          ${pkgs.nodejs-13_x}/bin/node ./dist/campusmedius/server/main.js
+          ${pkgs.nodejs-14_x}/bin/node ./dist/campusmedius/server/main.js
       '';
       serviceConfig = {
         Type = "simple";
@@ -61,12 +61,12 @@ with lib;
       };
     };
 
-    environment.systemPackages = [ pkgs.nodejs-13_x ];
+    environment.systemPackages = [ pkgs.nodejs-14_x ];
 
     users.extraUsers.www-data = {
       group = "www-data";
     };
 
-    users.extraGroups = singleton{ name = "www-data";};
+    users.groups = { "www-data" = { }; };
   };
 }

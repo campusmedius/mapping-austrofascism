@@ -1,8 +1,8 @@
-{stdenv, fetchgit, uwsgi, python37, python37Packages}:
+{stdenv, fetchgit, uwsgi, python3, python3Packages}:
 
 let
     uwsgi-python = uwsgi.override { plugins = [ "python3" ]; };
-    python = python37;
+    python = python3;
     version = (builtins.fromJSON (builtins.readFile ./version.json));
     pythonenv = let
        pipy2nix = import ./requirements.nix { };

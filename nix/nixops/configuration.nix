@@ -154,7 +154,7 @@
             };
         };
         appendHttpConfig = ''
-          uwsgi_cache_path /var/spool/nginx/cache levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;
+          uwsgi_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;
         '';
     };
     

@@ -155,6 +155,6 @@ with lib;
       group = "www-data";
     };
 
-    users.extraGroups = singleton{ name = "www-data";};
+    users.groups = { "www-data" = { }; };
   };
 }
