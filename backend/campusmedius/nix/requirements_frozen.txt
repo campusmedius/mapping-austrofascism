@@ -9,7 +9,7 @@ django-taggit==1.2.0
 django-taggit-autosuggest==0.3.8
 django-taggit-serializer==0.1.7
 django-tinymce4-lite==1.6.0
-djangorestframework==3.7.3
+djangorestframework==3.11.2
 djangorestframework-camel-case==0.2.0
 geographiclib==1.50
 geopy==2.0.0
