@@ -46,6 +46,9 @@ export class ImageComponent implements OnInit, OnDestroy {
     @Input() id: string;
     @HostBinding('attr.id')
     get elementId() { 
+        if ((this.id + '').startsWith('i:')) {
+            return (this.id + ''); 
+        }
         return 'i:' + this.id; 
     }
 

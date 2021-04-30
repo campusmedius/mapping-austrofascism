@@ -35,6 +35,9 @@ export class AudioComponent implements OnInit {
     @Input() id: string;
     @HostBinding('attr.id')
     get elementId() { 
+        if ((this.id + '').startsWith('a:')) {
+            return (this.id + ''); 
+        }
         return 'a:' + this.id; 
     }
 

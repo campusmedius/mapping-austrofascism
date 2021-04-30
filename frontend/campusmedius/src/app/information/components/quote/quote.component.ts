@@ -15,6 +15,9 @@ export class QuoteComponent implements OnInit {
     @Input() id: string;
     @HostBinding('attr.id')
     get elementId() { 
+        if ((this.id + '').startsWith('q:')) {
+            return (this.id + ''); 
+        }
         return 'q:' + this.id; 
     }
 

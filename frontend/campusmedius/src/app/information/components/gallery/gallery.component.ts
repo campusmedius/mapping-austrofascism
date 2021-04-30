@@ -23,6 +23,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
     @Input() id: string;
     @HostBinding('attr.id')
     get elementId() { 
+        if ((this.id + '').startsWith('g:')) {
+            return (this.id + ''); 
+        }
         return 'g:' + this.id; 
     }
 

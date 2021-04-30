@@ -23,8 +23,8 @@
 
         # List services that you want to enable:
 
-        services.vmwareGuest.enable = true;
-        services.vmwareGuest.headless = true;
+        virtualisation.vmware.guest.enable = true;
+        virtualisation.vmware.guest.headless = true;
         
         # cm backend
         services.campusmedius.backend = {

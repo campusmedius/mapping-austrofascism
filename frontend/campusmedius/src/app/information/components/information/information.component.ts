@@ -166,7 +166,7 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                     const id = e.attributes.id.value;
                     componentRef = this.galleryFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
-                    componentRef.instance.data = this.media.galleries[id];
+                    componentRef.instance.data = this.media.galleries[id.replace('g:','')];
                     componentRef.instance.lang = this.lang;
                     this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
                         this.galleryOpened.emit();
@@ -179,7 +179,7 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                     const id = e.attributes.id.value;
                     componentRef = this.imageFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
-                    componentRef.instance.data = this.media.images[id];
+                    componentRef.instance.data = this.media.images[id.replace('i:','')];
                     componentRef.instance.lang = this.lang;
                     this.subscriptions.push(componentRef.instance.opened.subscribe(() => {
                         this.galleryOpened.emit();
@@ -192,14 +192,14 @@ export class InformationComponent implements OnInit, AfterViewInit, OnDestroy, O
                     const id = e.attributes.id.value;
                     componentRef = this.videoFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
-                    componentRef.instance.data = this.media.videos[id];
+                    componentRef.instance.data = this.media.videos[id.replace('v:','')];
                     componentRef.instance.lang = this.lang;
                 } else if (e.tagName === 'CM-AUDIO') {
                     e.classList.add('reset')
                     const id = e.attributes.id.value;
                     componentRef = this.audioFactory.create(this.injector, [], e);
                     componentRef.instance.id = id;
-                    componentRef.instance.data = this.media.audios[id];
+                    componentRef.instance.data = this.media.audios[id.replace('a:','')];
                     componentRef.instance.lang = this.lang;
                 }
                 this.applicationRef.attachView(componentRef.hostView);

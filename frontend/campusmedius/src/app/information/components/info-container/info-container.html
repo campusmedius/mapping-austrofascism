@@ -16,7 +16,7 @@
         </div>
         <ng-template #fullInfo>
             <div *ngIf="content">
-                <cm-information [content]="content" [lang]="lang" [media]="media"></cm-information>
+                <cm-information *ngIf="content && media" [content]="content" [lang]="lang" [media]="media"></cm-information>
             </div>
         </ng-template>
     </div>

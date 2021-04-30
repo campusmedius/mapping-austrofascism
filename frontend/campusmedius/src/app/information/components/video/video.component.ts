@@ -37,6 +37,9 @@ export class VideoComponent implements OnInit {
     @Input() id: string;
     @HostBinding('attr.id')
     get elementId() { 
+        if ((this.id + '').startsWith('v:')) {
+            return (this.id + ''); 
+        }
         return 'v:' + this.id; 
     }
 

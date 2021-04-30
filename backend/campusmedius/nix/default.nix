@@ -1,7 +1,7 @@
-{stdenv, uwsgi, python37, python37Packages }:
+{stdenv, uwsgi, python38, python38Packages }:
 let
     uwsgi-python = uwsgi.override { plugins = [ "python3" ]; };
-    python = python37;
+    python = python38;
     pythonenv = let
         pipy2nix = import ./requirements.nix { };
     in

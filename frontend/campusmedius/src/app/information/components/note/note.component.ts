@@ -36,6 +36,9 @@ export class NoteComponent implements OnInit {
     @Input() id: string;
     @HostBinding('attr.id')
     get elementId() { 
+        if ((this.id + '').startsWith('n:')) {
+            return (this.id + ''); 
+        }
         return 'n:' + this.id; 
     }
 
