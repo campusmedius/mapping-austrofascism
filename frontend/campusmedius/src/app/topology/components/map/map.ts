@@ -102,6 +102,11 @@ export class MapComponent implements OnInit {
             return;
         }
 
+        let interactive = false;
+        if (<any>window && (<any>window).mapInteractive) {
+            interactive = true;
+        }
+
         this.map = new mapboxgl.Map({
             container: this.mapElement.nativeElement,
             attributionControl: false,
@@ -113,7 +118,7 @@ export class MapComponent implements OnInit {
             pitch: 55,
             bearing: -21.6,
             zoom: 16.6, // starting zoom
-            interactive: false
+            interactive: interactive
         });
 
         this.map.addControl(new mapboxgl.AttributionControl(), 'top-right');

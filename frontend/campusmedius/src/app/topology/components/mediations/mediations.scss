@@ -86,6 +86,10 @@
     hr {
         display: inline-block;
         color: $secondary-font-color;
+        background: #f4f4f4;
+        outline-color: #f4f4f4;
+        border: none;
+        height: 1px;
     }
     .hr-gap {
         width: 78px;
