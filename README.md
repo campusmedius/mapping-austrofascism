@@ -1,6 +1,6 @@
-# campusmedius
+# Campus Medius
 
-Code for [campusmedius](https://campusmedius.net/)
+Code for [Campus Medius](https://campusmedius.net/)
 
 For mapping docs see [here](https://github.com/campusmedius/campusmedius/tree/master/mapping).
 
