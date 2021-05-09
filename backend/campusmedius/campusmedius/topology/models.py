@@ -89,7 +89,7 @@ class Mediator(models.Model):
         if self.id > 10:
             mediationId = '3'
 
-        return '/mediations/' + mediationId + '/mediators/' + str(self.id) + '?info=full'
+        return '/topology/mediations/' + mediationId + '/mediators/' + str(self.id) + '?info=full'
 
 
 class Relation(models.Model):

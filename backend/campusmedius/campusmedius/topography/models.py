@@ -50,4 +50,4 @@ class Event(models.Model):
         return super(Event, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return '/events/' + str(self.id) + '?info=full'
+        return '/topography/events/' + str(self.id) + '?info=full'
