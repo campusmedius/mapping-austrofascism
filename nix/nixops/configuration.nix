@@ -93,6 +93,21 @@
                     etag off;
                 '';
             };
+            locations."/phaidra/" = {
+                extraConfig = ''
+                    proxy_pass https://services.phaidra.univie.ac.at/;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header Host "services.phaidra.univie.ac.at";
+                    proxy_ssl_name "services.phaidra.univie.ac.at";
+                    proxy_ssl_server_name on;
+                    proxy_ssl_session_reuse off;
+                    proxy_http_version 1.1;
+                    proxy_cache_bypass $http_upgrade;
+                    proxy_set_header Authorization "Basic ${builtins.readFile ./production/keys/phaidraCredentials}";
+                    expires 24h;
+                    etag off;
+                '';
+            };
             locations."/tiles/" = {
                 alias = "${pkgs.cm-tiles}/share/campusmedius/tiles/";
                 extraConfig = ''

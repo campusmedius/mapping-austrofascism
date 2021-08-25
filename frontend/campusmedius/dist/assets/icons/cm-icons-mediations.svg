@@ -1,0 +1,233 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="54px" height="54px" viewBox="0 0 54 54" style="enable-background:new 0 0 54 54;" xml:space="preserve">
+
+<!-- ZENTRALISIERTES NETZWERK (Mediator 0-5)  -->
+
+<symbol id="mediator-0">
+	<circle id="XMLID_31_" cx="75" cy="75" r="75" fill="#fff"/>
+	<rect id="XMLID_30_" x="73.7" y="32.3" width="2.6" height="42"/>
+	<rect id="XMLID_28_" x="34.1" y="66.5" transform="matrix(0.9508 0.31 -0.31 0.9508 23.7374 -13.7276)" width="41.9" height="2.6"/>
+	<rect id="XMLID_26_" x="61.3" y="70.3" transform="matrix(0.8088 0.5881 -0.5881 0.8088 65.6797 -19.3876)" width="2.6" height="42"/>
+	<rect id="XMLID_24_" x="66.3" y="90" transform="matrix(0.5868 0.8098 -0.8098 0.5868 110.0426 -32.9645)" width="42" height="2.6"/>
+	<rect id="XMLID_22_" x="93.6" y="46.9" transform="matrix(0.3095 0.9509 -0.9509 0.3095 130.0564 -43.4302)" width="2.6" height="41.9"/>
+	<circle id="XMLID_15_" fill="currentColor" cx="75" cy="74.3" r="12"/>
+	<circle id="XMLID_14_" cx="75" cy="32.3" r="12"/>
+	<circle id="XMLID_20_" cx="35.1" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="114.9" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="50.3" cy="108.3" r="12"/>
+	<circle id="XMLID_18_" cx="99.6" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-1">
+	<circle id="XMLID_31_" cx="75" cy="75" r="75" fill="#fff"/>
+	<rect id="XMLID_30_" x="73.7" y="32.3" width="2.6" height="42"/>
+	<rect id="XMLID_28_" x="34.1" y="66.5" transform="matrix(0.9508 0.31 -0.31 0.9508 23.7374 -13.7276)" width="41.9" height="2.6"/>
+	<rect id="XMLID_26_" x="61.3" y="70.3" transform="matrix(0.8088 0.5881 -0.5881 0.8088 65.6797 -19.3876)" width="2.6" height="42"/>
+	<rect id="XMLID_24_" x="66.3" y="90" transform="matrix(0.5868 0.8098 -0.8098 0.5868 110.0426 -32.9645)" width="42" height="2.6"/>
+	<rect id="XMLID_22_" x="93.6" y="46.9" transform="matrix(0.3095 0.9509 -0.9509 0.3095 130.0564 -43.4302)" width="2.6" height="41.9"/>
+	<circle id="XMLID_15_" cx="75" cy="74.3" r="12"/>
+	<circle id="XMLID_14_" fill="currentColor" cx="75" cy="32.3" r="12"/>
+	<circle id="XMLID_20_" cx="35.1" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="114.9" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="50.3" cy="108.3" r="12"/>
+	<circle id="XMLID_18_" cx="99.6" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-2">
+	<circle id="XMLID_31_" cx="75" cy="75" r="75" fill="#fff"/>
+	<rect id="XMLID_30_" x="73.7" y="32.3" width="2.6" height="42"/>
+	<rect id="XMLID_28_" x="34.1" y="66.5" transform="matrix(0.9508 0.31 -0.31 0.9508 23.7374 -13.7276)" width="41.9" height="2.6"/>
+	<rect id="XMLID_26_" x="61.3" y="70.3" transform="matrix(0.8088 0.5881 -0.5881 0.8088 65.6797 -19.3876)" width="2.6" height="42"/>
+	<rect id="XMLID_24_" x="66.3" y="90" transform="matrix(0.5868 0.8098 -0.8098 0.5868 110.0426 -32.9645)" width="42" height="2.6"/>
+	<rect id="XMLID_22_" x="93.6" y="46.9" transform="matrix(0.3095 0.9509 -0.9509 0.3095 130.0564 -43.4302)" width="2.6" height="41.9"/>
+	<circle id="XMLID_15_" cx="75" cy="74.3" r="12"/>
+	<circle id="XMLID_14_" cx="75" cy="32.3" r="12"/>
+	<circle id="XMLID_20_" fill="currentColor" cx="35.1" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="114.9" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="50.3" cy="108.3" r="12"/>
+	<circle id="XMLID_18_" cx="99.6" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-3">
+	<circle id="XMLID_31_" cx="75" cy="75" r="75" fill="#fff"/>
+	<rect id="XMLID_30_" x="73.7" y="32.3" width="2.6" height="42"/>
+	<rect id="XMLID_28_" x="34.1" y="66.5" transform="matrix(0.9508 0.31 -0.31 0.9508 23.7374 -13.7276)" width="41.9" height="2.6"/>
+	<rect id="XMLID_26_" x="61.3" y="70.3" transform="matrix(0.8088 0.5881 -0.5881 0.8088 65.6797 -19.3876)" width="2.6" height="42"/>
+	<rect id="XMLID_24_" x="66.3" y="90" transform="matrix(0.5868 0.8098 -0.8098 0.5868 110.0426 -32.9645)" width="42" height="2.6"/>
+	<rect id="XMLID_22_" x="93.6" y="46.9" transform="matrix(0.3095 0.9509 -0.9509 0.3095 130.0564 -43.4302)" width="2.6" height="41.9"/>
+	<circle id="XMLID_15_" cx="75" cy="74.3" r="12"/>
+	<circle id="XMLID_14_" cx="75" cy="32.3" r="12"/>
+	<circle id="XMLID_20_" cx="35.1" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" fill="currentColor" cx="114.9" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="50.3" cy="108.3" r="12"/>
+	<circle id="XMLID_18_" cx="99.6" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-4">
+	<circle id="XMLID_31_" cx="75" cy="75" r="75" fill="#fff"/>
+	<rect id="XMLID_30_" x="73.7" y="32.3" width="2.6" height="42"/>
+	<rect id="XMLID_28_" x="34.1" y="66.5" transform="matrix(0.9508 0.31 -0.31 0.9508 23.7374 -13.7276)" width="41.9" height="2.6"/>
+	<rect id="XMLID_26_" x="61.3" y="70.3" transform="matrix(0.8088 0.5881 -0.5881 0.8088 65.6797 -19.3876)" width="2.6" height="42"/>
+	<rect id="XMLID_24_" x="66.3" y="90" transform="matrix(0.5868 0.8098 -0.8098 0.5868 110.0426 -32.9645)" width="42" height="2.6"/>
+	<rect id="XMLID_22_" x="93.6" y="46.9" transform="matrix(0.3095 0.9509 -0.9509 0.3095 130.0564 -43.4302)" width="2.6" height="41.9"/>
+	<circle id="XMLID_15_" cx="75" cy="74.3" r="12"/>
+	<circle id="XMLID_14_" cx="75" cy="32.3" r="12"/>
+	<circle id="XMLID_20_" cx="35.1" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="114.9" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" fill="currentColor" cx="50.3" cy="108.3" r="12"/>
+	<circle id="XMLID_18_" cx="99.6" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-5">
+	<circle id="XMLID_31_" cx="75" cy="75" r="75" fill="#fff"/>
+	<rect id="XMLID_30_" x="73.7" y="32.3" width="2.6" height="42"/>
+	<rect id="XMLID_28_" x="34.1" y="66.5" transform="matrix(0.9508 0.31 -0.31 0.9508 23.7374 -13.7276)" width="41.9" height="2.6"/>
+	<rect id="XMLID_26_" x="61.3" y="70.3" transform="matrix(0.8088 0.5881 -0.5881 0.8088 65.6797 -19.3876)" width="2.6" height="42"/>
+	<rect id="XMLID_24_" x="66.3" y="90" transform="matrix(0.5868 0.8098 -0.8098 0.5868 110.0426 -32.9645)" width="42" height="2.6"/>
+	<rect id="XMLID_22_" x="93.6" y="46.9" transform="matrix(0.3095 0.9509 -0.9509 0.3095 130.0564 -43.4302)" width="2.6" height="41.9"/>
+	<circle id="XMLID_15_" cx="75" cy="74.3" r="12"/>
+	<circle id="XMLID_14_" cx="75" cy="32.3" r="12"/>
+	<circle id="XMLID_20_" cx="35.1" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="114.9" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="50.3" cy="108.3" r="12"/>
+	<circle id="XMLID_18_" fill="currentColor" cx="99.6" cy="108.3" r="12"/>	
+</symbol>
+
+
+
+<!-- LINEARES NETZWERK (Mediator 6-10)  -->
+
+<symbol id="mediator-6">
+	<circle id="XMLID_22_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_16_" class="st1" d="M100.2,110.2l-1.5-2.1c10.6-7.6,16.9-19.9,16.9-32.9c0-22.4-18.2-40.5-40.5-40.5
+				S34.5,52.8,34.5,75.1c0,12.9,6.2,25.1,16.6,32.7l-1.6,2.1c-11.1-8.1-17.7-21.1-17.7-34.9C31.8,51.3,51.2,32,75,32
+				s43.2,19.4,43.2,43.2C118.2,89,111.5,102.1,100.2,110.2z"/>
+	<circle id="XMLID_19_" fill="currentColor" cx="50.3" cy="109.1" r="12"/>
+	<circle id="XMLID_21_" cx="35.1" cy="62.1" r="12"/>
+	<circle id="XMLID_20_" cx="75" cy="33.1" r="12"/>
+	<circle id="XMLID_18_" cx="114.9" cy="62.1" r="12"/>
+	<circle id="XMLID_17_" cx="99.6" cy="109.1" r="12"/>			
+</symbol>
+
+<symbol id="mediator-7">
+	<circle id="XMLID_22_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_16_" class="st1" d="M100.2,110.2l-1.5-2.1c10.6-7.6,16.9-19.9,16.9-32.9c0-22.4-18.2-40.5-40.5-40.5
+				S34.5,52.8,34.5,75.1c0,12.9,6.2,25.1,16.6,32.7l-1.6,2.1c-11.1-8.1-17.7-21.1-17.7-34.9C31.8,51.3,51.2,32,75,32
+				s43.2,19.4,43.2,43.2C118.2,89,111.5,102.1,100.2,110.2z"/>
+	<circle id="XMLID_19_" cx="50.3" cy="109.1" r="12"/>
+	<circle id="XMLID_21_" fill="currentColor" cx="35.1" cy="62.1" r="12"/>
+	<circle id="XMLID_20_" cx="75" cy="33.1" r="12"/>
+	<circle id="XMLID_18_" cx="114.9" cy="62.1" r="12"/>
+	<circle id="XMLID_17_" cx="99.6" cy="109.1" r="12"/>	
+</symbol>
+
+<symbol id="mediator-8">
+	<circle id="XMLID_22_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_16_" class="st1" d="M100.2,110.2l-1.5-2.1c10.6-7.6,16.9-19.9,16.9-32.9c0-22.4-18.2-40.5-40.5-40.5
+				S34.5,52.8,34.5,75.1c0,12.9,6.2,25.1,16.6,32.7l-1.6,2.1c-11.1-8.1-17.7-21.1-17.7-34.9C31.8,51.3,51.2,32,75,32
+				s43.2,19.4,43.2,43.2C118.2,89,111.5,102.1,100.2,110.2z"/>
+	<circle id="XMLID_19_" cx="50.3" cy="109.1" r="12"/>
+	<circle id="XMLID_21_" cx="35.1" cy="62.1" r="12"/>
+	<circle id="XMLID_20_" fill="currentColor" cx="75" cy="33.1" r="12"/>
+	<circle id="XMLID_18_" cx="114.9" cy="62.1" r="12"/>
+	<circle id="XMLID_17_" cx="99.6" cy="109.1" r="12"/>	
+</symbol>
+
+<symbol id="mediator-9">
+	<circle id="XMLID_22_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_16_" class="st1" d="M100.2,110.2l-1.5-2.1c10.6-7.6,16.9-19.9,16.9-32.9c0-22.4-18.2-40.5-40.5-40.5
+				S34.5,52.8,34.5,75.1c0,12.9,6.2,25.1,16.6,32.7l-1.6,2.1c-11.1-8.1-17.7-21.1-17.7-34.9C31.8,51.3,51.2,32,75,32
+				s43.2,19.4,43.2,43.2C118.2,89,111.5,102.1,100.2,110.2z"/>
+	<circle id="XMLID_19_" cx="50.3" cy="109.1" r="12"/>
+	<circle id="XMLID_21_" cx="35.1" cy="62.1" r="12"/>
+	<circle id="XMLID_20_" cx="75" cy="33.1" r="12"/>
+	<circle id="XMLID_18_" fill="currentColor" cx="114.9" cy="62.1" r="12"/>
+	<circle id="XMLID_17_" cx="99.6" cy="109.1" r="12"/>	
+</symbol>
+
+<symbol id="mediator-10">
+	<circle id="XMLID_22_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_16_" class="st1" d="M100.2,110.2l-1.5-2.1c10.6-7.6,16.9-19.9,16.9-32.9c0-22.4-18.2-40.5-40.5-40.5
+				S34.5,52.8,34.5,75.1c0,12.9,6.2,25.1,16.6,32.7l-1.6,2.1c-11.1-8.1-17.7-21.1-17.7-34.9C31.8,51.3,51.2,32,75,32
+				s43.2,19.4,43.2,43.2C118.2,89,111.5,102.1,100.2,110.2z"/>
+	<circle id="XMLID_19_" cx="50.3" cy="109.1" r="12"/>
+	<circle id="XMLID_21_" cx="35.1" cy="62.1" r="12"/>
+	<circle id="XMLID_20_" cx="75" cy="33.1" r="12"/>
+	<circle id="XMLID_18_" cx="114.9" cy="62.1" r="12"/>
+	<circle id="XMLID_17_" fill="currentColor" cx="99.6" cy="109.1" r="12"/>
+</symbol>
+
+
+<!-- VERTEILTES NETZWERK (Mediator 11-15)  -->
+
+<symbol id="mediator-11">
+	<circle id="XMLID_23_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_20_" d="M76.9,30.7L35.4,60.9l15.8,48.8h51.2l15.8-48.8L76.9,30.7z M76.9,88.8l-13.7-10l5.2-16.1h16.9
+			l5.2,16.1L76.9,88.8z M91.4,81.4l7.6,23.4L79.1,90.4L91.4,81.4z M74.6,90.4l-19.9,14.5l7.6-23.4L74.6,90.4z M60.9,77.2L41,62.7
+			h24.6L60.9,77.2z M69.3,60l7.6-23.4L84.4,60H69.3z M88.1,62.7h24.6L92.8,77.2L88.1,62.7z M87.2,60l-7.9-24.2L112.7,60H87.2z
+			 M66.5,60H41l33.3-24.2L66.5,60z M60.1,79.8l-7.9,24.2L39.5,64.8L60.1,79.8z M76.9,92l20.6,15H56.3L76.9,92z M93.6,79.8l20.6-15
+			l-12.7,39.2L93.6,79.8z"/>
+	<circle id="XMLID_18_" fill="currentColor" cx="76.8" cy="32.3" r="12"/>
+	<circle id="XMLID_19_" cx="37" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="116.7" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="52.1" cy="108.3" r="12"/>
+	<circle id="XMLID_15_" cx="101.5" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-12">
+	<circle id="XMLID_23_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_20_" d="M76.9,30.7L35.4,60.9l15.8,48.8h51.2l15.8-48.8L76.9,30.7z M76.9,88.8l-13.7-10l5.2-16.1h16.9
+			l5.2,16.1L76.9,88.8z M91.4,81.4l7.6,23.4L79.1,90.4L91.4,81.4z M74.6,90.4l-19.9,14.5l7.6-23.4L74.6,90.4z M60.9,77.2L41,62.7
+			h24.6L60.9,77.2z M69.3,60l7.6-23.4L84.4,60H69.3z M88.1,62.7h24.6L92.8,77.2L88.1,62.7z M87.2,60l-7.9-24.2L112.7,60H87.2z
+			 M66.5,60H41l33.3-24.2L66.5,60z M60.1,79.8l-7.9,24.2L39.5,64.8L60.1,79.8z M76.9,92l20.6,15H56.3L76.9,92z M93.6,79.8l20.6-15
+			l-12.7,39.2L93.6,79.8z"/>
+	<circle id="XMLID_18_" cx="76.8" cy="32.3" r="12"/>
+	<circle id="XMLID_19_" fill="currentColor" cx="37" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="116.7" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="52.1" cy="108.3" r="12"/>
+	<circle id="XMLID_15_" cx="101.5" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-13">
+	<circle id="XMLID_23_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_20_" d="M76.9,30.7L35.4,60.9l15.8,48.8h51.2l15.8-48.8L76.9,30.7z M76.9,88.8l-13.7-10l5.2-16.1h16.9
+			l5.2,16.1L76.9,88.8z M91.4,81.4l7.6,23.4L79.1,90.4L91.4,81.4z M74.6,90.4l-19.9,14.5l7.6-23.4L74.6,90.4z M60.9,77.2L41,62.7
+			h24.6L60.9,77.2z M69.3,60l7.6-23.4L84.4,60H69.3z M88.1,62.7h24.6L92.8,77.2L88.1,62.7z M87.2,60l-7.9-24.2L112.7,60H87.2z
+			 M66.5,60H41l33.3-24.2L66.5,60z M60.1,79.8l-7.9,24.2L39.5,64.8L60.1,79.8z M76.9,92l20.6,15H56.3L76.9,92z M93.6,79.8l20.6-15
+			l-12.7,39.2L93.6,79.8z"/>
+	<circle id="XMLID_18_" cx="76.8" cy="32.3" r="12"/>
+	<circle id="XMLID_19_" cx="37" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" fill="currentColor" cx="116.7" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="52.1" cy="108.3" r="12"/>
+	<circle id="XMLID_15_" cx="101.5" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-14">
+	<circle id="XMLID_23_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_20_" d="M76.9,30.7L35.4,60.9l15.8,48.8h51.2l15.8-48.8L76.9,30.7z M76.9,88.8l-13.7-10l5.2-16.1h16.9
+			l5.2,16.1L76.9,88.8z M91.4,81.4l7.6,23.4L79.1,90.4L91.4,81.4z M74.6,90.4l-19.9,14.5l7.6-23.4L74.6,90.4z M60.9,77.2L41,62.7
+			h24.6L60.9,77.2z M69.3,60l7.6-23.4L84.4,60H69.3z M88.1,62.7h24.6L92.8,77.2L88.1,62.7z M87.2,60l-7.9-24.2L112.7,60H87.2z
+			 M66.5,60H41l33.3-24.2L66.5,60z M60.1,79.8l-7.9,24.2L39.5,64.8L60.1,79.8z M76.9,92l20.6,15H56.3L76.9,92z M93.6,79.8l20.6-15
+			l-12.7,39.2L93.6,79.8z"/>
+	<circle id="XMLID_18_" cx="76.8" cy="32.3" r="12"/>
+	<circle id="XMLID_19_" cx="37" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="116.7" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" fill="currentColor" cx="52.1" cy="108.3" r="12"/>
+	<circle id="XMLID_15_" cx="101.5" cy="108.3" r="12"/>
+</symbol>
+
+<symbol id="mediator-15">
+	<circle id="XMLID_23_" cx="75" cy="75" r="75" fill="#fff"/>
+	<path id="XMLID_20_" d="M76.9,30.7L35.4,60.9l15.8,48.8h51.2l15.8-48.8L76.9,30.7z M76.9,88.8l-13.7-10l5.2-16.1h16.9
+			l5.2,16.1L76.9,88.8z M91.4,81.4l7.6,23.4L79.1,90.4L91.4,81.4z M74.6,90.4l-19.9,14.5l7.6-23.4L74.6,90.4z M60.9,77.2L41,62.7
+			h24.6L60.9,77.2z M69.3,60l7.6-23.4L84.4,60H69.3z M88.1,62.7h24.6L92.8,77.2L88.1,62.7z M87.2,60l-7.9-24.2L112.7,60H87.2z
+			 M66.5,60H41l33.3-24.2L66.5,60z M60.1,79.8l-7.9,24.2L39.5,64.8L60.1,79.8z M76.9,92l20.6,15H56.3L76.9,92z M93.6,79.8l20.6-15
+			l-12.7,39.2L93.6,79.8z"/>
+	<circle id="XMLID_18_" cx="76.8" cy="32.3" r="12"/>
+	<circle id="XMLID_19_" cx="37" cy="61.3" r="12"/>
+	<circle id="XMLID_16_" cx="116.7" cy="61.3" r="12"/>
+	<circle id="XMLID_17_" cx="52.1" cy="108.3" r="12"/>
+	<circle id="XMLID_15_" fill="currentColor" cx="101.5" cy="108.3" r="12"/>
+</symbol>
+
+</svg>

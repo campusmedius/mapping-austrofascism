@@ -102,6 +102,12 @@ function init_deployments(){
   fi
   cd ../production
 
+  info "Credentials for phaidra"
+  read -p "Username for phaidra [mediusc64]: " USER
+  USER=${USER:-mediusc64}
+  read -p "Password for phaidra: " PASSWORD
+  echo -n "$USER:$PASSWORD" | base64 > ./keys/phaidraCredentials
+
   info "Create deployments in nixops for production"
   if [[ $(nixops list | grep cm-univie) ]]; then
     error "nixops cm-univie deployment exists"

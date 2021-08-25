@@ -261,7 +261,8 @@ export class NgxGalleryThumbnailsComponent implements OnInit, OnChanges {
   }
 
   getFileType (fileSource: string): string {
-    return this.helperService.getFileType(fileSource);
+    return 'image';
+    // return this.helperService.getFileType(fileSource);
   }
 
   private getThumbnailPosition(index: number, count: number): SafeStyle {

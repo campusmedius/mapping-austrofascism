@@ -3,9 +3,10 @@ from rest_framework import serializers
 from .models import Image, Audio, Video, Gallery
 from .models import Information
 
-IMAGE_URL = 'https://services.phaidra.univie.ac.at/api/imageserver?IIIF={}.tif/full/{}/0/default.jpg'
+IMAGE_URL = 'https://campusmedius.net/phaidra/api/object/{}/diss/Content/get'
+IMAGE_THUMBNAIL_URL = 'https://campusmedius.net/phaidra/api/object/{}/thumbnail?w={}'
 VIDEO_URL = 'https://stream-cd.univie.ac.at/media/phaidra/{}_hi.mp4/playlist.m3u8'
-AUDIO_URL = 'https://phaidra.univie.ac.at/open/{}'
+AUDIO_URL = 'https://campusmedius.net/phaidra/api/object/{}/diss/Content/get'
 
 
 # Helper field
@@ -61,10 +62,10 @@ class ImageSerializer(serializers.ModelSerializer):
 
     def get_data(self, obj):
         return {
-            'thumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
-            'mobileThumbnail': IMAGE_URL.format(obj.phaidra_id, '500,'),
-            'full': IMAGE_URL.format(obj.phaidra_id, 'full'),
-            'mobileFull': IMAGE_URL.format(obj.phaidra_id, '1920,')
+            'thumbnail': IMAGE_THUMBNAIL_URL.format(obj.phaidra_id, '500'),
+            'mobileThumbnail': IMAGE_THUMBNAIL_URL.format(obj.phaidra_id, '500'),
+            'full': IMAGE_URL.format(obj.phaidra_id),
+            'mobileFull': IMAGE_THUMBNAIL_URL.format(obj.phaidra_id, '1920')
         }
 
 
