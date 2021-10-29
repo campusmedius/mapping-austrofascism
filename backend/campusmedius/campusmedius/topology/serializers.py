@@ -65,11 +65,11 @@ class RelationSerializer(serializers.ModelSerializer):
 
         if obj.source.id == 0:
             diff = obj.target.time.replace(tzinfo=None) - datetime.datetime(1933, 1, 1)
-            hours = (1933 * 365 * 24) + diff.total_seconds() / 3600 + 1
+            hours = (1932 * 365 * 24) + diff.total_seconds() / 3600 + 1
 			
         if obj.target.id == 0:
             diff = obj.source.time.replace(tzinfo=None) - datetime.datetime(1933, 1, 1)
-            hours = -((1933 * 365 * 24) + diff.total_seconds() / 3600) + 1
+            hours = -((1932 * 365 * 24) + diff.total_seconds() / 3600) + 1
 	
         return hours
 

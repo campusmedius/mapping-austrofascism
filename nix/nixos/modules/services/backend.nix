@@ -153,6 +153,7 @@ with lib;
 
     users.extraUsers.www-data = {
       group = "www-data";
+      isSystemUser = true;
     };
 
     users.groups = { "www-data" = { }; };

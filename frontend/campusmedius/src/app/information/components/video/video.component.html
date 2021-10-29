@@ -6,8 +6,7 @@
     <div class="animation-container" [@container]="opened">
         <div class="container" fxLayout="row" fxLayout.lt-md="column">
             <div fxFlex="50" class="video">
-                <video #video controls controlsList="nodownload" preload="metadata" (contextmenu)="onRightClick($event)">
-                </video>
+                <div #video></div>
             </div>
             <cm-caption *ngIf="openedFirst"  fxFlex="50" class="caption" [content]="lang === 'en' ? data.captionEn : data.captionDe" [lang]="lang"></cm-caption>
         </div>

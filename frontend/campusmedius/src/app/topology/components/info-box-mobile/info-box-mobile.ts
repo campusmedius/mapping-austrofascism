@@ -249,9 +249,9 @@ export class InfoBoxMobileComponent implements OnInit, OnDestroy {
       this.space = space;
 
       if (this.translate.currentLang === 'de') {
-        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + ' m vom Anfang';
+        return this.getSpaceStr(space) + ' vom Anfang';
       } else {
-        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' m from the start';
+        return this.getSpaceStr(space) + ' from the start';
       }
     }
 
@@ -280,6 +280,16 @@ export class InfoBoxMobileComponent implements OnInit, OnDestroy {
       return this.getTimeStr(time, suffix)
     }
 
+    private getSpaceStr(space) {
+      if(space > 1000) {
+        const kilometers = Math.floor(space / 1000)
+        const meters = space - kilometers * 1000
+        return kilometers + ' km ' + Math.round(meters) + ' m';
+      } else {
+        return Math.round(space) + ' m';
+      }
+    }
+
     private getGovernedTransmissionSpaceStr(space) {
       this.space = space;
 
@@ -288,9 +298,9 @@ export class InfoBoxMobileComponent implements OnInit, OnDestroy {
       }
 
       if (this.translate.currentLang === 'de') {
-        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.') + ' m entfernt';
+        return this.getSpaceStr(space) + ' entfernt';
       } else {
-        return Math.round(space).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + ' m away';
+        return this.getSpaceStr(space) + ' away';
       }
     }
 
@@ -305,7 +315,7 @@ export class InfoBoxMobileComponent implements OnInit, OnDestroy {
         hours = hours - (days * 24);
         let daysStr = days.toString();
         return yearsStr + ' a ' + daysStr + ' d ' + hours + ' h ' + minutes + ' min ' + suffix;
-      } else if (hours > 48) {
+      } else if (hours > 24) {
         const days = Math.floor(hours / 24);
         hours = hours - (days * 24);
         let daysStr = days.toString();
