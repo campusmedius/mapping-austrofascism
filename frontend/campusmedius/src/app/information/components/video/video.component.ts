@@ -10,7 +10,7 @@ import {
 
 import { Video } from '../../models/information';
 
-declare var SWITCHtubeEmbed: any;
+import * as Hls from 'hls.js';
 
 @Component({
     selector: 'cm-video',
@@ -47,30 +47,33 @@ export class VideoComponent implements OnInit {
 
     public opened = false;
     public openedFirst = false;
+    private hls: Hls;
 
     constructor() { }
 
     ngOnInit() { }
 
-    addVideo() {
-        SWITCHtubeEmbed.player(
-            this.videoElement.nativeElement,
-          'https://tube.switch.ch/videos/f79ca69d?title=hide'
-        )
-    }
-
     toggle() {
         if (!this.opened) {
             this.opened = true;
             this.openedFirst = true;
-            if ((window as any).SWITCHtubeEmbed) {
-                this.addVideo()
+            if (Hls.isSupported()) {
+                this.hls = new Hls({
+                    maxBufferLength: 10,
+                    maxBufferSize: 1000 * 512
+                });
+                this.hls.attachMedia(this.videoElement.nativeElement);
+                this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+                    this.hls.loadSource(this.data.data.full);
+                });
             } else {
-                window.addEventListener('SWITCHtubeEmbed:ScriptLoaded', this.addVideo)
+                this.videoElement.nativeElement.src = this.data.data.full;
             }
         } else {
-            this.videoElement.nativeElement.innerText = '';
             this.opened = false;
+            if (this.hls) {
+                this.hls.destroy();
+            }
         }
     }
 

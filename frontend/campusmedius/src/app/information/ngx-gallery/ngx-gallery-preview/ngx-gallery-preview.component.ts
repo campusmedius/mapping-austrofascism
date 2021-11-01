@@ -19,7 +19,7 @@ import {DomSanitizer, SafeResourceUrl, SafeStyle, SafeUrl} from '@angular/platfo
 import {NgxGalleryService} from '../ngx-gallery.service';
 import {NgxGalleryAction} from '../ngx-gallery-action';
 
-declare var SWITCHtubeEmbed: any;
+import * as Hls from 'hls.js';
 
 @Component({
   selector: 'ngx-gallery-preview',
@@ -91,6 +91,8 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
   private initialLeft = 0;
   private initialTop = 0;
   private isMove = false;
+
+  private hls: Hls;
 
   private keyDownListener: () => void;
 
@@ -437,16 +439,10 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
     }
   }
 
-  private addVideo() {
-    SWITCHtubeEmbed.player(
-      document.getElementById('gallery-video'),
-      'https://tube.switch.ch/videos/f79ca69d?title=hide'
-    )
-}
-
   private _show() {
-    if(document.getElementById('gallery-video')) {
-      document.getElementById('gallery-video').innerHTML = '';
+    if (this.hls) {
+        this.hls.destroy();
+        this.hls = null;
     }
 
     this.zoomValue = 1;
@@ -499,12 +495,26 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
             }
 
             if (this.types[this.index] === 'video') {
+                if (Hls.isSupported()) {
+                    this.isnativ = false;
+                } else {
+                    this.isnativ = true;
+                }
 
                 setTimeout(() => {
-                    if ((window as any).SWITCHtubeEmbed) {
-                      this.addVideo()
+                    const videoElement = <any>document.getElementById('gallery-video');
+                    if (Hls.isSupported()) {
+                        this.hls = new Hls({
+                            maxBufferLength: 10,
+                            maxBufferSize: 1000 * 512
+                        });
+                        this.hls.attachMedia(videoElement);
+                        this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+                            this.hls.loadSource(<string>this.images[this.index]);
+                        });
                     } else {
-                      window.addEventListener('SWITCHtubeEmbed:ScriptLoaded', this.addVideo)
+                        // const videoElementSrc = <any>document.getElementById('gallery-video-src');
+                        // videoElementSrc.nativeElement.src = this.images[this.index];
                     }
                     this.loading = false;
                     this.changeDetectorRef.markForCheck();
