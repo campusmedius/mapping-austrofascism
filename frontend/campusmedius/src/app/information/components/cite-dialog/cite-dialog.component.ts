@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { DOCUMENT } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
     selector: 'cm-cite-dialog',
@@ -17,6 +18,7 @@ export class CiteDialogComponent implements OnInit {
     public updatedDe: string;
     public updatedEn: string;
     public updatedYear: string;
+    public currentYear: string;
     public abstractEn: string;
     public abstractDe: string;
     public abstractShortEn: string;
@@ -78,6 +80,7 @@ export class CiteDialogComponent implements OnInit {
         this.publishedEn = this.data.data.created.format('MMMM\u00a0D, YYYY');
         this.updatedEn = this.data.data.updated.format('MMMM\u00a0D, YYYY');
         this.updatedYear = this.data.data.updated.format('YYYY');
+        this.currentYear = moment().format('YYYY');
 
         this.abstractEn = this.data.data.abstractEn.replace(/<p>/g, '').replace(/<\/p>/g, '');
         this.abstractDe = this.data.data.abstractDe.replace(/<p>/g, '').replace(/<\/p>/g, '');
@@ -127,9 +130,9 @@ export class CiteDialogComponent implements OnInit {
             if (this.data.type === 'mediator' && this.data.data.id !== '0') {
                 transStr = ' trans. by Maria Slater,';
             }
-            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.copyUrlStr;
+            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Campus Medius, 2014–' + this.currentYear + ', URL: ' + this.copyUrlStr;
         } else {
-            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Campus Medius, 2014–' + this.updatedYear + ', URL: ' + this.copyUrlStr;
+            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Campus Medius, 2014–' + this.currentYear + ', URL: ' + this.copyUrlStr;
         }
 
         this.clipboard.copy(citation);

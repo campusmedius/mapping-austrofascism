@@ -9,7 +9,7 @@
             <span *ngIf="data.type === 'event'"> trans. by Katy Derbyshire,</span>
             <span *ngIf="data.type === 'mediator' && data.data.id !== '0'"> trans. by Maria Slater,</span>
             <span> last modified on {{ updatedEn }}, in:
-            Simon Ganahl et al.: <i>Campus Medius</i>, 2014–{{updatedYear}}, URL: </span>
+            Simon Ganahl et al.: <i>Campus Medius</i>, 2014–{{currentYear}}, URL: </span>
             <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(copy)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
@@ -87,7 +87,7 @@
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Zitation</div>
         <div class="content citation-content">Simon Ganahl: &quot;<span innerHtml="{{ titleDe }}"></span>&quot;, zuletzt aktualisiert am {{ updatedDe }}, in:
-            Simon Ganahl u.a.: <i>Campus Medius</i>, 2014–{{updatedYear}}, URL: <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(kopieren)</a></div>
+            Simon Ganahl u.a.: <i>Campus Medius</i>, 2014–{{currentYear}}, URL: <span class="url">{{url}} </span><a class="copy" (click)="copyCitation()">(kopieren)</a></div>
     </div>
     <div fxLayout="row" fxLayout.lt-md="column">
         <div class="label">Titel</div>
