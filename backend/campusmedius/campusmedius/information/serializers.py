@@ -5,7 +5,7 @@ from .models import Information
 
 IMAGE_URL = 'https://campusmedius.net/phaidra/api/object/{}/diss/Content/get'
 IMAGE_THUMBNAIL_URL = 'https://campusmedius.net/phaidra/api/object/{}/thumbnail?w={}'
-VIDEO_URL = 'https://stream-cd.univie.ac.at/media/phaidra/{}_hi.mp4/playlist.m3u8'
+VIDEO_URL = 'https://tube.switch.ch/videos/{}'
 AUDIO_URL = 'https://campusmedius.net/phaidra/api/object/{}/diss/Content/get'
 
 
