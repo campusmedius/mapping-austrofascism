@@ -70,3 +70,11 @@ video {
         height: 100%;
     }
 }
+
+.progress>div>div>div {
+    background: #a67481 !important;
+}
+
+.progress>div>div>div:after {
+    background: #a67481 !important;
+}

@@ -176,11 +176,11 @@ a:active {
     }
 }
 
-div.player div.controls div.progress>div>div>div {
+.progress>div>div>div {
     background: #a67481 !important;
 }
 
-div.player.metadata_loaded div.controls div.progress>div>div>div:after {
+.progress>div>div>div:after {
     background: #a67481 !important;
 }
 

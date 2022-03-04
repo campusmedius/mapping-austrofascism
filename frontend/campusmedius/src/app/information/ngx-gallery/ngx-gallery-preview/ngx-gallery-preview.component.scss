@@ -117,3 +117,11 @@ ngx-gallery-bullets {
   flex: 1 1 auto;
   position: relative;
 }
+
+.progress>div>div>div {
+  background: #a67481 !important;
+}
+
+.progress>div>div>div:after {
+  background: #a67481 !important;
+}
