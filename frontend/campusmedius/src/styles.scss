@@ -624,3 +624,12 @@ $back-to-top-size: 26px;
       background: $accent-color-opacity;
     }
   }
+
+
+div.player div.controls div.progress>div>div>div {
+    background: #a67481;
+}
+
+div.player.metadata_loaded div.controls div.progress>div>div>div:after {
+    background: #a67481;
+}

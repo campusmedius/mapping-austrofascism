@@ -53,6 +53,11 @@ export class VideoComponent implements OnInit {
     ngOnInit() { }
 
     addVideo(url) {
+        this.videoElement.nativeElement.addEventListener('SWITCHtubeEmbed:load', (event) => {
+            let player = event.detail
+            player.seek(0)
+        });
+
         SWITCHtubeEmbed.player(
             this.videoElement.nativeElement,
           url + '?title=hide'

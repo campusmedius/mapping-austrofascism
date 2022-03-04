@@ -438,6 +438,11 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   private addVideo(url) {
+    document.getElementById('gallery-video').addEventListener('SWITCHtubeEmbed:load', (event) => {
+      let player = (event as any).detail
+      player.seek(0)
+    });
+
     SWITCHtubeEmbed.player(
       document.getElementById('gallery-video'),
       url + '?title=hide'
