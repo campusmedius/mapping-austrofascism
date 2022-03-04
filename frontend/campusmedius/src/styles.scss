@@ -176,6 +176,14 @@ a:active {
     }
 }
 
+div.player div.controls div.progress>div>div>div {
+    background: #a67481 !important;
+}
+
+div.player.metadata_loaded div.controls div.progress>div>div>div:after {
+    background: #a67481 !important;
+}
+
 .disclosure-logos {
     a {
         width: 20%;
@@ -626,10 +634,3 @@ $back-to-top-size: 26px;
   }
 
 
-div.player div.controls div.progress>div>div>div {
-    background: #a67481;
-}
-
-div.player.metadata_loaded div.controls div.progress>div>div>div:after {
-    background: #a67481;
-}
