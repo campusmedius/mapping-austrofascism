@@ -2,6 +2,6 @@
   campusmedius =
     { config, pkgs, ... }:
     { 
-      deployment.targetHost = "131.130.75.201";
+      deployment.targetHost = "131.130.183.62";
     };
 } 

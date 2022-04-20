@@ -187,7 +187,7 @@ function upgrade_backend(){
 }
 
 function backup_backend(){
-  scp -r root@131.130.75.201:/var/data/campusmedius backup/
+  scp -r root@131.130.183.62:/var/data/campusmedius backup/
 }
 
 # run command

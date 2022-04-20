@@ -290,7 +290,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "Austrian Academy of Sciences (ÖAW)",
-                "url": "https://www.oeaw.ac.at/en/austrian-academy-of-sciences"
+                "url": "https://www.oeaw.ac.at/en/"
             },{
                 "@context": "https://schema.org",
                 "@type": "Organization",

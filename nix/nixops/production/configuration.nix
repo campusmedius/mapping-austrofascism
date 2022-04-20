@@ -17,9 +17,9 @@
         boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
         networking.hostName = "campusmedius"; # Define your hostname.
-        networking.interfaces.ens192.ipv4.addresses = [ { address = "131.130.75.201"; prefixLength = 24; } ];
-        networking.defaultGateway  = "131.130.75.1";
-        networking.nameservers     = [ "8.8.8.8" "8.8.4.4" ];
+        networking.interfaces.ens192.ipv4.addresses = [ { address = "131.130.183.62"; prefixLength = 26; } ];
+        networking.defaultGateway  = "131.130.183.1";
+        networking.nameservers     = [ "131.130.1.11" "131.130.1.12" ];
 
         # List services that you want to enable:
 
@@ -29,7 +29,7 @@
         # cm backend
         services.campusmedius.backend = {
             CORSAllowAll = true;
-            djangoAllowedHosts = ["campusmedius.net" "localhost" "131.130.75.201"];
+            djangoAllowedHosts = ["campusmedius.net" "localhost" "131.130.183.62"];
         };
         
         # keys

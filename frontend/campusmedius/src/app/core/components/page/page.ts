@@ -154,7 +154,7 @@ export class PageComponent implements OnInit, AfterViewInit, OnDestroy {
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 "name": "Austrian Academy of Sciences (ÖAW)",
-                "url": "https://www.oeaw.ac.at/en/austrian-academy-of-sciences"
+                "url": "https://www.oeaw.ac.at/en/"
             },{
                 "@context": "https://schema.org",
                 "@type": "Organization",
