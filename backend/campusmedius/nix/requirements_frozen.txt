@@ -14,7 +14,7 @@ djangorestframework-camel-case==0.2.0
 geographiclib==1.50
 geopy==2.0.0
 jsmin==2.2.2
-Pillow==2.1.0
+Pillow==9.3.0
 pytz==2021.1
 six==1.15.0
 soupsieve==2.2.1
