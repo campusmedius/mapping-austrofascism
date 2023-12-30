@@ -1,0 +1,164 @@
+error_log stderr;
+worker_processes 2;
+
+events {
+	worker_connections 1024;
+}
+
+http {
+	include /etc/nginx/mime.types;
+	include /etc/nginx/fastcgi_params;
+	include /etc/nginx/uwsgi_params;
+	
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 4096;
+	ssl_protocols TLSv1.2 TLSv1.3;
+	ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+	
+	gzip on;
+	gzip_proxied any;
+	gzip_comp_level 5;
+	gzip_types
+		application/atom+xml
+		application/javascript
+		application/json
+		application/xml
+		application/xml+rss
+		image/svg+xml
+		text/css
+		text/javascript
+		text/plain
+		text/xml;
+	gzip_vary on;
+
+	proxy_redirect          off;
+	proxy_connect_timeout   90;
+	proxy_send_timeout      90;
+	proxy_read_timeout      90;
+	proxy_http_version      1.0;
+	proxy_set_header        Host $host;
+	proxy_set_header        X-Real-IP $remote_addr;
+	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+	proxy_set_header        X-Forwarded-Proto $scheme;
+	proxy_set_header        X-Forwarded-Host $host;
+	proxy_set_header        X-Forwarded-Server $host;
+	proxy_set_header        Accept-Encoding "";
+
+	client_max_body_size 10m;
+	server_tokens off;
+
+	server {
+		listen 0.0.0.0:80 ;
+		listen [::]:80 ;
+		server_name campusmedius.net ;
+		location /.well-known/acme-challenge {
+			root /var/lib/acme/acme-challenge;
+			auth_basic off;
+		}
+		location / {
+			return 301 https://$host$request_uri;
+		}
+	}
+
+	server {
+		listen 0.0.0.0:443 ssl;
+		listen [::]:443 ssl;
+		http2 on;
+		server_name campusmedius.net ;
+		location /.well-known/acme-challenge {
+			root /var/lib/acme/acme-challenge;
+			auth_basic off;
+		}
+		ssl_certificate /root/.certs/cert.pem;
+		ssl_certificate_key /root/.certs/cert.key.pem;
+		ssl_trusted_certificate /root/.certs/rootCA.crt;
+
+		location /api/ {
+			proxy_pass http://backend:8000;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header Host $host;
+			proxy_http_version 1.1;
+			proxy_set_header X-NginX-Proxy true;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "upgrade";
+			proxy_cache_bypass $http_upgrade;
+			proxy_redirect off;
+			proxy_set_header X-Forwarded-Proto $scheme;
+			expires 10m;
+		}
+		location /media/ {
+			alias /app/static/media/;
+			expires 24h;
+			etag off;
+		}
+		location /osm-tiles/ {
+			alias /app/static/osm-tiles/;
+			try_files $uri /tiles/empty.png;
+			expires 24h;
+			etag off;
+		}
+		location /phaidra/ {
+			proxy_pass https://services.phaidra.univie.ac.at/;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header Host "services.phaidra.univie.ac.at";
+			proxy_ssl_name "services.phaidra.univie.ac.at";
+			proxy_ssl_server_name on;
+			proxy_ssl_session_reuse off;
+			proxy_http_version 1.1;
+			proxy_cache_bypass $http_upgrade;
+			proxy_set_header Authorization "${PHAIDRA_CREDENTIALS}";
+			expires 24h;
+			etag off;
+		}
+		location /sitemap.xml {
+			proxy_pass http://backend:8000;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header Host $host;
+			proxy_http_version 1.1;
+			proxy_set_header X-NginX-Proxy true;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "upgrade";
+			proxy_cache_bypass $http_upgrade;
+			proxy_redirect off;
+			proxy_set_header X-Forwarded-Proto $scheme;
+			expires 10m;
+		}
+		location /static/ {
+			alias /app/static/static/;
+			expires 24h;
+			etag off;
+		}
+		location /tiles/ {
+			alias /app/static/tiles/;
+			try_files $uri /tiles/empty.png;
+			expires 24h;
+			etag off;
+		}
+		location @ssr {
+			rewrite  ^/(.*) /$1 break;
+			proxy_pass http://frontend:4000;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header Host $host;
+			proxy_http_version 1.1;
+			proxy_set_header X-NginX-Proxy true;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "upgrade";
+			proxy_cache_bypass $http_upgrade;
+			proxy_redirect off;
+			proxy_set_header X-Forwarded-Proto $scheme;
+			expires 10m;
+		}
+		location / {
+			alias /app/static/browser/;
+			try_files $uri $uri/ @ssr;
+			add_header Cache-Control "no-store, no-cache, must-revalidate";
+		}
+	}
+	uwsgi_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m max_size=1g inactive=10m use_temp_path=off;
+}

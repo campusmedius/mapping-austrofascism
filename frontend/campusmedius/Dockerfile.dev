@@ -1,0 +1,18 @@
+FROM node:14
+
+WORKDIR /app
+
+# Copy package.json
+COPY package.json /app/
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the code
+COPY . /app/
+
+# Expose the port on which your app runs
+EXPOSE 4000
+
+# Command to run your application
+CMD ["sleep", "60000"]

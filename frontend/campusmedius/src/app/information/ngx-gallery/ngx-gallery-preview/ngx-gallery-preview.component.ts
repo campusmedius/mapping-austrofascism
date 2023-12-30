@@ -437,18 +437,6 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
     }
   }
 
-  private addVideo(url) {
-    document.getElementById('gallery-video').addEventListener('SWITCHtubeEmbed:load', (event) => {
-      let player = (event as any).detail
-      player.seek(0)
-    });
-
-    SWITCHtubeEmbed.player(
-      document.getElementById('gallery-video'),
-      url + '?title=hide'
-    )
-}
-
   private _show() {
     if(document.getElementById('gallery-video')) {
       document.getElementById('gallery-video').innerHTML = '';
@@ -506,11 +494,27 @@ export class NgxGalleryPreviewComponent implements OnInit, OnDestroy, OnChanges 
             if (this.types[this.index] === 'video') {
 
                 setTimeout(() => {
-                    if ((window as any).SWITCHtubeEmbed) {
-                      this.addVideo(<string>this.images[this.index])
-                    } else {
-                      window.addEventListener('SWITCHtubeEmbed:ScriptLoaded', this.addVideo)
-                    }
+
+                    var kalturaPlayer = (window as any).KalturaPlayer.setup({
+                      targetId: 'gallery-video',
+                      provider: {
+                          partnerId: 106,
+                          uiConfId: 23449004
+                      },
+                      playback: {
+                          autoplay: true
+                      }
+                  });
+      
+                  // Create a URL object
+                  var url = new URL(this.images[this.index] as string);
+                  // Use URLSearchParams to get query parameters
+                  var params = new URLSearchParams(url.search);
+                  // Extract the entry_id
+                  var entryId = params.get('entry_id');
+      
+                  kalturaPlayer.loadMedia({entryId: entryId});
+
                     this.loading = false;
                     this.changeDetectorRef.markForCheck();
                 });

@@ -1,4 +1,6 @@
 <div fxLayout="column" fxFlexFill>
     <cm-header [@header]="showHeader" *ngIf="!removeHeader" [lang]="lang" fxLayout="row"></cm-header>
-    <router-outlet></router-outlet>
+    <router-outlet>
+    </router-outlet>
+    <div class="spinner"><i class="fas fa-spinner"></i></div>
 </div>

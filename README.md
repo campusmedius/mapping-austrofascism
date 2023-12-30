@@ -6,7 +6,34 @@ For mapping docs see [here](https://github.com/campusmedius/campusmedius/tree/ma
 
 ## Getting Started
 
-### Prerequisites
+### Prerequisites (new)
+
+Create hosts entries
+
+sudo vim /etc/hosts
+
+
+Add the following entries:
+
+```
+127.0.0.1 campusmedius.net
+::1 campusmedius.net
+```
+
+Install mkcert and create local development certificates:
+
+```
+brew install mkcert
+mkcert -install
+cd $NEXYO_PROJECT_ROOT
+mkdir .certs
+cd .certs
+mkcert -cert-file cert.pem -key-file cert.key.pem "campusmedius.net"
+cp "$(mkcert -CAROOT)/rootCA.pem" ./rootCA.crt
+cd -
+```
+
+### Prerequisites (old)
 
 The project is build and deployed with the [Nix package manager](https://nixos.org/nix/).
 

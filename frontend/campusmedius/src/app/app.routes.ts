@@ -59,13 +59,13 @@ export const routes: Routes = [
         }
     },
     {
-       path: 'topography',
-       loadChildren: loadTopography
-    },
-    {
-        path: 'topology',
-        loadChildren: loadTopology
-    },
+        path: 'topography',
+        loadChildren: () => import('./topography/topography.module').then(m => m.TopographyModule)
+     },
+     {
+         path: 'topology',
+         loadChildren: () => import('./topology/topology.module').then(m => m.TopologyModule)
+     },
     {
         path: '**',
         redirectTo: '',

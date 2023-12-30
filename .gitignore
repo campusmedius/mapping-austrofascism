@@ -43,3 +43,9 @@ mapping/**/*.prj
 mapping/**/*.shx
 mapping/Buildings/input-data
 .#*
+.DS_Store
+data
+.env
+.certs
+backup/cm-osm-tiles-0.0.1.tar.gz
+backup/cm-tiles-0.0.5.tar.gz

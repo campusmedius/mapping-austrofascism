@@ -52,28 +52,32 @@ export class VideoComponent implements OnInit {
 
     ngOnInit() { }
 
-    addVideo(url) {
-        this.videoElement.nativeElement.addEventListener('SWITCHtubeEmbed:load', (event) => {
-            let player = event.detail
-            player.seek(0)
-        });
-
-        SWITCHtubeEmbed.player(
-            this.videoElement.nativeElement,
-          url + '?title=hide'
-        )
-    }
-
     
     toggle() {
         if (!this.opened) {
             this.opened = true;
             this.openedFirst = true;
-            if ((window as any).SWITCHtubeEmbed) {
-                this.addVideo(this.data.data.full)
-            } else {
-                window.addEventListener('SWITCHtubeEmbed:ScriptLoaded', this.addVideo)
-            }
+
+            var kalturaPlayer = (window as any).KalturaPlayer.setup({
+                targetId: 'video-inline-' + this.id,
+                provider: {
+                    partnerId: 106,
+                    uiConfId: 23449004
+                },
+                playback: {
+                    autoplay: true
+                }
+            });
+
+            // Create a URL object
+            var url = new URL(this.data.data.full);
+            // Use URLSearchParams to get query parameters
+            var params = new URLSearchParams(url.search);
+            // Extract the entry_id
+            var entryId = params.get('entry_id');
+
+            kalturaPlayer.loadMedia({entryId: entryId});
+
         } else {
             this.videoElement.nativeElement.innerText = '';
             this.opened = false;

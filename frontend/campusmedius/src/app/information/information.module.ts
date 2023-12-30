@@ -81,6 +81,7 @@ export const COMPONENTS = [
         InformationService,
         PageService,
         PagesResolver
-    ]
+    ],
+    entryComponents: COMPONENTS
 })
 export class InformationModule { }

@@ -92,6 +92,13 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentLangSubscription = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
             this.lang = event.lang;
         });
+
+        if (isPlatformBrowser(this.platformId)) {
+            const spinner = (<any>this._doc).querySelector('.spinner') as HTMLElement;
+            if (spinner) {
+                spinner.style.display = 'none';
+            }
+        }
     }
 
     ngOnDestroy() {
