@@ -50,6 +50,63 @@ http {
 	client_max_body_size 10m;
 	server_tokens off;
 
+	# Add the redirects for campusmedius.net
+	server {
+		listen 0.0.0.0:443 ssl;
+		listen [::]:443 ssl;
+		server_name campusmedius.net;
+
+		ssl_certificate /root/.certs/cert.pem;
+		ssl_certificate_key /root/.certs/cert.key.pem;
+		ssl_trusted_certificate /root/.certs/rootCA.crt;
+
+		# Redirect for /overview
+		location /overview {
+			return 301 https://mapping-austrofascism.campusmedius.net/overview$request_uri;
+		}
+
+		# Redirect for /topography (including wildcard)
+		location /topography {
+			return 301 https://mapping-austrofascism.campusmedius.net/topography$request_uri;
+		}
+
+		# Redirect for /topology (including wildcard)
+		location /topology {
+			return 301 https://mapping-austrofascism.campusmedius.net/topology$request_uri;
+		}
+
+		# Redirect for /book
+		location /book {
+			return 301 https://mapping-austrofascism.campusmedius.net/book$request_uri;
+		}
+	}
+
+	# Redirect HTTP traffic for insituex.campusmedius.net to HTTPS
+	server {
+		listen 0.0.0.0:80;
+		listen [::]:80;
+		server_name insituex.campusmedius.net;
+
+		location / {
+			return 301 https://insituex.campusmedius.net$request_uri;
+		}
+	}
+
+	# Redirect HTTPS traffic for insituex.campusmedius.net to the target site
+	server {
+		listen 0.0.0.0:443 ssl;
+		listen [::]:443 ssl;
+		server_name insituex.campusmedius.net;
+
+		ssl_certificate /root/.certs/cert.pem;
+		ssl_certificate_key /root/.certs/cert.key.pem;
+		ssl_trusted_certificate /root/.certs/rootCA.crt;
+
+		location / {
+			return 302 https://insituex.fhstp.ac.at$request_uri;
+		}
+	}
+
 	server {
 		listen 0.0.0.0:80 ;
 		listen [::]:80 ;
