@@ -16,8 +16,8 @@ sudo vim /etc/hosts
 Add the following entries:
 
 ```
-127.0.0.1 campusmedius.net
-::1 campusmedius.net
+127.0.0.1 mapping-austrofascism.campusmedius.net
+::1 mapping-austrofascism.campusmedius.net
 ```
 
 Install mkcert and create local development certificates:
@@ -28,7 +28,7 @@ mkcert -install
 cd $NEXYO_PROJECT_ROOT
 mkdir .certs
 cd .certs
-mkcert -cert-file cert.pem -key-file cert.key.pem "campusmedius.net"
+mkcert -cert-file cert.pem -key-file cert.key.pem "mapping-austrofascism.campusmedius.net"
 cp "$(mkcert -CAROOT)/rootCA.pem" ./rootCA.crt
 cd -
 ```

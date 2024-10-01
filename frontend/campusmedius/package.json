@@ -41,7 +41,7 @@
     "font-awesome": "4.7.0",
     "fs": "0.0.1-security",
     "hls.js": "0.14.17",
-    "lunr": "^2.3.9",
+    "lunr": "2.3.9",
     "lunr-languages": "1.4.0",
     "mapbox-gl": "1.13.0",
     "moment": "2.29.1",

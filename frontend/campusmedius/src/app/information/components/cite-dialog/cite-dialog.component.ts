@@ -45,11 +45,11 @@ export class CiteDialogComponent implements OnInit {
 
     ngOnInit() {
         if (this.data.type === 'event') {
-            this.url = 'https://campusmedius.net/topography/events/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
+            this.url = 'https://mapping-austrofascism.campusmedius.net/topography/events/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
         } else if (this.data.type === 'mediator') {
-            this.url = 'https://campusmedius.net/topology/mediations/' + this.data.mediationId + '/mediators/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
+            this.url = 'https://mapping-austrofascism.campusmedius.net/topology/mediations/' + this.data.mediationId + '/mediators/' + this.data.data.id + '?lang=' + this.translate.currentLang + '&info=full';
         } else if (this.data.type === 'page') {
-            this.url = 'https://campusmedius.net';
+            this.url = 'https://mapping-austrofascism.campusmedius.net';
             if(this.data.data.titleEn === 'Overview') {
                 this.url += '/overview' + '?lang=' + this.translate.currentLang;
             } else if(this.data.data.titleEn === 'Project Team') {
@@ -60,7 +60,7 @@ export class CiteDialogComponent implements OnInit {
                 this.url += '/disclosure' + '?lang=' + this.translate.currentLang;
             }
         } else {
-            this.url = 'https://campusmedius.net' + '?lang=' + this.translate.currentLang;
+            this.url = 'https://mapping-austrofascism.campusmedius.net' + '?lang=' + this.translate.currentLang;
         }
 
         this.copyUrlStr = this.url;
@@ -130,9 +130,9 @@ export class CiteDialogComponent implements OnInit {
             if (this.data.type === 'mediator' && this.data.data.id !== '0') {
                 transStr = ' trans. by Maria Slater,';
             }
-            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Campus Medius, 2014–' + this.currentYear + ', URL: ' + this.copyUrlStr;
+            citation = 'Simon Ganahl: "' + this.titleEn + ',"' + transStr +' last modified on ' + this.updatedEn + ', in: Simon Ganahl et al.: Mapping Austrofascism, 2014–' + this.currentYear + ', URL: ' + this.copyUrlStr;
         } else {
-            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Campus Medius, 2014–' + this.currentYear + ', URL: ' + this.copyUrlStr;
+            citation = 'Simon Ganahl: "' + this.titleDe + '", zuletzt aktualisiert am ' + this.updatedDe + ', in: Simon Ganahl u.a.: Mapping Austrofascism, 2014–' + this.currentYear + ', URL: ' + this.copyUrlStr;
         }
 
         this.clipboard.copy(citation);

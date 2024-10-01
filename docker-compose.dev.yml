@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  reverseproxy:
+    image: nginx
+    networks:
+      - internal
+      - web
+    volumes:
+      - "./deploy/nginx.conf.template:/etc/nginx/nginx.conf.template:ro"
+      - "./deploy/start-nginx.sh:/start-nginx.sh:ro"
+      - "./.certs:/root/.certs/"
+      - "./data/tiles:/app/static/tiles"
+      - "./data/osm-tiles:/app/static/osm-tiles"
+      - "./data/static:/app/static/static"
+      - "./data/media:/app/static/media"
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - PHAIDRA_CREDENTIALS=${PHAIDRA_CREDENTIALS}
+    entrypoint: ["/bin/bash", "start-nginx.sh"]
+
+  backend:
+    build:
+      context: ./backend/campusmedius
+      dockerfile: Dockerfile
+    volumes:
+      - "./data:/data"
+    environment:
+      - SECRET_KEY=${DJANGO_SECRET_KEY}
+    networks:
+      - internal
+    ports:
+      - 8000:8000
+
+  frontend:
+    build:
+      context: ./frontend/campusmedius
+      dockerfile: Dockerfile.dev
+    networks:
+      - internal
+
+networks:
+  web:
+    external: false
+    internal: false
+  internal:
+    external: false
+    internal: true

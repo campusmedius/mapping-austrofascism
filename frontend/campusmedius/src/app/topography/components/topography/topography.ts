@@ -98,8 +98,8 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
     public mobileOverlayAboutHeight = '300px';
     public mobileOverlayDefaultHeight = '200px';
 
-    public mobileAbstractDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>';
-    public mobileAbstractEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>';
+    public mobileAbstractDe = '<p><i>Mapping Austrofascism</i> erforscht und erweitert die Möglichkeiten digitalen Mappings in den Kultur- und Medienwissenschaften.</p>';
+    public mobileAbstractEn = '<p><i>Mapping Austrofascism</i> explores and expands the possibilities of digital mapping in cultural and media studies.</p>';
 
     constructor(
         private translate: TranslateService,
@@ -240,7 +240,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         let name;
         let keywords;
         let description;
-        let canonicalUrl = "https://campusmedius.net/topography";
+        let canonicalUrl = "https://mapping-austrofascism.campusmedius.net/topography";
         let alternateUrl;
         if (this.selectedEvent) {
             name = (this.translate.currentLang === 'de' ? this.selectedEvent.titleDe : this.selectedEvent.titleEn);
@@ -260,7 +260,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         keywords = keywords.sort(function (a, b) {
             return a.toLowerCase().localeCompare(b.toLowerCase());
         });
-        const screenshotUrl = this.translate.currentLang === 'de' ? "https://campusmedius.net/assets/screenshot_de.png" : "https://campusmedius.net/assets/screenshot_en.png"     
+        const screenshotUrl = this.translate.currentLang === 'de' ? "https://mapping-austrofascism.campusmedius.net/assets/screenshot_de.png" : "https://mapping-austrofascism.campusmedius.net/assets/screenshot_en.png"     
         const copyrightNotice = this.translate.currentLang === 'de' ? "Diese Website ist lizenziert unter Creative Commons Namensnennung 4.0 (CC BY 4.0). Diese Lizenz erlaubt die uneingeschränkte Nutzung und Verbreitung des entsprechenden Materials unter der Bedingung, dass die UrheberInnen, bei denen alle Rechte verbleiben, und die Quelle eindeutig genannt werden. Die Wiederverwendung von auf dieser Website zitierten Werken aus externen Quellen (Texte, Bilder, Ton- und Filmaufnahmen) erfordert ggf. weitere Nutzungsgenehmigungen durch die jeweiligen RechteinhaberInnen. Die Verpflichtung, solche Genehmigungen einzuholen, liegt bei der wiederverwendenden Partei." : "This website is licensed under Creative Commons Attribution 4.0 (CC BY 4.0). This license permits unrestricted use and distribution of the respective material, provided that the creator(s), who retain(s) copyright, and the source are properly credited. The reuse of works cited on this website from external sources (texts, images, audio, video) may require further permissions from the rights holder(s). The obligation to research and obtain such permissions lies with the reusing party.";
         let funder;
         if (this.translate.currentLang === 'de') {
@@ -309,7 +309,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
             }]
         }
         name = name.replace(/<[^>]*>/g, '').replace(/"/g, '');
-        let title = name + ' in Campus Medius';
+        let title = name + ' in Mapping Austrofascism';
         description = description.replace(/<[^>]*>/g, '');
         
         this.title.setTitle(name);
@@ -329,7 +329,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
         this.meta.updateTag({name: 'og:type', content: 'website'});
         this.meta.updateTag({name: 'og:url', content: canonicalUrl});
         this.meta.updateTag({name: 'og:image', content: screenshotUrl});
-        this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
+        this.meta.updateTag({name: 'og:site_name', content: "Mapping Austrofascism"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
 
         let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
@@ -377,7 +377,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     "isPartOf": {
                         "@context": "https://schema.org",
                         "@type": "WebSite",
-                        "url": "https://campusmedius.net",
+                        "url": "https://mapping-austrofascism.campusmedius.net",
                         "author": [{
                             "@context": "https://schema.org/",
                             "@type": "Person",
@@ -431,7 +431,7 @@ export class TopographyComponent implements OnInit, OnDestroy, AfterViewInit {
                     "isPartOf": {
                         "@context": "https://schema.org",
                         "@type": "WebSite",
-                        "url": "https://campusmedius.net",
+                        "url": "https://mapping-austrofascism.campusmedius.net",
                         "author": [{
                             "@context": "https://schema.org/",
                             "@type": "Person",

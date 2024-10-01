@@ -67,6 +67,33 @@
     }
 }
 
+.logo-mobile {
+    display: none; /* Hide mobile logo by default */
+    cursor: pointer;
+    height: 1.9rem;
+    &:focus {
+        outline: 0;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .logo {
+        display: none; /* Hide the regular logo on small screens */
+    }
+    .logo-mobile {
+        display: inline-block; /* Show the mobile logo on small screens */
+    }
+}
+
+@media screen and (min-width: 411px) {
+    .logo {
+        display: inline-block; /* Ensure the regular logo is visible on larger screens */
+    }
+    .logo-mobile {
+        display: none; /* Ensure the mobile logo is hidden on larger screens */
+    }
+}
+
 .logo {
     cursor: pointer;
     height: 2.2rem;

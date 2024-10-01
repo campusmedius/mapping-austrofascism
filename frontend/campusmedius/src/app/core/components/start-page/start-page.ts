@@ -20,10 +20,10 @@ export class StartPageComponent implements OnInit, OnDestroy {
     isMobile = true;
     mediaSubscription: Subscription;
 
-    public startTextDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Kultur- und Medienwissenschaften. Die Felder auf der linken Seite führen direkt zur historischen Fallstudie. Wir empfehlen aber, zuerst den einführenden Überblick zu lesen.</p>';
-    public startTextEn = '<p><i>Campus Medius</i> explores and expands the possibilities of digital mapping in cultural and media studies. The fields on the left lead directly to the historical case study. However, we recommend reading the introductory overview first.</p>';
-    public startMobileTextDe = '<p><i>Campus Medius</i> erforscht und erweitert die Möglich&shy;keiten der digitalen Karto&shy;grafie in den Kultur- und Medien&shy;wissen&shy;schaften.</p>';
-    public startMobileTextEn = '<p><i>Campus Medius</i> explores and expands the possi&shy;bilities of digital mapping in cultural and media studies.</p>';
+    public startTextDe = '<p><i>Mapping Austrofascism</i> erforscht und erweitert die Möglichkeiten der digitalen Kartografie in den Kultur- und Medienwissenschaften. Die Felder auf der linken Seite führen direkt zur historischen Fallstudie. Wir empfehlen aber, zuerst den einführenden Überblick zu lesen.</p>';
+    public startTextEn = '<p><i>Mapping Austrofascism</i> explores and expands the possibilities of digital mapping in cultural and media studies. The fields on the left lead directly to the historical case study. However, we recommend reading the introductory overview first.</p>';
+    public startMobileTextDe = '<p><i>Mapping Austrofascism</i> erforscht und erweitert die Möglich&shy;keiten der digitalen Karto&shy;grafie in den Kultur- und Medien&shy;wissen&shy;schaften.</p>';
+    public startMobileTextEn = '<p><i>Mapping Austrofascism</i> explores and expands the possi&shy;bilities of digital mapping in cultural and media studies.</p>';
     
 
     constructor(
@@ -65,14 +65,14 @@ export class StartPageComponent implements OnInit, OnDestroy {
         let title;
         let keywords;
         let description;
-        let canonicalUrl = "https://campusmedius.net";
+        let canonicalUrl = "https://mapping-austrofascism.campusmedius.net";
         let alternateUrl;
-        title = 'Campus Medius';
+        title = 'Mapping Austrofascism';
         keywords = (this.translate.currentLang === 'de' ? this.page.keywordsDe : this.page.keywordsEn);
         description = (this.translate.currentLang === 'de' ? this.page.abstractDe : this.page.abstractEn).replace(/<[^>]*>/g, '');
         alternateUrl = canonicalUrl + '?lang=' + (this.translate.currentLang === 'de' ? 'en' : 'de');
         canonicalUrl += '?lang=' + this.translate.currentLang;
-        const screenshotUrl = this.translate.currentLang === 'de' ? "https://campusmedius.net/assets/screenshot_de.png" : "https://campusmedius.net/assets/screenshot_en.png"     
+        const screenshotUrl = this.translate.currentLang === 'de' ? "https://mapping-austrofascism.campusmedius.net/assets/screenshot_de.png" : "https://mapping-austrofascism.campusmedius.net/assets/screenshot_en.png"     
         
         
         this.title.setTitle(title);
@@ -92,7 +92,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
         this.meta.updateTag({name: 'og:type', content: 'website'});
         this.meta.updateTag({name: 'og:url', content: canonicalUrl});
         this.meta.updateTag({name: 'og:image', content: screenshotUrl});
-        this.meta.updateTag({name: 'og:site_name', content: "Campus Medius"});
+        this.meta.updateTag({name: 'og:site_name', content: "Mapping Austrofascism"});
         this.meta.updateTag({name: 'twitter:card', content: "summary"});
 
         let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
