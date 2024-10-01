@@ -1,8 +1,0 @@
-// valid code
-interface IOptions {
-}
-
-// invalid code
-interface Options {
-          ~~~~~~~   [interface name must start with a capitalized I]
-}

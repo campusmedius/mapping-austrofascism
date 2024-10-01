@@ -1,8 +1,0 @@
-{
-  "rulesDirectory": "../files/custom-rules/",
-  "rules": {
-    "test-uncompiled": {
-      "severity": "error"
-    }
-  }
-}

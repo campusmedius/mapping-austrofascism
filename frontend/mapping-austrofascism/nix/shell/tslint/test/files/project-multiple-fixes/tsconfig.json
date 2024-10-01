@@ -1,6 +1,0 @@
-{
-    "exclude": [
-        "before.test.ts",
-        "after.test.ts"
-    ]
-}

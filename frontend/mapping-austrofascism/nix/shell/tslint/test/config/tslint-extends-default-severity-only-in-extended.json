@@ -1,6 +1,0 @@
-{
-  "extends": "./tslint-extends-default-severity.json",
-  "rules": {
-    "default-severity-only-in-extended": { "severity": "default" }
-  }
-}

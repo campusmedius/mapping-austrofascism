@@ -1,9 +1,0 @@
-{
-  "rules": {
-    "completed-docs": [true, {
-      "methods": {
-        "privacies": ["protected"]
-      }
-    }]
-  }
-}

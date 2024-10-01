@@ -1,6 +1,0 @@
-{
-  "defaultSeverity": "warning",
-  "rules": {
-    "default-severity-warning": { "severity": "default" }
-  }
-}

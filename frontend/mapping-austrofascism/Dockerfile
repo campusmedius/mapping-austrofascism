@@ -27,4 +27,4 @@ COPY --from=build-stage /app/dist ./dist
 EXPOSE 4000
 
 # Command to run your application
-CMD ["node", "./dist/campusmedius/server/main.js"]
+CMD ["node", "./dist/mapping-austrofascism/server/main.js"]

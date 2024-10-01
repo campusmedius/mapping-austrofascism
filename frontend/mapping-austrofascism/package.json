@@ -1,5 +1,5 @@
 {
-  "name": "campusmedius",
+  "name": "mapping-austrofascism",
   "version": "2.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run campusmedius:serve-ssr",
-    "serve:ssr": "node dist/campusmedius/server/main.js",
-    "build:ssr": "ng build --prod && ng run campusmedius:server:production",
-    "prerender": "ng run campusmedius:prerender"
+    "dev:ssr": "ng run mapping-austrofascism:serve-ssr",
+    "serve:ssr": "node dist/mapping-austrofascism/server/main.js",
+    "build:ssr": "ng build --prod && ng run mapping-austrofascism:server:production",
+    "prerender": "ng run mapping-austrofascism:prerender"
   },
   "private": true,
   "dependencies": {

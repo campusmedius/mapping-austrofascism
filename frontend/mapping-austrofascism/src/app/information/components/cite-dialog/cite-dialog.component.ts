@@ -140,7 +140,7 @@ export class CiteDialogComponent implements OnInit {
 
     public downloadJsonLd() {
         let jsonLdScript = <HTMLScriptElement>this.document.getElementById('jsonld');
-        let exportName = 'campusmedius-';
+        let exportName = 'mapping-austrofascism-';
         if (this.translate.currentLang === 'en') {
             exportName += this.titleEn.toLowerCase().replace(/ /g, "-");
         } else {

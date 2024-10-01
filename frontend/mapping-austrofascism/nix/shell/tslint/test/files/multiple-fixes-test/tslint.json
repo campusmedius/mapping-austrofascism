@@ -1,6 +1,0 @@
-{
-  "rules": {
-    "ordered-imports": [true],
-    "semicolon": [true, "always"]
-  }
-}

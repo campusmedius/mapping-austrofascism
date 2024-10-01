@@ -7,5 +7,5 @@ export const environment = {
     production: false,
     apiUrl: 'https://mapping-austrofascism.campusmedius.net/api',
     searchAssetsPath: '/assets/search',
-    mapTilesUrl: 'http://campusmedius.net/tiles' // set in style files
+    mapTilesUrl: 'http://mapping-austrofascism.campusmedius.net/tiles' // set in style files
 };
