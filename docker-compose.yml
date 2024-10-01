@@ -23,7 +23,7 @@ services:
 
   backend:
     build:
-      context: ./backend/campusmedius
+      context: ./backend/mapping-austrofascism
       dockerfile: Dockerfile
     volumes:
       - "./data:/data"
